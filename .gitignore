@@ -1,0 +1,8 @@
+
+*.pyc
+
+Data/*
+temp/*
+dist/*
+
+draft*
