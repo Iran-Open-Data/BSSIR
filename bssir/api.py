@@ -17,12 +17,22 @@ class API:
         self.metadata = metadata
         self.utils = Utils(defaults, metadata)
 
+    def setup(
+        self,
+        years: _Years,
+        *,
+        replace: bool = False,
+        method: Literal["create_from_raw", "download_cleaned"] = "download_cleaned",
+        download_source: Literal["original", "mirror"] = "mirror",
+    ) -> None:
+        ...
+
     def setup_raw_data(
         self,
         years: _Years,
         *,
         replace: bool = False,
-        download_source: Literal["original", "mirror"] = "mirror"
+        download_source: Literal["original", "mirror"] = "mirror",
     ):
         years = self.utils.parse_years(years)
         archive_handler.download(
@@ -35,20 +45,22 @@ class API:
         archive_handler.unpack(years, replace=replace, lib_defaults=self.defautls)
         archive_handler.extract(years, replace=replace, lib_defaults=self.defautls)
 
-    def load_table(
-        self,
-        table_name,
-        years: _Years,
-        form: Literal["raw", "cleaned", "processed"],
-        **kwargs
-    ) -> pd.DataFrame:
+    def load_table(self, table_name, years: _Years, **kwargs) -> pd.DataFrame:
         settings = self.defautls.functions.load_table
         settings = settings.model_copy(update=kwargs)
         years = self.utils.parse_years(years, table_name=table_name)
-        if form == "raw":
+        if settings.form == "raw":
             table = self.__load_raw_table(table_name, years)
-        elif form == "cleaned":
+        elif settings.form == "cleaned":
             table = self.__load_cleaned_table(table_name, years, settings)
+        elif settings.form == "normalized":
+            table = data_engine.create_normalized_table(
+                table_name=table_name,
+                years=years,
+                settings=settings,
+                lib_defaults=self.defautls,
+                lib_metadata=self.metadata,
+            )
         return table
 
     def __load_raw_table(self, table_name: str, years: list[int]) -> pd.DataFrame:
@@ -92,7 +104,7 @@ class API:
         frequency: _Frequency | None = None,
         separate_by: _SeparateBy | None = None,
         reset_index: bool = True,
-        **kwargs
+        **kwargs,
     ) -> pd.DataFrame:
         years = self.utils.parse_years(years, table_name=table_name)
         external_data.load_table(

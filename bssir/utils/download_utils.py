@@ -37,12 +37,15 @@ def download(url: str, path: Path) -> None:
     """
     response = requests.get(url, timeout=1000, stream=True)
     content_iterator = response.iter_content(chunk_size=4096)
-    file_size = response.headers.get("content-length")
-    if file_size is not None:
-        file_size = int(file_size)
+    remote_file_size = response.headers.get("content-length")
+    if remote_file_size is not None:
+        remote_file_size = int(remote_file_size)
     else:
         raise FileNotFoundError("File is not found on the server")
     path.parent.mkdir(parents=True, exist_ok=True)
+    local_file_size = path.stat().st_size
+    if remote_file_size == local_file_size:
+        return
     with open(path, mode="wb") as file:
         while True:
             try:

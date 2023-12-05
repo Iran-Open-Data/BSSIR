@@ -14,7 +14,7 @@ MetadataVersionResolver - Resolves and returns metadata versions.
 MetadataVersionSettings - Configurable settings for versioning.
 
 """
-from typing import Literal, overload
+from typing import Any, Literal, overload
 
 from pydantic import BaseModel
 
@@ -434,4 +434,18 @@ def extract_column_metadata(
                 metadata.update(value)
                 if (len(meta_dict) == 0) or (list(meta_dict.values())[-1] != metadata):
                     meta_dict[year] = metadata
+    return meta_dict
+
+
+def exteract_code_metadata(
+    column_code: str, table_metadata: dict, lib_defaults: Defaults
+) -> dict[int, Any]:
+    meta_dict = {}
+    for year in lib_defaults.years:
+        columns_metadata = resolve_metadata(table_metadata, year).get("columns")
+        if (column_code in columns_metadata) and (
+            (len(meta_dict) == 0)
+            or (columns_metadata[column_code] != list(meta_dict.values())[-1])
+        ):
+            meta_dict[year] = columns_metadata[column_code]
     return meta_dict

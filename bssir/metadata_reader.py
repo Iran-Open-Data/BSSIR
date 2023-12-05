@@ -179,7 +179,7 @@ class DefaultOnlineDirectories(BaseModel):
 
 
 class LoadTableSettings(BaseModel):
-    form: Literal["processed", "cleaned", "raw"]
+    form: Literal["normalized", "cleaned", "raw"]
     on_missing: Literal["error", "download", "create"]
     save_downloaded: bool
     redownload: bool
@@ -188,7 +188,7 @@ class LoadTableSettings(BaseModel):
 
 
 class LoadExternalTableSettings(BaseModel):
-    form: Literal["processed", "original"]
+    form: Literal["cleaned", "original"]
     on_missing: Literal["error", "download", "create"]
     save_downloaded: bool
     redownload: bool

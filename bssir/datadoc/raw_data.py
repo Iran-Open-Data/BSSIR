@@ -1,5 +1,6 @@
 import pandas as pd
 from pandas.api.types import infer_dtype
+import yaml
 
 from ..api import API
 
@@ -50,7 +51,9 @@ def generate_availability_tables(api: API):
         ]
         columns = []
         for year in years:
-            columns.append(api.load_table(table_name, year, "raw").columns.to_list())
+            columns.append(
+                api.load_table(table_name, year, form="raw").columns.to_list()
+            )
         availability = pd.DataFrame(columns, index=pd.Index(years, name="Year"))
 
         availability.to_csv(availability_dir.joinpath(f"{table_name}.csv"))
@@ -62,7 +65,7 @@ def generate_raw_summary_tables(api: API):
             year for _, year in api.utils.create_table_year_pairs(table_name, "all")
         ]
         for year in years:
-            table = api.load_table(table_name, year, "raw")
+            table = api.load_table(table_name, year, form="raw")
             summary_table = create_raw_summary_table(table)
             raw_table_dir = api.defautls.docs.csv.joinpath("raw", table_name)
             raw_table_dir.mkdir(exist_ok=True, parents=True)
@@ -81,6 +84,7 @@ def file_code_table(table_name: str, api: API) -> pd.DataFrame:
                 for year in years
             }
         )
+        .str.replace("*", "\\*", regex=False)
         .to_frame(name="File Code")
         .rename_axis("Year", axis="index")
         .pipe(datadoc_utils.collapse_years)
@@ -122,6 +126,25 @@ def create_column_code_summary_tables(api: API) -> dict[str, pd.DataFrame]:
     return column_code_summary_tables
 
 
+def remove_next_lines(dictionary: dict) -> dict:
+    if not isinstance(dictionary, dict):
+        return dictionary
+    for key in dictionary:
+        if isinstance(dictionary[key], str):
+            dictionary[key].strip().strip("\n")
+            dictionary[key] = dictionary[key].replace("\n", " ").replace("  ", " ")
+        elif isinstance(dictionary[key], dict):
+            dictionary[key] = remove_next_lines(dictionary[key])
+        elif isinstance(dictionary[key], (int, float)):
+            pass
+        elif isinstance(dictionary[key], list):
+            dictionary[key] = [
+                element.replace("\n", " ").replace("  ", " ")
+                for element in dictionary[key]
+            ]
+    return dictionary
+
+
 def generate_raw_description(api: API):
     for table_name in api.metadata.tables["table_availability"]:
         md_page_content = ""
@@ -161,6 +184,20 @@ def generate_raw_description(api: API):
         column_code_summary_tables = create_column_code_summary_tables(api)
         for column_name, table in column_code_summary_tables.items():
             md_page_content += f"### {column_name}\n\n"
+
+            metadata = yaml.safe_dump(
+                api.utils.exteract_code_metadata(column_name, table_name),
+                sort_keys=False,
+                encoding="utf-8",
+                allow_unicode=True,
+            )
+            metadata = remove_next_lines(metadata.decode())
+            metadata = (
+                "    ``` yaml\n    " + metadata.replace("\n", "\n    ") + "\n    ```\n"
+            )
+            md_page_content += '??? abstract "Column Metadata"\n'
+            md_page_content += metadata
+
             md_page_content += table.to_markdown()
             md_page_content += "\n\n\n"
 

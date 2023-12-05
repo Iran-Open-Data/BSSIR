@@ -1,4 +1,5 @@
 """HBSIR library utility functions"""
+from concurrent.futures import ThreadPoolExecutor
 from typing import Literal
 from pathlib import Path
 
@@ -7,7 +8,11 @@ from ..metadata_reader import Defaults, Metadata, _Years
 from .seven_zip_utils import extract as sevenzip
 from .download_utils import download, download_map
 from .parsing_utils import parse_years, create_table_year_pairs
-from .metadata_utils import resolve_metadata, extract_column_metadata
+from .metadata_utils import (
+    resolve_metadata,
+    extract_column_metadata,
+    exteract_code_metadata,
+)
 from .argham import Argham
 
 
@@ -50,6 +55,18 @@ class Utils:
             tables_availability=self.__metadata.tables["table_availability"],
         )
 
+    def download_cleaned_tables(self, years: list[int]) -> None:
+        table_years = self.create_table_year_pairs("all", years)
+        with ThreadPoolExecutor(4) as executer:
+            for table_year in table_years:
+                executer.submit(self.__download_cleaned_table, *table_year)
+
+    def __download_cleaned_table(self, year: int, table_name: str) -> None:
+        file_name = f"{year}_{table_name}.parquet"
+        path = self.__defautls.dirs.cleaned.joinpath(file_name)
+        url = f"{self.__defautls.online_dirs.cleaned}/{file_name}"
+        download(url, path)
+
     def download_map(
         self, map_name: str, source: Literal["original"] = "original"
     ) -> None:
@@ -65,7 +82,7 @@ class Utils:
         versioned_metadata: dict,
         year: int,
         categorize: bool = False,
-        **optional_settings
+        **optional_settings,
     ):
         return resolve_metadata(
             versioned_metadata, year, categorize, **optional_settings
@@ -79,6 +96,14 @@ class Utils:
         table_metadata = self.__metadata.tables[table_name]
         return extract_column_metadata(
             column_name=column_name,
+            table_metadata=table_metadata,
+            lib_defaults=self.__defautls,
+        )
+
+    def exteract_code_metadata(self, column_code: str, table_name: str) -> dict:
+        table_metadata = self.__metadata.tables[table_name]
+        return exteract_code_metadata(
+            column_code=column_code,
             table_metadata=table_metadata,
             lib_defaults=self.__defautls,
         )

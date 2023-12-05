@@ -95,6 +95,22 @@ def create_new_to_old_table(table_name: str, api: API) -> pd.DataFrame:
     return new_to_old
 
 
+def remove_next_lines(dictionary: dict) -> dict:
+    for key in dictionary:
+        if isinstance(dictionary[key], str):
+            dictionary[key] = dictionary[key].replace("\n", " ").replace("  ", " ")
+        elif isinstance(dictionary[key], dict):
+            dictionary[key] = remove_next_lines(dictionary[key])
+        elif isinstance(dictionary[key], (int, float)):
+            pass
+        elif isinstance(dictionary[key], list):
+            dictionary[key] = [
+                element.replace("\n", " ").replace("  ", " ")
+                for element in dictionary[key]
+            ]
+    return dictionary
+
+
 def generate_columns_metadata(
     api: API, table_names: str | Iterable[str] | None = None
 ) -> None:
@@ -110,10 +126,17 @@ def generate_columns_metadata(
             directory = api.defautls.docs.csv.joinpath("cleaned", table_name, column)
             directory.mkdir(exist_ok=True, parents=True)
             col_meta = api.utils.extract_column_metadata(column, table_name)
+            col_meta = remove_next_lines(col_meta)
             with directory.joinpath("metadata.yaml").open(
                 mode="w", encoding="utf-8"
             ) as file:
-                yaml.safe_dump(col_meta, file, sort_keys=False)
+                yaml.safe_dump(
+                    col_meta,
+                    file,
+                    sort_keys=False,
+                    encoding="utf-8",
+                    allow_unicode=True,
+                )
 
 
 def create_replace_tables(
@@ -175,7 +198,7 @@ def generate_replace_tables(
             year: api.load_table(
                 table_name,
                 year,
-                "raw",
+                form="raw",
             )
             for year in api.utils.parse_years("all", table_name=table_name)
         }
@@ -280,7 +303,7 @@ def generate_summary_stats(
     )
     for table_name in table_names:
         cleaned_tables = {
-            year: api.load_table(table_name, year, "cleaned")
+            year: api.load_table(table_name, year, form="cleaned")
             for year in api.utils.parse_years("all", table_name=table_name)
         }
         summary_stats = create_summary_stats(table_name, api, cleaned_tables)
@@ -323,7 +346,7 @@ def create_category_table(table_name: str, column_name: str, api: API):
 def create_cleaned_table_page(table_name: str, api: API) -> str:
     years = [year for _, year in api.utils.create_table_year_pairs(table_name, "all")]
     cleaned_tables = {
-        year: api.load_table(table_name, year, "cleaned") for year in years
+        year: api.load_table(table_name, year, form="cleaned") for year in years
     }
 
     md_page_content = ""
@@ -350,6 +373,15 @@ def create_cleaned_table_page(table_name: str, api: API) -> str:
         directory = api.defautls.docs.csv.joinpath("cleaned", table_name, column)
 
         md_page_content += f"### {column}\n\n"
+
+        with directory.joinpath("metadata.yaml").open(encoding="utf-8") as file:
+            metadata = file.read()
+        metadata = (
+            "    ``` yaml\n    " + metadata.replace("\n", "\n    ") + "\n    ```\n"
+        )
+        md_page_content += '??? abstract "Column Metadata"\n'
+        md_page_content += metadata
+
         md_page_content += "#### Column Codes\n\n"
         column_code_table = datadoc_utils.collapse_years(nto[[column]])
         column_code_table[column] = (

@@ -213,10 +213,12 @@ class Pipeline:
         *,
         steps: list,
         pipeline_params: dict,
+        settings: LoadTableSettings,
     ) -> None:
         self.table = table
-        self.pipeline_params = pipeline_params
         self.steps = steps
+        self.pipeline_params = pipeline_params
+        self.settings = settings
         self.modules: dict[str, ModuleType] = {}
 
     def run(self) -> pd.DataFrame:
@@ -382,11 +384,12 @@ class Pipeline:
         else:
             raise TypeError
         years = list(self.table["Year"].unique())
-        other_table = create_processed_table(
+        other_table = create_normalized_table(
             table_name,
             years,
             lib_defaults=self.pipeline_params["lib_defaults"],
             lib_metadata=self.pipeline_params["lib_metadata"],
+            settings=self.settings,
         )
         self.table = self.table.merge(other_table, on=columns)
 
@@ -408,11 +411,13 @@ class TableFactory:
         *,
         lib_defaults: Defaults,
         lib_metadata: Metadata,
+        settings: LoadTableSettings | None = None,
     ):
         self.table_name = table_name
         self.year = year
         self.lib_defaults = lib_defaults
         self.lib_metadata = lib_metadata
+        self.settings = settings
 
         schema = utils.resolve_metadata(lib_metadata.schema, year)
         if isinstance(schema, dict):
@@ -436,6 +441,7 @@ class TableFactory:
             year,
             lib_defaults=self.lib_defaults,
             lib_metadata=self.lib_metadata,
+            settings=self.settings,
         )
 
     def load(self, table_name: str | None = None) -> pd.DataFrame:
@@ -627,7 +633,10 @@ class TableFactory:
             "lib_metadata": self.lib_metadata,
         }
         table = Pipeline(
-            table=table, steps=steps, pipeline_params=pipeline_params
+            table=table,
+            steps=steps,
+            pipeline_params=pipeline_params,
+            settings=self.settings,
         ).run()
         return table
 
@@ -652,11 +661,12 @@ class TableFactory:
         return table_list
 
 
-def create_processed_table(
+def create_normalized_table(
     table_name: str,
     years: list[int],
-    lib_defaults=Defaults,
-    lib_metadata=Metadata,
+    lib_defaults: Defaults,
+    lib_metadata: Metadata,
+    settings: LoadTableSettings,
 ) -> pd.DataFrame:
     """Construct a table by loading it for multiple years.
 
@@ -682,7 +692,11 @@ def create_processed_table(
     table_list = []
     for year in years:
         table = TableFactory(
-            table_name, year, lib_defaults=lib_defaults, lib_metadata=lib_metadata
+            table_name,
+            year,
+            lib_defaults=lib_defaults,
+            lib_metadata=lib_metadata,
+            settings=settings,
         ).load()
         table_list.append(table)
     table = pd.concat(table_list, ignore_index=True)
