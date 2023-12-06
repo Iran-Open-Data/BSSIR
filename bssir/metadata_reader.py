@@ -358,7 +358,7 @@ class Config:
         return read_yaml(package_setting_path)
 
     def get_root_config(self) -> dict[str, Any]:
-        root_setting_path = self.root_dir.joinpath(self.settings["package_settings"])
+        root_setting_path = self.root_dir.joinpath(self.settings["local_settings"])
         try:
             return read_yaml(root_setting_path)
         except FileNotFoundError:
@@ -375,11 +375,10 @@ class Config:
                 file.write("# This file created automatically by BSSIR\n*\n")
 
     def set_package_config(self, package_path: Path) -> tuple[Defaults, Metadata]:
-        for new_setting in [
-            self.get_package_config(package_path),
-            self.get_root_config(),
-        ]:
-            self.settings = update_settings(self.settings, new_setting)
+        self.settings = update_settings(
+            self.settings, self.get_package_config(package_path)
+        )
+        self.settings = update_settings(self.settings, self.get_root_config())
         self.settings["base_package_dir"] = self.base_package_dir
         self.settings["package_dir"] = package_path
         self.settings["root_dir"] = self.root_dir
