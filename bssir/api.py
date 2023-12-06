@@ -128,10 +128,10 @@ class API:
             (year for _, year in table_year_pairs),
         ]
         with ThreadPoolExecutor(max_workers=6) as executer:
-            executer.map(self.__create_cleaned_file, map_input)
+            executer.map(self.__create_cleaned_file, *map_input)
 
     def __create_cleaned_file(self, table_name: str, year: int) -> None:
-        table = self.__load_cleaned_table(table_name=table_name, years=year)
+        table = self.__load_cleaned_table(table_name=table_name, years=[year])
         table = data_cleaner.clean_table(
             table, table_name=table_name, year=year, lib_metadata=self.metadata
         )
