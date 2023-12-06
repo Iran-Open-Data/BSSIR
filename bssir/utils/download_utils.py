@@ -42,7 +42,11 @@ def download(url: str, path: Path) -> None:
         remote_file_size = int(remote_file_size)
     else:
         raise FileNotFoundError("File is not found on the server")
-    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        local_file_size = path.stat().st_size
+    else:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        local_file_size = 0
     local_file_size = path.stat().st_size
     if remote_file_size == local_file_size:
         return
