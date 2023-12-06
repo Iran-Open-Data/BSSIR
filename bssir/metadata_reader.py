@@ -365,11 +365,11 @@ class Config:
             return {}
 
     def __setup_docs(self):
-        root_dir: Path = self.settings["root_dir"]
+        package_root: Path = self.settings["package_dir"].parent
         for key, value in self.settings["docs"].items():
-            root_dir.joinpath("docs", value).mkdir(parents=True, exist_ok=True)
-            self.settings["docs"][key] = root_dir.joinpath("docs", value)
-        gitignore = root_dir.joinpath("docs", "temp", ".gitignore")
+            package_root.joinpath("docs", value).mkdir(parents=True, exist_ok=True)
+            self.settings["docs"][key] = package_root.joinpath("docs", value)
+        gitignore = package_root.joinpath("docs", "temp", ".gitignore")
         if not gitignore.exists():
             with gitignore.open(mode="w") as file:
                 file.write("# This file created automatically by BSSIR\n*\n")
