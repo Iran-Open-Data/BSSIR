@@ -1,0 +1,562 @@
+
+rural_urban_translation:
+  Rural: روستایی
+  Urban: شهری
+
+province_name_translation:
+  Markazi: مرکزی
+  Gilan: گیلان
+  Mazandaran: مازندران
+  East_Azerbaijan: آذربایجان شرقی
+  West_Azerbaijan: آذربایجان غربی
+  Kermanshah: کرمانشاه
+  Khuzestan: خوزستان
+  Fars: فارس
+  Kerman: کرمان
+  Razavi_Khorasan: خراسان رضوی
+  Isfahan: اصفهان
+  Sistan_and_Baluchestan: سیستان و بلوچستان
+  Kurdistan: کردستان
+  Hamadan: همدان
+  Chaharmahal_and_Bakhtiari: چهارمحال و بختیاری
+  Lorestan: لرستان
+  Ilam: ایلام
+  Kohgiluyeh_and_Boyer_Ahmad: کهکیلویه و بویر احمد
+  Bushehr: بوشهر
+  Zanjan: زنجان
+  Semnan: سمنان
+  Yazd: یزد
+  Hormozgan: هرمزگان
+  Tehran: تهران
+  Ardabil: اردبیل
+  Qom: قم
+  Qazvin: قزوین
+  Golestan: گلستان
+  North_Khorasan: خراسان شمالی
+  South_Khorasan: خراسان جنوبی
+  Alborz: البرز
+
+
+county_name_translation:
+  # 0 0 X X
+  # Markazi: مرکزی
+  Arak: اراک
+  Ashtian: آشتیان
+  Tafresh: تفرش
+  Khomein: خمین
+  Delijan: دلیجان
+  Saveh: ساوه
+  Shazand: شازند
+  Mahallat: محلات
+  Zarandieh: زرندیه
+  Komeijan: کمیجان
+  Khondab: خنداب
+  Farahan: فراهان
+
+  # 0 1 X X
+  # Gilan: گیلان
+  Astara: آستارا
+  Astane-ye-Ashrafiyeh: آستانه اشرفیه
+  Bandar-e-Anzali: بندرانزلی
+  Talesh: طوالش
+  Rasht: رشت
+  Rudbar: رودبار
+  Rudsar: رودسر
+  Some'e-Sara: صومعه سرا
+  Fuman: فومن
+  Langrud: لنگرود
+  Lahijan: لاهیجان
+  Shaft: شفت
+  Amlash: املش
+  Rezvanshahr: رضوانشهر
+  Siahkal: سیاهکل
+  Masal: ماسال
+
+  # 0 2 X X
+  # Mazandaran: مازندران
+  Amol: آمل
+  Babol: بابل
+  Behshahr: بهشهر
+  Tonekabon: تنکابن
+  Ramsar: رامسر
+  Sari: ساری
+  Savadkuh: سوادکوه
+  Qaemshahr: قائم شهر
+  Nur: نور
+  Noshahr: نوشهر
+  Babolsar: بابلسر
+  Mahmudabad: محمودآباد
+  Neka: نکا
+  Chalus: چالوس
+  Juybar: جویبار
+  Galugah: گلوگاه
+  Feredunkenar: فریدونکنار
+  Abbasabad: عباس آباد
+  Miandorud: میاندورود
+  Simorgh: سیمرغ
+  Northern_Savadkooh: سوادکوه شمالی
+  Kelardasht: کلاردشت
+
+  # 0 3 X X
+  # East_Azerbaijan: آذربایجان شرقی
+  Ahar: اهر
+  Tabriz: تبریز
+  Sarab: سراب
+  Maragheh: مراغه
+  Marand: مرند
+  Mianeh: میانه
+  Hashtrud: هشترود
+  Bonab: بناب
+  Bostanabad: بستان آباد
+  Shabestar: شبستر
+  Kalibar: کلیبر
+  Heris: هریس
+  Jolfa: جلفا
+  Malekan: ملکان
+  Azarshahr: آذرشهر
+  Osku: اسکو
+  Charuymaq: چاراویماق
+  Varzaqan: ورزقان
+  Ajabshir: عجب شیر
+  Khodaafarin: خداآفرین
+
+  # 0 4 X X
+  # West_Azerbaijan: آذربایجان غربی
+  Urumia: ارومیه
+  Piranshahr: پیرانشهر
+  Khoy: خوی
+  Sardasht: سردشت
+  Salmas: سلماس
+  Maku: ماکو
+  Mahabad: مهاباد
+  Miandoab: میاندوآب
+  Naqadeh: نقده
+  Bukan: بوکان
+  Shahindej: شاهین دژ
+  Takab: تکاب
+  Oshnaviyeh: اشنویه
+  Chaldoran: چالدران
+  Poldasht: پلدشت
+  Chaypareh: چایپاره
+  Showt: شوط
+
+  # 0 5 X X
+  # Kermanshah: کرمانشاه
+  Islamabad-e-Gharb: اسلام آبادغرب
+  Kermanshah: کرمانشاه
+  Paveh: پاوه
+  Sarpol-e-Zahab: سرپل ذهاب
+  Sonqor: سنقر
+  Qasr-e-Shirin: قصرشیرین
+  Kangavar: کنگاور
+  Gilan-e-Gharb: گیلانغرب
+  Javanrud: جوانرود
+  Sahneh: صحنه
+  Harsin: هرسین
+  Solas-e-Babajani: ثلاث باباجانی
+  Dalaho: دالاهو
+  Ravansar: روانسر
+
+  # 0 6 X X
+  # Khuzestan: خوزستان
+  Abadan: آبادان
+  Andimeshk: اندیمشک
+  Ahvaz: اهواز
+  Izeh: ایذه
+  Mahshahr: بندرماهشهر
+  Behbahan: بهبهان
+  Khorramshahr: خرمشهر
+  Dezful: دزفول
+  Dasht-e-Azadegan: دشت آزادگان
+  Ramhormoz: رامهرمز
+  Shadegan: شادگان
+  Shushtar: شوشتر
+  Masjed-Soleyman: مسجدسلیمان
+  Shush: شوش
+  Baghmalek: باغ ملک
+  Omidiyeh: امیدیه
+  Lali: لالی
+  Hendijan: هندیجان
+  Ramshir: رامشیر
+  Guotvand: گتوند
+  Andika: اندیکا
+  Haftgol: هفتگل
+  Hoveizeh: هویزه
+  Bavi: باوی
+  Hamidieh: حمیدیه
+  Aghajari: آغاجاری
+  Karoun: کارون
+
+  # 0 7 X X
+  # Fars: فارس
+  Abadeh: آباده
+  Estahban: استهبان
+  Eqlid: اقلید
+  Jahrom: جهرم
+  Darab: داراب
+  Sepidan: سپیدان
+  Shiraz: شیراز
+  Fasa: فسا
+  Firuzabad: فیروزآباد
+  Kazerun: کازرون
+  Larestan: لارستان
+  Marvdasht: مرودشت
+  Mamasani: ممسنی
+  Neyriz: نی ریز
+  Lamerd: لامرد
+  Bavanat: بوانات
+  Arsanjan: ارسنجان
+  Khorrambid: خرم بید
+  Zarrindasht: زرین دشت
+  Qir-o-Karzin: قیروکارزین
+  Mehr: مهر
+  Farashband: فراشبند
+  Pasargad: پاسارگاد
+  Khonj: خنج
+  Sarvestan: سروستان
+  Rostam: رستم
+  Gerash: گراش
+  Kavar: کوار
+  Kherameh: خرامه
+
+  # 0 8 X X
+  # Kerman: کرمان
+  Baft: بافت
+  Bam: بم
+  Jiroft: جیرفت
+  Rafsanjan: رفسنجان
+  Zarand: زرند
+  Sirjan: سیرجان
+  Shahr-e-Babak: شهربابک
+  Kerman: کرمان
+  Kahnuj: کهنوج
+  Bardsir: بردسیر
+  Ravar: راور
+  Anbarabad: عنبرآباد
+  Manujan: منوجان
+  Kuhbonan: کوهبنان
+  Roudbar-e-Jonub: رودبارجنوب
+  Ghaleye-Ganj: قلعه گنج
+  Rigan: ریگان
+  Rabar: رابر
+  Fahraj: فهرج
+  Anar: انار
+  Normashir: نرماشیر
+  Faryab: فاریاب
+  Arzuiyeh: ارزوئیه
+
+  # 0 9 X X
+  # Razavi_Khorasan: خراسان رضوی
+  Taybad: تایباد
+  Torbat-e-Heydarieh: تربت حیدریه
+  Torbat-e-Jam: تربت جام
+  Dargaz: درگز
+  Sabzevar: سبزوار
+  Quchan: قوچان
+  Kashmar: کاشمر
+  Gonabad: گناباد
+  Mashhad: مشهد
+  Nishapur: نیشابور
+  Chenaran: چناران
+  Khaf: خواف
+  Sarakhs: سرخس
+  Fariman: فریمان
+  Bardaskan: بردسکن
+  Rashtkhar: رشتخوار
+  Kalat: کلات
+  Khalilabad: خلیل آباد
+  Mahvelat: مه ولات
+  Bajestan: بجستان
+  Torghabe-o-Shandiz: بینالود
+  Firuzeh: فیروزه
+  Joghatai: جغتای
+  Zave: زاوه
+  Jowayin: جوین
+  Bakharz: باخرز
+  Khoshab: خوشاب
+  Davarzan: داورزن
+
+  # 1 0 X X
+  # Isfahan: اصفهان
+  Ardestan: اردستان
+  Isfahan: اصفهان
+  Khomeinishahr: خمینی شهر
+  Khansar: خوانسار
+  Semirom: سمیرم
+  Faridan: فریدن
+  Fereydunshahr: فریدونشهر
+  Falavarjan: فلاورجان
+  Shahreza: شهرضا
+  Kashan: کاشان
+  Golpayegan: گلپایگان
+  Lenjan: لنجان
+  Nain: نایین
+  Najafabad: نجف آباد
+  Natanz: نطنز
+  Shahinshahro Meymeh: شاهین شهرومیمه
+  Mobarakeh: مبارکه
+  Aran-o-Bidgol: آران وبیدگل
+  Tiran-o-Korun: تیران وکرون
+  Chadegan: چادگان
+  Dehaghan: دهاقان
+  Borkhar: برخوار
+  Khorobiyabanak: خور و بیابانک
+  Booeino_Miyandasht: بو یین و میاندشت
+
+  # 1 1 X X
+  # Sistan_and_Baluchestan: سیتان و بلوچستان
+  Iranshahr: ایرانشهر
+  Chabahar: چابهار
+  Khash: خاش
+  Zabol: زابل
+  Zahedan: زاهدان
+  Saravan: سراوان
+  Nikshahr: نیک شهر
+  Sarbaz: سرباز
+  Konarak: کنارک
+  Zehak: زهک
+  Hirmand: هیرمند
+  Dalgan: دلگان
+  Mehrestan: مهرستان
+  Sibo_Soran: سیب و سوران
+  Nimrouz: نیمروز
+  Hamoun: هامون
+  Mirjaveh: میرجاوه
+  Ghasre_Ghand: قصرقند
+  Fanouj: فنوج
+
+  # 1 2 X X
+  # Kurdistan: کردستان
+  Baneh: بانه
+  Bijar: بیجار
+  Saqqez: سقز
+  Sannandaj: سنندج
+  Qorveh: قروه
+  Marivan: مریوان
+  Divandarreh: دیواندره
+  Kamyaran: کامیاران
+  Sarvabad: سروآباد
+  Dehgolan: دهگلان
+  
+  # 1 3 X X
+  # Hamadan: همدان
+  Tuyserkan: تویسرکان
+  Malayer: ملایر
+  Nahavand: نهاوند
+  Hamadan: همدان
+  Kabudarahang: کبودرآهنگ
+  Asadabad: اسدآباد
+  Bahar: بهار
+  Razan: رزن
+  Famenin: فامنین
+  
+  # 1 4 X X
+  # Chaharmahal_and_Bakhtiari: چهارمحال و بختیاری
+  Borujen: بروجن
+  Shahrekord: شهرکرد
+  Farsan: فارسان
+  Lordegan: لردگان
+  Ardal: اردل
+  Kuhrang: کوهرنگ
+  Kiaar: کیار
+  Saman: سامان
+  Ben: بن
+
+  # 1 5 X X
+  # Lorestan: لرستان
+  Aligudarz: الیگودرز
+  Borujerd: بروجرد
+  Khorramabad: خرم آباد
+  Delfan: دلفان
+  Dorud: دورود
+  Kuhdasht: کوهدشت
+  Azna: ازنا
+  Poldokhtar: پلدختر
+  Selseleh: سلسله
+  Doureh: دوره
+  Romeshkan: رومشکان
+
+  # 1 6 X X
+  # Ilam: ایلام
+  Ilam: ایلام
+  Darreh Shahr: دره شهر
+  Dehloran: دهلران
+  Shirvan-o-Chardavol: چرداول
+  Mehran: مهران
+  Abdanan: آبدانان
+  Eyvan: ایوان
+  Malekshahi: ملکشاهی
+  Sirvan: سیروان
+  Badre: بدره
+
+  # 1 7 X X
+  # Kohgiluyeh_and_Boyer_Ahmad: کهگیلویه و بویر احمد
+  Boyer-Ahmad: بویر احمد
+  Kohgeluyeh: کهگیلویه
+  Gachsaran: گچساران
+  Dena: دنا
+  Bahmai: بهمئی
+  Charam: چرام
+  Basht: باشت
+  Landeh: لنده
+
+  # 1 8 X X
+  # Bushehr: بوشهر
+  Bushehr: بوشهر
+  Tangestan: تنگستان
+  Dashtestan: دشتستان
+  Dashti: دشتی
+  Dayyer: دیر
+  Kangan: کنگان
+  Ganaveh: گناوه
+  Deylam: دیلم
+  Jam: جم
+  Asaluyeh: عسلویه
+
+  # 1 9 X X
+  # Zanjan: زنجان
+  Abhar: ابهر
+  Khodabandeh: خدابنده
+  Zanjan: زنجان
+  Eejrud: ایجرود
+  Khorramdarreh: خرمدره
+  Tarom: طارم
+  Mahneshan: ماهنشان
+  Soltanieh: سلطانیه
+
+  # 2 0 X X
+  # Semnan: سمنان
+  Damghan: دامغان
+  Semnan: سمنان
+  Shahrud: شاهرود
+  Garmsar: گرمسار
+  Mehdishahr: مهدی شهر
+  Aradan: آرادان
+  Meyami: میامی
+  Sorkheh: سرخه
+
+  # 2 1 X X
+  # Yazd: یزد
+  Ardekan: اردکان
+  Bafq: بافق
+  Taft: تفت
+  Mehriz: مهریز
+  Yazd: یزد
+  Meybod: میبد
+  Abarkuh: ابرکوه
+  Ashkezar: اشکذر
+  Khatam: خاتم
+  Bahabad: بهاباد
+
+  # 2 2 X X
+  # Hormozgan: هرمزگان
+  Abumusa: ابوموسی
+  Bandar-Lengeh: بندرعباس
+  Bandar-Abbas: بندرلنگه
+  Qeshm: قشم
+  Minab: میناب
+  Jask: جاسک
+  Rudan: رودان
+  Hajiabad: حاجی اباد
+  Bastak: بستک
+  Khamir: خمیر
+  Parsian: پارسیان
+  Sirik: سیریک
+  Bashagard: بشاگرد
+
+  # 2 3 X X
+  # Tehran: تهران
+  Tehran: تهران
+  Damavand: دماوند
+  Rey: ری
+  Shemiranat: شمیرانات
+  Varamin: ورامین
+  Shahriar: شهریار
+  Islamshahr: اسلام شهر
+  Robat-Karim: رباط کریم
+  Pakdasht: پاکدشت
+  Firuzkuh: فیروزکوه
+  Shahr-e_Qods: قدس
+  Malard: ملارد
+  Pishva: پیشوا
+  Baharestan: بهارستان
+  Pardis: پردیس
+  Qarchak: قرچک
+
+  # 2 4 X X
+  # Ardabil: اردبیل
+  Ardabil: اردبیل
+  Bilasavar: بیله سوار
+  Khalkhal: خلخال
+  Meshginshahr: مشگین شهر
+  Germi: گرمی
+  Parsabad: پارس آباد
+  Kowsar: کوثر
+  Namin: نمین
+  Nir: نیر
+  Sareyn: سرعین
+
+
+  # 2 5 X X
+  # Qom: قم
+  Qom: قم
+
+  # 2 6 X X
+  # Qazvin: قزوین
+  Buin-Zahra: بوئین زهرا
+  Takestan: تاکستان
+  Qazvin: قزوین
+  Abyek: آبیک
+  Alborz: البرز
+  Avaj: آوج
+
+  # 2 7 X X
+  # Golestan: گلستان
+  Bandar-e-Gaz: بندرگز
+  Bandar-e-Torkaman: ترکمن
+  Aliabad: علی آباد
+  Kordkuy: کردکوی
+  Gorgan: گرگان
+  Gonbad-e-Kavus: گنبدکاووس
+  Minudasht: مینودشت
+  Aqqala: آق قلا
+  Kolaleh: کلاله
+  Azadshahr: آزادشهر
+  Ramian: رامیان
+  Maravehtapeh: مراوه تپه
+  Gomishan: گمیشان
+  Galikash: گالیکش
+
+  # 2 8 X X
+  # North_Khorasan: خراسان شمالی
+  Esfarayen: اسفراین
+  Bojnurd: بجنورد
+  Jajrom: جاجرم
+  Shirvan: شیروان
+  Faroj: فاروج
+  Maneh-o-Samalqan: مانه و سملقان
+  Germeh: گرمه
+  Razo_Jalgelan: راز و جرگلان
+
+  # 2 9 X X
+  # South_Khorasan: خراسان جنوبی
+  Birjand: بیرجند
+  Darmian: درمیان
+  Sarbisheh: سربیشه
+  Qaen: قائنات
+  Nehbandan: نهبندان
+  Sarayan: سرایان
+  Ferdows: فردوس
+  Boshruyeh: بشرویه
+  Zirkouh: زیرکوه
+  Khusf: خوسف
+  Tabas: طبس
+
+  # 3 0 X X
+  # Alborz: البرز
+  Karaj: کرج
+  Savojbolagh: ساوجبلاغ
+  Nazarabad: نظرآباد
+  Taleghan: طالقان
+  Eshtehard: اشتهارد
+  Fardis: فردیس

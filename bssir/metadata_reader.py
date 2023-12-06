@@ -1,6 +1,7 @@
 """
 Metadata module
 """
+from concurrent.futures import ThreadPoolExecutor
 import functools
 import re
 
@@ -217,6 +218,7 @@ class Defaults(BaseModel):
     base_package_dir: Path
     package_dir: Path
     root_dir: Path
+    local_settings: str
 
     local_dir: Path
     in_root: bool
@@ -295,8 +297,8 @@ class Metadata:
         self.reload()
 
     def reload(self):
-        for file_name in self.metadata_files:
-            self.reload_file(file_name)
+        with ThreadPoolExecutor(max_workers=6) as executer:
+            executer.map(self.reload_file, self.metadata_files)
 
     def reload_file(self, file_name):
         base_package_meta = self.defaults.base_package_metadata[file_name]

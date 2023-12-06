@@ -1,21 +1,10 @@
-# Package Name
-package_name: BSSIR
 
 # Years (list of years or range in for of: "first_year - last_year")
 years: "1363-1401"
 
-# Package Settings
-package_settings: config/settings.yaml
-
-# Local Settings
-local_settings: config/settings.yaml
-
 # Local Directory
 local_dir: Data
 in_root: false
-
-# Bucket Address
-bucket_address: https://s3.ir-tbz-sh1.arvanstorage.ir/iran-open-data
 
 # Folder Names
 folder_names:
@@ -27,6 +16,9 @@ folder_names:
   cleaned: 4_cleaned
   external: external
   maps: maps
+
+# Bucket Address
+bucket_address: https://s3.ir-tbz-sh1.arvanstorage.ir/iran-open-data
 
 # Map
 default_map: humandata
@@ -57,31 +49,6 @@ columns:
   id: ID
   weight: Weight
 
-# Metadata
-## Base Package Metadata
-base_package_metadata:
-  instruction: metadata/_instruction.yaml
-  raw_files: metadata/raw_files.yaml
-  tables: metadata/tables.yaml
-  maps: metadata/maps.yaml
-  id_information: metadata/id_information.yaml
-  commodities: metadata/commodities.yaml
-  occupations: metadata/occupations.yaml
-  industries: metadata/industries.yaml
-  schema: metadata/schema.yaml
-
-## Package Metadata
-package_metadata:
-  instruction: metadata/_instruction.yaml
-  raw_files: metadata/raw_files.yaml
-  tables: metadata/tables.yaml
-  maps: metadata/maps.yaml
-  id_information: metadata/id_information.yaml
-  commodities: metadata/commodities.yaml
-  occupations: metadata/occupations.yaml
-  industries: metadata/industries.yaml
-  schema: metadata/schema.yaml
-
 ## Local Metadata
 local_metadata:
   instruction: metadata/_instruction.yaml
@@ -94,8 +61,3 @@ local_metadata:
   industries: metadata/industries.yaml
   schema: metadata/schema.yaml
 
-## Documentations
-docs:
-  csv: temp/csv
-  raw_tables: tables/raw
-  cleaned_tables: tables/cleaned

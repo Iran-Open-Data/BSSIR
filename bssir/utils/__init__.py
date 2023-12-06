@@ -1,6 +1,6 @@
 """HBSIR library utility functions"""
 from concurrent.futures import ThreadPoolExecutor
-from typing import Literal
+from typing import Literal, Iterable
 from pathlib import Path
 
 from ..metadata_reader import Defaults, Metadata, _Years
@@ -46,8 +46,10 @@ class Utils:
         )
 
     def create_table_year_pairs(
-        self, table_names: str, years: _Years
+        self, table_names: str | Iterable[str], years: _Years
     ) -> list[tuple[str, int]]:
+        if table_names == "all":
+            table_names = list(self.__metadata.tables["table_availability"].keys())
         return create_table_year_pairs(
             table_names=table_names,
             years=years,

@@ -43,7 +43,7 @@ def clean_raw_data(table: pd.DataFrame) -> pd.DataFrame:
 
 
 def generate_availability_tables(api: API):
-    availability_dir = api.defautls.docs.csv.joinpath("availability")
+    availability_dir = api.defaults.docs.csv.joinpath("availability")
     availability_dir.mkdir(exist_ok=True, parents=True)
     for table_name in api.metadata.tables["table_availability"]:
         years = [
@@ -67,7 +67,7 @@ def generate_raw_summary_tables(api: API):
         for year in years:
             table = api.load_table(table_name, year, form="raw")
             summary_table = create_raw_summary_table(table)
-            raw_table_dir = api.defautls.docs.csv.joinpath("raw", table_name)
+            raw_table_dir = api.defaults.docs.csv.joinpath("raw", table_name)
             raw_table_dir.mkdir(exist_ok=True, parents=True)
             summary_table.to_csv(raw_table_dir.joinpath(f"{year}.csv"))
 
@@ -94,7 +94,7 @@ def file_code_table(table_name: str, api: API) -> pd.DataFrame:
 
 
 def create_column_code_summary_tables(api: API) -> dict[str, pd.DataFrame]:
-    availability_dir = api.defautls.docs.csv.joinpath("availability")
+    availability_dir = api.defaults.docs.csv.joinpath("availability")
     column_code_summary_tables = {}
     for table_name in api.metadata.tables["table_availability"]:
         column_names = (
@@ -110,7 +110,7 @@ def create_column_code_summary_tables(api: API) -> dict[str, pd.DataFrame]:
         ]
         annual_summary_tables = {}
         for year in years:
-            csv_path = api.defautls.docs.csv.joinpath("raw", table_name, f"{year}.csv")
+            csv_path = api.defaults.docs.csv.joinpath("raw", table_name, f"{year}.csv")
             annual_summary_tables[year] = pd.read_csv(csv_path, index_col=0).fillna("")
 
         for column_name in column_names:
@@ -159,7 +159,7 @@ def generate_raw_description(api: API):
         ]
 
         md_page_content += "## Columns Availability\n\n"
-        csv_path = api.defautls.docs.csv.joinpath("availability", f"{table_name}.csv")
+        csv_path = api.defaults.docs.csv.joinpath("availability", f"{table_name}.csv")
         availability = (
             pd.read_csv(csv_path, index_col=0)
             .fillna("")
@@ -171,7 +171,7 @@ def generate_raw_description(api: API):
         md_page_content += "## Annual Summary Tables\n\n"
         annual_summary_tables = {}
         for year in years:
-            csv_path = api.defautls.docs.csv.joinpath("raw", table_name, f"{year}.csv")
+            csv_path = api.defaults.docs.csv.joinpath("raw", table_name, f"{year}.csv")
             annual_summary_tables[year] = pd.read_csv(csv_path, index_col=0).fillna("")
         for year in years:
             md_page_content += f"### {year}\n\n"
@@ -201,6 +201,6 @@ def generate_raw_description(api: API):
             md_page_content += table.to_markdown()
             md_page_content += "\n\n\n"
 
-        md_file_path = api.defautls.docs.raw_tables.joinpath(f"{table_name}.md")
+        md_file_path = api.defaults.docs.raw_tables.joinpath(f"{table_name}.md")
         with md_file_path.open(mode="w", encoding="utf-8") as md_file:
             md_file.write(md_page_content)

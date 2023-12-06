@@ -1,9 +1,11 @@
+from concurrent.futures import ThreadPoolExecutor
 from typing import Literal
+import shutil
 
 import pandas as pd
 
 from .metadata_reader import Defaults, Metadata, _Years, LoadTableSettings
-from . import archive_handler, data_cleaner, external_data, data_engine
+from . import archive_handler, data_cleaner, external_data, data_engine, decoder
 from .utils import Utils
 
 _DataSource = Literal["SCI", "CBI"]
@@ -13,7 +15,7 @@ _SeparateBy = Literal["Urban_Rural", "Province"]
 
 class API:
     def __init__(self, defaults: Defaults, metadata: Metadata):
-        self.defautls = defaults
+        self.defaults = defaults
         self.metadata = metadata
         self.utils = Utils(defaults, metadata)
 
@@ -25,7 +27,13 @@ class API:
         method: Literal["create_from_raw", "download_cleaned"] = "download_cleaned",
         download_source: Literal["original", "mirror"] = "mirror",
     ) -> None:
-        ...
+        """Download, extract, and clean survey data."""
+        years = self.utils.parse_years(years)
+        if method == "create_from_raw":
+            self.setup_raw_data(years, replace=replace, download_source=download_source)
+            self.__create_cleaned_files(years=years)
+        else:
+            self.utils.download_cleaned_tables(years)
 
     def setup_raw_data(
         self,
@@ -33,20 +41,30 @@ class API:
         *,
         replace: bool = False,
         download_source: Literal["original", "mirror"] = "mirror",
-    ):
+    ) -> None:
+        """Download and extract raw survey data."""
         years = self.utils.parse_years(years)
         archive_handler.download(
             years,
             replace=replace,
             source=download_source,
             lib_metadata=self.metadata,
-            lib_defaults=self.defautls,
+            lib_defaults=self.defaults,
         )
-        archive_handler.unpack(years, replace=replace, lib_defaults=self.defautls)
-        archive_handler.extract(years, replace=replace, lib_defaults=self.defautls)
+        archive_handler.unpack(years, replace=replace, lib_defaults=self.defaults)
+        archive_handler.extract(years, replace=replace, lib_defaults=self.defaults)
+
+    def setup_config(self, replace=False) -> None:
+        """Copy default config file to data directory."""
+        src = self.defaults.base_package_dir.joinpath("config", "settings_sample.yaml")
+        dst = self.defaults.root_dir.joinpath(self.defaults.local_settings)
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        if (not dst.exists()) or replace:
+            shutil.copy(src, dst)
 
     def load_table(self, table_name, years: _Years, **kwargs) -> pd.DataFrame:
-        settings = self.defautls.functions.load_table
+        """Load a table for the given table name and year(s)."""
+        settings = self.defaults.functions.load_table
         settings = settings.model_copy(update=kwargs)
         years = self.utils.parse_years(years, table_name=table_name)
         if settings.form == "raw":
@@ -58,7 +76,7 @@ class API:
                 table_name=table_name,
                 years=years,
                 settings=settings,
-                lib_defaults=self.defautls,
+                lib_defaults=self.defaults,
                 lib_metadata=self.metadata,
             )
         return table
@@ -69,7 +87,7 @@ class API:
                 data_cleaner.load_raw_table(
                     table_name=table_name,
                     year=year,
-                    lib_defaults=self.defautls,
+                    lib_defaults=self.defaults,
                     lib_metadata=self.metadata,
                 )
                 for year in years
@@ -79,14 +97,17 @@ class API:
         return table
 
     def __load_cleaned_table(
-        self, table_name: str, years: list[int], settings: LoadTableSettings
+        self,
+        table_name: str,
+        years: list[int],
+        settings: LoadTableSettings | None = None,
     ):
         table = pd.concat(
             [
                 data_engine.TableHandler(
                     [table_name],
                     year,
-                    lib_defaults=self.defautls,
+                    lib_defaults=self.defaults,
                     lib_metadata=self.metadata,
                     settings=settings,
                 )[table_name]
@@ -95,6 +116,27 @@ class API:
             ignore_index=True,
         )
         return table
+
+    def __create_cleaned_files(
+        self, years: list[int], table_names: str | list[str] = "all"
+    ) -> None:
+        table_year_pairs = self.utils.create_table_year_pairs(
+            table_names=table_names, years=years
+        )
+        map_input = [
+            (table_name for table_name, _ in table_year_pairs),
+            (year for _, year in table_year_pairs),
+        ]
+        with ThreadPoolExecutor(max_workers=6) as executer:
+            executer.map(self.__create_cleaned_file, map_input)
+
+    def __create_cleaned_file(self, table_name: str, year: int) -> None:
+        table = self.__load_cleaned_table(table_name=table_name, years=year)
+        table = data_cleaner.clean_table(
+            table, table_name=table_name, year=year, lib_metadata=self.metadata
+        )
+        file_name = f"{year}_{table_name}.parquet"
+        table.to_parquet(self.defaults.dirs.cleaned.joinpath(file_name))
 
     def load_external_table(
         self,
@@ -106,13 +148,21 @@ class API:
         reset_index: bool = True,
         **kwargs,
     ) -> pd.DataFrame:
+        """Load an external table for the given table name and year(s)."""
         years = self.utils.parse_years(years, table_name=table_name)
         external_data.load_table(
             table_name=table_name,
-            lib_defaults=self.defautls,
+            lib_defaults=self.defaults,
             data_source=data_source,
             frequency=frequency,
             separate_by=separate_by,
             reset_index=reset_index,
             **kwargs,
         )
+
+    def add_attribute(self, table: pd.DataFrame, **kwargs) -> pd.DataFrame:
+        """Add attributes to table based on ID column."""
+        kwargs.update({"lib_defaults": self.defaults, "lib_metadata": self.metadata})
+        settings = decoder.IDDecoderSettings(**kwargs)
+        table = decoder.IDDecoder(table=table, settings=settings).add_attribute()
+        return table

@@ -8,7 +8,7 @@ from . import datadoc_utils
 
 
 def create_otnt_part(table_name: str, years: list[int], api: API) -> pd.DataFrame:
-    availability_dir = api.defautls.docs.csv.joinpath("availability")
+    availability_dir = api.defaults.docs.csv.joinpath("availability")
     availability_table = (
         pd.read_csv(availability_dir.joinpath(f"{table_name}.csv"), index_col=0)
         .fillna("")
@@ -62,7 +62,7 @@ def create_old_to_new_tables(
 
 
 def create_new_to_old_table(table_name: str, api: API) -> pd.DataFrame:
-    availability_dir = api.defautls.docs.csv.joinpath("availability")
+    availability_dir = api.defaults.docs.csv.joinpath("availability")
     availability_table = (
         pd.read_csv(availability_dir.joinpath(f"{table_name}.csv"), index_col=0)
         .fillna("")
@@ -123,7 +123,7 @@ def generate_columns_metadata(
     for table_name in table_names:
         new_to_old = create_new_to_old_table(table_name, api)
         for column in new_to_old.columns:
-            directory = api.defautls.docs.csv.joinpath("cleaned", table_name, column)
+            directory = api.defaults.docs.csv.joinpath("cleaned", table_name, column)
             directory.mkdir(exist_ok=True, parents=True)
             col_meta = api.utils.extract_column_metadata(column, table_name)
             col_meta = remove_next_lines(col_meta)
@@ -206,7 +206,7 @@ def generate_replace_tables(
             table_name=table_name, api=api, raw_tables=raw_tables
         )
         for column_name, replace_table in replace_tables.items():
-            directory = api.defautls.docs.csv.joinpath(
+            directory = api.defaults.docs.csv.joinpath(
                 "cleaned", table_name, column_name
             )
             directory.mkdir(exist_ok=True, parents=True)
@@ -308,7 +308,7 @@ def generate_summary_stats(
         }
         summary_stats = create_summary_stats(table_name, api, cleaned_tables)
         for column, tables in summary_stats.items():
-            directory = api.defautls.docs.csv.joinpath("cleaned", table_name, column)
+            directory = api.defaults.docs.csv.joinpath("cleaned", table_name, column)
             directory.mkdir(exist_ok=True, parents=True)
             for data_type, table in tables.items():
                 table.to_csv(directory.joinpath(f"{data_type}.csv"))
@@ -370,7 +370,7 @@ def create_cleaned_table_page(table_name: str, api: API) -> str:
     md_page_content += "## Columns Details\n\n"
 
     for column in nto.columns:
-        directory = api.defautls.docs.csv.joinpath("cleaned", table_name, column)
+        directory = api.defaults.docs.csv.joinpath("cleaned", table_name, column)
 
         md_page_content += f"### {column}\n\n"
 
@@ -384,11 +384,12 @@ def create_cleaned_table_page(table_name: str, api: API) -> str:
 
         md_page_content += "#### Column Codes\n\n"
         column_code_table = datadoc_utils.collapse_years(nto[[column]])
-        column_code_table[column] = (
+        filt = column_code_table[column] != ""
+        column_code_table.loc[filt, column] = (
             "["
-            + column_code_table[column]
-            + f"](/{api.defautls.package_name}/tables/raw/data#"
-            + column_code_table[column].str.lower()
+            + column_code_table.loc[filt, column]
+            + f"](/{api.defaults.package_name}/tables/raw/data#"
+            + column_code_table.loc[filt, column].str.lower()
             + ")"
         )
         md_page_content += column_code_table.to_markdown()
@@ -431,6 +432,6 @@ def generate_cleaned_description(
     )
     for table_name in table_names:
         md_page_content = create_cleaned_table_page(table_name, api)
-        md_file_path = api.defautls.docs.cleaned_tables.joinpath(f"{table_name}.md")
+        md_file_path = api.defaults.docs.cleaned_tables.joinpath(f"{table_name}.md")
         with md_file_path.open(mode="w", encoding="utf-8") as md_file:
             md_file.write(md_page_content)

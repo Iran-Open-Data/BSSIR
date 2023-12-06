@@ -663,11 +663,22 @@ class IDDecoder:
         if not isinstance(id_metadata, dict):
             raise ValueError
         # pylint: disable=unsubscriptable-object
+        if label in id_metadata[self.settings.name].get("mappings", {}):
+            post_mapping_info = id_metadata[self.settings.name]["mappings"][label]
+            label = post_mapping_info["origin"]
+            post_mapping = self.settings.lib_metadata.id_information[
+                post_mapping_info["mapping"]
+            ]
+        else:
+            post_mapping = None
         mapping = id_metadata[self.settings.name][label]
         code_builder = self._create_code_builder(id_metadata)
 
         def mapper(household_id_column: pd.Series) -> pd.Series:
-            mapped = code_builder(household_id_column).map(mapping).astype("category")
+            mapped = code_builder(household_id_column).map(mapping)
+            if post_mapping is not None:
+                mapped = mapped.map(post_mapping)
+            mapped = mapped.astype("category")
             mapped.name = label
             return mapped
 

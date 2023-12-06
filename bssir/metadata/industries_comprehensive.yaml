@@ -6914,236 +6914,283 @@ isic_4:
       title: null
       level: 2
       description: Crop and animal production, hunting and related service activities
+      farsi_description: توليد محصولات كشاورزي و دامي، شکار و فعاليت‌های خدماتی وابسته
       code: {start: 1000, end: 2000}
     '011':
       title: null
       level: 3
       description: Growing of non-perennial crops
+      farsi_description: کاشت محصولات سالانه (غير دائمي)
       code: {start: 1100, end: 1200}
     '0111':
       title: null
       level: 4
       description: Growing of cereals (except rice), leguminous crops and oil seeds
+      farsi_description: کاشت غلات (به جز برنج)، حبوبات و دانه‌های روغنی
       code: {start: 1110, end: 1120}
     '0112':
       title: null
       level: 4
       description: Growing of rice
+      farsi_description: کاشت برنج
       code: {start: 1120, end: 1130}
     '0113':
       title: null
       level: 4
       description: Growing of vegetables and melons, roots and tubers
+      farsi_description: کاشت سبزيجات و صيفي‌جات، ريشه‌ها و غده‌ها
       code: {start: 1130, end: 1140}
     '0114':
       title: null
       level: 4
       description: Growing of sugar cane
+      farsi_description: کاشت نيشکر
       code: {start: 1140, end: 1150}
     '0115':
       title: null
       level: 4
       description: Growing of tobacco
+      farsi_description:  کاشت توتون و تنباکو
       code: {start: 1150, end: 1160}
     '0116':
       title: null
       level: 4
       description: Growing of fibre crops
+      farsi_description: کاشت محصولات ليفی
       code: {start: 1160, end: 1170}
-    0119:
+    '0119':
       title: null
       level: 4
       description: Growing of other non-perennial crops
+      farsi_description: کاشت ساير محصولات سالانه ( غير دائمي )
       code: {start: 1190, end: 1200}
     '012':
       title: null
       level: 3
       description: Growing of perennial crops
+      farsi_description: کاشت محصولات چندساله (دائمي)
       code: {start: 1200, end: 1300}
     '0121':
       title: null
       level: 4
       description: Growing of grapes
+      farsi_description: كاشت مو ( انگور )
       code: {start: 1210, end: 1220}
     '0122':
       title: null
       level: 4
       description: Growing of tropical and subtropical fruits
+      farsi_description: کاشت ميوه‌های گرمسيري و نيمه گرمسيري
       code: {start: 1220, end: 1230}
     '0123':
       title: null
       level: 4
       description: Growing of citrus fruits
+      farsi_description: کاشت مرکبات
       code: {start: 1230, end: 1240}
     '0124':
       title: null
       level: 4
       description: Growing of pome fruits and stone fruits
+      farsi_description: کاشت ميوه‌های دانه‌دار و ميوه‌هاي هسته‌دار
       code: {start: 1240, end: 1250}
     '0125':
       title: null
       level: 4
       description: Growing of other tree and bush fruits and nuts
+      farsi_description: کاشت ساير میوه ها و ميوه هاي آجيلي، درختی و بوته ای
       code: {start: 1250, end: 1260}
     '0126':
       title: null
       level: 4
       description: Growing of oleaginous fruits
+      farsi_description: کاشت ميوه‌های روغنی
       code: {start: 1260, end: 1270}
     '0127':
       title: null
       level: 4
       description: Growing of beverage crops
+      farsi_description: کاشت محصولات نوشيدني
       code: {start: 1270, end: 1280}
-    0128:
+    '0128':
       title: null
       level: 4
       description: Growing of spices, aromatic, drug and pharmaceutical crops
+      farsi_description: كاشت ادويه‌جات، محصولات معطر، مخدر و دارويي
       code: {start: 1280, end: 1290}
-    0129:
+    '0129':
       title: null
       level: 4
       description: Growing of other perennial crops
+      farsi_description: کاشت ساير محصولات چندساله(دائمي)
       code: {start: 1290, end: 1300}
     '013':
       title: null
       level: 3
       description: Plant propagation
+      farsi_description:  تكثير گياهان
       code: {start: 1300, end: 1400}
     '0130':
       title: null
       level: 4
       description: Plant propagation
+      farsi_description:  تكثير گياهان
       code: {start: 1300, end: 1310}
     '014':
       title: null
       level: 3
       description: Animal production
+      farsi_description: پرورش حيوانات
       code: {start: 1400, end: 1500}
     '0141':
       title: null
       level: 4
       description: Raising of cattle and buffaloes
+      farsi_description: پرورش گاو و گاوميش
       code: {start: 1410, end: 1420}
     '0142':
       title: null
       level: 4
       description: Raising of horses and other equines
+      farsi_description: پرورش اسب و اسب‌سانان
       code: {start: 1420, end: 1430}
     '0143':
       title: null
       level: 4
       description: Raising of camels and camelids
+      farsi_description: پرورش شتر و شترسانان
       code: {start: 1430, end: 1440}
     '0144':
       title: null
       level: 4
       description: Raising of sheep and goats
+      farsi_description: پرورش گوسفند و بز
       code: {start: 1440, end: 1450}
     '0145':
       title: null
       level: 4
       description: Raising of swine/pigs
+      farsi_description: پرورش خوك و گراز
       code: {start: 1450, end: 1460}
     '0146':
       title: null
       level: 4
       description: Raising of poultry
+      farsi_description: پرورش ماكيان
       code: {start: 1460, end: 1470}
     '0149':
       title: null
       level: 4
       description: Raising of other animals
+      farsi_description: پرورش ساير حيوانات 
       code: {start: 1490, end: 1500}
     '015':
       title: null
       level: 3
       description: Mixed farming
+      farsi_description: 
       code: {start: 1500, end: 1600}
     '0150':
       title: null
       level: 4
       description: Mixed farming
+      farsi_description: بهره‌برداري توام كشاورزي و دامداري
       code: {start: 1500, end: 1510}
     '016':
       title: null
       level: 3
       description: Support activities to agriculture and post-harvest crop activities
+      farsi_description: فعاليت‌های پشتيبانی کشاورزی و فعاليت‌های پس از برداشت محصول
       code: {start: 1600, end: 1700}
     '0161':
       title: null
       level: 4
       description: Support activities for crop production
+      farsi_description: فعاليت‌های پشتيبانی توليد محصولات كشاورزي 
       code: {start: 1610, end: 1620}
     '0162':
       title: null
       level: 4
       description: Support activities for animal production
+      farsi_description: فعاليت‌های پشتيبانی توليد محصولات حیوانی
       code: {start: 1620, end: 1630}
     '0163':
       title: null
       level: 4
       description: Post-harvest crop activities
+      farsi_description: فعاليت‌های پشتیبانی پس از برداشت محصول
       code: {start: 1630, end: 1640}
     '0164':
       title: null
       level: 4
       description: Seed processing for propagation
+      farsi_description: فراوري بذر برای تكثير
       code: {start: 1640, end: 1650}
     '017':
       title: null
       level: 3
       description: Hunting, trapping and related service activities
+      farsi_description: شكار و تله‌گذاري و فعاليت‌هاي خدماتي وابسته 
       code: {start: 1700, end: 1800}
     '0170':
       title: null
       level: 4
       description: Hunting, trapping and related service activities
+      farsi_description: شكار و تله‌گذاري و فعاليت‌هاي خدماتي وابسته 
       code: {start: 1700, end: 1710}
     '02':
       title: null
       level: 2
       description: Forestry and logging
+      farsi_description: 
       code: {start: 2000, end: 3000}
     '021':
       title: null
       level: 3
       description: Silviculture and other forestry activities
+      farsi_description: 
       code: {start: 2100, end: 2200}
     '0210':
       title: null
       level: 4
       description: Silviculture and other forestry activities
+      farsi_description: 
       code: {start: 2100, end: 2110}
     '022':
       title: null
       level: 3
       description: Logging
+      farsi_description: 
       code: {start: 2200, end: 2300}
     '0220':
       title: null
       level: 4
       description: Logging
+      farsi_description: 
       code: {start: 2200, end: 2210}
     '023':
       title: null
       level: 3
       description: Gathering of non-wood forest products
+      farsi_description: 
       code: {start: 2300, end: 2400}
     '0230':
       title: null
       level: 4
       description: Gathering of non-wood forest products
+      farsi_description: 
       code: {start: 2300, end: 2310}
     '024':
       title: null
       level: 3
       description: Support services to forestry
+      farsi_description: 
       code: {start: 2400, end: 2500}
     '0240':
       title: null
       level: 4
       description: Support services to forestry
+      farsi_description: 
       code: {start: 2400, end: 2410}
     '03':
       title: null
