@@ -1,6 +1,8 @@
 from concurrent.futures import ThreadPoolExecutor
-from typing import Literal
+from typing import Any, Callable, Literal
+from types import ModuleType
 import shutil
+import importlib
 
 import pandas as pd
 
@@ -159,6 +161,14 @@ class API:
             reset_index=reset_index,
             **kwargs,
         )
+
+    def load_knowledge(self, name: str, years: _Years) -> Any:
+        years = self.utils.parse_years(years)
+        module: ModuleType = importlib.import_module(
+            f"{self.defaults.package_name.lower()}.knowledge_base.{name}"
+        )
+        main_function: Callable = getattr(module, "main")
+        return main_function(years)
 
     def add_attribute(self, table: pd.DataFrame, **kwargs) -> pd.DataFrame:
         """Add attributes to table based on ID column."""
