@@ -1,8 +1,11 @@
 
 
 humandata:
-  original_link: "https://data.humdata.org/dataset/247b4026-79ff-4b16-95b9-0f366792d2cc/resource/ea3c5835-ac35-472f-b6c9-60364a3abe49/download/irn_adm_unhcr_20190514_shp.zip"
-  mirror_link: "https://s3.ir-thr-at1.arvanstorage.com/gsmedb/HEIS/irn_adm_unhcr_20190514_shp.zip"
+  original_link: "https://data.humdata.org/\
+    dataset/247b4026-79ff-4b16-95b9-0f366792d2cc/\
+    resource/ea3c5835-ac35-472f-b6c9-60364a3abe49/download/\
+    irn_adm_unhcr_20190514_shp.zip"
+  mirror_link: "MAPS/irn_adm_unhcr_20190514_shp.zip"
 
   Country:
     file_name: irn_admbnda_adm0_unhcr_20190514.shp
