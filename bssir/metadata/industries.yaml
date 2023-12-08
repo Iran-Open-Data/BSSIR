@@ -1,8 +1,3947 @@
 
-isic_2:
+isic_4:
+
   items:
-    '1':
-      title: null
+    A:
       level: 1
-      description: Agriculture, Hunting, Forestry and Fishing
+      title: Agriculture, forestry and fishing
+      code: {start: 1000, end: 4000}
+
+    '01':
+      level: 2
+      title: Crop and animal production, hunting and related service activities
+      farsi_title: تولید محصولات کشاورزی و دامی، شکار و فعالیت‌های خدماتی وابسته
       code: {start: 1000, end: 2000}
+
+    '011':
+      level: 3
+      title: Growing of non-perennial crops
+      farsi_title: کاشت محصولات سالانه (غیر دائمی)
+      code: {start: 1100, end: 1200}
+
+    '0111':
+      level: 4
+      title: Growing of cereals (except rice), leguminous crops and oil seeds
+      farsi_title: کاشت غلات (به جز برنج)، حبوبات و دانه‌های روغنی
+      code: {start: 1110, end: 1120}
+
+    '0112':
+      level: 4
+      title: Growing of rice
+      farsi_title: کاشت برنج
+      code: {start: 1120, end: 1130}
+
+    '0113':
+      level: 4
+      title: Growing of vegetables and melons, roots and tubers
+      farsi_title: کاشت سبزیجات و صیفی‌جات، ریشه‌ها و غده‌ها
+      code: {start: 1130, end: 1140}
+
+    '0114':
+      level: 4
+      title: Growing of sugar cane
+      farsi_title: کاشت نیشکر
+      code: {start: 1140, end: 1150}
+
+    '0115':
+      level: 4
+      title: Growing of tobacco
+      farsi_title:  کاشت توتون و تنباکو
+      code: {start: 1150, end: 1160}
+
+    '0116':
+      level: 4
+      title: Growing of fibre crops
+      farsi_title: کاشت محصولات لیفی
+      code: {start: 1160, end: 1170}
+
+    '0119':
+      level: 4
+      title: Growing of other non-perennial crops
+      farsi_title: کاشت سایر محصولات سالانه ( غیر دائمی )
+      code: {start: 1190, end: 1200}
+
+    '012':
+      level: 3
+      title: Growing of perennial crops
+      farsi_title: کاشت محصولات چندساله (دائمی)
+      code: {start: 1200, end: 1300}
+
+    '0121':
+      level: 4
+      title: Growing of grapes
+      farsi_title: کاشت مو ( انگور )
+      code: {start: 1210, end: 1220}
+
+    '0122':
+      level: 4
+      title: Growing of tropical and subtropical fruits
+      farsi_title: کاشت میوه‌های گرمسیری و نیمه گرمسیری
+      code: {start: 1220, end: 1230}
+
+    '0123':
+      level: 4
+      title: Growing of citrus fruits
+      farsi_title: کاشت مرکبات
+      code: {start: 1230, end: 1240}
+
+    '0124':
+      level: 4
+      title: Growing of pome fruits and stone fruits
+      farsi_title: کاشت میوه‌های دانه‌دار و میوه‌های هسته‌دار
+      code: {start: 1240, end: 1250}
+
+    '0125':
+      level: 4
+      title: Growing of other tree and bush fruits and nuts
+      farsi_title: کاشت سایر میوه ها و میوه های آجیلی، درختی و بوته ای
+      code: {start: 1250, end: 1260}
+
+    '0126':
+      level: 4
+      title: Growing of oleaginous fruits
+      farsi_title: کاشت میوه‌های روغنی
+      code: {start: 1260, end: 1270}
+
+    '0127':
+      level: 4
+      title: Growing of beverage crops
+      farsi_title: کاشت محصولات نوشیدنی
+      code: {start: 1270, end: 1280}
+
+    '0128':
+      level: 4
+      title: Growing of spices, aromatic, drug and pharmaceutical crops
+      farsi_title: کاشت ادویه‌جات، محصولات معطر، مخدر و دارویی
+      code: {start: 1280, end: 1290}
+
+    '0129':
+      level: 4
+      title: Growing of other perennial crops
+      farsi_title: کاشت سایر محصولات چندساله(دائمی)
+      code: {start: 1290, end: 1300}
+
+    '013':
+      level: 3
+      title: Plant propagation
+      farsi_title:  تکثیر گیاهان
+      code: {start: 1300, end: 1400}
+
+    '0130':
+      level: 4
+      title: Plant propagation
+      farsi_title:  تکثیر گیاهان
+      code: {start: 1300, end: 1310}
+
+    '014':
+      level: 3
+      title: Animal production
+      farsi_title: پرورش حیوانات
+      code: {start: 1400, end: 1500}
+
+    '0141':
+      level: 4
+      title: Raising of cattle and buffaloes
+      farsi_title: پرورش گاو و گاومیش
+      code: {start: 1410, end: 1420}
+
+    '0142':
+      level: 4
+      title: Raising of horses and other equines
+      farsi_title: پرورش اسب و اسب‌سانان
+      code: {start: 1420, end: 1430}
+
+    '0143':
+      level: 4
+      title: Raising of camels and camelids
+      farsi_title: پرورش شتر و شترسانان
+      code: {start: 1430, end: 1440}
+
+    '0144':
+      level: 4
+      title: Raising of sheep and goats
+      farsi_title: پرورش گوسفند و بز
+      code: {start: 1440, end: 1450}
+
+    '0145':
+      level: 4
+      title: Raising of swine/pigs
+      farsi_title: پرورش خوک و گراز
+      code: {start: 1450, end: 1460}
+
+    '0146':
+      level: 4
+      title: Raising of poultry
+      farsi_title: پرورش ماکیان
+      code: {start: 1460, end: 1470}
+
+    '0149':
+      level: 4
+      title: Raising of other animals
+      farsi_title: پرورش سایر حیوانات 
+      code: {start: 1490, end: 1500}
+
+    '015':
+      level: 3
+      title: Mixed farming
+      farsi_title: 
+      code: {start: 1500, end: 1600}
+
+    '0150':
+      level: 4
+      title: Mixed farming
+      farsi_title: بهره‌برداری توام کشاورزی و دامداری
+      code: {start: 1500, end: 1510}
+
+    '016':
+      level: 3
+      title: Support activities to agriculture and post-harvest crop activities
+      farsi_title: فعالیت‌های پشتیبانی کشاورزی و فعالیت‌های پس از برداشت محصول
+      code: {start: 1600, end: 1700}
+
+    '0161':
+      level: 4
+      title: Support activities for crop production
+      farsi_title: فعالیت‌های پشتیبانی تولید محصولات کشاورزی 
+      code: {start: 1610, end: 1620}
+
+    '0162':
+      level: 4
+      title: Support activities for animal production
+      farsi_title: فعالیت‌های پشتیبانی تولید محصولات حیوانی
+      code: {start: 1620, end: 1630}
+
+    '0163':
+      level: 4
+      title: Post-harvest crop activities
+      farsi_title: فعالیت‌های پشتیبانی پس از برداشت محصول
+      code: {start: 1630, end: 1640}
+
+    '0164':
+      level: 4
+      title: Seed processing for propagation
+      farsi_title: فراوری بذر برای تکثیر
+      code: {start: 1640, end: 1650}
+
+    '017':
+      level: 3
+      title: Hunting, trapping and related service activities
+      farsi_title: شکار و تله‌گذاری و فعالیت‌های خدماتی وابسته 
+      code: {start: 1700, end: 1800}
+
+    '0170':
+      level: 4
+      title: Hunting, trapping and related service activities
+      farsi_title: شکار و تله‌گذاری و فعالیت‌های خدماتی وابسته 
+      code: {start: 1700, end: 1710}
+
+    '02':
+      level: 2
+      title: Forestry and logging
+      farsi_title: 
+      code: {start: 2000, end: 3000}
+
+    '021':
+      level: 3
+      title: Silviculture and other forestry activities
+      farsi_title: 
+      code: {start: 2100, end: 2200}
+
+    '0210':
+      level: 4
+      title: Silviculture and other forestry activities
+      farsi_title: 
+      code: {start: 2100, end: 2110}
+
+    '022':
+      level: 3
+      title: Logging
+      farsi_title: 
+      code: {start: 2200, end: 2300}
+
+    '0220':
+      level: 4
+      title: Logging
+      farsi_title: 
+      code: {start: 2200, end: 2210}
+
+    '023':
+      level: 3
+      title: Gathering of non-wood forest products
+      farsi_title: 
+      code: {start: 2300, end: 2400}
+
+    '0230':
+      level: 4
+      title: Gathering of non-wood forest products
+      farsi_title: 
+      code: {start: 2300, end: 2310}
+
+    '024':
+      level: 3
+      title: Support services to forestry
+      farsi_title: 
+      code: {start: 2400, end: 2500}
+
+    '0240':
+      level: 4
+      title: Support services to forestry
+      farsi_title: 
+      code: {start: 2400, end: 2410}
+
+    '03':
+      level: 2
+      title: Fishing and aquaculture
+      code: {start: 3000, end: 4000}
+
+    '031':
+      level: 3
+      title: Fishing
+      code: {start: 3100, end: 3200}
+
+    '0311':
+      level: 4
+      title: Marine fishing
+      code: {start: 3110, end: 3120}
+
+    '0312':
+      level: 4
+      title: Freshwater fishing
+      code: {start: 3120, end: 3130}
+
+    '032':
+      level: 3
+      title: Aquaculture
+      code: {start: 3200, end: 3300}
+
+    '0321':
+      level: 4
+      title: Marine aquaculture
+      code: {start: 3210, end: 3220}
+
+    '0322':
+      level: 4
+      title: Freshwater aquaculture
+      code: {start: 3220, end: 3230}
+
+    B:
+      level: 1
+      title: Mining and quarrying
+      code: {start: 5000, end: 10000}
+
+    '05':
+      level: 2
+      title: Mining of coal and lignite
+      code: {start: 5000, end: 6000}
+
+    '051':
+      level: 3
+      title: Mining of hard coal
+      code: {start: 5100, end: 5200}
+
+    '0510':
+      level: 4
+      title: Mining of hard coal
+      code: {start: 5100, end: 5110}
+
+    '052':
+      level: 3
+      title: Mining of lignite
+      code: {start: 5200, end: 5300}
+
+    '0520':
+      level: 4
+      title: Mining of lignite
+      code: {start: 5200, end: 5210}
+
+    '06':
+      level: 2
+      title: Extraction of crude petroleum and natural gas
+      code: {start: 6000, end: 7000}
+
+    '061':
+      level: 3
+      title: Extraction of crude petroleum
+      code: {start: 6100, end: 6200}
+
+      level: 4
+    '0610':
+      title: Extraction of crude petroleum
+      code: {start: 6100, end: 6110}
+
+    '062':
+      level: 3
+      title: Extraction of natural gas
+      code: {start: 6200, end: 6300}
+
+    '0620':
+      level: 4
+      title: Extraction of natural gas
+      code: {start: 6200, end: 6210}
+
+    '07':
+      level: 2
+      title: Mining of metal ores
+      code: {start: 7000, end: 8000}
+
+    '071':
+      level: 3
+      title: Mining of iron ores
+      code: {start: 7100, end: 7200}
+
+    '0710':
+      level: 4
+      title: Mining of iron ores
+      code: {start: 7100, end: 7110}
+
+    '072':
+      level: 3
+      title: Mining of non-ferrous metal ores
+      code: {start: 7200, end: 7300}
+
+    '0721':
+      level: 4
+      title: Mining of uranium and thorium ores
+      code: {start: 7210, end: 7220}
+
+    '0729':
+      level: 4
+      title: Mining of other non-ferrous metal ores
+      code: {start: 7290, end: 7300}
+
+    '08':
+      level: 2
+      title: Other mining and quarrying
+      code: {start: 8000, end: 9000}
+
+    '081':
+      level: 3
+      title: Quarrying of stone, sand and clay
+      code: {start: 8100, end: 8200}
+
+    '0810':
+      level: 4
+      title: Quarrying of stone, sand and clay
+      code: {start: 8100, end: 8110}
+
+    '089':
+      level: 3
+      title: Mining and quarrying n.e.c.
+      code: {start: 8900, end: 9000}
+
+    '0891':
+      level: 4
+      title: Mining of chemical and fertilizer minerals
+      code: {start: 8910, end: 8920}
+
+    '0892':
+      level: 4
+      title: Extraction of peat
+      code: {start: 8920, end: 8930}
+
+    '0893':
+      level: 4
+      title: Extraction of salt
+      code: {start: 8930, end: 8940}
+
+    '0899':
+      level: 4
+      title: Other mining and quarrying n.e.c.
+      code: {start: 8990, end: 9000}
+
+    '09':
+      level: 2
+      title: Mining support service activities
+      code: {start: 9000, end: 10000}
+
+    '091':
+      level: 3
+      title: Support activities for petroleum and natural gas extraction
+      code: {start: 9100, end: 9200}
+
+    '0910':
+      level: 4
+      title: Support activities for petroleum and natural gas extraction
+      code: {start: 9100, end: 9110}
+
+    '099':
+      level: 3
+      title: Support activities for other mining and quarrying
+      code: {start: 9900, end: 10000}
+
+    '0990':
+      level: 4
+      title: Support activities for other mining and quarrying
+      code: {start: 9900, end: 9910}
+
+    C:
+      level: 1
+      title: Manufacturing
+      code: {start: 10000, end: 34000}
+
+    '10':
+      level: 2
+      title: Manufacture of food products
+      code: {start: 10000, end: 11000}
+
+    '101':
+      level: 3
+      title: Processing and preserving of meat
+      code: {start: 10100, end: 10200}
+
+    '1010':
+      level: 4
+      title: Processing and preserving of meat
+      code: {start: 10100, end: 10110}
+
+    '102':
+      level: 3
+      title: Processing and preserving of fish, crustaceans and molluscs
+      code: {start: 10200, end: 10300}
+
+    '1020':
+      level: 4
+      title: Processing and preserving of fish, crustaceans and molluscs
+      code: {start: 10200, end: 10210}
+
+    '103':
+      level: 3
+      title: Processing and preserving of fruit and vegetables
+      code: {start: 10300, end: 10400}
+
+    '1030':
+      level: 4
+      title: Processing and preserving of fruit and vegetables
+      code: {start: 10300, end: 10310}
+
+    '104':
+      level: 3
+      title: Manufacture of vegetable and animal oils and fats
+      code: {start: 10400, end: 10500}
+
+    '1040':
+      level: 4
+      title: Manufacture of vegetable and animal oils and fats
+      code: {start: 10400, end: 10410}
+
+    '105':
+      level: 3
+      title: Manufacture of dairy products
+      code: {start: 10500, end: 10600}
+
+    '1050':
+      level: 4
+      title: Manufacture of dairy products
+      code: {start: 10500, end: 10510}
+
+    '106':
+      level: 3
+      title: Manufacture of grain mill products, starches and starch products
+      code: {start: 10600, end: 10700}
+
+    '1061':
+      level: 4
+      title: Manufacture of grain mill products
+      code: {start: 10610, end: 10620}
+
+    '1062':
+      level: 4
+      title: Manufacture of starches and starch products
+      code: {start: 10620, end: 10630}
+
+    '107':
+      level: 3
+      title: Manufacture of other food products
+      code: {start: 10700, end: 10800}
+
+    '1071':
+      level: 4
+      title: Manufacture of bakery products
+      code: {start: 10710, end: 10720}
+
+    '1072':
+      level: 4
+      title: Manufacture of sugar
+      code: {start: 10720, end: 10730}
+
+    '1073':
+      level: 4
+      title: Manufacture of cocoa, chocolate and sugar confectionery
+      code: {start: 10730, end: 10740}
+
+    '1074':
+      level: 4
+      title: Manufacture of macaroni, noodles, couscous and similar farinaceous
+        products
+      code: {start: 10740, end: 10750}
+
+    '1075':
+      level: 4
+      title: Manufacture of prepared meals and dishes
+      code: {start: 10750, end: 10760}
+
+    '1079':
+      level: 4
+      title: Manufacture of other food products n.e.c.
+      code: {start: 10790, end: 10800}
+
+    '108':
+      level: 3
+      title: Manufacture of prepared animal feeds
+      code: {start: 10800, end: 10900}
+
+    '1080':
+      level: 4
+      title: Manufacture of prepared animal feeds
+      code: {start: 10800, end: 10810}
+
+    '11':
+      level: 2
+      title: Manufacture of beverages
+      code: {start: 11000, end: 12000}
+
+    '110':
+      level: 3
+      title: Manufacture of beverages
+      code: {start: 11000, end: 11100}
+
+    '1101':
+      level: 4
+      title: Distilling, rectifying and blending of spirits
+      code: {start: 11010, end: 11020}
+
+    '1102':
+      level: 4
+      title: Manufacture of wines
+      code: {start: 11020, end: 11030}
+
+    '1103':
+      level: 4
+      title: Manufacture of malt liquors and malt
+      code: {start: 11030, end: 11040}
+
+    '1104':
+      level: 4
+      title: Manufacture of soft drinks; production of mineral waters and other
+        bottled waters
+      code: {start: 11040, end: 11050}
+
+    '12':
+      level: 2
+      title: Manufacture of tobacco products
+      code: {start: 12000, end: 13000}
+
+    '120':
+      level: 3
+      title: Manufacture of tobacco products
+      code: {start: 12000, end: 12100}
+
+    '1200':
+      level: 4
+      title: Manufacture of tobacco products
+      code: {start: 12000, end: 12010}
+
+    '13':
+      level: 2
+      title: Manufacture of textiles
+      code: {start: 13000, end: 14000}
+
+    '131':
+      level: 3
+      title: Spinning, weaving and finishing of textiles
+      code: {start: 13100, end: 13200}
+
+    '1311':
+      level: 4
+      title: Preparation and spinning of textile fibres
+      code: {start: 13110, end: 13120}
+
+    '1312':
+      level: 4
+      title: Weaving of textiles
+      code: {start: 13120, end: 13130}
+
+    '1313':
+      level: 4
+      title: Finishing of textiles
+      code: {start: 13130, end: 13140}
+
+    '139':
+      level: 3
+      title: Manufacture of other textiles
+      code: {start: 13900, end: 14000}
+
+    '1391':
+      level: 4
+      title: Manufacture of knitted and crocheted fabrics
+      code: {start: 13910, end: 13920}
+
+    '1392':
+      level: 4
+      title: Manufacture of made-up textile articles, except apparel
+      code: {start: 13920, end: 13930}
+
+    '1393':
+      level: 4
+      title: Manufacture of carpets and rugs
+      code: {start: 13930, end: 13940}
+
+    '1394':
+      level: 4
+      title: Manufacture of cordage, rope, twine and netting
+      code: {start: 13940, end: 13950}
+
+    '1399':
+      level: 4
+      title: Manufacture of other textiles n.e.c.
+      code: {start: 13990, end: 14000}
+
+    '14':
+      level: 2
+      title: Manufacture of wearing apparel
+      code: {start: 14000, end: 15000}
+
+    '141':
+      level: 3
+      title: Manufacture of wearing apparel, except fur apparel
+      code: {start: 14100, end: 14200}
+
+    '1410':
+      level: 4
+      title: Manufacture of wearing apparel, except fur apparel
+      code: {start: 14100, end: 14110}
+
+    '142':
+      level: 3
+      title: Manufacture of articles of fur
+      code: {start: 14200, end: 14300}
+
+    '1420':
+      level: 4
+      title: Manufacture of articles of fur
+      code: {start: 14200, end: 14210}
+
+    '143':
+      level: 3
+      title: Manufacture of knitted and crocheted apparel
+      code: {start: 14300, end: 14400}
+
+    '1430':
+      level: 4
+      title: Manufacture of knitted and crocheted apparel
+      code: {start: 14300, end: 14310}
+
+    '15':
+      level: 2
+      title: Manufacture of leather and related products
+      code: {start: 15000, end: 16000}
+
+    '151':
+      level: 3
+      title: Tanning and dressing of leather; manufacture of luggage, handbags,
+        saddlery and harness; dressing and dyeing of fur
+      code: {start: 15100, end: 15200}
+
+    '1511':
+      level: 4
+      title: Tanning and dressing of leather; dressing and dyeing of fur
+      code: {start: 15110, end: 15120}
+
+    '1512':
+      level: 4
+      title: Manufacture of luggage, handbags and the like, saddlery and harness
+      code: {start: 15120, end: 15130}
+
+    '152':
+      level: 3
+      title: Manufacture of footwear
+      code: {start: 15200, end: 15300}
+
+    '1520':
+      level: 4
+      title: Manufacture of footwear
+      code: {start: 15200, end: 15210}
+
+    '16':
+      level: 2
+      title: Manufacture of wood and of products of wood and cork, except furniture;
+        manufacture of articles of straw and plaiting materials
+      code: {start: 16000, end: 17000}
+
+    '161':
+      level: 3
+      title: Sawmilling and planing of wood
+      code: {start: 16100, end: 16200}
+
+    '1610':
+      level: 4
+      title: Sawmilling and planing of wood
+      code: {start: 16100, end: 16110}
+
+    '162':
+      level: 3
+      title: Manufacture of products of wood, cork, straw and plaiting materials
+      code: {start: 16200, end: 16300}
+
+    '1621':
+      level: 4
+      title: Manufacture of veneer sheets and wood-based panels
+      code: {start: 16210, end: 16220}
+
+    '1622':
+      level: 4
+      title: Manufacture of builders' carpentry and joinery
+      code: {start: 16220, end: 16230}
+
+    '1623':
+      level: 4
+      title: Manufacture of wooden containers
+      code: {start: 16230, end: 16240}
+
+    '1629':
+      level: 4
+      title: Manufacture of other products of wood; manufacture of articles
+        of cork, straw and plaiting materials
+      code: {start: 16290, end: 16300}
+
+    '17':
+      level: 2
+      title: Manufacture of paper and paper products
+      code: {start: 17000, end: 18000}
+
+    '170':
+      level: 3
+      title: Manufacture of paper and paper products
+      code: {start: 17000, end: 17100}
+
+    '1701':
+      level: 4
+      title: Manufacture of pulp, paper and paperboard
+      code: {start: 17010, end: 17020}
+
+    '1702':
+      level: 4
+      title: Manufacture of corrugated paper and paperboard and of containers
+        of paper and paperboard
+      code: {start: 17020, end: 17030}
+
+    '1709':
+      level: 4
+      title: Manufacture of other articles of paper and paperboard
+      code: {start: 17090, end: 17100}
+
+    '18':
+      level: 2
+      title: Printing and reproduction of recorded media
+      code: {start: 18000, end: 19000}
+
+    '181':
+      level: 3
+      title: Printing and service activities related to printing
+      code: {start: 18100, end: 18200}
+
+    '1811':
+      level: 4
+      title: Printing
+      code: {start: 18110, end: 18120}
+
+    '1812':
+      level: 4
+      title: Service activities related to printing
+      code: {start: 18120, end: 18130}
+
+    '182':
+      level: 3
+      title: Reproduction of recorded media
+      code: {start: 18200, end: 18300}
+
+    '1820':
+      level: 4
+      title: Reproduction of recorded media
+      code: {start: 18200, end: 18210}
+
+    '19':
+      level: 2
+      title: Manufacture of coke and refined petroleum products
+      code: {start: 19000, end: 20000}
+
+    '191':
+      level: 3
+      title: Manufacture of coke oven products
+      code: {start: 19100, end: 19200}
+
+    '1910':
+      level: 4
+      title: Manufacture of coke oven products
+      code: {start: 19100, end: 19110}
+
+    '192':
+      level: 3
+      title: Manufacture of refined petroleum products
+      code: {start: 19200, end: 19300}
+
+    '1920':
+      level: 4
+      title: Manufacture of refined petroleum products
+      code: {start: 19200, end: 19210}
+
+    '20':
+      level: 2
+      title: Manufacture of chemicals and chemical products
+      code: {start: 20000, end: 21000}
+
+    '201':
+      level: 3
+      title: Manufacture of basic chemicals, fertilizers and nitrogen compounds,
+        plastics and synthetic rubber in primary forms
+      code: {start: 20100, end: 20200}
+
+    '2011':
+      level: 4
+      title: Manufacture of basic chemicals
+      code: {start: 20110, end: 20120}
+
+    '2012':
+      level: 4
+      title: Manufacture of fertilizers and nitrogen compounds
+      code: {start: 20120, end: 20130}
+
+    '2013':
+      level: 4
+      title: Manufacture of plastics and synthetic rubber in primary forms
+      code: {start: 20130, end: 20140}
+
+    '202':
+      level: 3
+      title: Manufacture of other chemical products
+      code: {start: 20200, end: 20300}
+
+    '2021':
+      level: 4
+      title: Manufacture of pesticides and other agrochemical products
+      code: {start: 20210, end: 20220}
+
+    '2022':
+      level: 4
+      title: Manufacture of paints, varnishes and similar coatings, printing
+        ink and mastics
+      code: {start: 20220, end: 20230}
+
+    '2023':
+      level: 4
+      title: Manufacture of soap and detergents, cleaning and polishing preparations,
+        perfumes and toilet preparations
+      code: {start: 20230, end: 20240}
+
+    '2029':
+      level: 4
+      title: Manufacture of other chemical products n.e.c.
+      code: {start: 20290, end: 20300}
+
+    '203':
+      level: 3
+      title: Manufacture of man-made fibres
+      code: {start: 20300, end: 20400}
+
+    '2030':
+      level: 4
+      title: Manufacture of man-made fibres
+      code: {start: 20300, end: 20310}
+
+    '21':
+      level: 2
+      title: Manufacture of basic pharmaceutical products and pharmaceutical
+        preparations
+      code: {start: 21000, end: 22000}
+
+    '210':
+      level: 3
+      title: Manufacture of pharmaceuticals, medicinal chemical and botanical
+        products
+      code: {start: 21000, end: 21100}
+
+    '2100':
+      level: 4
+      title: Manufacture of pharmaceuticals, medicinal chemical and botanical
+        products
+      code: {start: 21000, end: 21010}
+
+    '22':
+      level: 2
+      title: Manufacture of rubber and plastics products
+      code: {start: 22000, end: 23000}
+
+    '221':
+      level: 3
+      title: Manufacture of rubber products
+      code: {start: 22100, end: 22200}
+
+    '2211':
+      level: 4
+      title: Manufacture of rubber tyres and tubes; retreading and rebuilding
+        of rubber tyres
+      code: {start: 22110, end: 22120}
+
+    '2219':
+      level: 4
+      title: Manufacture of other rubber products
+      code: {start: 22190, end: 22200}
+
+    '222':
+      level: 3
+      title: Manufacture of plastics products
+      code: {start: 22200, end: 22300}
+
+    '2220':
+      level: 4
+      title: Manufacture of plastics products
+      code: {start: 22200, end: 22210}
+
+    '23':
+      level: 2
+      title: Manufacture of other non-metallic mineral products
+      code: {start: 23000, end: 24000}
+
+    '231':
+      level: 3
+      title: Manufacture of glass and glass products
+      code: {start: 23100, end: 23200}
+
+    '2310':
+      level: 4
+      title: Manufacture of glass and glass products
+      code: {start: 23100, end: 23110}
+
+    '239':
+      level: 3
+      title: Manufacture of non-metallic mineral products n.e.c.
+      code: {start: 23900, end: 24000}
+
+    '2391':
+      level: 4
+      title: Manufacture of refractory products
+      code: {start: 23910, end: 23920}
+
+    '2392':
+      level: 4
+      title: Manufacture of clay building materials
+      code: {start: 23920, end: 23930}
+
+    '2393':
+      level: 4
+      title: Manufacture of other porcelain and ceramic products
+      code: {start: 23930, end: 23940}
+
+    '2394':
+      level: 4
+      title: Manufacture of cement, lime and plaster
+      code: {start: 23940, end: 23950}
+
+    '2395':
+      level: 4
+      title: Manufacture of articles of concrete, cement and plaster
+      code: {start: 23950, end: 23960}
+
+    '2396':
+      level: 4
+      title: Cutting, shaping and finishing of stone
+      code: {start: 23960, end: 23970}
+
+    '2399':
+      level: 4
+      title: Manufacture of other non-metallic mineral products n.e.c.
+      code: {start: 23990, end: 24000}
+
+    '24':
+      level: 2
+      title: Manufacture of basic metals
+      code: {start: 24000, end: 25000}
+
+    '241':
+      level: 3
+      title: Manufacture of basic iron and steel
+      code: {start: 24100, end: 24200}
+
+    '2410':
+      level: 4
+      title: Manufacture of basic iron and steel
+      code: {start: 24100, end: 24110}
+
+    '242':
+      level: 3
+      title: Manufacture of basic precious and other non-ferrous metals
+      code: {start: 24200, end: 24300}
+
+    '2420':
+      level: 4
+      title: Manufacture of basic precious and other non-ferrous metals
+      code: {start: 24200, end: 24210}
+
+    '243':
+      level: 3
+      title: Casting of metals
+      code: {start: 24300, end: 24400}
+
+    '2431':
+      level: 4
+      title: Casting of iron and steel
+      code: {start: 24310, end: 24320}
+
+    '2432':
+      level: 4
+      title: Casting of non-ferrous metals
+      code: {start: 24320, end: 24330}
+
+    '25':
+      level: 2
+      title: Manufacture of fabricated metal products, except machinery and
+        equipment
+      code: {start: 25000, end: 26000}
+
+    '251':
+      level: 3
+      title: Manufacture of structural metal products, tanks, reservoirs and
+        steam generators
+      code: {start: 25100, end: 25200}
+
+    '2511':
+      level: 4
+      title: Manufacture of structural metal products
+      code: {start: 25110, end: 25120}
+
+    '2512':
+      level: 4
+      title: Manufacture of tanks, reservoirs and containers of metal
+      code: {start: 25120, end: 25130}
+
+    '2513':
+      level: 4
+      title: Manufacture of steam generators, except central heating hot water
+        boilers
+      code: {start: 25130, end: 25140}
+
+    '252':
+      level: 3
+      title: Manufacture of weapons and ammunition
+      code: {start: 25200, end: 25300}
+
+    '2520':
+      level: 4
+      title: Manufacture of weapons and ammunition
+      code: {start: 25200, end: 25210}
+
+    '259':
+      level: 3
+      title: Manufacture of other fabricated metal products; metalworking service
+        activities
+      code: {start: 25900, end: 26000}
+
+    '2591':
+      level: 4
+      title: Forging, pressing, stamping and roll-forming of metal; powder metallurgy
+      code: {start: 25910, end: 25920}
+
+    '2592':
+      level: 4
+      title: Treatment and coating of metals; machining
+      code: {start: 25920, end: 25930}
+
+    '2593':
+      level: 4
+      title: Manufacture of cutlery, hand tools and general hardware
+      code: {start: 25930, end: 25940}
+
+    '2599':
+      level: 4
+      title: Manufacture of other fabricated metal products n.e.c.
+      code: {start: 25990, end: 26000}
+
+    '26':
+      level: 2
+      title: Manufacture of computer, electronic and optical products
+      code: {start: 26000, end: 27000}
+
+    '261':
+      level: 3
+      title: Manufacture of electronic components and boards
+      code: {start: 26100, end: 26200}
+
+    '2610':
+      level: 4
+      title: Manufacture of electronic components and boards
+      code: {start: 26100, end: 26110}
+
+    '262':
+      level: 3
+      title: Manufacture of computers and peripheral equipment
+      code: {start: 26200, end: 26300}
+
+    '2620':
+      level: 4
+      title: Manufacture of computers and peripheral equipment
+      code: {start: 26200, end: 26210}
+
+    '263':
+      level: 3
+      title: Manufacture of communication equipment
+      code: {start: 26300, end: 26400}
+
+    '2630':
+      level: 4
+      title: Manufacture of communication equipment
+      code: {start: 26300, end: 26310}
+
+    '264':
+      level: 3
+      title: Manufacture of consumer electronics
+      code: {start: 26400, end: 26500}
+
+    '2640':
+      level: 4
+      title: Manufacture of consumer electronics
+      code: {start: 26400, end: 26410}
+
+    '265':
+      level: 3
+      title: Manufacture of measuring, testing, navigating and control equipment;
+        watches and clocks
+      code: {start: 26500, end: 26600}
+
+    '2651':
+      level: 4
+      title: Manufacture of measuring, testing, navigating and control equipment
+      code: {start: 26510, end: 26520}
+
+    '2652':
+      level: 4
+      title: Manufacture of watches and clocks
+      code: {start: 26520, end: 26530}
+
+    '266':
+      level: 3
+      title: Manufacture of irradiation, electromedical and electrotherapeutic
+        equipment
+      code: {start: 26600, end: 26700}
+
+    '2660':
+      level: 4
+      title: Manufacture of irradiation, electromedical and electrotherapeutic
+        equipment
+      code: {start: 26600, end: 26610}
+
+    '267':
+      level: 3
+      title: Manufacture of optical instruments and photographic equipment
+      code: {start: 26700, end: 26800}
+
+    '2670':
+      level: 4
+      title: Manufacture of optical instruments and photographic equipment
+      code: {start: 26700, end: 26710}
+
+    '268':
+      level: 3
+      title: Manufacture of magnetic and optical media
+      code: {start: 26800, end: 26900}
+
+    '2680':
+      level: 4
+      title: Manufacture of magnetic and optical media
+      code: {start: 26800, end: 26810}
+
+    '27':
+      level: 2
+      title: Manufacture of electrical equipment
+      code: {start: 27000, end: 28000}
+
+    '271':
+      level: 3
+      title: Manufacture of electric motors, generators, transformers and electricity
+        distribution and control apparatus
+      code: {start: 27100, end: 27200}
+
+    '2710':
+      level: 4
+      title: Manufacture of electric motors, generators, transformers and electricity
+        distribution and control apparatus
+      code: {start: 27100, end: 27110}
+
+    '272':
+      level: 3
+      title: Manufacture of batteries and accumulators
+      code: {start: 27200, end: 27300}
+
+    '2720':
+      level: 4
+      title: Manufacture of batteries and accumulators
+      code: {start: 27200, end: 27210}
+
+    '273':
+      level: 3
+      title: Manufacture of wiring and wiring devices
+      code: {start: 27300, end: 27400}
+
+    '2731':
+      level: 4
+      title: Manufacture of fibre optic cables
+      code: {start: 27310, end: 27320}
+
+    '2732':
+      level: 4
+      title: Manufacture of other electronic and electric wires and cables
+      code: {start: 27320, end: 27330}
+
+    '2733':
+      level: 4
+      title: Manufacture of wiring devices
+      code: {start: 27330, end: 27340}
+
+    '274':
+      level: 3
+      title: Manufacture of electric lighting equipment
+      code: {start: 27400, end: 27500}
+
+    '2740':
+      level: 4
+      title: Manufacture of electric lighting equipment
+      code: {start: 27400, end: 27410}
+
+    '275':
+      level: 3
+      title: Manufacture of domestic appliances
+      code: {start: 27500, end: 27600}
+
+    '2750':
+      level: 4
+      title: Manufacture of domestic appliances
+      code: {start: 27500, end: 27510}
+
+    '279':
+      level: 3
+      title: Manufacture of other electrical equipment
+      code: {start: 27900, end: 28000}
+
+    '2790':
+      level: 4
+      title: Manufacture of other electrical equipment
+      code: {start: 27900, end: 27910}
+
+    '28':
+      level: 2
+      title: Manufacture of machinery and equipment n.e.c.
+      code: {start: 28000, end: 29000}
+
+    '281':
+      level: 3
+      title: Manufacture of general-purpose machinery
+      code: {start: 28100, end: 28200}
+
+    '2811':
+      level: 4
+      title: Manufacture of engines and turbines, except aircraft, vehicle and
+        cycle engines
+      code: {start: 28110, end: 28120}
+
+    '2812':
+      level: 4
+      title: Manufacture of fluid power equipment
+      code: {start: 28120, end: 28130}
+
+    '2813':
+      level: 4
+      title: Manufacture of other pumps, compressors, taps and valves
+      code: {start: 28130, end: 28140}
+
+    '2814':
+      level: 4
+      title: Manufacture of bearings, gears, gearing and driving elements
+      code: {start: 28140, end: 28150}
+
+    '2815':
+      level: 4
+      title: Manufacture of ovens, furnaces and furnace burners
+      code: {start: 28150, end: 28160}
+
+    '2816':
+      level: 4
+      title: Manufacture of lifting and handling equipment
+      code: {start: 28160, end: 28170}
+
+    '2817':
+      level: 4
+      title: Manufacture of office machinery and equipment (except computers
+        and peripheral equipment)
+      code: {start: 28170, end: 28180}
+
+    '2818':
+      level: 4
+      title: Manufacture of power-driven hand tools
+      code: {start: 28180, end: 28190}
+
+    '2819':
+      level: 4
+      title: Manufacture of other general-purpose machinery
+      code: {start: 28190, end: 28200}
+
+    '282':
+      level: 3
+      title: Manufacture of special-purpose machinery
+      code: {start: 28200, end: 28300}
+
+    '2821':
+      level: 4
+      title: Manufacture of agricultural and forestry machinery
+      code: {start: 28210, end: 28220}
+
+    '2822':
+      level: 4
+      title: Manufacture of metal-forming machinery and machine tools
+      code: {start: 28220, end: 28230}
+
+    '2823':
+      level: 4
+      title: Manufacture of machinery for metallurgy
+      code: {start: 28230, end: 28240}
+
+    '2824':
+      level: 4
+      title: Manufacture of machinery for mining, quarrying and construction
+      code: {start: 28240, end: 28250}
+
+    '2825':
+      level: 4
+      title: Manufacture of machinery for food, beverage and tobacco processing
+      code: {start: 28250, end: 28260}
+
+    '2826':
+      level: 4
+      title: Manufacture of machinery for textile, apparel and leather production
+      code: {start: 28260, end: 28270}
+
+    '2829':
+      level: 4
+      title: Manufacture of other special-purpose machinery
+      code: {start: 28290, end: 28300}
+
+    '29':
+      level: 2
+      title: Manufacture of motor vehicles, trailers and semi-trailers
+      code: {start: 29000, end: 30000}
+
+    '291':
+      level: 3
+      title: Manufacture of motor vehicles
+      code: {start: 29100, end: 29200}
+
+    '2910':
+      level: 4
+      title: Manufacture of motor vehicles
+      code: {start: 29100, end: 29110}
+
+    '292':
+      level: 3
+      title: Manufacture of bodies (coachwork) for motor vehicles; manufacture
+        of trailers and semi-trailers
+      code: {start: 29200, end: 29300}
+
+    '2920':
+      level: 4
+      title: Manufacture of bodies (coachwork) for motor vehicles; manufacture
+        of trailers and semi-trailers
+      code: {start: 29200, end: 29210}
+
+    '293':
+      level: 3
+      title: Manufacture of parts and accessories for motor vehicles
+      code: {start: 29300, end: 29400}
+
+    '2930':
+      level: 4
+      title: Manufacture of parts and accessories for motor vehicles
+      code: {start: 29300, end: 29310}
+
+    '30':
+      level: 2
+      title: Manufacture of other transport equipment
+      code: {start: 30000, end: 31000}
+
+    '301':
+      level: 3
+      title: Building of ships and boats
+      code: {start: 30100, end: 30200}
+
+    '3011':
+      level: 4
+      title: Building of ships and floating structures
+      code: {start: 30110, end: 30120}
+
+    '3012':
+      level: 4
+      title: Building of pleasure and sporting boats
+      code: {start: 30120, end: 30130}
+
+    '302':
+      level: 3
+      title: Manufacture of railway locomotives and rolling stock
+      code: {start: 30200, end: 30300}
+
+    '3020':
+      level: 4
+      title: Manufacture of railway locomotives and rolling stock
+      code: {start: 30200, end: 30210}
+
+    '303':
+      level: 3
+      title: Manufacture of air and spacecraft and related machinery
+      code: {start: 30300, end: 30400}
+
+    '3030':
+      level: 4
+      title: Manufacture of air and spacecraft and related machinery
+      code: {start: 30300, end: 30310}
+
+    '304':
+      level: 3
+      title: Manufacture of military fighting vehicles
+      code: {start: 30400, end: 30500}
+
+    '3040':
+      level: 4
+      title: Manufacture of military fighting vehicles
+      code: {start: 30400, end: 30410}
+
+    '309':
+      level: 3
+      title: Manufacture of transport equipment n.e.c.
+      code: {start: 30900, end: 31000}
+
+    '3091':
+      level: 4
+      title: Manufacture of motorcycles
+      code: {start: 30910, end: 30920}
+
+    '3092':
+      level: 4
+      title: Manufacture of bicycles and invalid carriages
+      code: {start: 30920, end: 30930}
+
+    '3099':
+      level: 4
+      title: Manufacture of other transport equipment n.e.c.
+      code: {start: 30990, end: 31000}
+
+    '31':
+      level: 2
+      title: Manufacture of furniture
+      code: {start: 31000, end: 32000}
+
+    '310':
+      level: 3
+      title: Manufacture of furniture
+      code: {start: 31000, end: 31100}
+
+    '3100':
+      level: 4
+      title: Manufacture of furniture
+      code: {start: 31000, end: 31010}
+
+    '32':
+      level: 2
+      title: Other manufacturing
+      code: {start: 32000, end: 33000}
+
+    '321':
+      level: 3
+      title: Manufacture of jewellery, bijouterie and related articles
+      code: {start: 32100, end: 32200}
+
+    '3211':
+      level: 4
+      title: Manufacture of jewellery and related articles
+      code: {start: 32110, end: 32120}
+
+    '3212':
+      level: 4
+      title: Manufacture of imitation jewellery and related articles
+      code: {start: 32120, end: 32130}
+
+    '322':
+      level: 3
+      title: Manufacture of musical instruments
+      code: {start: 32200, end: 32300}
+
+    '3220':
+      level: 4
+      title: Manufacture of musical instruments
+      code: {start: 32200, end: 32210}
+
+    '323':
+      level: 3
+      title: Manufacture of sports goods
+      code: {start: 32300, end: 32400}
+
+    '3230':
+      level: 4
+      title: Manufacture of sports goods
+      code: {start: 32300, end: 32310}
+
+    '324':
+      level: 3
+      title: Manufacture of games and toys
+      code: {start: 32400, end: 32500}
+
+    '3240':
+      level: 4
+      title: Manufacture of games and toys
+      code: {start: 32400, end: 32410}
+
+    '325':
+      level: 3
+      title: Manufacture of medical and dental instruments and supplies
+      code: {start: 32500, end: 32600}
+
+    '3250':
+      level: 4
+      title: Manufacture of medical and dental instruments and supplies
+      code: {start: 32500, end: 32510}
+
+    '329':
+      level: 3
+      title: Other manufacturing n.e.c.
+      code: {start: 32900, end: 33000}
+
+    '3290':
+      level: 4
+      title: Other manufacturing n.e.c.
+      code: {start: 32900, end: 32910}
+
+    '33':
+      level: 2
+      title: Repair and installation of machinery and equipment
+      code: {start: 33000, end: 34000}
+
+    '331':
+      level: 3
+      title: Repair of fabricated metal products, machinery and equipment
+      code: {start: 33100, end: 33200}
+
+    '3311':
+      level: 4
+      title: Repair of fabricated metal products
+      code: {start: 33110, end: 33120}
+
+    '3312':
+      level: 4
+      title: Repair of machinery
+      code: {start: 33120, end: 33130}
+
+    '3313':
+      level: 4
+      title: Repair of electronic and optical equipment
+      code: {start: 33130, end: 33140}
+
+    '3314':
+      level: 4
+      title: Repair of electrical equipment
+      code: {start: 33140, end: 33150}
+
+    '3315':
+      level: 4
+      title: Repair of transport equipment, except motor vehicles
+      code: {start: 33150, end: 33160}
+
+    '3319':
+      level: 4
+      title: Repair of other equipment
+      code: {start: 33190, end: 33200}
+
+    '332':
+      level: 3
+      title: Installation of industrial machinery and equipment
+      code: {start: 33200, end: 33300}
+
+    '3320':
+      level: 4
+      title: Installation of industrial machinery and equipment
+      code: {start: 33200, end: 33210}
+
+    D:
+      level: 1
+      title: Electricity, gas, steam and air conditioning supply
+      code: {start: 35000, end: 36000}
+
+    '35':
+      level: 2
+      title: Electricity, gas, steam and air conditioning supply
+      code: {start: 35000, end: 36000}
+
+    '351':
+      level: 3
+      title: Electric power generation, transmission and distribution
+      code: {start: 35100, end: 35200}
+
+    '3510':
+      level: 4
+      title: Electric power generation, transmission and distribution
+      code: {start: 35100, end: 35110}
+
+    '352':
+      level: 3
+      title: Manufacture of gas; distribution of gaseous fuels through mains
+      code: {start: 35200, end: 35300}
+
+    '3520':
+      level: 4
+      title: Manufacture of gas; distribution of gaseous fuels through mains
+      code: {start: 35200, end: 35210}
+
+    '353':
+      level: 3
+      title: Steam and air conditioning supply
+      code: {start: 35300, end: 35400}
+
+    '3530':
+      level: 4
+      title: Steam and air conditioning supply
+      code: {start: 35300, end: 35310}
+
+    E:
+      level: 1
+      title: Water supply; sewerage, waste management and remediation activities
+      code: {start: 36000, end: 40000}
+
+    '36':
+      level: 2
+      title: Water collection, treatment and supply
+      code: {start: 36000, end: 37000}
+
+    '360':
+      level: 3
+      title: Water collection, treatment and supply
+      code: {start: 36000, end: 36100}
+
+    '3600':
+      level: 4
+      title: Water collection, treatment and supply
+      code: {start: 36000, end: 36010}
+
+    '37':
+      level: 2
+      title: Sewerage
+      code: {start: 37000, end: 38000}
+
+    '370':
+      level: 3
+      title: Sewerage
+      code: {start: 37000, end: 37100}
+
+    '3700':
+      level: 4
+      title: Sewerage
+      code: {start: 37000, end: 37010}
+
+    '38':
+      level: 2
+      title: Waste collection, treatment and disposal activities; materials
+        recovery
+      code: {start: 38000, end: 39000}
+
+    '381':
+      level: 3
+      title: Waste collection
+      code: {start: 38100, end: 38200}
+
+    '3811':
+      level: 4
+      title: Collection of non-hazardous waste
+      code: {start: 38110, end: 38120}
+
+    '3812':
+      level: 4
+      title: Collection of hazardous waste
+      code: {start: 38120, end: 38130}
+
+    '382':
+      level: 3
+      title: Waste treatment and disposal
+      code: {start: 38200, end: 38300}
+
+    '3821':
+      level: 4
+      title: Treatment and disposal of non-hazardous waste
+      code: {start: 38210, end: 38220}
+
+    '3822':
+      level: 4
+      title: Treatment and disposal of hazardous waste
+      code: {start: 38220, end: 38230}
+
+    '383':
+      level: 3
+      title: Materials recovery
+      code: {start: 38300, end: 38400}
+
+    '3830':
+      level: 4
+      title: Materials recovery
+      code: {start: 38300, end: 38310}
+
+    '39':
+      level: 2
+      title: Remediation activities and other waste management services
+      code: {start: 39000, end: 40000}
+
+    '390':
+      level: 3
+      title: Remediation activities and other waste management services
+      code: {start: 39000, end: 39100}
+
+    '3900':
+      level: 4
+      title: Remediation activities and other waste management services
+      code: {start: 39000, end: 39010}
+
+    F:
+      level: 1
+      title: Construction
+      code: {start: 41000, end: 44000}
+
+    '41':
+      level: 2
+      title: Construction of buildings
+      code: {start: 41000, end: 42000}
+
+    '410':
+      level: 3
+      title: Construction of buildings
+      code: {start: 41000, end: 41100}
+
+    '4100':
+      level: 4
+      title: Construction of buildings
+      code: {start: 41000, end: 41010}
+
+    '42':
+      level: 2
+      title: Civil engineering
+      code: {start: 42000, end: 43000}
+
+    '421':
+      level: 3
+      title: Construction of roads and railways
+      code: {start: 42100, end: 42200}
+
+    '4210':
+      level: 4
+      title: Construction of roads and railways
+      code: {start: 42100, end: 42110}
+
+    '422':
+      level: 3
+      title: Construction of utility projects
+      code: {start: 42200, end: 42300}
+
+    '4220':
+      level: 4
+      title: Construction of utility projects
+      code: {start: 42200, end: 42210}
+
+    '429':
+      level: 3
+      title: Construction of other civil engineering projects
+      code: {start: 42900, end: 43000}
+
+    '4290':
+      level: 4
+      title: Construction of other civil engineering projects
+      code: {start: 42900, end: 42910}
+
+    '43':
+      level: 2
+      title: Specialized construction activities
+      code: {start: 43000, end: 44000}
+
+    '431':
+      level: 3
+      title: Demolition and site preparation
+      code: {start: 43100, end: 43200}
+
+    '4311':
+      level: 4
+      title: Demolition
+      code: {start: 43110, end: 43120}
+
+    '4312':
+      level: 4
+      title: Site preparation
+      code: {start: 43120, end: 43130}
+
+    '432':
+      level: 3
+      title: Electrical, plumbing and other construction installation activities
+      code: {start: 43200, end: 43300}
+
+    '4321':
+      level: 4
+      title: Electrical installation
+      code: {start: 43210, end: 43220}
+
+    '4322':
+      level: 4
+      title: Plumbing, heat and air-conditioning installation
+      code: {start: 43220, end: 43230}
+
+    '4329':
+      level: 4
+      title: Other construction installation
+      code: {start: 43290, end: 43300}
+
+    '433':
+      level: 3
+      title: Building completion and finishing
+      code: {start: 43300, end: 43400}
+
+    '4330':
+      level: 4
+      title: Building completion and finishing
+      code: {start: 43300, end: 43310}
+
+    '439':
+      level: 3
+      title: Other specialized construction activities
+      code: {start: 43900, end: 44000}
+
+    '4390':
+      level: 4
+      title: Other specialized construction activities
+      code: {start: 43900, end: 43910}
+
+    G:
+      level: 1
+      title: Wholesale and retail trade; repair of motor vehicles and motorcycles
+      code: {start: 45000, end: 48000}
+
+    '45':
+      level: 2
+      title: Wholesale and retail trade and repair of motor vehicles and motorcycles
+      code: {start: 45000, end: 46000}
+
+    '451':
+      level: 3
+      title: Sale of motor vehicles
+      code: {start: 45100, end: 45200}
+
+    '4510':
+      level: 4
+      title: Sale of motor vehicles
+      code: {start: 45100, end: 45110}
+
+    '452':
+      level: 3
+      title: Maintenance and repair of motor vehicles
+      code: {start: 45200, end: 45300}
+
+    '4520':
+      level: 4
+      title: Maintenance and repair of motor vehicles
+      code: {start: 45200, end: 45210}
+
+    '453':
+      level: 3
+      title: Sale of motor vehicle parts and accessories
+      code: {start: 45300, end: 45400}
+
+    '4530':
+      level: 4
+      title: Sale of motor vehicle parts and accessories
+      code: {start: 45300, end: 45310}
+
+    '454':
+      level: 3
+      title: Sale, maintenance and repair of motorcycles and related parts and
+        accessories
+      code: {start: 45400, end: 45500}
+
+    '4540':
+      level: 4
+      title: Sale, maintenance and repair of motorcycles and related parts and
+        accessories
+      code: {start: 45400, end: 45410}
+
+    '46':
+      level: 2
+      title: Wholesale trade, except of motor vehicles and motorcycles
+      code: {start: 46000, end: 47000}
+
+    '461':
+      level: 3
+      title: Wholesale on a fee or contract basis
+      code: {start: 46100, end: 46200}
+
+    '4610':
+      level: 4
+      title: Wholesale on a fee or contract basis
+      code: {start: 46100, end: 46110}
+
+    '462':
+      level: 3
+      title: Wholesale of agricultural raw materials and live animals
+      code: {start: 46200, end: 46300}
+
+    '4620':
+      level: 4
+      title: Wholesale of agricultural raw materials and live animals
+      code: {start: 46200, end: 46210}
+
+    '463':
+      level: 3
+      title: Wholesale of food, beverages and tobacco
+      code: {start: 46300, end: 46400}
+
+    '4630':
+      level: 4
+      title: Wholesale of food, beverages and tobacco
+      code: {start: 46300, end: 46310}
+
+    '464':
+      level: 3
+      title: Wholesale of household goods
+      code: {start: 46400, end: 46500}
+
+    '4641':
+      level: 4
+      title: Wholesale of textiles, clothing and footwear
+      code: {start: 46410, end: 46420}
+
+    '4649':
+      level: 4
+      title: Wholesale of other household goods
+      code: {start: 46490, end: 46500}
+
+    '465':
+      level: 3
+      title: Wholesale of machinery, equipment and supplies
+      code: {start: 46500, end: 46600}
+
+    '4651':
+      level: 4
+      title: Wholesale of computers, computer peripheral equipment and software
+      code: {start: 46510, end: 46520}
+
+    '4652':
+      level: 4
+      title: Wholesale of electronic and telecommunications equipment and parts
+      code: {start: 46520, end: 46530}
+
+    '4653':
+      level: 4
+      title: Wholesale of agricultural machinery, equipment and supplies
+      code: {start: 46530, end: 46540}
+
+    '4659':
+      level: 4
+      title: Wholesale of other machinery and equipment
+      code: {start: 46590, end: 46600}
+
+    '466':
+      level: 3
+      title: Other specialized wholesale
+      code: {start: 46600, end: 46700}
+
+    '4661':
+      level: 4
+      title: Wholesale of solid, liquid and gaseous fuels and related products
+      code: {start: 46610, end: 46620}
+
+    '4662':
+      level: 4
+      title: Wholesale of metals and metal ores
+      code: {start: 46620, end: 46630}
+
+    '4663':
+      level: 4
+      title: Wholesale of construction materials, hardware, plumbing and heating
+        equipment and supplies
+      code: {start: 46630, end: 46640}
+
+    '4669':
+      level: 4
+      title: Wholesale of waste and scrap and other products n.e.c.
+      code: {start: 46690, end: 46700}
+
+    '469':
+      level: 3
+      title: Non-specialized wholesale trade
+      code: {start: 46900, end: 47000}
+
+    '4690':
+      level: 4
+      title: Non-specialized wholesale trade
+      code: {start: 46900, end: 46910}
+
+    '47':
+      level: 2
+      title: Retail trade, except of motor vehicles and motorcycles
+      code: {start: 47000, end: 48000}
+
+    '471':
+      level: 3
+      title: Retail sale in non-specialized stores
+      code: {start: 47100, end: 47200}
+
+    '4711':
+      level: 4
+      title: Retail sale in non-specialized stores with food, beverages or tobacco
+        predominating
+      code: {start: 47110, end: 47120}
+
+    '4719':
+      level: 4
+      title: Other retail sale in non-specialized stores
+      code: {start: 47190, end: 47200}
+
+    '472':
+      level: 3
+      title: Retail sale of food, beverages and tobacco in specialized stores
+      code: {start: 47200, end: 47300}
+
+    '4721':
+      level: 4
+      title: Retail sale of food in specialized stores
+      code: {start: 47210, end: 47220}
+
+    '4722':
+      level: 4
+      title: Retail sale of beverages in specialized stores
+      code: {start: 47220, end: 47230}
+
+    '4723':
+      level: 4
+      title: Retail sale of tobacco products in specialized stores
+      code: {start: 47230, end: 47240}
+
+    '473':
+      level: 3
+      title: Retail sale of automotive fuel in specialized stores
+      code: {start: 47300, end: 47400}
+
+    '4730':
+      level: 4
+      title: Retail sale of automotive fuel in specialized stores
+      code: {start: 47300, end: 47310}
+
+    '474':
+      level: 3
+      title: Retail sale of information and communications equipment in specialized
+        stores
+      code: {start: 47400, end: 47500}
+
+    '4741':
+      level: 4
+      title: Retail sale of computers, peripheral units, software and telecommunications
+        equipment in specialized stores
+      code: {start: 47410, end: 47420}
+
+    '4742':
+      level: 4
+      title: Retail sale of audio and video equipment in specialized stores
+      code: {start: 47420, end: 47430}
+
+    '475':
+      level: 3
+      title: Retail sale of other household equipment in specialized stores
+      code: {start: 47500, end: 47600}
+
+    '4751':
+      level: 4
+      title: Retail sale of textiles in specialized stores
+      code: {start: 47510, end: 47520}
+
+    '4752':
+      level: 4
+      title: Retail sale of hardware, paints and glass in specialized stores
+      code: {start: 47520, end: 47530}
+
+    '4753':
+      level: 4
+      title: Retail sale of carpets, rugs, wall and floor coverings in specialized
+        stores
+      code: {start: 47530, end: 47540}
+
+    '4759':
+      level: 4
+      title: Retail sale of electrical household appliances, furniture, lighting
+        equipment and other household articles in specialized stores
+      code: {start: 47590, end: 47600}
+
+    '476':
+      level: 3
+      title: Retail sale of cultural and recreation goods in specialized stores
+      code: {start: 47600, end: 47700}
+
+    '4761':
+      level: 4
+      title: Retail sale of books, newspapers and stationary in specialized
+        stores
+      code: {start: 47610, end: 47620}
+
+    '4762':
+      level: 4
+      title: Retail sale of music and video recordings in specialized stores
+      code: {start: 47620, end: 47630}
+
+    '4763':
+      level: 4
+      title: Retail sale of sporting equipment in specialized stores
+      code: {start: 47630, end: 47640}
+
+    '4764':
+      level: 4
+      title: Retail sale of games and toys in specialized stores
+      code: {start: 47640, end: 47650}
+
+    '477':
+      level: 3
+      title: Retail sale of other goods in specialized stores
+      code: {start: 47700, end: 47800}
+
+    '4771':
+      level: 4
+      title: Retail sale of clothing, footwear and leather articles in specialized
+        stores
+      code: {start: 47710, end: 47720}
+
+    '4772':
+      level: 4
+      title: Retail sale of pharmaceutical and medical goods, cosmetic and toilet
+        articles in specialized stores
+      code: {start: 47720, end: 47730}
+
+    '4773':
+      level: 4
+      title: Other retail sale of new goods in specialized stores
+      code: {start: 47730, end: 47740}
+
+    '4774':
+      level: 4
+      title: Retail sale of second-hand goods
+      code: {start: 47740, end: 47750}
+
+    '478':
+      level: 3
+      title: Retail sale via stalls and markets
+      code: {start: 47800, end: 47900}
+
+    '4781':
+      level: 4
+      title: Retail sale via stalls and markets of food, beverages and tobacco
+        products
+      code: {start: 47810, end: 47820}
+
+    '4782':
+      level: 4
+      title: Retail sale via stalls and markets of textiles, clothing and footwear
+      code: {start: 47820, end: 47830}
+
+    '4789':
+      level: 4
+      title: Retail sale via stalls and markets of other goods
+      code: {start: 47890, end: 47900}
+
+    '479':
+      level: 3
+      title: Retail trade not in stores, stalls or markets
+      code: {start: 47900, end: 48000}
+
+    '4791':
+      level: 4
+      title: Retail sale via mail order houses or via Internet
+      code: {start: 47910, end: 47920}
+
+    '4799':
+      level: 4
+      title: Other retail sale not in stores, stalls or markets
+      code: {start: 47990, end: 48000}
+
+    H:
+      level: 1
+      title: Transportation and storage
+      code: {start: 49000, end: 54000}
+
+    '49':
+      level: 2
+      title: Land transport and transport via pipelines
+      code: {start: 49000, end: 50000}
+
+    '491':
+      level: 3
+      title: Transport via railways
+      code: {start: 49100, end: 49200}
+
+    '4911':
+      level: 4
+      title: Passenger rail transport, interurban
+      code: {start: 49110, end: 49120}
+
+    '4912':
+      level: 4
+      title: Freight rail transport
+      code: {start: 49120, end: 49130}
+
+    '492':
+      level: 3
+      title: Other land transport
+      code: {start: 49200, end: 49300}
+
+    '4921':
+      level: 4
+      title: Urban and suburban passenger land transport
+      code: {start: 49210, end: 49220}
+
+    '4922':
+      level: 4
+      title: Other passenger land transport
+      code: {start: 49220, end: 49230}
+
+    '4923':
+      level: 4
+      title: Freight transport by road
+      code: {start: 49230, end: 49240}
+
+    '493':
+      level: 3
+      title: Transport via pipeline
+      code: {start: 49300, end: 49400}
+
+    '4930':
+      level: 4
+      title: Transport via pipeline
+      code: {start: 49300, end: 49310}
+
+    '50':
+      level: 2
+      title: Water transport
+      code: {start: 50000, end: 51000}
+
+    '501':
+      level: 3
+      title: Sea and coastal water transport
+      code: {start: 50100, end: 50200}
+
+    '5011':
+      level: 4
+      title: Sea and coastal passenger water transport
+      code: {start: 50110, end: 50120}
+
+    '5012':
+      level: 4
+      title: Sea and coastal freight water transport
+      code: {start: 50120, end: 50130}
+
+    '502':
+      level: 3
+      title: Inland water transport
+      code: {start: 50200, end: 50300}
+
+    '5021':
+      level: 4
+      title: Inland passenger water transport
+      code: {start: 50210, end: 50220}
+
+    '5022':
+      level: 4
+      title: Inland freight water transport
+      code: {start: 50220, end: 50230}
+
+    '51':
+      level: 2
+      title: Air transport
+      code: {start: 51000, end: 52000}
+
+    '511':
+      level: 3
+      title: Passenger air transport
+      code: {start: 51100, end: 51200}
+
+    '5110':
+      level: 4
+      title: Passenger air transport
+      code: {start: 51100, end: 51110}
+
+    '512':
+      level: 3
+      title: Freight air transport
+      code: {start: 51200, end: 51300}
+
+    '5120':
+      level: 4
+      title: Freight air transport
+      code: {start: 51200, end: 51210}
+
+    '52':
+      level: 2
+      title: Warehousing and support activities for transportation
+      code: {start: 52000, end: 53000}
+
+    '521':
+      level: 3
+      title: Warehousing and storage
+      code: {start: 52100, end: 52200}
+
+    '5210':
+      level: 4
+      title: Warehousing and storage
+      code: {start: 52100, end: 52110}
+
+    '522':
+      level: 3
+      title: Support activities for transportation
+      code: {start: 52200, end: 52300}
+
+    '5221':
+      level: 4
+      title: Service activities incidental to land transportation
+      code: {start: 52210, end: 52220}
+
+    '5222':
+      level: 4
+      title: Service activities incidental to water transportation
+      code: {start: 52220, end: 52230}
+
+    '5223':
+      level: 4
+      title: Service activities incidental to air transportation
+      code: {start: 52230, end: 52240}
+
+    '5224':
+      level: 4
+      title: Cargo handling
+      code: {start: 52240, end: 52250}
+
+    '5229':
+      level: 4
+      title: Other transportation support activities
+      code: {start: 52290, end: 52300}
+
+    '53':
+      level: 2
+      title: Postal and courier activities
+      code: {start: 53000, end: 54000}
+
+    '531':
+      level: 3
+      title: Postal activities
+      code: {start: 53100, end: 53200}
+
+    '5310':
+      level: 4
+      title: Postal activities
+      code: {start: 53100, end: 53110}
+
+    '532':
+      level: 3
+      title: Courier activities
+      code: {start: 53200, end: 53300}
+
+    '5320':
+      level: 4
+      title: Courier activities
+      code: {start: 53200, end: 53210}
+
+    I:
+      level: 1
+      title: Accommodation and food service activities
+      code: {start: 55000, end: 57000}
+
+    '55':
+      level: 2
+      title: Accommodation
+      code: {start: 55000, end: 56000}
+
+    '551':
+      level: 3
+      title: Short term accommodation activities
+      code: {start: 55100, end: 55200}
+
+    '5510':
+      level: 4
+      title: Short term accommodation activities
+      code: {start: 55100, end: 55110}
+
+    '552':
+      level: 3
+      title: Camping grounds, recreational vehicle parks and trailer parks
+      code: {start: 55200, end: 55300}
+
+    '5520':
+      level: 4
+      title: Camping grounds, recreational vehicle parks and trailer parks
+      code: {start: 55200, end: 55210}
+
+    '559':
+      level: 3
+      title: Other accommodation
+      code: {start: 55900, end: 56000}
+
+    '5590':
+      level: 4
+      title: Other accommodation
+      code: {start: 55900, end: 55910}
+
+    '56':
+      level: 2
+      title: Food and beverage service activities
+      code: {start: 56000, end: 57000}
+
+    '561':
+      level: 3
+      title: Restaurants and mobile food service activities
+      code: {start: 56100, end: 56200}
+
+    '5610':
+      level: 4
+      title: Restaurants and mobile food service activities
+      code: {start: 56100, end: 56110}
+
+    '562':
+      level: 3
+      title: Event catering and other food service activities
+      code: {start: 56200, end: 56300}
+
+    '5621':
+      level: 4
+      title: Event catering
+      code: {start: 56210, end: 56220}
+
+    '5629':
+      level: 4
+      title: Other food service activities
+      code: {start: 56290, end: 56300}
+
+    '563':
+      level: 3
+      title: Beverage serving activities
+      code: {start: 56300, end: 56400}
+
+    '5630':
+      level: 4
+      title: Beverage serving activities
+      code: {start: 56300, end: 56310}
+
+    J:
+      level: 1
+      title: Information and communication
+      code: {start: 58000, end: 64000}
+
+    '58':
+      level: 2
+      title: Publishing activities
+      code: {start: 58000, end: 59000}
+
+    '581':
+      level: 3
+      title: Publishing of books, periodicals and other publishing activities
+      code: {start: 58100, end: 58200}
+
+    '5811':
+      level: 4
+      title: Book publishing
+      code: {start: 58110, end: 58120}
+
+    '5812':
+      level: 4
+      title: Publishing of directories and mailing lists
+      code: {start: 58120, end: 58130}
+
+    '5813':
+      level: 4
+      title: Publishing of newspapers, journals and periodicals
+      code: {start: 58130, end: 58140}
+
+    '5819':
+      level: 4
+      title: Other publishing activities
+      code: {start: 58190, end: 58200}
+
+    '582':
+      level: 3
+      title: Software publishing
+      code: {start: 58200, end: 58300}
+
+    '5820':
+      level: 4
+      title: Software publishing
+      code: {start: 58200, end: 58210}
+
+    '59':
+      level: 2
+      title: Motion picture, video and television programme production, sound
+        recording and music publishing activities
+      code: {start: 59000, end: 60000}
+
+    '591':
+      level: 3
+      title: Motion picture, video and television programme activities
+      code: {start: 59100, end: 59200}
+
+    '5911':
+      level: 4
+      title: Motion picture, video and television programme production activities
+      code: {start: 59110, end: 59120}
+
+    '5912':
+      level: 4
+      title: Motion picture, video and television programme post-production
+        activities
+      code: {start: 59120, end: 59130}
+
+    '5913':
+      level: 4
+      title: Motion picture, video and television programme distribution activities
+      code: {start: 59130, end: 59140}
+
+    '5914':
+      level: 4
+      title: Motion picture projection activities
+      code: {start: 59140, end: 59150}
+
+    '592':
+      level: 3
+      title: Sound recording and music publishing activities
+      code: {start: 59200, end: 59300}
+
+    '5920':
+      level: 4
+      title: Sound recording and music publishing activities
+      code: {start: 59200, end: 59210}
+
+    '60':
+      level: 2
+      title: Programming and broadcasting activities
+      code: {start: 60000, end: 61000}
+
+    '601':
+      level: 3
+      title: Radio broadcasting
+      code: {start: 60100, end: 60200}
+
+    '6010':
+      level: 4
+      title: Radio broadcasting
+      code: {start: 60100, end: 60110}
+
+    '602':
+      level: 3
+      title: Television programming and broadcasting activities
+      code: {start: 60200, end: 60300}
+
+    '6020':
+      level: 4
+      title: Television programming and broadcasting activities
+      code: {start: 60200, end: 60210}
+
+    '61':
+      level: 2
+      title: Telecommunications
+      code: {start: 61000, end: 62000}
+
+    '611':
+      level: 3
+      title: Wired telecommunications activities
+      code: {start: 61100, end: 61200}
+
+    '6110':
+      level: 4
+      title: Wired telecommunications activities
+      code: {start: 61100, end: 61110}
+
+    '612':
+      level: 3
+      title: Wireless telecommunications activities
+      code: {start: 61200, end: 61300}
+
+    '6120':
+      level: 4
+      title: Wireless telecommunications activities
+      code: {start: 61200, end: 61210}
+
+    '613':
+      level: 3
+      title: Satellite telecommunications activities
+      code: {start: 61300, end: 61400}
+
+    '6130':
+      level: 4
+      title: Satellite telecommunications activities
+      code: {start: 61300, end: 61310}
+
+    '619':
+      level: 3
+      title: Other telecommunications activities
+      code: {start: 61900, end: 62000}
+
+    '6190':
+      level: 4
+      title: Other telecommunications activities
+      code: {start: 61900, end: 61910}
+
+    '62':
+      level: 2
+      title: Computer programming, consultancy and related activities
+      code: {start: 62000, end: 63000}
+
+    '620':
+      level: 3
+      title: Computer programming, consultancy and related activities
+      code: {start: 62000, end: 62100}
+
+    '6201':
+      level: 4
+      title: Computer programming activities
+      code: {start: 62010, end: 62020}
+
+    '6202':
+      level: 4
+      title: Computer consultancy and computer facilities management activities
+      code: {start: 62020, end: 62030}
+
+    '6209':
+      level: 4
+      title: Other information technology and computer service activities
+      code: {start: 62090, end: 62100}
+
+    '63':
+      level: 2
+      title: Information service activities
+      code: {start: 63000, end: 64000}
+
+    '631':
+      level: 3
+      title: Data processing, hosting and related activities; web portals
+      code: {start: 63100, end: 63200}
+
+    '6311':
+      level: 4
+      title: Data processing, hosting and related activities
+      code: {start: 63110, end: 63120}
+
+    '6312':
+      level: 4
+      title: Web portals
+      code: {start: 63120, end: 63130}
+
+    '639':
+      level: 3
+      title: Other information service activities
+      code: {start: 63900, end: 64000}
+
+    '6391':
+      level: 4
+      title: News agency activities
+      code: {start: 63910, end: 63920}
+
+    '6399':
+      level: 4
+      title: Other information service activities n.e.c.
+      code: {start: 63990, end: 64000}
+
+    K:
+      level: 1
+      title: Financial and insurance activities
+      code: {start: 64000, end: 67000}
+
+    '64':
+      level: 2
+      title: Financial service activities, except insurance and pension funding
+      code: {start: 64000, end: 65000}
+
+    '641':
+      level: 3
+      title: Monetary intermediation
+      code: {start: 64100, end: 64200}
+
+    '6411':
+      level: 4
+      title: Central banking
+      code: {start: 64110, end: 64120}
+
+    '6419':
+      level: 4
+      title: Other monetary intermediation
+      code: {start: 64190, end: 64200}
+
+    '642':
+      level: 3
+      title: Activities of holding companies
+      code: {start: 64200, end: 64300}
+
+    '6420':
+      level: 4
+      title: Activities of holding companies
+      code: {start: 64200, end: 64210}
+
+    '643':
+      level: 3
+      title: Trusts, funds and similar financial entities
+      code: {start: 64300, end: 64400}
+
+    '6430':
+      level: 4
+      title: Trusts, funds and similar financial entities
+      code: {start: 64300, end: 64310}
+
+    '649':
+      level: 3
+      title: Other financial service activities, except insurance and pension
+        funding activities
+      code: {start: 64900, end: 65000}
+
+    '6491':
+      level: 4
+      title: Financial leasing
+      code: {start: 64910, end: 64920}
+
+    '6492':
+      level: 4
+      title: Other credit granting
+      code: {start: 64920, end: 64930}
+
+    '6499':
+      level: 4
+      title: Other financial service activities, except insurance and pension
+        funding activities, n.e.c.
+      code: {start: 64990, end: 65000}
+
+    '65':
+      level: 2
+      title: Insurance, reinsurance and pension funding, except compulsory social
+        security
+      code: {start: 65000, end: 66000}
+
+    '651':
+      level: 3
+      title: Insurance
+      code: {start: 65100, end: 65200}
+
+    '6511':
+      level: 4
+      title: Life insurance
+      code: {start: 65110, end: 65120}
+
+    '6512':
+      level: 4
+      title: Non-life insurance
+      code: {start: 65120, end: 65130}
+
+    '652':
+      level: 3
+      title: Reinsurance
+      code: {start: 65200, end: 65300}
+
+    '6520':
+      level: 4
+      title: Reinsurance
+      code: {start: 65200, end: 65210}
+
+    '653':
+      level: 3
+      title: Pension funding
+      code: {start: 65300, end: 65400}
+
+    '6530':
+      level: 4
+      title: Pension funding
+      code: {start: 65300, end: 65310}
+
+    '66':
+      level: 2
+      title: Activities auxiliary to financial service and insurance activities
+      code: {start: 66000, end: 67000}
+
+    '661':
+      level: 3
+      title: Activities auxiliary to financial service activities, except insurance
+        and pension funding
+      code: {start: 66100, end: 66200}
+
+    '6611':
+      level: 4
+      title: Administration of financial markets
+      code: {start: 66110, end: 66120}
+
+    '6612':
+      level: 4
+      title: Security and commodity contracts brokerage
+      code: {start: 66120, end: 66130}
+
+    '6619':
+      level: 4
+      title: Other activities auxiliary to financial service activities
+      code: {start: 66190, end: 66200}
+
+    '662':
+      level: 3
+      title: Activities auxiliary to insurance and pension funding
+      code: {start: 66200, end: 66300}
+
+    '6621':
+      level: 4
+      title: Risk and damage evaluation
+      code: {start: 66210, end: 66220}
+
+    '6622':
+      level: 4
+      title: Activities of insurance agents and brokers
+      code: {start: 66220, end: 66230}
+
+    '6629':
+      level: 4
+      title: Other activities auxiliary to insurance and pension funding
+      code: {start: 66290, end: 66300}
+
+    '663':
+      level: 3
+      title: Fund management activities
+      code: {start: 66300, end: 66400}
+
+    '6630':
+      level: 4
+      title: Fund management activities
+      code: {start: 66300, end: 66310}
+
+    L:
+      level: 1
+      title: Real estate activities
+      code: {start: 68000, end: 69000}
+
+    '68':
+      level: 2
+      title: Real estate activities
+      code: {start: 68000, end: 69000}
+
+    '681':
+      level: 3
+      title: Real estate activities with own or leased property
+      code: {start: 68100, end: 68200}
+
+    '6810':
+      level: 4
+      title: Real estate activities with own or leased property
+      code: {start: 68100, end: 68110}
+
+    '682':
+      level: 3
+      title: Real estate activities on a fee or contract basis
+      code: {start: 68200, end: 68300}
+
+    '6820':
+      level: 4
+      title: Real estate activities on a fee or contract basis
+      code: {start: 68200, end: 68210}
+
+    M:
+      level: 1
+      title: Professional, scientific and technical activities
+      code: {start: 69000, end: 76000}
+
+    '69':
+      level: 2
+      title: Legal and accounting activities
+      code: {start: 69000, end: 70000}
+
+    '691':
+      level: 3
+      title: Legal activities
+      code: {start: 69100, end: 69200}
+
+    '6910':
+      level: 4
+      title: Legal activities
+      code: {start: 69100, end: 69110}
+
+    '692':
+      level: 3
+      title: Accounting, bookkeeping and auditing activities; tax consultancy
+      code: {start: 69200, end: 69300}
+
+    '6920':
+      level: 4
+      title: Accounting, bookkeeping and auditing activities; tax consultancy
+      code: {start: 69200, end: 69210}
+
+    '70':
+      level: 2
+      title: Activities of head offices; management consultancy activities
+      code: {start: 70000, end: 71000}
+
+    '701':
+      level: 3
+      title: Activities of head offices
+      code: {start: 70100, end: 70200}
+
+    '7010':
+      level: 4
+      title: Activities of head offices
+      code: {start: 70100, end: 70110}
+
+    '702':
+      level: 3
+      title: Management consultancy activities
+      code: {start: 70200, end: 70300}
+
+    '7020':
+      level: 4
+      title: Management consultancy activities
+      code: {start: 70200, end: 70210}
+
+    '71':
+      level: 2
+      title: Architectural and engineering activities; technical testing and
+        analysis
+      code: {start: 71000, end: 72000}
+
+    '711':
+      level: 3
+      title: Architectural and engineering activities and related technical
+        consultancy
+      code: {start: 71100, end: 71200}
+
+    '7110':
+      level: 4
+      title: Architectural and engineering activities and related technical
+        consultancy
+      code: {start: 71100, end: 71110}
+
+    '712':
+      level: 3
+      title: Technical testing and analysis
+      code: {start: 71200, end: 71300}
+
+    '7120':
+      level: 4
+      title: Technical testing and analysis
+      code: {start: 71200, end: 71210}
+
+    '72':
+      level: 2
+      title: Scientific research and development
+      code: {start: 72000, end: 73000}
+
+    '721':
+      level: 3
+      title: Research and experimental development on natural sciences and engineering
+      code: {start: 72100, end: 72200}
+
+    '7210':
+      level: 4
+      title: Research and experimental development on natural sciences and engineering
+      code: {start: 72100, end: 72110}
+
+    '722':
+      level: 3
+      title: Research and experimental development on social sciences and humanities
+      code: {start: 72200, end: 72300}
+
+    '7220':
+      level: 4
+      title: Research and experimental development on social sciences and humanities
+      code: {start: 72200, end: 72210}
+
+    '73':
+      level: 2
+      title: Advertising and market research
+      code: {start: 73000, end: 74000}
+    '731':
+
+      level: 3
+      title: Advertising
+      code: {start: 73100, end: 73200}
+
+    '7310':
+      level: 4
+      title: Advertising
+      code: {start: 73100, end: 73110}
+
+    '732':
+      level: 3
+      title: Market research and public opinion polling
+      code: {start: 73200, end: 73300}
+
+    '7320':
+      level: 4
+      title: Market research and public opinion polling
+      code: {start: 73200, end: 73210}
+
+    '74':
+      level: 2
+      title: Other professional, scientific and technical activities
+      code: {start: 74000, end: 75000}
+
+    '741':
+      level: 3
+      title: Specialized design activities
+      code: {start: 74100, end: 74200}
+
+    '7410':
+      level: 4
+      title: Specialized design activities
+      code: {start: 74100, end: 74110}
+
+    '742':
+      level: 3
+      title: Photographic activities
+      code: {start: 74200, end: 74300}
+
+    '7420':
+      level: 4
+      title: Photographic activities
+      code: {start: 74200, end: 74210}
+
+    '749':
+      level: 3
+      title: Other professional, scientific and technical activities n.e.c.
+      code: {start: 74900, end: 75000}
+
+    '7490':
+      level: 4
+      title: Other professional, scientific and technical activities n.e.c.
+      code: {start: 74900, end: 74910}
+
+    '75':
+      level: 2
+      title: Veterinary activities
+      code: {start: 75000, end: 76000}
+
+    '750':
+      level: 3
+      title: Veterinary activities
+      code: {start: 75000, end: 75100}
+
+    '7500':
+      level: 4
+      title: Veterinary activities
+      code: {start: 75000, end: 75010}
+
+    N:
+      level: 1
+      title: Administrative and support service activities
+      code: {start: 77000, end: 83000}
+
+    '77':
+      level: 2
+      title: Rental and leasing activities
+      code: {start: 77000, end: 78000}
+
+    '771':
+      level: 3
+      title: Renting and leasing of motor vehicles
+      code: {start: 77100, end: 77200}
+
+    '7710':
+      level: 4
+      title: Renting and leasing of motor vehicles
+      code: {start: 77100, end: 77110}
+
+    '772':
+      level: 3
+      title: Renting and leasing of personal and household goods
+      code: {start: 77200, end: 77300}
+
+    '7721':
+      level: 4
+      title: Renting and leasing of recreational and sports goods
+      code: {start: 77210, end: 77220}
+
+    '7722':
+      level: 4
+      title: Renting of video tapes and disks
+      code: {start: 77220, end: 77230}
+
+    '7729':
+      level: 4
+      title: Renting and leasing of other personal and household goods
+      code: {start: 77290, end: 77300}
+
+    '773':
+      level: 3
+      title: Renting and leasing of other machinery, equipment and tangible
+        goods
+      code: {start: 77300, end: 77400}
+
+    '7730':
+      level: 4
+      title: Renting and leasing of other machinery, equipment and tangible
+        goods
+      code: {start: 77300, end: 77310}
+
+    '774':
+      level: 3
+      title: Leasing of intellectual property and similar products, except copyrighted
+        works
+      code: {start: 77400, end: 77500}
+
+    '7740':
+      level: 4
+      title: Leasing of intellectual property and similar products, except copyrighted
+        works
+      code: {start: 77400, end: 77410}
+
+    '78':
+      level: 2
+      title: Employment activities
+      code: {start: 78000, end: 79000}
+
+    '781':
+      level: 3
+      title: Activities of employment placement agencies
+      code: {start: 78100, end: 78200}
+
+    '7810':
+      level: 4
+      title: Activities of employment placement agencies
+      code: {start: 78100, end: 78110}
+
+    '782':
+      level: 3
+      title: Temporary employment agency activities
+      code: {start: 78200, end: 78300}
+
+    '7820':
+      level: 4
+      title: Temporary employment agency activities
+      code: {start: 78200, end: 78210}
+
+    '783':
+      level: 3
+      title: Other human resources provision
+      code: {start: 78300, end: 78400}
+
+    '7830':
+      level: 4
+      title: Other human resources provision
+      code: {start: 78300, end: 78310}
+
+    '79':
+      level: 2
+      title: Travel agency, tour operator, reservation service and related activities
+      code: {start: 79000, end: 80000}
+
+    '791':
+      level: 3
+      title: Travel agency and tour operator activities
+      code: {start: 79100, end: 79200}
+
+    '7911':
+      level: 4
+      title: Travel agency activities
+      code: {start: 79110, end: 79120}
+
+    '7912':
+      level: 4
+      title: Tour operator activities
+      code: {start: 79120, end: 79130}
+
+    '799':
+      level: 3
+      title: Other reservation service and related activities
+      code: {start: 79900, end: 80000}
+
+    '7990':
+      level: 4
+      title: Other reservation service and related activities
+      code: {start: 79900, end: 79910}
+
+    '80':
+      level: 2
+      title: Security and investigation activities
+      code: {start: 80000, end: 81000}
+
+    '801':
+      level: 3
+      title: Private security activities
+      code: {start: 80100, end: 80200}
+
+    '8010':
+      level: 4
+      title: Private security activities
+      code: {start: 80100, end: 80110}
+
+    '802':
+      level: 3
+      title: Security systems service activities
+      code: {start: 80200, end: 80300}
+
+    '8020':
+      level: 4
+      title: Security systems service activities
+      code: {start: 80200, end: 80210}
+
+    '803':
+      level: 3
+      title: Investigation activities
+      code: {start: 80300, end: 80400}
+
+    '8030':
+      level: 4
+      title: Investigation activities
+      code: {start: 80300, end: 80310}
+
+    '81':
+      level: 2
+      title: Services to buildings and landscape activities
+      code: {start: 81000, end: 82000}
+
+    '811':
+      level: 3
+      title: Combined facilities support activities
+      code: {start: 81100, end: 81200}
+
+    '8110':
+      level: 4
+      title: Combined facilities support activities
+      code: {start: 81100, end: 81110}
+
+    '812':
+      level: 3
+      title: Cleaning activities
+      code: {start: 81200, end: 81300}
+
+    '8121':
+      level: 4
+      title: General cleaning of buildings
+      code: {start: 81210, end: 81220}
+
+    '8129':
+      level: 4
+      title: Other building and industrial cleaning activities
+      code: {start: 81290, end: 81300}
+
+    '813':
+      level: 3
+      title: Landscape care and maintenance service activities
+      code: {start: 81300, end: 81400}
+
+    '8130':
+      level: 4
+      title: Landscape care and maintenance service activities
+      code: {start: 81300, end: 81310}
+
+    '82':
+      level: 2
+      title: Office administrative, office support and other business support
+        activities
+      code: {start: 82000, end: 83000}
+
+    '821':
+      level: 3
+      title: Office administrative and support activities
+      code: {start: 82100, end: 82200}
+
+    '8211':
+      level: 4
+      title: Combined office administrative service activities
+      code: {start: 82110, end: 82120}
+
+    '8219':
+      level: 4
+      title: Photocopying, document preparation and other specialized office
+        support activities
+      code: {start: 82190, end: 82200}
+
+    '822':
+      level: 3
+      title: Activities of call centres
+      code: {start: 82200, end: 82300}
+
+    '8220':
+      level: 4
+      title: Activities of call centres
+      code: {start: 82200, end: 82210}
+
+    '823':
+      level: 3
+      title: Organization of conventions and trade shows
+      code: {start: 82300, end: 82400}
+
+    '8230':
+      level: 4
+      title: Organization of conventions and trade shows
+      code: {start: 82300, end: 82310}
+
+    '829':
+      level: 3
+      title: Business support service activities n.e.c.
+      code: {start: 82900, end: 83000}
+
+    '8291':
+      level: 4
+      title: Activities of collection agencies and credit bureaus
+      code: {start: 82910, end: 82920}
+
+    '8292':
+      level: 4
+      title: Packaging activities
+      code: {start: 82920, end: 82930}
+
+    '8299':
+      level: 4
+      title: Other business support service activities n.e.c.
+      code: {start: 82990, end: 83000}
+
+    O:
+      level: 1
+      title: Public administration and defence; compulsory social security
+      code: {start: 84000, end: 85000}
+
+    '84':
+      level: 2
+      title: Public administration and defence; compulsory social security
+      code: {start: 84000, end: 85000}
+
+    '841':
+      level: 3
+      title: Administration of the State and the economic and social policy
+        of the community
+      code: {start: 84100, end: 84200}
+
+    '8411':
+      level: 4
+      title: General public administration activities
+      code: {start: 84110, end: 84120}
+
+    '8412':
+      level: 4
+      title: Regulation of the activities of providing health care, education,
+        cultural services and other social services, excluding social security
+      code: {start: 84120, end: 84130}
+
+    '8413':
+      level: 4
+      title: Regulation of and contribution to more efficient operation of businesses
+      code: {start: 84130, end: 84140}
+
+    '842':
+      level: 3
+      title: Provision of services to the community as a whole
+      code: {start: 84200, end: 84300}
+
+    '8421':
+      level: 4
+      title: Foreign affairs
+      code: {start: 84210, end: 84220}
+
+    '8422':
+      level: 4
+      title: Defence activities
+      code: {start: 84220, end: 84230}
+
+    '8423':
+      level: 4
+      title: Public order and safety activities
+      code: {start: 84230, end: 84240}
+
+    '843':
+      level: 3
+      title: Compulsory social security activities
+      code: {start: 84300, end: 84400}
+
+    '8430':
+      level: 4
+      title: Compulsory social security activities
+      code: {start: 84300, end: 84310}
+
+    P:
+      level: 1
+      title: Education
+      code: {start: 85000, end: 86000}
+
+    '85':
+      level: 2
+      title: Education
+      code: {start: 85000, end: 86000}
+
+    '851':
+      level: 3
+      title: Pre-primary and primary education
+      code: {start: 85100, end: 85200}
+
+    '8510':
+      level: 4
+      title: Pre-primary and primary education
+      code: {start: 85100, end: 85110}
+
+    '852':
+      level: 3
+      title: Secondary education
+      code: {start: 85200, end: 85300}
+
+    '8521':
+      level: 4
+      title: General secondary education
+      code: {start: 85210, end: 85220}
+
+    '8522':
+      level: 4
+      title: Technical and vocational secondary education
+      code: {start: 85220, end: 85230}
+
+    '853':
+      level: 3
+      title: Higher education
+      code: {start: 85300, end: 85400}
+
+    '8530':
+      level: 4
+      title: Higher education
+      code: {start: 85300, end: 85310}
+
+    '854':
+      level: 3
+      title: Other education
+      code: {start: 85400, end: 85500}
+
+    '8541':
+      level: 4
+      title: Sports and recreation education
+      code: {start: 85410, end: 85420}
+
+    '8542':
+      level: 4
+      title: Cultural education
+      code: {start: 85420, end: 85430}
+
+    '8549':
+      level: 4
+      title: Other education n.e.c.
+      code: {start: 85490, end: 85500}
+
+    '855':
+      level: 3
+      title: Educational support activities
+      code: {start: 85500, end: 85600}
+
+    '8550':
+      level: 4
+      title: Educational support activities
+      code: {start: 85500, end: 85510}
+
+    Q:
+      level: 1
+      title: Human health and social work activities
+      code: {start: 86000, end: 89000}
+
+    '86':
+      level: 2
+      title: Human health activities
+      code: {start: 86000, end: 87000}
+
+    '861':
+      level: 3
+      title: Hospital activities
+      code: {start: 86100, end: 86200}
+
+    '8610':
+      level: 4
+      title: Hospital activities
+      code: {start: 86100, end: 86110}
+
+    '862':
+      level: 3
+      title: Medical and dental practice activities
+      code: {start: 86200, end: 86300}
+
+    '8620':
+      level: 4
+      title: Medical and dental practice activities
+      code: {start: 86200, end: 86210}
+
+    '869':
+      level: 3
+      title: Other human health activities
+      code: {start: 86900, end: 87000}
+
+    '8690':
+      level: 4
+      title: Other human health activities
+      code: {start: 86900, end: 86910}
+
+    '87':
+      level: 2
+      title: Residential care activities
+      code: {start: 87000, end: 88000}
+
+    '871':
+      level: 3
+      title: Residential nursing care facilities
+      code: {start: 87100, end: 87200}
+
+    '8710':
+      level: 4
+      title: Residential nursing care facilities
+      code: {start: 87100, end: 87110}
+
+    '872':
+      level: 3
+      title: Residential care activities for mental retardation, mental health
+        and substance abuse
+      code: {start: 87200, end: 87300}
+
+    '8720':
+      level: 4
+      title: Residential care activities for mental retardation, mental health
+        and substance abuse
+      code: {start: 87200, end: 87210}
+
+    '873':
+      level: 3
+      title: Residential care activities for the elderly and disabled
+      code: {start: 87300, end: 87400}
+
+    '8730':
+      level: 4
+      title: Residential care activities for the elderly and disabled
+      code: {start: 87300, end: 87310}
+
+    '879':
+      level: 3
+      title: Other residential care activities
+      code: {start: 87900, end: 88000}
+
+    '8790':
+      level: 4
+      title: Other residential care activities
+      code: {start: 87900, end: 87910}
+
+    '88':
+      level: 2
+      title: Social work activities without accommodation
+      code: {start: 88000, end: 89000}
+
+    '881':
+      level: 3
+      title: Social work activities without accommodation for the elderly and
+        disabled
+      code: {start: 88100, end: 88200}
+
+    '8810':
+      level: 4
+      title: Social work activities without accommodation for the elderly and
+        disabled
+      code: {start: 88100, end: 88110}
+
+    '889':
+      level: 3
+      title: Other social work activities without accommodation
+      code: {start: 88900, end: 89000}
+
+    '8890':
+      level: 4
+      title: Other social work activities without accommodation
+      code: {start: 88900, end: 88910}
+
+    R:
+      level: 1
+      title: Arts, entertainment and recreation
+      code: {start: 90000, end: 94000}
+
+    '90':
+      level: 2
+      title: Creative, arts and entertainment activities
+      code: {start: 90000, end: 91000}
+
+    '900':
+      level: 3
+      title: Creative, arts and entertainment activities
+      code: {start: 90000, end: 90100}
+
+    '9000':
+      level: 4
+      title: Creative, arts and entertainment activities
+      code: {start: 90000, end: 90010}
+
+    '91':
+      level: 2
+      title: Libraries, archives, museums and other cultural activities
+      code: {start: 91000, end: 92000}
+
+    '910':
+      level: 3
+      title: Libraries, archives, museums and other cultural activities
+      code: {start: 91000, end: 91100}
+
+    '9101':
+      level: 4
+      title: Library and archives activities
+      code: {start: 91010, end: 91020}
+
+    '9102':
+      level: 4
+      title: Museums activities and operation of historical sites and buildings
+      code: {start: 91020, end: 91030}
+
+    '9103':
+      level: 4
+      title: Botanical and zoological gardens and nature reserves activities
+      code: {start: 91030, end: 91040}
+
+    '92':
+      level: 2
+      title: Gambling and betting activities
+      code: {start: 92000, end: 93000}
+
+    '920':
+      level: 3
+      title: Gambling and betting activities
+      code: {start: 92000, end: 92100}
+
+    '9200':
+      level: 4
+      title: Gambling and betting activities
+      code: {start: 92000, end: 92010}
+
+    '93':
+      level: 2
+      title: Sports activities and amusement and recreation activities
+      code: {start: 93000, end: 94000}
+
+    '931':
+      level: 3
+      title: Sports activities
+      code: {start: 93100, end: 93200}
+
+    '9311':
+      level: 4
+      title: Operation of sports facilities
+      code: {start: 93110, end: 93120}
+
+    '9312':
+      level: 4
+      title: Activities of sports clubs
+      code: {start: 93120, end: 93130}
+
+    '9319':
+      level: 4
+      title: Other sports activities
+      code: {start: 93190, end: 93200}
+
+    '932':
+      level: 3
+      title: Other amusement and recreation activities
+      code: {start: 93200, end: 93300}
+
+    '9321':
+      level: 4
+      title: Activities of amusement parks and theme parks
+      code: {start: 93210, end: 93220}
+
+    '9329':
+      level: 4
+      title: Other amusement and recreation activities n.e.c.
+      code: {start: 93290, end: 93300}
+
+    S:
+      level: 1
+      title: Other service activities
+      code: {start: 94000, end: 97000}
+
+    '94':
+      level: 2
+      title: Activities of membership organizations
+      code: {start: 94000, end: 95000}
+
+    '941':
+      level: 3
+      title: Activities of business, employers and professional membership organizations
+      code: {start: 94100, end: 94200}
+
+    '9411':
+      level: 4
+      title: Activities of business and employers membership organizations
+      code: {start: 94110, end: 94120}
+
+    '9412':
+      level: 4
+      title: Activities of professional membership organizations
+      code: {start: 94120, end: 94130}
+
+    '942':
+      level: 3
+      title: Activities of trade unions
+      code: {start: 94200, end: 94300}
+
+    '9420':
+      level: 4
+      title: Activities of trade unions
+      code: {start: 94200, end: 94210}
+
+    '949':
+      level: 3
+      title: Activities of other membership organizations
+      code: {start: 94900, end: 95000}
+
+    '9491':
+      level: 4
+      title: Activities of religious organizations
+      code: {start: 94910, end: 94920}
+
+    '9492':
+      level: 4
+      title: Activities of political organizations
+      code: {start: 94920, end: 94930}
+
+    '9499':
+      level: 4
+      title: Activities of other membership organizations n.e.c.
+      code: {start: 94990, end: 95000}
+
+    '95':
+      level: 2
+      title: Repair of computers and personal and household goods
+      code: {start: 95000, end: 96000}
+
+    '951':
+      level: 3
+      title: Repair of computers and communication equipment
+      code: {start: 95100, end: 95200}
+
+    '9511':
+      level: 4
+      title: Repair of computers and peripheral equipment
+      code: {start: 95110, end: 95120}
+
+    '9512':
+      level: 4
+      title: Repair of communication equipment
+      code: {start: 95120, end: 95130}
+
+    '952':
+      level: 3
+      title: Repair of personal and household goods
+      code: {start: 95200, end: 95300}
+
+    '9521':
+      level: 4
+      title: Repair of consumer electronics
+      code: {start: 95210, end: 95220}
+
+    '9522':
+      level: 4
+      title: Repair of household appliances and home and garden equipment
+      code: {start: 95220, end: 95230}
+
+    '9523':
+      level: 4
+      title: Repair of footwear and leather goods
+      code: {start: 95230, end: 95240}
+
+    '9524':
+      level: 4
+      title: Repair of furniture and home furnishings
+      code: {start: 95240, end: 95250}
+
+    '9529':
+      level: 4
+      title: Repair of other personal and household goods
+      code: {start: 95290, end: 95300}
+
+    '96':
+      level: 2
+      title: Other personal service activities
+      code: {start: 96000, end: 97000}
+
+    '960':
+      level: 3
+      title: Other personal service activities
+      code: {start: 96000, end: 96100}
+
+    '9601':
+      level: 4
+      title: Washing and (dry-) cleaning of textile and fur products
+      code: {start: 96010, end: 96020}
+
+    '9602':
+      level: 4
+      title: Hairdressing and other beauty treatment
+      code: {start: 96020, end: 96030}
+
+    '9603':
+      level: 4
+      title: Funeral and related activities
+      code: {start: 96030, end: 96040}
+
+    '9609':
+      level: 4
+      title: Other personal service activities n.e.c.
+      code: {start: 96090, end: 96100}
+
+    T:
+      level: 1
+      title: Activities of households as employers; undifferentiated goods-
+        and services-producing activities of households for own use
+      code: {start: 97000, end: 100000}
+
+    '97':
+      level: 2
+      title: Activities of households as employers of domestic personnel
+      code: {start: 97000, end: 98000}
+
+    '970':
+      level: 3
+      title: Activities of households as employers of domestic personnel
+      code: {start: 97000, end: 97100}
+
+    '9700':
+      level: 4
+      title: Activities of households as employers of domestic personnel
+      code: {start: 97000, end: 97010}
+
+    '98':
+      level: 2
+      title: Undifferentiated goods- and services-producing activities of private
+        households for own use
+      code: {start: 98000, end: 99000}
+
+    '981':
+      level: 3
+      title: Undifferentiated goods-producing activities of private households
+        for own use
+      code: {start: 98100, end: 98200}
+
+    '9810':
+      level: 4
+      title: Undifferentiated goods-producing activities of private households
+        for own use
+      code: {start: 98100, end: 98110}
+
+    '982':
+      level: 3
+      title: Undifferentiated service-producing activities of private households
+        for own use
+      code: {start: 98200, end: 98300}
+
+    '9820':
+      level: 4
+      title: Undifferentiated service-producing activities of private households
+        for own use
+      code: {start: 98200, end: 98210}
+
+    U:
+      level: 1
+      title: Activities of extraterritorial organizations and bodies
+      code: {start: 99000, end: 100000}
+
+    '99':
+      level: 2
+      title: Activities of extraterritorial organizations and bodies
+      code: {start: 99000, end: 100000}
+
+    '990':
+      level: 3
+      title: Activities of extraterritorial organizations and bodies
+      code: {start: 99000, end: 99100}
+
+    '9900':
+      level: 4
+      title: Activities of extraterritorial organizations and bodies
+      code: {start: 99000, end: 99010}
+
