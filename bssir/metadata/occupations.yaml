@@ -9,4 +9,390 @@ isco:
       farsi_title: مدیران
       level: 1
       code: {start: 1000, end: 2000}
-      isco08_code: 1
+      isco08_code: '1'
+
+    chief_executives_senior_officials_and_legislators:
+      title: Chief Executives, Senior Officials and Legislators
+      farsi_title: مدیران ارشد اجرایی، مقامات ارشد و قانون‌گذاران
+      level: 2
+      code: {start: 1100, end: 1200}
+      isco08_code: '11'
+
+    administrative_and_commercial_managers:
+      title: Administrative and Commercial Managers
+      farsi_title: مدیران امور اداری و تجاری
+      level: 2
+      code: {start: 1200, end: 1300}
+      isco08_code: '12'
+
+    production_and_specialized_services_managers:
+      title: Production and Specialized Services Managers
+      farsi_title: مدیران تولید و خدمات تخصصی
+      level: 2
+      code: {start: 1300, end: 1400}
+      isco08_code: '13'
+
+    hospitality_retail_and_other_services_managers:
+      title: Hospitality, Retail and Other Services Managers
+      farsi_title: مدیران مهمان‌داری، خرده‌فروشی و مدیران سایر خدمات
+      level: 2
+      code: {start: 1400, end: 1500}
+      isco08_code: '14'
+
+
+    professionals:
+      title: Professionals
+      farsi_title: متخصصان
+      level: 1
+      code: {start: 2000, end: 3000}
+      isco08_code: '2'
+
+    science_and_engineering_professionals:
+      title: Science and Engineering Professionals
+      farsi_title: متخصصان علوم پایه و علوم مهندسی
+      level: 2
+      code: {start: 2100, end: 2200}
+      isco08_code: '21'
+
+    health_professionals:
+      title: Health Professionals
+      farsi_title: متخصصان سلامت و بهداشت
+      level: 2
+      code: {start: 2200, end: 2300}
+      isco08_code: '22'
+
+    teaching_professionals:
+      title: Teaching Professionals
+      farsi_title: متخصصان آموزش
+      level: 2
+      code: {start: 2300, end: 2400}
+      isco08_code: '23'
+
+    business_and_administration_professionals:
+      title: Business and Administration Professionals
+      farsi_title: متخصصان امور تجاری و اداری 
+      level: 2
+      code: {start: 2400, end: 2500}
+      isco08_code: '24'
+
+    information_and_communications_technology_professionals:
+      title: Information and Communications Technology Professionals
+      farsi_title: متخصصان فناوری اطلاعات و ارتباطات
+      level: 2
+      code: {start: 2500, end: 2600}
+      isco08_code: '25'
+
+    legal_social_and_cultural_professionals:
+      title: Legal, Social and Cultural Professionals
+      farsi_title: متخصصان امور حقوقی، اجتماعی و مذهبی
+      level: 2
+      code: {start: 2600, end: 2700}
+      isco08_code: '26'
+
+
+    technicians_and_associate_professionals:
+      title: Technicians and Associate Professionals
+      farsi_title: تکنسین‌ها و کمک‌متخصصان
+      level: 1
+      code: {start: 3000, end: 4000}
+      isco08_code: '3'
+
+    science_and_engineering_associate_professionals:
+      title: Science and Engineering Associate Professionals
+      farsi_title: کمک‌متخصصان علوم پایه و علوم مهندسی
+      level: 2
+      code: {start: 3100, end: 3200}
+      isco08_code: '31'
+
+    health_associate_professionals:
+      title: Health Associate Professionals
+      farsi_title: کمک‌متخصصان سلامت و بهداشت 
+      level: 2
+      code: {start: 3200, end: 3300}
+      isco08_code: '32'
+
+    business_and_administration_associate_professionals:
+      title: Business and Administration Associate Professionals
+      farsi_title: کمک‌متخصصان امور تجاری و اداری  
+      level: 2
+      code: {start: 3300, end: 3400}
+      isco08_code: '33'
+
+    legal_social_cultural_and_related_associate_professionals:
+      title: Legal, Social, Cultural and Related Associate Professionals
+      farsi_title: کمک‌متخصصان امور حقوقی، اجتماعی، فرهنگی، مذهبی و امور مرتبط
+      level: 2
+      code: {start: 3400, end: 3500}
+      isco08_code: '34'
+
+    information_and_communications_technicians:
+      title: Information and Communications Technicians
+      farsi_title: تکنسین‌های اطلاعات و ارتباطات
+      level: 2
+      code: {start: 3500, end: 3600}
+      isco08_code: '35'
+
+
+    clerical_support_workers:
+      title: Clerical Support Workers
+      farsi_title: کارکنان پشتیبانی دفتری
+      level: 1
+      code: {start: 4000, end: 5000}
+      isco08_code: '4'
+
+    general_and_keyboard_clerks:
+      title: General and Keyboard Clerks
+      farsi_title: کارکنان امور عمومی دفتری و متصدیان ماشین‌های اداری 
+      level: 2
+      code: {start: 4100, end: 4200}
+      isco08_code: '41'
+
+    customer_services_clerks:
+      title: Customer Services Clerks
+      farsi_title: کارکنان ارائه خدمات به مشتریان
+      level: 2
+      code: {start: 4200, end: 4300}
+      isco08_code: '42'
+
+    numerical_and_material_recording_clerks:
+      title: Numerical and Material Recording Clerks
+      farsi_title: متصدیان ثبت ارقام و اقلام 
+      level: 2
+      code: {start: 4300, end: 4400}
+      isco08_code: '43'
+
+    other_clerical_support_workers:
+      title: Other Clerical Support Workers
+      farsi_title: سایر کارکنان پشتیبانی دفتری
+      level: 2
+      code: {start: 4400, end: 4500}
+      isco08_code: '44'
+
+
+    service_and_sales_workers:
+      title: Service and Sales Workers
+      farsi_title: کارکنان ارائه خدمات و کارکنان فروش
+      level: 1
+      code: {start: 5000, end: 6000}
+      isco08_code: '5'
+
+    personal_service_workers:
+      title: Personal Service Workers
+      farsi_title: کارکنان ارائه خدمات شخصی
+      level: 2
+      code: {start: 5100, end: 5200}
+      isco08_code: '51'
+
+    sales_workers:
+      title: Sales Workers
+      farsi_title: کارکنان فروش
+      level: 2
+      code: {start: 5200, end: 5300}
+      isco08_code: '52'
+
+    personal_care_workers:
+      title: Personal Care Workers
+      farsi_title: کارکنان ارائه مراقبت‌های‌ شخصی
+      level: 2
+      code: {start: 5300, end: 5400}
+      isco08_code: '53'
+
+    protective_services_workers:
+      title: Protective Services Workers
+      farsi_title: کارکنان ارائه خدمات حفاظتی
+      level: 2
+      code: {start: 5400, end: 5500}
+      isco08_code: '54'
+
+
+    skilled_agricultural_forestry_and_fishery_workers:
+      title: Skilled Agricultural, Forestry and Fishery Workers
+      farsi_title: کارکنان ماهر کشاورزی، جنگل‌داری و ماهیگیری
+      level: 1
+      code: {start: 6000, end: 7000}
+      isco08_code: '6'
+
+    market_oriented_skilled_agricultural_workers:
+      title: Market-oriented Skilled Agricultural Workers
+      farsi_title: کارکنان ماهر کشاورزی بازارمدار
+      level: 2
+      code: {start: 6100, end: 6200}
+      isco08_code: '61'
+
+    market_oriented_skilled_forestry_fishery_and_hunting_workers:
+      title: Market-Oriented Skilled Forestry, Fishery and Hunting Workers
+      farsi_title: کارکنان ماهر جنگل‌داری، ماهیگیری و شکار بازارمدار
+      level: 2
+      code: {start: 6200, end: 6300}
+      isco08_code: '62'
+
+    subsistence_farmers_fishers_hunters_and_gatherers:
+      title: Subsistence Farmers, Fishers, Hunters and Gatherers
+      farsi_title: کشاورزان، ماهیگیران، شکارچیان و گردآوران خودمصرف
+      level: 2
+      code: {start: 6300, end: 6400}
+      isco08_code: '63'
+
+
+    craft_and_related_trades_workers:
+      title: Craft and Related Trades Workers
+      farsi_title: صنعتگران و کارکنان حرفه‌های مرتبط
+      level: 1
+      code: {start: 7000, end: 8000}
+      isco08_code: '7'
+
+    building_and_related_trades_workers_(excluding_electricians):
+      title: Building and Related Trades Workers (excluding Electricians)
+      farsi_title: "کارکنان اجرای طرح‌های عمرانی یا ساختمان‌سازی و کارکنان\
+        حرفه‌های مرتبط (به‌جز برق‌کارها)"
+      level: 2
+      code: {start: 7100, end: 7200}
+      isco08_code: '71'
+
+    metal_machinery_and_related_trades_workers:
+      title: Metal, Machinery and Related Trades Workers
+      farsi_title: کارکنان فلزکاری، ماشین‌آلات فلزکاری و کارکنان حرفه‌های مرتبط
+      level: 2
+      code: {start: 7200, end: 7300}
+      isco08_code: '72'
+
+    handicraft_and_printing_workers:
+      title: Handicraft and Printing Workers
+      farsi_title: کارکنان صنایع دستی و چاپ
+      level: 2
+      code: {start: 7300, end: 7400}
+      isco08_code: '73'
+
+    electrical_and_electronics_trades_workers:
+      title: Electrical and Electronics Trades Workers
+      farsi_title: کارکنان مشاغل مربوط به برق و الکترونیک و کارکنان حرفه‌های مرتبط
+      level: 2
+      code: {start: 7400, end: 7500}
+      isco08_code: '74'
+
+    food_processing_woodworking_garment_and_other_craft_and_related_trades_workers:
+      title: >
+        Food Processing, Woodworking, Garment and Other Craft and Related
+        Trades Workers
+      farsi_title: "کارکنان فراوری مواد غذایی، کار روی چوب، پوشاک و کارکنان سایر\
+        صنایع و حرفه‌های مرتبط"
+      level: 2
+      code: {start: 7500, end: 7600}
+      isco08_code: '75'
+
+
+    plant_and_machine_operators_and_assemblers:
+      title: Plant and Machine Operators, and Assemblers
+      farsi_title: متصدیان ماشین‌آلات و دستگاه‌ها و مونتاژکاران
+      level: 1
+      code: {start: 8000, end: 9000}
+      isco08_code: '8'
+
+    stationary_plant_and_machine_operators:
+      title: Stationary Plant and Machine Operators
+      farsi_title: متصدیان ماشین‌آلات و دستگاه‌های ثابت
+      level: 2
+      code: {start: 8100, end: 8200}
+      isco08_code: '81'
+
+    assemblers:
+      title: Assemblers
+      farsi_title: مونتاژکاران
+      level: 2
+      code: {start: 8200, end: 8300}
+      isco08_code: '82'
+
+    drivers_and_mobile_plant_operators:
+      title: Drivers and Mobile Plant Operators
+      farsi_title: رانندگان و متصدیان ماشین‌آلات متحرک
+      level: 2
+      code: {start: 8300, end: 8400}
+      isco08_code: '83'
+
+
+    elementary_occupations:
+      title: Elementary Occupations
+      farsi_title: کارکنان مشاغل ساده  
+      level: 1
+      code: {start: 9000, end: 10000}
+      isco08_code: '9'
+
+    cleaners_and_helpers:
+      title: Cleaners and Helpers
+      farsi_title: نظافتچی‌ها و مستخدمان (غیراز خدمتکاران)
+      level: 2
+      code: {start: 9100, end: 9200}
+      isco08_code: '91'
+
+    agricultural_forestry_and_fishery_labourers:
+      title: Agricultural, Forestry and Fishery Labourers
+      farsi_title: کارگران مشاغل ساده کشاورزی، جنگل‌داری و ماهیگیری 
+      level: 2
+      code: {start: 9200, end: 9300}
+      isco08_code: '92'
+
+    labourers_in_mining_construction_manufacturing_and_transport:
+      title: Labourers in Mining, Construction, Manufacturing and Transport
+      farsi_title: "کارگران مشاغل ساده معادن، اجرای طرح‌های عمرانی یا\
+        ساختمان‌سازی، تولید صنعتی و حمل‌ونقل"
+      level: 2
+      code: {start: 9300, end: 9400}
+      isco08_code: '93'
+
+    food_preparation_assistants:
+      title: Food Preparation Assistants
+      farsi_title: دستیاران آماده‌سازی غذا
+      level: 2
+      code: {start: 9400, end: 9500}
+      isco08_code: '94'
+
+    street_and_related_sales_and_service_workers:
+      title: Street and Related Sales and Service Workers
+      farsi_title: کارکنان فروش و خدمات خیابانی و خدمات مرتبط
+      level: 2
+      code: {start: 9500, end: 9600}
+      isco08_code: '95'
+
+    refuse_workers_and_other_elementary_workers:
+      title: Refuse Workers and Other Elementary Workers
+      farsi_title: کارکنان مشاغل مرتبط با زباله‌ها و سایر کارکنان مشاغل ساده
+      level: 2
+      code: {start: 9600, end: 9700}
+      isco08_code: '96'
+
+
+    armed_forces_occupations:
+      title: Armed Forces Occupations
+      farsi_title: مشاغل نیروهای مسلح
+      level: 1
+      code: {start: 0, end: 1000}
+      isco08_code: '0'
+
+    commissioned_armed_forces_officers:
+      title: Commissioned Armed forces Officers
+      farsi_title: افسران نیروهای مسلح
+      level: 2
+      code: {start: 100, end: 200}
+      isco08_code: '01'
+
+    non_commissioned_armed_forces_officers:
+      title: Non-commissioned Armed Forces Officers  
+      farsi_title: درجه داران نیروهای مسلح
+      level: 2
+      code: {start: 200, end: 300}
+      isco08_code: '02'
+
+    armed_forces_occupations_other_ranks:
+      title: Armed Forces Occupations, Other Ranks
+      farsi_title: سایر مشاغل نیروهای مسلح  
+      level: 2
+      code: {start: 300, end: 400}
+      isco08_code: '03'
+
+
+original:
+  defaults:
+    levels: [1]
+    output_column_names: ["Occupation"]
+
+  items: *isco
