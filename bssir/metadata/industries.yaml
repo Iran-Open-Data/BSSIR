@@ -1,7 +1,7 @@
 
 isic_4:
 
-  items:
+  items: &isic4_items
     A:
       level: 1
       title: Agriculture, forestry and fishing
@@ -364,8 +364,8 @@ isic_4:
       title: Extraction of crude petroleum
       code: {start: 6100, end: 6200}
 
-      level: 4
     '0610':
+      level: 4
       title: Extraction of crude petroleum
       code: {start: 6100, end: 6110}
 
@@ -3945,3 +3945,11 @@ isic_4:
       title: Activities of extraterritorial organizations and bodies
       code: {start: 99000, end: 99010}
 
+original:
+
+  defaults:
+    levels: [1]
+    column_names: ["Industry"]
+    aspects: ["title"]
+
+  items: *isic4_items

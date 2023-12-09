@@ -159,9 +159,9 @@ class DecoderSettings(BaseModel):
         if self.classification_type == "commodity":
             self.versioned_info = self.lib_metadata.commodities[self.name]
         elif self.classification_type == "industry":
-            self.versioned_info = self.lib_metadata.metadata.industries[self.name]
+            self.versioned_info = self.lib_metadata.industries[self.name]
         elif self.classification_type == "occupation":
-            self.versioned_info = self.lib_metadata.metadata.occupations[self.name]
+            self.versioned_info = self.lib_metadata.occupations[self.name]
         else:
             raise ValueError(f"{self.classification_type} is not valid type")
 
@@ -417,8 +417,10 @@ class Decoder:
     def _build_year_code_table(
         self, year_code_pairs: pd.DataFrame, row: pd.Series
     ) -> pd.DataFrame:
-        filt = year_code_pairs[self.settings.target].apply(
-            lambda x: x in row["code_range"]
+        filt = (
+            year_code_pairs[self.settings.target]
+            .mask(lambda s: s.isna(), -1)
+            .apply(lambda x: x in row["code_range"])
         )
         filt = filt & (
             year_code_pairs[self.settings.year_col] == row[self.settings.year_col]
