@@ -3878,7 +3878,7 @@ isic_4:
       level: 1
       title: Activities of households as employers; undifferentiated goods-
         and services-producing activities of households for own use
-      code: {start: 97000, end: 100000}
+      code: {start: 97000, end: 99000}
 
     '97':
       level: 2
