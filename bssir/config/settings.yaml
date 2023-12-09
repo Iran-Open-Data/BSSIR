@@ -57,6 +57,10 @@ columns:
   id: ID
   weight: Weight
 
+  commodity_code: [commodity, coicop]
+  industry_code: [industry, isic]
+  occupation_code: [occupation, isco]
+
 # Metadata
 ## Base Package Metadata
 base_package_metadata:

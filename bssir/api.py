@@ -33,7 +33,7 @@ class API:
         years = self.utils.parse_years(years)
         if method == "create_from_raw":
             self.setup_raw_data(years, replace=replace, download_source=download_source)
-            self.__create_cleaned_files(years=years)
+            self._create_cleaned_files(years=years)
         else:
             self.utils.download_cleaned_tables(years)
 
@@ -70,9 +70,9 @@ class API:
         settings = settings.model_copy(update=kwargs)
         years = self.utils.parse_years(years, table_name=table_name)
         if settings.form == "raw":
-            table = self.__load_raw_table(table_name, years)
+            table = self._load_raw_table(table_name, years)
         elif settings.form == "cleaned":
-            table = self.__load_cleaned_table(table_name, years, settings)
+            table = self._load_cleaned_table(table_name, years, settings)
         elif settings.form == "normalized":
             table = data_engine.create_normalized_table(
                 table_name=table_name,
@@ -83,7 +83,7 @@ class API:
             )
         return table
 
-    def __load_raw_table(self, table_name: str, years: list[int]) -> pd.DataFrame:
+    def _load_raw_table(self, table_name: str, years: list[int]) -> pd.DataFrame:
         table = pd.concat(
             [
                 data_cleaner.load_raw_table(
@@ -98,7 +98,7 @@ class API:
         )
         return table
 
-    def __load_cleaned_table(
+    def _load_cleaned_table(
         self,
         table_name: str,
         years: list[int],
@@ -119,7 +119,7 @@ class API:
         )
         return table
 
-    def __create_cleaned_files(
+    def _create_cleaned_files(
         self, years: list[int], table_names: str | list[str] = "all"
     ) -> None:
         table_year_pairs = self.utils.create_table_year_pairs(
@@ -133,7 +133,7 @@ class API:
             executer.map(self.__create_cleaned_file, *map_input)
 
     def __create_cleaned_file(self, table_name: str, year: int) -> None:
-        table = self.__load_cleaned_table(table_name=table_name, years=[year])
+        table = self._load_cleaned_table(table_name=table_name, years=[year])
         table = data_cleaner.clean_table(
             table, table_name=table_name, year=year, lib_metadata=self.metadata
         )
@@ -176,3 +176,30 @@ class API:
         settings = decoder.IDDecoderSettings(**kwargs)
         table = decoder.IDDecoder(table=table, settings=settings).add_attribute()
         return table
+
+    def add_classification(self, table: pd.DataFrame, **kwargs) -> pd.DataFrame:
+        """Add industry, occupation, or commodity classification to table."""
+        if "target" not in kwargs:
+            potential_targets = []
+            for column_name in table.columns:
+                if self._is_potential_target(column_name):
+                    potential_targets.append(column_name)
+            if len(potential_targets) == 1:
+                kwargs["target"] = potential_targets[0]
+            else:
+                raise ValueError("Target column not specified.")
+        kwargs.update({"lib_defaults": self.defaults, "lib_metadata": self.metadata})
+        settings = decoder.DecoderSettings(**kwargs)
+        table = decoder.Decoder(table=table, settings=settings).add_classification()
+        return table
+
+    def _is_potential_target(self, column_name) -> bool:
+        for keywords in [
+            ("commodity", self.defaults.columns.commodity_code),
+            ("industry", self.defaults.columns.industry_code),
+            ("occupation", self.defaults.columns.occupation_code),
+        ]:
+            for keyword in keywords:
+                if keyword.lower() in column_name.lower():
+                    return True
+        return False

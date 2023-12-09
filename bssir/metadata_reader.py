@@ -143,9 +143,9 @@ class DefaultColumns(BaseModel):
     id: str
     weight: str
 
-    commodity_code: Optional[str] = None
-    industry_code: Optional[str] = None
-    occupation_code: Optional[str] = None
+    commodity_code: list
+    industry_code: list
+    occupation_code: list
 
 
 class DefaultFolderName(BaseModel):
