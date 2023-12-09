@@ -105,31 +105,47 @@ _ColumnNames = Annotated[tuple[str, ...], BeforeValidator(maybe_to_tuple)]
 
 
 class DecoderSettings(BaseModel):
-    """Settings for decoding commodity codes.
+    """Settings for decoding classification codes.
 
     Attributes
     ----------
-    name : str
+    target : str
+        Column to decode.
+
+    classification_type : Literal["commodity", "occupation", "industry"], optional
+        Type of classification. Inferred automatically if not provided.
+
+    name : str, default "original"
         Name of classification metadata to use.
 
-    code_column_name : str
-        Column name for commodity codes.
+    year_col : str, optional
+        Column name for year. Inferred automatically if not provided.
 
-    year_column_name : str
-        Column name for year.
+    versioned_info : dict
+        Classification metadata. Populated automatically based on name and
+        classification_type.
 
-    labels : tuple[str]
+    defaults : dict
+        Default settings. Merged with configured settings.
+
+    aspects : tuple[str]
         Labels to extract as output columns.
 
     levels : tuple[int]
-        Hierarchy levels to extract.
+         Hierarchy levels to extract.
 
-    output_column_names : tuple[str]
+    drop_value : bool, default False
+        Whether to drop rows when value is missing.
+
+    column_names : tuple[str]
         Names for extracted output columns.
+
+    missing_value_replacements : dict
+        Replacements for missing values in output columns.
 
     See Also
     --------
-    CommodityDecoder : Uses these settings to decode codes.
+    Decoder : Uses these settings to decode codes.
 
     """
 
@@ -265,65 +281,13 @@ class Decoder:
         self.code_column = extract_column(table, settings.target)
         self.year_column = extract_column(table, settings.year_col)
         self.classification_table = self.create_classification_table(
-            name=self.settings.name,
             years=self.year_column.drop_duplicates().to_list(),
-            classification_type=settings.classification_type,
         )
         self.year_code_pairs = self._create_year_code_pairs()
 
-    def read_classification_info(
-        self,
-        name: str,
-        year: int,
-        classification_type: Literal["commodity", "occupation", "industry"],
-    ) -> dict:
-        """Reads classification metadata by name.
-
-        Retrieves the versioned classification metadata for the given
-        classification name and year, resolves the version, categorizes it,
-        and returns the resulting dictionary.
-
-        Parameters
-        ----------
-        name : str
-            Name of the classification to get info for.
-
-        year : int
-            Year to retrieve metadata for.
-
-        Returns
-        -------
-        dict
-            Dictionary containing categorized classification info for the
-            given classification name and year.
-
-        Examples
-        --------
-        >>> info = read_classification_info('original', 1380)
-
-        See Also
-        --------
-        utils.resolve_metadata : Resolves metadata versions.
-
-        """
-        if classification_type == "commodity":
-            versioned_metadata = self.settings.lib_metadata.commodities[name]
-        elif classification_type == "occupation":
-            versioned_metadata = self.settings.lib_metadata.occupations[name]
-        elif classification_type == "industry":
-            versioned_metadata = self.settings.lib_metadata.industries[name]
-        else:
-            raise ValueError
-        classification_info = utils.resolve_metadata(
-            versioned_metadata, year, categorize=True
-        )
-        return classification_info
-
     def create_classification_table(
         self,
-        name: str,
         years: Iterable[int],
-        classification_type: Literal["commodity", "occupation", "industry"],
     ) -> pd.DataFrame:
         """Creates classification table for given years.
 
@@ -333,8 +297,6 @@ class Decoder:
 
         Parameters
         ----------
-        name : str
-            Name of classification to create table for.
 
         years : Iterable[int]
             Years to include in the resulting table.
@@ -351,56 +313,21 @@ class Decoder:
         """
         table_list = []
         for year in years:
-            classification_info = self.read_classification_info(
-                name,
-                year,
-                classification_type,
+            classification_info = utils.resolve_metadata(
+                self.settings.versioned_info, year, categorize=True
             )
-            annual_table = self._create_annual_classification_table(
-                classification_info,
+            assert isinstance(classification_info, dict)
+            annual_table = pd.DataFrame(classification_info.get("items"))
+            annual_table["code_range"] = annual_table["code"].apply(
+                utils.Argham,  # type: ignore
+                default_start=self.settings.lib_defaults.years[0],
+                default_end=self.settings.lib_defaults.years[-1] + 1,
+                keywords=["code"],
             )
+            annual_table = annual_table.drop(columns=["code"])
             annual_table.loc[:, "Year"] = year
             table_list.append(annual_table)
         table = pd.concat(table_list, ignore_index=True)
-        return table
-
-    def _create_annual_classification_table(
-        self,
-        classification_info: dict,
-    ) -> pd.DataFrame:
-        """Creates annual DataFrame from classification metadata.
-
-        Converts the classification info dictionary for a single year
-        into a DataFrame. Applies a helper to extract year ranges from
-        'code' values then drops the 'code' column.
-
-        This is used by create_classification_table() to generate the
-        annual tables that are concatenated.
-
-        Parameters
-        ----------
-        classification_info : dict
-            Classification metadata for a single year.
-
-        Returns
-        -------
-        DataFrame
-            Annual classification data as a DataFrame.
-
-        See Also
-        --------
-        create_classification_table : Creates full table by concatting
-            annual DataFrames generated by this function.
-
-        """
-        table = pd.DataFrame(classification_info["items"])
-        table["code_range"] = table["code"].apply(
-            utils.Argham,  # type: ignore
-            default_start=self.settings.lib_defaults.years[0],
-            default_end=self.settings.lib_defaults.years[-1] + 1,
-            keywords=["code"],
-        )
-        table = table.drop(columns=["code"])
         return table
 
     def _create_year_code_pairs(self) -> pd.DataFrame:
