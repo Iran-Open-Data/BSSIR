@@ -47,7 +47,6 @@ def download(url: str, path: Path) -> None:
     else:
         path.parent.mkdir(parents=True, exist_ok=True)
         local_file_size = 0
-    local_file_size = path.stat().st_size
     if remote_file_size == local_file_size:
         return
     with open(path, mode="wb") as file:
