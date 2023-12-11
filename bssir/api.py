@@ -133,7 +133,7 @@ class API:
             executer.map(self.__create_cleaned_file, *map_input)
 
     def __create_cleaned_file(self, table_name: str, year: int) -> None:
-        table = self._load_cleaned_table(table_name=table_name, years=[year])
+        table = self._load_raw_table(table_name=table_name, years=[year])
         table = data_cleaner.clean_table(
             table, table_name=table_name, year=year, lib_metadata=self.metadata
         )

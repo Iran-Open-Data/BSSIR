@@ -7,8 +7,8 @@ from .argham import Argham
 def parse_years(
     years: _Years,
     *,
-    table_name: str | None = None,
     available_years: list[int] | None = None,
+    table_name: str | None = None,
     tables_availability: dict | None = None,
 ) -> list[int]:
     """Convert different year representations to a list of integer years.
@@ -50,33 +50,46 @@ def parse_years(
     >>> parse_years('1365, 80-83, 99')
     [1365, 1380, 1381, 1382, 1383, 1399]
     """
-    if isinstance(years, int):
-        year_list = [_check_year_validity(years, available_years)]
-    elif isinstance(years, str):
-        if years.lower() == "all":
-            if table_name is None:
-                year_list = available_years
-            else:
-                year_list = get_table_available_years(
-                    table_name,
-                    available_years=available_years,
-                    tables_availability=tables_availability,
-                )
-        elif years.lower() == "last":
-            year_list = [available_years[-1]]
-        else:
-            year_list = _parse_year_str(years)
-    elif isinstance(years, Iterable):
-        year_list = [_check_year_validity(year, available_years) for year in years]
+    if available_years is not None:
+        table_available_years = get_table_available_years(
+            available_years=available_years,
+            table_name=table_name,
+            tables_availability=tables_availability,
+        )
     else:
-        raise TypeError
+        table_available_years = None
+
+    if years == "all":
+        if table_available_years is None:
+            raise ValueError
+        years = table_available_years
+    elif years == "last":
+        if available_years is None:
+            raise ValueError
+        years = max(available_years)
+
+    year_list = _parse_years_param(years)
+
+    if table_available_years is not None:
+        year_list = [year for year in year_list if year in table_available_years]
 
     return year_list
 
 
-def _check_year_validity(
-    year: str | int, available_years: list[int] | None = None
-) -> int:
+def _parse_years_param(years: int | Iterable[int] | str) -> list[int]:
+    if isinstance(years, int):
+        year_list = [_check_year_validity(years)]
+    elif isinstance(years, str):
+        year_list = _parse_year_str(years)
+    elif isinstance(years, Iterable):
+        year_list = [_check_year_validity(year) for year in years]
+    else:
+        raise TypeError
+    year_list.sort()
+    return year_list
+
+
+def _check_year_validity(year: str) -> int:
     if isinstance(year, str):
         year = int(year.strip())
 
@@ -84,9 +97,6 @@ def _check_year_validity(
         year += 1400
     elif year < 100:
         year += 1300
-
-    if (available_years is not None) and (year not in available_years):
-        raise ValueError(f"Year {year} is not in available years {available_years}")
 
     return year
 
@@ -109,12 +119,14 @@ def _parse_year_str(year: str) -> list[int]:
 
 
 def get_table_available_years(
-    table_name: str,
-    *,
     available_years: list[int],
+    *,
+    table_name: str | None = None,
     tables_availability: dict | None = None,
 ) -> list[int]:
-    if table_name in tables_availability:
+    if (tables_availability is None) or (table_name is None):
+        years = available_years
+    elif table_name in tables_availability:
         years = list(
             Argham(
                 tables_availability[table_name],
@@ -159,11 +171,11 @@ def create_table_year_pairs(
     table_names = [table_names] if isinstance(table_names, str) else table_names
     table_year = []
     for table_name in table_names:
-        years = parse_years(
+        table_years = parse_years(
             years,
             table_name=table_name,
             available_years=available_years,
             tables_availability=tables_availability,
         )
-        table_year.extend([(table_name, year) for year in years if year in years])
+        table_year.extend([(table_name, year) for year in table_years])
     return table_year
