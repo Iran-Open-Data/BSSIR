@@ -46,9 +46,7 @@ def generate_availability_tables(api: API):
     availability_dir = api.defaults.docs.csv.joinpath("availability")
     availability_dir.mkdir(exist_ok=True, parents=True)
     for table_name in api.metadata.tables["table_availability"]:
-        years = [
-            year for _, year in api.utils.create_table_year_pairs(table_name, "all")
-        ]
+        years = api.utils.parse_years("all", table_name=table_name)
         columns = []
         for year in years:
             columns.append(
@@ -73,7 +71,7 @@ def generate_raw_summary_tables(api: API):
 
 
 def file_code_table(table_name: str, api: API) -> pd.DataFrame:
-    years = [year for _, year in api.utils.create_table_year_pairs(table_name, "all")]
+    years = api.utils.parse_years("all", table_name=table_name)
 
     table = (
         pd.Series(
@@ -93,36 +91,35 @@ def file_code_table(table_name: str, api: API) -> pd.DataFrame:
     return table
 
 
-def create_column_code_summary_tables(api: API) -> dict[str, pd.DataFrame]:
+def create_column_code_summary_tables(
+    api: API, table_name: str
+) -> dict[str, pd.DataFrame]:
     availability_dir = api.defaults.docs.csv.joinpath("availability")
-    column_code_summary_tables = {}
-    for table_name in api.metadata.tables["table_availability"]:
-        column_names = (
-            pd.read_csv(availability_dir.joinpath(f"{table_name}.csv"), index_col=0)
-            .unstack()
-            .dropna()
-            .drop_duplicates()
-            .sort_values()
-            .to_list()
-        )
-        years = [
-            year for _, year in api.utils.create_table_year_pairs(table_name, "all")
-        ]
-        annual_summary_tables = {}
-        for year in years:
-            csv_path = api.defaults.docs.csv.joinpath("raw", table_name, f"{year}.csv")
-            annual_summary_tables[year] = pd.read_csv(csv_path, index_col=0).fillna("")
+    column_names = (
+        pd.read_csv(availability_dir.joinpath(f"{table_name}.csv"), index_col=0)
+        .unstack()
+        .dropna()
+        .drop_duplicates()
+        .sort_values()
+        .to_list()
+    )
+    years = api.utils.parse_years("all", table_name=table_name)
+    annual_summary_tables = {}
+    for year in years:
+        csv_path = api.defaults.docs.csv.joinpath("raw", table_name, f"{year}.csv")
+        annual_summary_tables[year] = pd.read_csv(csv_path, index_col=0).fillna("")
 
-        for column_name in column_names:
-            column_list = []
-            for year in years:
-                try:
-                    column_list.append(
-                        annual_summary_tables[year].loc[column_name].rename(year)
-                    )
-                except KeyError:
-                    pass
-            column_code_summary_tables[column_name.upper()] = pd.DataFrame(column_list)
+    column_code_summary_tables = {}
+    for column_name in column_names:
+        column_list = []
+        for year in years:
+            try:
+                column_list.append(
+                    annual_summary_tables[year].loc[column_name].rename(year)
+                )
+            except KeyError:
+                pass
+        column_code_summary_tables[column_name.upper()] = pd.DataFrame(column_list)
     return column_code_summary_tables
 
 
@@ -181,7 +178,7 @@ def generate_raw_description(api: API):
             md_page_content += "\n\n\n"
 
         md_page_content += "## Column Code Summary Tables\n\n"
-        column_code_summary_tables = create_column_code_summary_tables(api)
+        column_code_summary_tables = create_column_code_summary_tables(api, table_name)
         for column_name, table in column_code_summary_tables.items():
             md_page_content += f"### {column_name}\n\n"
 

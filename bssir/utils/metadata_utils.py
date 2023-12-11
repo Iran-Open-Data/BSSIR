@@ -443,9 +443,13 @@ def exteract_code_metadata(
     meta_dict = {}
     for year in lib_defaults.years:
         columns_metadata = resolve_metadata(table_metadata, year).get("columns")
-        if (column_code in columns_metadata) and (
-            (len(meta_dict) == 0)
-            or (columns_metadata[column_code] != list(meta_dict.values())[-1])
+        if (
+            isinstance(columns_metadata, dict)
+            and (column_code in columns_metadata)
+            and (
+                (len(meta_dict) == 0)
+                or (columns_metadata[column_code] != list(meta_dict.values())[-1])
+            )
         ):
             meta_dict[year] = columns_metadata[column_code]
     return meta_dict
