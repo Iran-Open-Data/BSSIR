@@ -522,7 +522,12 @@ class TableFactory:
         dependencies: dict[str, dict] = {}
         while len(table_list) > 0:
             table = table_list.pop(0)
-            if "table_list" in self.lib_metadata.schema[table]:
+            if table.split(".")[0] == "external":
+                file_name = f"{table.split('.')[1]}.parquet"
+                local_path = self.lib_defaults.dirs.external.joinpath(file_name)
+                size = local_path.stat().st_size if local_path.exists() else None
+                dependencies[table] = {"size": size}
+            elif "table_list" in self.lib_metadata.schema[table]:
                 dependencies[table] = self.lib_metadata.schema[table]
                 upstream_tables = utils.resolve_metadata(
                     self.lib_metadata.schema[table]["table_list"], year=year
