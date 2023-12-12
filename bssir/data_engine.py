@@ -667,8 +667,17 @@ class TableFactory:
     def _collect_schema_tables(
         self, table_names: str | list[str]
     ) -> list[pd.DataFrame]:
+        api_file: ModuleType = importlib.import_module(
+            f"{self.lib_defaults.package_name.lower()}.api"
+        )
+        api: object = getattr(api_file, "api")
         table_names = [table_names] if isinstance(table_names, str) else table_names
-        table_list = [self.load(name) for name in table_names]
+        table_list = [
+            self.load(name)
+            if name.split(".")[0] != "external"
+            else api.load_external_table(name.split(".")[1])
+            for name in table_names
+        ]
         table_list = [table for table in table_list if not table.empty]
         return table_list
 
