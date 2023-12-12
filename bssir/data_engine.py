@@ -255,6 +255,10 @@ class Pipeline:
     def _add_year(self) -> None:
         self.table["Year"] = self.pipeline_params["year"]
 
+    def _filter_year(self) -> None:
+        filt = self.table["Year"] == self.pipeline_params["year"]
+        self.table = self.table.loc[filt]
+
     def _add_table_name(self) -> None:
         self.table["Table_Name"] = self.pipeline_params["table_name"]
 
