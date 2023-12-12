@@ -116,7 +116,7 @@ def generate_columns_metadata(
 ) -> None:
     table_names = [table_names] if isinstance(table_names, str) else table_names
     table_names = (
-        api.metadata.tables["table_availability"]
+        list(api.metadata.tables["table_availability"].keys())
         if table_names is None
         else table_names
     )
@@ -143,7 +143,7 @@ def create_replace_tables(
     table_name: str, api: API, raw_tables: dict[int, pd.DataFrame]
 ) -> dict[str, pd.DataFrame]:
     new_to_old = create_new_to_old_table(table_name, api)
-    years = [year for _, year in api.utils.create_table_year_pairs(table_name, "all")]
+    years = api.utils.parse_years("all", table_name=table_name)
     replace_tables = {}
     for column_name in new_to_old.columns:
         old_name_dict = new_to_old[column_name].fillna("").to_dict()
@@ -189,7 +189,7 @@ def generate_replace_tables(
 ) -> None:
     table_names = [table_names] if isinstance(table_names, str) else table_names
     table_names = (
-        api.metadata.tables["table_availability"]
+        list(api.metadata.tables["table_availability"].keys())
         if table_names is None
         else table_names
     )
@@ -297,13 +297,13 @@ def generate_summary_stats(
 ) -> None:
     table_names = [table_names] if isinstance(table_names, str) else table_names
     table_names = (
-        api.metadata.tables["table_availability"]
+        list(api.metadata.tables["table_availability"].keys())
         if table_names is None
         else table_names
     )
     for table_name in table_names:
         cleaned_tables = {
-            year: api.load_table(table_name, year, form="cleaned")
+            year: api.load_table(table_name, year, form="cleaned", on_missing="create")
             for year in api.utils.parse_years("all", table_name=table_name)
         }
         summary_stats = create_summary_stats(table_name, api, cleaned_tables)
@@ -344,9 +344,10 @@ def create_category_table(table_name: str, column_name: str, api: API):
 
 
 def create_cleaned_table_page(table_name: str, api: API) -> str:
-    years = [year for _, year in api.utils.create_table_year_pairs(table_name, "all")]
+    years = api.utils.parse_years("all", table_name=table_name)
     cleaned_tables = {
-        year: api.load_table(table_name, year, form="cleaned") for year in years
+        year: api.load_table(table_name, year, form="cleaned", on_missing="create")
+        for year in years
     }
 
     md_page_content = ""
@@ -388,7 +389,7 @@ def create_cleaned_table_page(table_name: str, api: API) -> str:
         column_code_table.loc[filt, column] = (
             "["
             + column_code_table.loc[filt, column]
-            + f"](/{api.defaults.package_name}/tables/raw/data#"
+            + f"](/{api.defaults.package_name}/tables/raw/{table_name}#"
             + column_code_table.loc[filt, column].str.lower()
             + ")"
         )
@@ -426,7 +427,7 @@ def generate_cleaned_description(
 ) -> None:
     table_names = [table_names] if isinstance(table_names, str) else table_names
     table_names = (
-        api.metadata.tables["table_availability"]
+        list(api.metadata.tables["table_availability"].keys())
         if table_names is None
         else table_names
     )
