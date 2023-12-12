@@ -303,7 +303,10 @@ class Pipeline:
             name for name in columns_names if not (name.isnumeric() or (name is None))
         ]
         self.table[column_name] = (
-            self.table[columns_names].fillna(0).eval(expression, engine="python")
+            self.table[columns_names]
+            .astype(float)
+            .fillna(0)
+            .eval(expression, engine="python")
         )
 
     def __apply_categorical_instruction(
