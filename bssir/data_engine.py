@@ -361,7 +361,7 @@ class Pipeline:
         assert isinstance(table, pd.DataFrame)
         self.table = table
 
-    def _apply_external_function(self, method_input: str | None = None) -> None:
+    def _apply_function(self, method_input: str | None = None) -> None:
         if method_input is None:
             return
         module_name, func_name = method_input.rsplit(".", 1)
