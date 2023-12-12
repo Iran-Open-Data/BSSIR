@@ -59,11 +59,15 @@ class Utils:
 
     def download_cleaned_tables(self, years: list[int]) -> None:
         table_years = self.create_table_year_pairs("all", years)
-        for table_name, year in table_years:
-            with ThreadPoolExecutor(4) as executer:
-                executer.submit(
-                    self.__download_cleaned_table, year=year, table_name=table_name
+        futures = []
+        with ThreadPoolExecutor(4) as executer:
+            for table_name, year in table_years:
+                futures.append(
+                    executer.submit(
+                        self.__download_cleaned_table, year=year, table_name=table_name
+                    )
                 )
+        list(future.result() for future in futures)
 
     def __download_cleaned_table(self, year: int, table_name: str) -> None:
         file_name = f"{year}_{table_name}.parquet"

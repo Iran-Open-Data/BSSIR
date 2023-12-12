@@ -298,7 +298,8 @@ class Metadata:
 
     def reload(self):
         with ThreadPoolExecutor(max_workers=6) as executer:
-            executer.map(self.reload_file, self.metadata_files)
+            results = executer.map(self.reload_file, self.metadata_files)
+        list(results)
 
     def reload_file(self, file_name):
         base_package_meta = self.defaults.base_package_metadata[file_name]

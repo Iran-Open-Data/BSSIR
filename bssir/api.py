@@ -130,7 +130,8 @@ class API:
             (year for _, year in table_year_pairs),
         ]
         with ThreadPoolExecutor(max_workers=6) as executer:
-            executer.map(self.__create_cleaned_file, *map_input)
+            results = executer.map(self.__create_cleaned_file, *map_input)
+        list(results)
 
     def __create_cleaned_file(self, table_name: str, year: int) -> None:
         table = self._load_raw_table(table_name=table_name, years=[year])
