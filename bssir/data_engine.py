@@ -467,18 +467,27 @@ class TableFactory:
         """
         table_name = self.table_name if table_name is None else table_name
 
-        if table_name in self.lib_metadata.tables["table_availability"]:
-            table = self.table_handler[table_name]
-            if not table.empty and (table_name in self.schema):
-                table = self._apply_schema(table, table_name)
-        elif self.schema[table_name].get("cache_result", False):
+        if all(
+            [
+                table_name not in self.lib_metadata.tables["table_availability"],
+                table_name not in self.schema,
+            ]
+        ):
+            raise ValueError
+        if self.schema.get(table_name, {}).get("cache_result", False):
             try:
                 table = self.read_cached_table(table_name)
             except FileNotFoundError:
                 table = self._construct_schema_based_table(table_name)
                 self.save_cache(table, table_name)
-        else:
+        elif "table_list" in self.schema.get(table_name, {}):
             table = self._construct_schema_based_table(table_name)
+        elif table_name in self.lib_metadata.tables["table_availability"]:
+            table = self.table_handler[table_name]
+            if not table.empty and (table_name in self.schema):
+                table = self._apply_schema(table, table_name)
+        else:
+            raise ValueError
         return table
 
     def extract_dependencies(
