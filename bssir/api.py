@@ -151,7 +151,7 @@ class API:
         **kwargs,
     ) -> pd.DataFrame:
         """Load an external table for the given table name and year(s)."""
-        external_data.load_table(
+        return external_data.load_table(
             table_name=table_name,
             lib_defaults=self.defaults,
             data_source=data_source,
@@ -191,6 +191,12 @@ class API:
         settings = decoder.DecoderSettings(**kwargs)
         table = decoder.Decoder(table=table, settings=settings).add_classification()
         return table
+
+    def add_weight(self, table: pd.DataFrame) -> pd.DataFrame:
+        """Add sampling weight to table"""
+        years = decoder.extract_column(table, "Years").unique().tolist()
+        weights = self.load_table("Weight", years)
+        return table.merge(weights, how="left", on=["Year", "ID"])
 
     def _is_potential_target(self, column_name) -> bool:
         for keywords in [
