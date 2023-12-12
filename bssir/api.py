@@ -144,7 +144,6 @@ class API:
     def load_external_table(
         self,
         table_name,
-        years: _Years,
         data_source: _DataSource | None = None,
         frequency: _Frequency | None = None,
         separate_by: _SeparateBy | None = None,
@@ -152,7 +151,6 @@ class API:
         **kwargs,
     ) -> pd.DataFrame:
         """Load an external table for the given table name and year(s)."""
-        years = self.utils.parse_years(years, table_name=table_name)
         external_data.load_table(
             table_name=table_name,
             lib_defaults=self.defaults,
