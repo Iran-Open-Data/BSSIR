@@ -425,6 +425,8 @@ def extract_column_metadata(
     meta_dict = {}
     for year in lib_defaults.years:
         columns_metadata = resolve_metadata(table_metadata, year).get("columns")
+        if columns_metadata is None:
+            continue
         for key, value in columns_metadata.items():
             if (value is None) or (value == "drop"):
                 continue
