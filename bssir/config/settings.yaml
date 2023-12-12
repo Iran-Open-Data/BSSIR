@@ -61,6 +61,8 @@ columns:
   industry_code: [industry, isic]
   occupation_code: [occupation, isco]
 
+  groupby: [Urban_Rural, Province, County, Decile, Percentile]
+
 # Metadata
 ## Base Package Metadata
 base_package_metadata:

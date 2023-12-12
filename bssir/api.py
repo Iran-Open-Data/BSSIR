@@ -8,6 +8,7 @@ import pandas as pd
 
 from .metadata_reader import Defaults, Metadata, _Years, LoadTableSettings
 from . import archive_handler, data_cleaner, external_data, data_engine, decoder
+from .calculator import Calculator
 from .utils import Utils
 
 _DataSource = Literal["SCI", "CBI"]
@@ -20,6 +21,7 @@ class API:
         self.defaults = defaults
         self.metadata = metadata
         self.utils = Utils(defaults, metadata)
+        self.calculate = Calculator(defaults)
 
     def setup(
         self,

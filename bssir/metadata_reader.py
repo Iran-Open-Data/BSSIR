@@ -147,6 +147,8 @@ class DefaultColumns(BaseModel):
     industry_code: list
     occupation_code: list
 
+    groupby: list
+
 
 class DefaultFolderName(BaseModel):
     compressed: str
