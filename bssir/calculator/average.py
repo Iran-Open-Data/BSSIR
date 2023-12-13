@@ -1,3 +1,5 @@
+from typing import Iterable
+
 import pandas as pd
 
 from ..metadata_reader import Defaults
@@ -7,7 +9,7 @@ def weighted_average(
     table: pd.DataFrame,
     defaults: Defaults,
     weight_col: str | None = None,
-    columns: list[str] | None = None,
+    columns: str | Iterable[str] | None = None,
 ) -> pd.Series:
     """Calculate the weighted average of columns in a DataFrame.
 
@@ -52,8 +54,15 @@ def weighted_average(
             if col not in defaults.columns.groupby
             if col not in [defaults.columns.id, weight_col, "index"]
         ]
-    table[columns] = table[columns].multiply(table[weight_col], axis="index")
-    columns_summation = table.sum()
+    elif isinstance(columns, str):
+        columns = [columns]
+    else:
+        columns = list(columns)
+    calc_table = table.loc[:, columns + [weight_col]].copy()
+    calc_table[columns] = calc_table[columns].multiply(
+        calc_table[weight_col], axis="index"
+    )
+    columns_summation = calc_table.sum()
     results = (
         columns_summation.loc[columns]
         .divide(columns_summation[weight_col])
