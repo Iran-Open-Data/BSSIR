@@ -163,13 +163,14 @@ class API:
             **kwargs,
         )
 
-    def load_knowledge(self, name: str, years: _Years) -> Any:
-        years = self.utils.parse_years(years)
+    def load_knowledge(self, name: str, years: _Years | None = None, **kwargs) -> Any:
+        if years is not None:
+            kwargs["years"] = self.utils.parse_years(years)
         module: ModuleType = importlib.import_module(
             f"{self.defaults.package_name.lower()}.knowledge_base.{name}"
         )
         main_function: Callable = getattr(module, "main")
-        return main_function(years)
+        return main_function(**kwargs)
 
     def add_attribute(self, table: pd.DataFrame, **kwargs) -> pd.DataFrame:
         """Add attributes to table based on ID column."""
