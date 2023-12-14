@@ -1,4 +1,3 @@
-from concurrent.futures import ThreadPoolExecutor
 from typing import Any, Callable, Literal
 from types import ModuleType
 import shutil
@@ -131,9 +130,8 @@ class API:
             (table_name for table_name, _ in table_year_pairs),
             (year for _, year in table_year_pairs),
         ]
-        with ThreadPoolExecutor(max_workers=6) as executer:
-            results = executer.map(self.__create_cleaned_file, *map_input)
-        list(results)
+        for table_name, year in map_input:
+            self.__create_cleaned_file(table_name, year)
 
     def __create_cleaned_file(self, table_name: str, year: int) -> None:
         table = self._load_raw_table(table_name=table_name, years=[year])
