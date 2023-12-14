@@ -195,9 +195,15 @@ class API:
 
     def add_weight(self, table: pd.DataFrame) -> pd.DataFrame:
         """Add sampling weight to table"""
-        years = decoder.extract_column(table, "Years").unique().tolist()
+        years = (
+            decoder.extract_column(table, self.defaults.columns.year).unique().tolist()
+        )
         weights = self.load_table("Weight", years)
-        return table.merge(weights, how="left", on=["Year", "ID"])
+        return table.merge(
+            weights,
+            how="left",
+            on=[self.defaults.columns.year, self.defaults.columns.id],
+        )
 
     def _is_potential_target(self, column_name) -> bool:
         for keywords in [
