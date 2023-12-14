@@ -1,7 +1,6 @@
 """
 Metadata module
 """
-from concurrent.futures import ThreadPoolExecutor
 import functools
 import re
 
@@ -296,12 +295,34 @@ class Metadata:
     def __init__(self, _defaults: Defaults) -> None:
         self.defaults = _defaults
         self.metadata_files = list(_defaults.base_package_metadata.keys())
+        self.__commodities: dict | None = None
+        self.__occupations: dict | None = None
+        self.__industries: dict | None = None
         self.reload()
 
+    @property
+    def commodities(self) -> dict[str, Any]:
+        if self.__commodities is None:
+            self.reload_file("commodities")
+        return self.__commodities
+
+    @property
+    def occupations(self) -> dict[str, Any]:
+        if self.__occupations is None:
+            self.reload_file("occupations")
+        return self.__occupations
+
+    @property
+    def industries(self) -> dict[str, Any]:
+        if self.__industries is None:
+            self.reload_file("industries")
+        return self.__industries
+
     def reload(self):
-        with ThreadPoolExecutor(max_workers=6) as executer:
-            results = executer.map(self.reload_file, self.metadata_files)
-        list(results)
+        for file_name in self.metadata_files:
+            if file_name in ["commodities", "occupations", "industries"]:
+                continue
+            self.reload_file(file_name)
 
     def reload_file(self, file_name):
         base_package_meta = self.defaults.base_package_metadata[file_name]
@@ -315,6 +336,9 @@ class Metadata:
         interpreter = self.get_interpreter(file_name, _metadata)
         if local_meta.exists():
             _metadata.update(read_yaml(local_meta, interpreter=interpreter))
+
+        if file_name in ["commodities", "occupations", "industries"]:
+            file_name = "__" + file_name
         setattr(self, file_name, _metadata)
 
     def get_interpreter(
