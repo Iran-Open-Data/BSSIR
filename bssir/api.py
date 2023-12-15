@@ -126,11 +126,7 @@ class API:
         table_year_pairs = self.utils.create_table_year_pairs(
             table_names=table_names, years=years
         )
-        map_input = [
-            (table_name for table_name, _ in table_year_pairs),
-            (year for _, year in table_year_pairs),
-        ]
-        for table_name, year in map_input:
+        for table_name, year in table_year_pairs:
             self.__create_cleaned_file(table_name, year)
 
     def __create_cleaned_file(self, table_name: str, year: int) -> None:
