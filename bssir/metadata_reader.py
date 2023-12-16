@@ -295,28 +295,28 @@ class Metadata:
     def __init__(self, _defaults: Defaults) -> None:
         self.defaults = _defaults
         self.metadata_files = list(_defaults.base_package_metadata.keys())
-        self.__commodities: dict | None = None
-        self.__occupations: dict | None = None
-        self.__industries: dict | None = None
+        self._commodities: dict | None = None
+        self._occupations: dict | None = None
+        self._industries: dict | None = None
         self.reload()
 
     @property
     def commodities(self) -> dict[str, Any]:
-        if self.__commodities is None:
+        if self._commodities is None:
             self.reload_file("commodities")
-        return self.__commodities
+        return self._commodities
 
     @property
     def occupations(self) -> dict[str, Any]:
-        if self.__occupations is None:
+        if self._occupations is None:
             self.reload_file("occupations")
-        return self.__occupations
+        return self._occupations
 
     @property
     def industries(self) -> dict[str, Any]:
-        if self.__industries is None:
+        if self._industries is None:
             self.reload_file("industries")
-        return self.__industries
+        return self._industries
 
     def reload(self):
         for file_name in self.metadata_files:
@@ -338,7 +338,7 @@ class Metadata:
             _metadata.update(read_yaml(local_meta, interpreter=interpreter))
 
         if file_name in ["commodities", "occupations", "industries"]:
-            file_name = "__" + file_name
+            file_name = "_" + file_name
         setattr(self, file_name, _metadata)
 
     def get_interpreter(
