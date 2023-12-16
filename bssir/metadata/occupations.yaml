@@ -1,7 +1,7 @@
 isco:
   defaults:
     levels: [1]
-    output_column_names: ["Occupation"]
+    column_names: ["Occupation"]
 
   items: &isco
     managers:
@@ -393,6 +393,6 @@ isco:
 original:
   defaults:
     levels: [1]
-    output_column_names: ["Occupation"]
+    column_names: ["Occupation"]
 
   items: *isco
