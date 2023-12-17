@@ -7,7 +7,6 @@ import pandas as pd
 
 from .metadata_reader import Defaults, Metadata, _Years, LoadTableSettings
 from . import archive_handler, data_cleaner, external_data, data_engine, decoder
-from .calculator import Calculator
 from .utils import Utils
 
 _DataSource = Literal["SCI", "CBI"]
@@ -20,7 +19,6 @@ class API:
         self.defaults = defaults
         self.metadata = metadata
         self.utils = Utils(defaults, metadata)
-        self.calculate = Calculator(defaults)
 
     def setup(
         self,
@@ -65,7 +63,7 @@ class API:
         if (not dst.exists()) or replace:
             shutil.copy(src, dst)
 
-    def load_table(self, table_name, years: _Years, **kwargs) -> pd.DataFrame:
+    def load_table(self, table_name: str, years: _Years, **kwargs) -> pd.DataFrame:
         """Load a table for the given table name and year(s)."""
         settings = self.defaults.functions.load_table
         settings = settings.model_copy(update=kwargs)
@@ -139,7 +137,7 @@ class API:
 
     def load_external_table(
         self,
-        table_name,
+        table_name: str,
         data_source: _DataSource | None = None,
         frequency: _Frequency | None = None,
         separate_by: _SeparateBy | None = None,
