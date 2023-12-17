@@ -124,7 +124,7 @@ def _apply_metadata_to_table(
         assert isinstance(column_name, str)
         column_metadata = _get_column_metadata(
             table_metadata=table_metadata,
-            column_name=column_name.upper(),
+            column_name=column_name,
             table_settings=table_settings,
         )
         if column_metadata == "drop":
@@ -141,15 +141,17 @@ def _apply_metadata_to_table(
 def _get_column_metadata(
     *, table_metadata: dict, column_name: str, table_settings: dict
 ) -> dict | Literal["drop", "error"]:
+    column_name = column_name.upper()
     columns_metadata = table_metadata["columns"]
     if not isinstance(columns_metadata, dict):
         raise ValueError(
             f"Unvalid metadata for column {column_name}: \n {columns_metadata}"
         )
+    columns_metadata = {key.upper(): value for key, value in columns_metadata.items()}
     if column_name in columns_metadata:
         column_metadata = columns_metadata[column_name]
         if not (isinstance(column_metadata, dict) or column_metadata == "drop"):
-            print(table_metadata)
+            print(column_name, table_metadata)
             raise ValueError(f"Metadata for column {column_name} is not valid")
     else:
         column_metadata: Literal["drop", "error"] = table_settings["missings"]
