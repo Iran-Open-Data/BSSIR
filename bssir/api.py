@@ -204,9 +204,9 @@ class API:
 
     def _is_potential_target(self, column_name) -> bool:
         for keywords in [
-            ("commodity", self.defaults.columns.commodity_code),
-            ("industry", self.defaults.columns.industry_code),
-            ("occupation", self.defaults.columns.occupation_code),
+            self.defaults.columns.commodity_code,
+            self.defaults.columns.industry_code,
+            self.defaults.columns.occupation_code,
         ]:
             for keyword in keywords:
                 if keyword.lower() in column_name.lower():
