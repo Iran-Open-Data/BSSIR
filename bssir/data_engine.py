@@ -265,12 +265,16 @@ class Pipeline:
     def _add_classification(self, method_input: dict | None = None) -> None:
         if method_input is None:
             return
+        method_input["lib_defaults"] = self.pipeline_params["lib_defaults"]
+        method_input["lib_metadata"] = self.pipeline_params["lib_metadata"]
         settings = decoder.DecoderSettings(**method_input)
         self.table = decoder.Decoder(self.table, settings).add_classification()
 
     def _add_attribute(self, method_input: dict | None = None) -> None:
         if method_input is None:
             return
+        method_input["lib_defaults"] = self.pipeline_params["lib_defaults"]
+        method_input["lib_metadata"] = self.pipeline_params["lib_metadata"]
         settings = decoder.IDDecoderSettings(**method_input)
         self.table = decoder.IDDecoder(self.table, settings).add_attribute()
 
