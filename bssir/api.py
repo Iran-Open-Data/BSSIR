@@ -1,4 +1,4 @@
-from typing import Any, Callable, Literal
+from typing import Any, Callable, Literal, Iterable
 from types import ModuleType
 import shutil
 import importlib
@@ -24,6 +24,7 @@ class API:
         self,
         years: _Years,
         *,
+        table_names: str | Iterable[str] = None,
         replace: bool = False,
         method: Literal["create_from_raw", "download_cleaned"] = "download_cleaned",
         download_source: Literal["original", "mirror"] = "mirror",
@@ -32,7 +33,7 @@ class API:
         years = self.utils.parse_years(years)
         if method == "create_from_raw":
             self.setup_raw_data(years, replace=replace, download_source=download_source)
-            self._create_cleaned_files(years=years)
+            self._create_cleaned_files(years=years, table_names=table_names)
         else:
             self.utils.download_cleaned_tables(years)
 
@@ -119,8 +120,10 @@ class API:
         return table
 
     def _create_cleaned_files(
-        self, years: list[int], table_names: str | list[str] = "all"
+        self, years: list[int], table_names: str | list[str] = None
     ) -> None:
+        if table_names is None:
+            table_names = "all"
         table_year_pairs = self.utils.create_table_year_pairs(
             table_names=table_names, years=years
         )
