@@ -19,7 +19,7 @@ class Calculator:
         table: pd.DataFrame,
         weight_col: str | None = None,
         columns: list[str] | None = None,
-    ) -> pd.DataFrame:
+    ) -> pd.Series:
         return weighted_average(
             table=table,
             defaults=self._api.defaults,

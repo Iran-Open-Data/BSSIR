@@ -422,7 +422,7 @@ class TableFactory:
         *,
         lib_defaults: Defaults,
         lib_metadata: Metadata,
-        settings: LoadTableSettings | None = None,
+        settings: LoadTableSettings,
     ):
         self.table_name = table_name
         self.year = year
@@ -444,11 +444,13 @@ class TableFactory:
             self.table_schema = {}
 
         dependencies = self.extract_dependencies(table_name, year)
-        dependencies = [
-            table for table, props in dependencies.items() if "size" in props
+        original_table_list = [
+            table
+            for table, props in dependencies.items()
+            if ("size" in props) and ("external." not in table)
         ]
         self.table_handler = TableHandler(
-            dependencies,
+            original_table_list,
             year,
             lib_defaults=self.lib_defaults,
             lib_metadata=self.lib_metadata,
@@ -683,7 +685,7 @@ class TableFactory:
         api_file: ModuleType = importlib.import_module(
             f"{self.lib_defaults.package_name.lower()}.api"
         )
-        api: object = getattr(api_file, "api")
+        api = getattr(api_file, "api")
         table_names = [table_names] if isinstance(table_names, str) else table_names
         table_list = [
             self.load(name)

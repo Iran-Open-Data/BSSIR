@@ -5,9 +5,9 @@ import functools
 import re
 
 from pathlib import Path
-from typing import Any, Annotated, Literal, Callable, Iterable, Optional
+from typing import Any, Annotated, Literal, Callable, Iterable
 
-from pydantic import BaseModel, BeforeValidator
+from pydantic import BaseModel, BeforeValidator, ConfigDict, Field
 import yaml
 
 BASE_PACKAGE_DIRECTORY = Path(__file__).parents[0]
@@ -210,9 +210,11 @@ class DefaultDocs(BaseModel):
 
 
 class Defaults(BaseModel):
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
     package_name: str
     bucket_address: str
-    online_dirs: Optional[DefaultOnlineDirectories] = None
+    online_dirs: DefaultOnlineDirectories = Field(None, validate_default=False)
 
     years: _DefaultYears
 
@@ -225,7 +227,7 @@ class Defaults(BaseModel):
     in_root: bool
 
     folder_names: DefaultFolderName
-    dirs: Optional[DefaultDirectories] = None
+    dirs: DefaultDirectories = Field(None, validate_default=False)
 
     columns: DefaultColumns
     functions: DefaultFunctions
@@ -283,39 +285,39 @@ class Metadata:
     """
 
     instruction: dict[str, Any]
-    raw_files: dict[str, Any]
+    raw_files: dict[str | int, Any]
     tables: dict[str, Any]
     maps: dict[str, Any]
     id_information: dict[str, Any]
-    commodities: dict[str, Any]
-    occupations: dict[str, Any]
-    industries: dict[str, Any]
     schema: dict[str, Any]
 
     def __init__(self, _defaults: Defaults) -> None:
         self.defaults = _defaults
         self.metadata_files = list(_defaults.base_package_metadata.keys())
-        self._commodities: dict | None = None
-        self._occupations: dict | None = None
-        self._industries: dict | None = None
+        self._commodities: dict[str, Any] | None = None
+        self._occupations: dict[str, Any] | None = None
+        self._industries: dict[str, Any] | None = None
         self.reload()
 
     @property
     def commodities(self) -> dict[str, Any]:
         if self._commodities is None:
             self.reload_file("commodities")
+        assert self._commodities is not None
         return self._commodities
 
     @property
     def occupations(self) -> dict[str, Any]:
         if self._occupations is None:
             self.reload_file("occupations")
+        assert self._occupations is not None
         return self._occupations
 
     @property
     def industries(self) -> dict[str, Any]:
         if self._industries is None:
             self.reload_file("industries")
+        assert self._industries is not None
         return self._industries
 
     def reload(self):

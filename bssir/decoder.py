@@ -26,7 +26,7 @@ from itertools import product
 from typing import Callable, Iterable, Literal, Annotated, Any, Optional
 
 import pandas as pd
-from pydantic import BaseModel, ConfigDict, BeforeValidator
+from pydantic import BaseModel, ConfigDict, BeforeValidator, Field
 
 from .metadata_reader import Defaults, Metadata
 
@@ -156,7 +156,7 @@ class DecoderSettings(BaseModel):
     target: str
     classification_type: Optional[Literal["commodity", "occupation", "industry"]] = None
     name: str = "original"
-    year_col: Optional[str] = None
+    year_col: str = Field(None, validate_default=False)
     versioned_info: dict = {}
     defaults: dict = {}
     aspects: _Aspects = ()
@@ -194,7 +194,9 @@ class DecoderSettings(BaseModel):
             self.levels = (1,)
         self._resolve_column_names()
 
-    def _resolve_classification_type(self) -> str:
+    def _resolve_classification_type(
+        self,
+    ) -> Literal["commodity", "occupation", "industry"]:
         """Resolve the classification type based on keywords."""
         for name, keywords in [
             ("commodity", self.lib_defaults.columns.commodity_code),

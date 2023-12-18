@@ -1,7 +1,5 @@
-import concurrent.futures
 from pathlib import Path
 import tomllib
-from typing import Iterable, Literal
 
 import requests
 import boto3

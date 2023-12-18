@@ -89,16 +89,18 @@ def _parse_years_param(years: int | Iterable[int] | str) -> list[int]:
     return year_list
 
 
-def _check_year_validity(year: str) -> int:
+def _check_year_validity(year: str | int) -> int:
     if isinstance(year, str):
-        year = int(year.strip())
+        output_year = int(year.strip())
+    else:
+        output_year = year
 
-    if year <= 60:
-        year += 1400
-    elif year < 100:
-        year += 1300
+    if output_year <= 60:
+        output_year += 1400
+    elif output_year < 100:
+        output_year += 1300
 
-    return year
+    return output_year
 
 
 def _parse_year_str(year: str) -> list[int]:

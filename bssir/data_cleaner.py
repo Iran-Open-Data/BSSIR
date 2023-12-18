@@ -109,13 +109,14 @@ def clean_table(
 
     """
     table_metadata = utils.resolve_metadata(lib_metadata.tables[table_name], year)
+    assert isinstance(table_metadata, dict)
     default_settings = lib_metadata.tables["default_settings"]
     table = _apply_metadata_to_table(table, table_metadata, default_settings)
     return table
 
 
 def _apply_metadata_to_table(
-    table: pd.DataFrame, table_metadata: dict, default_settings: str
+    table: pd.DataFrame, table_metadata: dict, default_settings: dict
 ) -> pd.DataFrame:
     table_settings: dict = default_settings.copy()
     table_settings.update(table_metadata.get("settings", {}))

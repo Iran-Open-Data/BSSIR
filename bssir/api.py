@@ -24,7 +24,7 @@ class API:
         self,
         years: _Years,
         *,
-        table_names: str | Iterable[str] = None,
+        table_names: str | Iterable[str] | None = None,
         replace: bool = False,
         method: Literal["create_from_raw", "download_cleaned"] = "download_cleaned",
         download_source: Literal["original", "mirror"] = "mirror",
@@ -81,6 +81,8 @@ class API:
                 lib_defaults=self.defaults,
                 lib_metadata=self.metadata,
             )
+        else:
+            raise ValueError
         return table
 
     def _load_raw_table(self, table_name: str, years: list[int]) -> pd.DataFrame:
@@ -120,7 +122,7 @@ class API:
         return table
 
     def _create_cleaned_files(
-        self, years: list[int], table_names: str | list[str] = None
+        self, years: list[int], table_names: str | Iterable[str] | None = None
     ) -> None:
         if table_names is None:
             table_names = "all"

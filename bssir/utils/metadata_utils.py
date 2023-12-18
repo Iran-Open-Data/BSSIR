@@ -424,7 +424,9 @@ def extract_column_metadata(
 ) -> dict[int, dict]:
     meta_dict = {}
     for year in lib_defaults.years:
-        columns_metadata = resolve_metadata(table_metadata, year).get("columns")
+        columns_metadata = resolve_metadata(table_metadata, year)
+        assert isinstance(columns_metadata, dict)
+        columns_metadata = columns_metadata.get("columns")
         if columns_metadata is None:
             continue
         for key, value in columns_metadata.items():
@@ -444,7 +446,9 @@ def exteract_code_metadata(
 ) -> dict[int, Any]:
     meta_dict = {}
     for year in lib_defaults.years:
-        columns_metadata = resolve_metadata(table_metadata, year).get("columns")
+        columns_metadata = resolve_metadata(table_metadata, year)
+        assert isinstance(columns_metadata, dict)
+        columns_metadata = columns_metadata.get("columns")
         if (
             isinstance(columns_metadata, dict)
             and (column_code in columns_metadata)
