@@ -197,12 +197,9 @@ class API:
         years = (
             decoder.extract_column(table, self.defaults.columns.year).unique().tolist()
         )
-        weights = self.load_table("Weight", years)
-        return table.merge(
-            weights,
-            how="left",
-            on=[self.defaults.columns.year, self.defaults.columns.id],
-        )
+        _index = [self.defaults.columns.year, self.defaults.columns.id]
+        weights = self.load_table("Weight", years).set_index(_index)
+        return table.join(weights, how="left", on=_index)
 
     def _is_potential_target(self, column_name) -> bool:
         for keywords in [

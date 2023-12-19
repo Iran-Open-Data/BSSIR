@@ -99,11 +99,13 @@ def average_table(
 
     if len(groupby) == 0:
         row = weighted_average(
-            table, defaults=defaults, columns=columns, weight_col=weight_col
+            table, columns=columns, weight_col=weight_col, defaults=defaults
         )
         result = pd.DataFrame([row])
     else:
-        result = table.groupby(groupby).apply(weighted_average, columns, weight_col)
+        result = table.groupby(groupby).apply(
+            weighted_average, columns=columns, weight_col=weight_col, defaults=defaults
+        )
 
     if is_multi_index:
         result.columns = pd.MultiIndex.from_tuples(result.columns, names=column_names)

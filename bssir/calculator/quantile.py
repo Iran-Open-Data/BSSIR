@@ -56,13 +56,10 @@ class Quantiler:
 
     def __init__(
         self,
+        settings: QuantileSettings,
         table: pd.DataFrame | pd.Series | None = None,
-        settings: QuantileSettings | None = None,
     ) -> None:
-        if settings is None:
-            self.settings = QuantileSettings()
-        else:
-            self.settings = settings.model_copy()
+        self.settings = settings.model_copy()
 
         self.table = table
         if self.table is not None:
@@ -83,7 +80,7 @@ class Quantiler:
             .set_index(["Year", "ID"])
             .loc[:, self.settings.equivalence_scale]
         )
-        value_table.loc[:, "Values"] = value_table["Values"].div(equivalence_scale)
+        value_table["Values"] = value_table["Values"].div(equivalence_scale)
         value_table = value_table.reset_index().dropna().sort_values("Values")
         return value_table
 
@@ -125,8 +122,7 @@ class Quantiler:
         return value_table
 
     def calculate_quantile(self) -> pd.Series:
-        if self.settings.annual:
-            groupby_columns = ["Year"]
+        groupby_columns = ["Year"] if self.settings.annual else []
         groupby_columns.extend(self.settings.groupby)
         quantile = (
             self.value_table.pipe(self._add_attributes)
@@ -138,7 +134,7 @@ class Quantiler:
         quantile = self._align_with_table(quantile)
         return quantile
 
-    def _calculate_subgroup_quantile(self, subgroup: pd.DataFrame) -> pd.Series:
+    def _calculate_subgroup_quantile(self, subgroup: pd.DataFrame) -> pd.DataFrame:
         return subgroup.assign(
             CumWeight=lambda df: df[self.settings.weight_column].cumsum(),
             Quantile=lambda df: df["CumWeight"] / df["CumWeight"].iloc[-1],
