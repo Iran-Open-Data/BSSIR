@@ -68,27 +68,19 @@ class Calculator:
         self, table: pd.DataFrame, quantile_column_name: str = "Quantile", **kwargs
     ) -> pd.DataFrame:
         kwargs.update({"quantile_column_name": quantile_column_name})
-        quantile = self.quantile(table=table, **kwargs)
-        quantile.index = table.index
-        table[quantile_column_name] = quantile
+        table[quantile_column_name] = self.quantile(table=table, **kwargs)
         return table
 
     def add_decile(
         self, table: pd.DataFrame, quantile_column_name: str = "Decile", **kwargs
     ) -> pd.DataFrame:
-        setting_vars = kwargs
-        setting_vars.update({"bins": 10, "quantile_column_name": quantile_column_name})
-        quantile = self.quantile(table=table, **setting_vars)
-        quantile.index = table.index
-        table[quantile_column_name] = quantile
+        kwargs.update({"bins": 10, "quantile_column_name": quantile_column_name})
+        table[quantile_column_name] = self.quantile(table=table, **kwargs)
         return table
 
     def add_percentile(
         self, table: pd.DataFrame, quantile_column_name: str = "Percentile", **kwargs
     ) -> pd.DataFrame:
-        setting_vars = kwargs
-        setting_vars.update({"bins": 100, "quantile_column_name": quantile_column_name})
-        quantile = self.quantile(table=table, **setting_vars)
-        quantile.index = table.index
-        table[quantile_column_name] = quantile
+        kwargs.update({"bins": 100, "quantile_column_name": quantile_column_name})
+        table[quantile_column_name] = self.quantile(table=table, **kwargs)
         return table

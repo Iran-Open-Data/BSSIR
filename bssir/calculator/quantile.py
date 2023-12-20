@@ -25,8 +25,9 @@ class QuantileSettings(BaseModel):
 
     api: API
     weight_column: str | None = None
-    on_variable: _QuantileBase | None = None
     on_column: str | None = None
+    on_variable: _QuantileBase | None = None
+    default_variable: _QuantileBase = "Net_Expenditure"
     weighted: bool = True
     equivalence_scale: _EquivalenceScale = "Household"
     for_all: bool = True
@@ -63,17 +64,25 @@ class Quantiler:
 
         self.table = table
         if self.table is not None:
+            if ("Year" in self.table.index.names) and ("ID" in self.table.index.names):
+                self.original_index = pd.DataFrame(index=self.table.index)
+            else:
+                self.original_index = self.table[["Year", "ID"]]
             self.table = self.table.copy().reset_index().set_index(["Year", "ID"])
         self.years = self._find_years()
         self.value_table = self.create_value_table()
 
     def create_value_table(self) -> pd.DataFrame:
-        if (self.settings.on_column is not None) and (self.table is not None):
+        if self.settings.on_column is not None:
+            if self.table is None:
+                raise ValueError(
+                    "The table must be provided for the `on_column` method"
+                )
             value_table = self._extract_value_table(self.table)
         elif self.settings.on_variable is not None:
             value_table = self._get_external_value_table(self.settings.on_variable)
         else:
-            raise ValueError
+            value_table = self._get_external_value_table(self.settings.default_variable)
 
         equivalence_scale = (
             self.settings.api.load_table("Equivalence_Scale", years=self.years)
@@ -98,7 +107,10 @@ class Quantiler:
     def _extract_value_table(self, table: pd.DataFrame | pd.Series) -> pd.DataFrame:
         if isinstance(table, pd.Series):
             table = table.to_frame(name="Values")
-            assert ("Year" in table.index.names) and ("ID" in table.index.names)
+            index_levels = list(table.index.names)
+            index_levels.remove("Year")
+            index_levels.remove("ID")
+            table.index = table.index.droplevel(index_levels)  # type: ignore
         if isinstance(table, pd.DataFrame):
             table = table.reset_index().set_index(["Year", "ID"])
             if len(table.columns) > 1:
@@ -107,6 +119,7 @@ class Quantiler:
                 assert self.settings.on_column in table.columns
                 table = table[[self.settings.on_column]]
             table.columns = ["Values"]
+        assert table.index.duplicated().sum() == 0
         return table
 
     def _get_external_value_table(self, variable: str) -> pd.DataFrame:
@@ -153,5 +166,5 @@ class Quantiler:
     def _align_with_table(self, quantile: pd.Series) -> pd.Series:
         if self.table is None:
             return quantile
-        _, quantile = self.table.align(quantile, join="left", axis="index")
+        quantile = self.original_index.join(quantile, on=["Year", "ID"])["Quantile"]
         return quantile
