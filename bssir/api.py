@@ -68,7 +68,7 @@ class API:
         """Load a table for the given table name and year(s)."""
         settings = self.defaults.functions.load_table
         settings = settings.model_copy(update=kwargs)
-        years = self.utils.parse_years(years, table_name=table_name)
+        years = self.utils.parse_years(years, table_name=table_name, form=settings.form)
         if settings.form == "raw":
             table = self._load_raw_table(table_name, years)
         elif settings.form == "cleaned":

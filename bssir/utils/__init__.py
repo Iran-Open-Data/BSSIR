@@ -37,12 +37,23 @@ class Utils:
             seven_zip_directory=self.__defautls.base_package_dir,
         )
 
-    def parse_years(self, years: _Years, *, table_name: str | None = None) -> list[int]:
+    def parse_years(
+        self,
+        years: _Years,
+        *,
+        table_name: str | None = None,
+        form: Literal["raw", "cleaned", "normalized"] = "raw",
+    ) -> list[int]:
+        table_availability = self.__metadata.tables["table_availability"].copy()
+        if form == "normalized":
+            table_availability.update(
+                self.__metadata.schema.get("table_availability", {})
+            )
         return parse_years(
             years=years,
             table_name=table_name,
             available_years=self.__defautls.years,
-            tables_availability=self.__metadata.tables["table_availability"],
+            tables_availability=table_availability,
         )
 
     def create_table_year_pairs(
