@@ -169,23 +169,23 @@ def _apply_metadata_to_column(column: pd.Series, column_metadata: dict) -> pd.Se
 
 
 def _apply_type_to_column(column: pd.Series, column_metadata: dict) -> pd.Series:
+    column = column.copy()
+    if column_metadata["type"] == "string":
+        new_column = column.astype("string").copy()
+        new_column = new_column.replace("nan", pd.NA)
+        return new_column
     column = _general_cleaning(column)
-    new_column = pd.Series(None, index=column.index)
-    if ("type" not in column_metadata) or (column_metadata["type"] == "string"):
-        new_column = column.copy()
-    elif column_metadata["type"] == "boolean":
-        new_column = column == column_metadata["true_condition"]
-        new_column = new_column.astype("boolean")
-    elif column_metadata["type"] in ("unsigned", "integer", "float"):
-        new_column = pd.to_numeric(column, downcast=column_metadata["type"])
-    elif column_metadata["type"] in pandas_numerical_data_types:
-        new_column = column.astype(column_metadata["type"])
-    elif column_metadata["type"] == "category":
-        new_column = column.astype("category")
-        new_column = new_column.cat.rename_categories(column_metadata["categories"])
-    else:
-        raise ValueError("Type is not valid")
-    return new_column
+    if "type" not in column_metadata:
+        return column
+    if column_metadata["type"] == "boolean":
+        return (column == column_metadata["true_condition"]).astype("boolean")
+    if column_metadata["type"] in ("unsigned", "integer", "float"):
+        return pd.to_numeric(column, downcast=column_metadata["type"])
+    if column_metadata["type"] in pandas_numerical_data_types:
+        return column.astype(column_metadata["type"])
+    if column_metadata["type"] == "category":
+        return column.astype("category").cat.rename_categories(column_metadata["categories"])
+    raise ValueError("Type is not valid")
 
 
 def _general_cleaning(column: pd.Series):
