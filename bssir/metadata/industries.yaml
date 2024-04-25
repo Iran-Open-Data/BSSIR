@@ -324,7 +324,7 @@ isic_4:
       level: 5
       title: Raising of poultry
       farsi_title: پرورش مرغ و خروس به روش صنعتی و جوجه‌کشی ماشینی
-      code: 1461
+      code: 1462
 
     '0149':
       level: 4
@@ -950,7 +950,7 @@ isic_4:
       farsi_title: تولید فرآورده‌های لبنی
       code: {start: 10500, end: 10510}
 
-    '1050':
+    '10500':
       level: 5
       title: Manufacture of dairy products
       farsi_title: تولید فرآورده‌های لبنی
@@ -1280,13 +1280,13 @@ isic_4:
       level: 5
       title: Manufacture of carpets and rugs
       farsi_title: تولید گلیم و زیلو و جاجیم دستباف
-      code: 13931
+      code: 13932
 
     '13933':
       level: 5
       title: Manufacture of carpets and rugs
       farsi_title: تولید فرش ماشینی و موکت
-      code: 13931
+      code: 13933
 
     '1394':
       level: 4
@@ -1370,13 +1370,13 @@ isic_4:
       level: 5
       title: Manufacture of knitted and crocheted apparel
       farsi_title: تولید پوشاک کشباف و قلاب‌بافی شده- بجز جوراب
-      code: 14300
+      code: 14301
 
     '14302':
       level: 5
       title: Manufacture of knitted and crocheted apparel
       farsi_title: جوراب بافی
-      code: 14300
+      code: 14302
 
     '15':
       level: 2
@@ -1661,7 +1661,7 @@ isic_4:
       code: {start: 19200, end: 19210}
 
     '19200':
-      level: 4
+      level: 5
       title: Manufacture of refined petroleum products
       farsi_title: تولید فراورده‌های پالایش شده نفت
       code: 19200
@@ -5064,23 +5064,23 @@ isic_4:
       farsi_title: آموزش پیش‌دبستانی و ابتدایی
       code: {start: 85100, end: 85200}
 
-    # '8510':
-    #   level: 4
-    #   title: Pre-primary and primary education
-    #   farsi_title: آموزش پیش‌دبستانی و ابتدایی
-    #   code: {start: 85100, end: 85110}
-
-    '8511':
+    '8510':
       level: 4
+      title: Pre-primary and primary education
+      farsi_title: آموزش پیش‌دبستانی و ابتدایی
+      code: {start: 85100, end: 85110}
+
+    '85101':
+      level: 5
       title: Pre-primary education
       farsi_title: آموزش پیش‌دبستانی
-      code: {start: 85110, end: 85120}
+      code: 85101
 
-    '8512':
-      level: 4
+    '85102':
+      level: 5
       title: Primary education
       farsi_title: آموزش ابتدایی
-      code: {start: 85120, end: 85130}
+      code: 85102
 
     '852':
       level: 3
@@ -5342,11 +5342,23 @@ isic_4:
       farsi_title: فعالیت‌های کتابخانه‌ها و آرشیوها
       code: {start: 91010, end: 91020}
 
+    '91010':
+      level: 5
+      title: Library and archives activities
+      farsi_title: فعالیت‌های کتابخانه‌ها و آرشیوها
+      code: 91010
+
     '9102':
       level: 4
       title: Museums activities and operation of historical sites and buildings
       farsi_title: فعالیت‌های موزه‌ها و اداره ساختمان‌ها و مکان‌های تاریخی
       code: {start: 91020, end: 91030}
+
+    '91020':
+      level: 5
+      title: Museums activities and operation of historical sites and buildings
+      farsi_title: فعالیت‌های موزه‌ها و اداره ساختمان‌ها و مکان‌های تاریخی
+      code: 91020
 
     '9103':
       level: 4
@@ -5354,6 +5366,13 @@ isic_4:
       farsi_title: فعالیت‌های باغ‌های گیا‌ه شناسی و جانورشناسی و فعالیت‌های 
         مربوط به ذخایر طبیعی
       code: {start: 91030, end: 91040}
+
+    '91030':
+      level: 5
+      title: Botanical and zoological gardens and nature reserves activities
+      farsi_title: فعالیت‌های باغ‌های گیا‌ه شناسی و جانورشناسی و فعالیت‌های 
+        مربوط به ذخایر طبیعی
+      code: 91030
 
     '92':
       level: 2
@@ -5451,7 +5470,7 @@ isic_4:
       farsi_title: سایر فعالیت‌های سرگرمی و تفریحی طبقه‌بندی نشده در جای دیگر
       code: {start: 93290, end: 93300}
 
-    '9329':
+    '93290':
       level: 5
       title: Other amusement and recreation activities n.e.c.
       farsi_title: سایر فعالیت‌های سرگرمی و تفریحی طبقه‌بندی نشده در جای دیگر
@@ -5511,6 +5530,12 @@ isic_4:
       title: Activities of trade unions
       farsi_title: فعالیت‌های اتحادیه‌های اصناف
       code: {start: 94200, end: 94210}
+
+    '94200':
+      level: 5
+      title: Activities of trade unions
+      farsi_title: فعالیت‌های اتحادیه‌های اصناف
+      code: 94200
 
     '949':
       level: 3
@@ -5874,4 +5899,5 @@ original:
     column_names: ["Industry"]
     aspects: ["title"]
 
-  items: *isic4_items
+  items:
+    1392: *isic4_items
