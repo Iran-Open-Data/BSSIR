@@ -21909,7 +21909,7 @@ isco:
         - Office cleaner
       excluded_occupations: |
         Some related occupations classified elsewhere:
-        - Domestic housekeeper - – 5152
+        - Domestic housekeeper - 5152
         - Building caretaker - 5153
         - Domestic cleaner - 9111
         - Dishwasher - 9412
@@ -21924,7 +21924,7 @@ isco:
       title: Vehicle, Window, Laundry and Other Hand Cleaning Workers
       farsi_title: >
         تمیزکنندگان خودرو، شیشه‌پاک‌کن‌ها، رخت‌شوها و سایر
-        تمیزکنندگان- دستی
+        تمیزکنندگان دستی
       level: 3
       code: {start: 9120, end: 9130}
       isco08_code: 912
@@ -23359,7 +23359,7 @@ isco:
 
     commissioned_armed_forces_officers:
       title: Commissioned Armed forces Officers
-      farsi_title: مدیران
+      farsi_title: 
       level: 2
       code: {start: 100, end: 200}
       isco08_code: 1
@@ -23385,7 +23385,7 @@ isco:
 
     commissioned_armed_forces_officers:
       title: Commissioned Armed Forces Officers
-      farsi_title: مدیران ارشد اجرایی، مقامات ارشد و قانون‌گذاران
+      farsi_title: 
       level: 3
       code: {start: 110, end: 120}
       isco08_code: 11
@@ -23454,7 +23454,7 @@ isco:
 
     non_commissioned_armed_forces_officers:
       title: Non-commissioned Armed Forces Officers
-      farsi_title: متخصصان
+      farsi_title: 
       level: 2
       code: {start: 200, end: 300}
       isco08_code: 2
@@ -23481,7 +23481,7 @@ isco:
 
     non_commissioned_armed_forces_officers:
       title: Non-commissioned Armed Forces Officers
-      farsi_title: متخصصان علوم پایه و علوم مهندسی
+      farsi_title: 
       level: 3
       code: {start: 210, end: 220}
       isco08_code: 21
@@ -23534,7 +23534,7 @@ isco:
 
     armed_forces_occupations_other_ranks:
       title: Armed Forces Occupations, Other Ranks
-      farsi_title: تکنسین‌ها و کمک‌متخصصان
+      farsi_title: 
       level: 2
       code: {start: 300, end: 400}
       isco08_code: 3
@@ -23559,7 +23559,7 @@ isco:
 
     armed_forces_occupations_other_ranks:
       title: Armed Forces Occupations, Other Ranks
-      farsi_title: کمک‌متخصصان علوم پایه و علوم مهندسی
+      farsi_title: 
       level: 3
       code: {start: 310, end: 320}
       isco08_code: 31
