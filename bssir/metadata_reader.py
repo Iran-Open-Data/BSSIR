@@ -11,7 +11,7 @@ from pydantic import BaseModel, BeforeValidator, ConfigDict, Field
 import yaml
 
 BASE_PACKAGE_DIRECTORY = Path(__file__).parents[0]
-ROOT_DIRECTORT = Path().absolute()
+ROOT_DIRECTORY = Path().absolute()
 
 _Years = int | Iterable[int] | str | Literal["all", "last"]
 
