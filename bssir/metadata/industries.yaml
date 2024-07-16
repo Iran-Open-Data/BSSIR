@@ -447,7 +447,7 @@ isic_4:
       code: {start: 2100, end: 2110}
 
     '02100':
-      level: 4
+      level: 5
       title: Silviculture and other forestry activities
       farsi_title: پرورش جنگل (جنگل کاری) و سایر فعالیت‌های جنگل‌داری
       code: 2100
