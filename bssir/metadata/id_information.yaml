@@ -37,6 +37,40 @@ province_name_translation:
   Alborz: البرز
 
 
+two_letter_province_code:
+  Markazi: MA
+  Gilan: GI
+  Mazandaran: MN
+  East_Azerbaijan: EA
+  West_Azerbaijan: WA
+  Kermanshah: KS
+  Khuzestan: KH
+  Fars: FA
+  Kerman: KE
+  Razavi_Khorasan: RK
+  Isfahan: IS
+  Sistan_and_Baluchestan: SB
+  Kurdistan: KU
+  Hamadan: HA
+  Chaharmahal_and_Bakhtiari: CB
+  Lorestan: LO
+  Ilam: IL
+  Kohgiluyeh_and_Boyer_Ahmad: KB
+  Bushehr: BU
+  Zanjan: ZA
+  Semnan: SE
+  Yazd: YA
+  Hormozgan: HO
+  Tehran: TE
+  Ardabil: AR
+  Qom: QO
+  Qazvin: QA
+  Golestan: GO
+  North_Khorasan: NK
+  South_Khorasan: SK
+  Alborz: AL
+
+
 county_name_translation:
   # 0 0 X X
   # Markazi: مرکزی
