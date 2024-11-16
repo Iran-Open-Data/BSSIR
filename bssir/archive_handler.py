@@ -182,12 +182,12 @@ def download(
 
         elif source == "mirror":
             for file in files.get("compressed_files", []):
-                file_str_path = f"{year}/{file["name"]}"
+                file_str_path = f"{year}/{file['name']}"
                 url = f"{lib_defaults.online_dirs.compressed}/{file_str_path}"
                 file_path = lib_defaults.dirs.compressed.joinpath(file_str_path)
                 __download_file(url, file_path)
             for file in files.get("unpacked_files", []):
-                file_str_path = f"{year}/{file["name"]}"
+                file_str_path = f"{year}/{file['name']}"
                 url = f"{lib_defaults.online_dirs.unpacked}/{file_str_path}"
                 file_path = lib_defaults.dirs.unpacked.joinpath(file_str_path)
                 __download_file(url, file_path)
