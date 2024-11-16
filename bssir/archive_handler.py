@@ -51,7 +51,7 @@ def setup(
     lib_metadata: Metadata,
     lib_defaults: Defaults,
     replace: bool = False,
-    download_source: Literal["original", "mirror"] = "mirror",
+    download_source: Literal["original", "google_drive", "mirror"] = "original",
 ) -> None:
     """Download, unpack, and extract survey data for the specified years.
 
@@ -64,7 +64,7 @@ def setup(
 
     - int: A single year
     - Iterable[int]: A list or range of years
-    - str: A string range like '1390-1400'
+    - str: A string range like "1390-1400"
     - "all": All available years (default)
     - "last": Just the last year
 
@@ -127,7 +127,7 @@ def download(
     lib_metadata: Metadata,
     lib_defaults: Defaults,
     replace: bool = False,
-    source: Literal["original", "mirror"] = "mirror",
+    source: Literal["original", "google_drive", "mirror"] = "original",
 ) -> None:
     """Download archive files for the specified years.
 
@@ -168,26 +168,26 @@ def download(
     for year in years:
         files = lib_metadata.raw_files[year]
 
-        if source == "original":
+        if source in ["original", "google_drive"]:
             for file in files.get("compressed_files", []):
                 file_path = lib_defaults.dirs.compressed.joinpath(
                     str(year), file["name"]
                 )
-                url = file["address"]
+                url = file[source]
                 __download_file(url, file_path)
             for file in files.get("unpacked_files", []):
                 file_path = lib_defaults.dirs.unpacked.joinpath(str(year), file["name"])
-                url = file["address"]
+                url = file[source]
                 __download_file(url, file_path)
 
         elif source == "mirror":
             for file in files.get("compressed_files", []):
-                file_str_path = f"{year}/{file['name']}"
+                file_str_path = f"{year}/{file["name"]}"
                 url = f"{lib_defaults.online_dirs.compressed}/{file_str_path}"
                 file_path = lib_defaults.dirs.compressed.joinpath(file_str_path)
                 __download_file(url, file_path)
             for file in files.get("unpacked_files", []):
-                file_str_path = f"{year}/{file['name']}"
+                file_str_path = f"{year}/{file["name"]}"
                 url = f"{lib_defaults.online_dirs.unpacked}/{file_str_path}"
                 file_path = lib_defaults.dirs.unpacked.joinpath(file_str_path)
                 __download_file(url, file_path)
@@ -206,7 +206,7 @@ def unpack(years: list[int], *, lib_defaults: Defaults, replace: bool = False) -
 
     - int: A single year
     - Iterable[int]: A list or range of years
-    - str: A string range like '1390-1400'
+    - str: A string range like "1390-1400"
     - "all": Extract all available years
     - "last": Extract just the last year
 

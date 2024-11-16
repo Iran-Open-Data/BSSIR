@@ -26,8 +26,8 @@ class API:
         *,
         table_names: str | Iterable[str] | None = None,
         replace: bool = False,
-        method: Literal["create_from_raw", "download_cleaned"] = "download_cleaned",
-        download_source: Literal["original", "mirror"] = "mirror",
+        method: Literal["create_from_raw", "download_cleaned"] = "create_from_raw",
+        download_source: Literal["original", "google_drive", "mirror"] = "original",
     ) -> None:
         """Download, extract, and clean survey data."""
         years = self.utils.parse_years(years)
@@ -42,7 +42,7 @@ class API:
         years: _Years,
         *,
         replace: bool = False,
-        download_source: Literal["original", "mirror"] = "mirror",
+        download_source: Literal["original", "google_drive", "mirror"] = "original",
     ) -> None:
         """Download and extract raw survey data."""
         years = self.utils.parse_years(years)
