@@ -1,21 +1,6 @@
-
-# Years (list of years or range in for of: "first_year - last_year")
-years: "1363-1401"
-
 # Local Directory
 local_dir: Data
 in_root: false
-
-# Folder Names
-folder_names:
-  cached: _cache
-  metadata: _metadata
-  compressed: 1_compressed
-  unpacked: 2_unpacked
-  extracted: 3_extracted
-  cleaned: 4_cleaned
-  external: external
-  maps: maps
 
 # Bucket Address
 bucket_address: https://s3.ir-tbz-sh1.arvanstorage.ir/iran-open-data
@@ -28,7 +13,7 @@ functions:
   ## Load Table
   load_table:
     form: normalized
-    on_missing: download
+    on_missing: create
     save_downloaded: true
     redownload: false
     save_created: true
@@ -61,3 +46,5 @@ local_metadata:
   industries: metadata/industries.yaml
   schema: metadata/schema.yaml
 
+# Colab Mode
+colab_mode: false
