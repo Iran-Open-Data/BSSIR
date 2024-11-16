@@ -348,7 +348,6 @@ class Decoder:
     ) -> pd.DataFrame:
         filt = (
             year_code_pairs[self.settings.target]
-            .mask(lambda s: s.isna(), -1)
             .apply(lambda x: x in row["code_range"])
         )
         filt = filt & (
