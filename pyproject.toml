@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "bssir"
-version = "0.3.6"
+version = "0.3.7"
 description = ""
-authors = ["mohammad amin alavian <m.amin.alavian@gmail.com>"]
+authors = ["Mohammad Amin Alavian <m.amin.alavian@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
