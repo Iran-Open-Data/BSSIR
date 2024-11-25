@@ -6,6 +6,7 @@ from typing import Literal
 
 import pandas as pd
 
+from . import archive_handler
 from .metadata_reader import Defaults, Metadata
 from . import utils
 
@@ -55,13 +56,21 @@ def load_raw_table(
         If invalid table name, year, or corrupt metadata.
 
     """
+    year_directory = lib_defaults.dirs.extracted.joinpath(str(year))
+    if not year_directory.exists():
+        archive_handler.setup(
+            years=[year],
+            lib_metadata=lib_metadata,
+            lib_defaults=lib_defaults,
+        )
+
     file_code = utils.resolve_metadata(
         lib_metadata.tables[table_name]["file_code"], year
     )
 
     if isinstance(file_code, list):
         files = [
-            lib_defaults.dirs.extracted.joinpath(str(year), f"{file}.csv")
+            year_directory.joinpath(f"{file}.csv")
             for file in list(file_code)
         ]
     elif isinstance(file_code, str) and (file_code.count("*") == 0):
