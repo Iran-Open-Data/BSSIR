@@ -59,7 +59,7 @@ class Calculator:
                 .floordiv(1)
                 .add(1)
                 .clip(1, bins)
-                .astype(int)
+                .astype("Int64")
                 .rename(quantile_column_name)
             )
         return quantile
