@@ -313,18 +313,16 @@ class Pipeline:
         else:
             self.table[column_name] = self.table.eval(expression, engine="python")
 
-
     def __apply_categorical_instruction(
         self, column_name: str, categories: dict
     ) -> None:
-        if column_name in self.table.columns:
-            categorical_column = self.table[column_name].copy()
-        else:
-            categorical_column = pd.Series(index=self.table.index, dtype="category")
+        categorical_column = pd.Series(
+            index=self.table.index,
+            dtype=pd.CategoricalDtype(list(categories.keys()))
+        )
 
         for category, condition in categories.items():
             filt = self.__construct_filter(column_name, condition)
-            categorical_column = categorical_column.cat.add_categories([category])
             categorical_column.loc[filt] = category
 
         self.table[column_name] = categorical_column
