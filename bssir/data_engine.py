@@ -291,6 +291,11 @@ class Pipeline:
 
         self.table = self.table[list(new_order)].astype(types)
 
+    def _rename(self, method_input: dict | None = None) -> None:
+        if method_input is None:
+            return
+        self.table = self.table.rename(columns=method_input)
+
     def _create_column(self, method_input: dict | None = None) -> None:
         if method_input is None:
             return
