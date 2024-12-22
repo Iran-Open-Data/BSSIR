@@ -305,17 +305,12 @@ class Pipeline:
     def __apply_numerical_instruction(self, column_name, expression: int | str) -> None:
         if isinstance(expression, int):
             self.table.loc[:, column_name] = expression
-            return
-        columns_names = re.split(r"[\+\-\*\/\s\.\(\)]+", expression)
-        columns_names = [
-            name for name in columns_names if not (name.isnumeric() or (name is None))
-        ]
-        self.table[column_name] = (
-            self.table[columns_names]
-            .astype(float)
-            .fillna(0)
-            .eval(expression, engine="python")
-        )
+        else:
+            self.table[column_name] = (
+                self.table
+                .astype(float)
+                .eval(expression, engine="python")
+            )
 
     def __apply_categorical_instruction(
         self, column_name: str, categories: dict
