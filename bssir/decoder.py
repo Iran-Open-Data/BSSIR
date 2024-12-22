@@ -564,11 +564,11 @@ class IDDecoder:
                 file_name, self.settings.lib_defaults, reset_index=False
             )
             code_series = code_builer_file.loc[household_metadata["year"]].iloc[:, 0]
+            assert isinstance(code_series, pd.Series)
             mapping_dict = code_series.to_dict()
 
             def builder(household_id_column: pd.Series) -> pd.Series:
                 codes = household_id_column.map(mapping_dict)
-                assert codes.isna().sum() == 0
                 return codes
 
         else:
