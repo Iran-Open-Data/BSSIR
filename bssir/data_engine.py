@@ -402,7 +402,7 @@ class Pipeline:
     def _drop_missings(self, method_input: list | str | None = None) -> None:
         if method_input is None:
             return
-        self.table = self.table.dropna(subset=method_input)
+        self.table.dropna(subset=method_input, inplace=True)
 
 
 class TableFactory:
