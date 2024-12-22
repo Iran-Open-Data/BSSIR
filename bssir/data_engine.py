@@ -311,11 +311,8 @@ class Pipeline:
         if isinstance(expression, int):
             self.table.loc[:, column_name] = expression
         else:
-            self.table[column_name] = (
-                self.table
-                .astype(float)
-                .eval(expression, engine="python")
-            )
+            self.table[column_name] = self.table.eval(expression, engine="python")
+
 
     def __apply_categorical_instruction(
         self, column_name: str, categories: dict
