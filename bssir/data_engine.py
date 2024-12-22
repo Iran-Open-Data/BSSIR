@@ -399,6 +399,11 @@ class Pipeline:
         )
         self.table = self.table.merge(other_table, on=columns)
 
+    def _drop_missings(self, method_input: list | str | None = None) -> None:
+        if method_input is None:
+            return
+        self.table = self.table.dropna(subset=method_input)
+
 
 class TableFactory:
     """Builds DataFrames representing tables of data.
