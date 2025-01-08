@@ -576,11 +576,32 @@ class IDDecoder:
 
         return builder
 
+    def _check_limits(self, attribute_metadata: dict, label: str, year: int) -> None:
+        if "limits" not in attribute_metadata:
+            return
+        label_limit = attribute_metadata["limits"].get(label, None)
+        default_limit = attribute_metadata["limits"].get("default", None)
+        if label_limit is None:
+            label_limit = default_limit
+        if label_limit is None:
+            return
+        last_year = self.settings.lib_defaults.years[-1]
+        label_limit = utils.Argham(label_limit, default_end=last_year)
+        if year not in label_limit:
+            raise ValueError(f"Year {year} is out of the defined limits ({label_limit})")
+        return
+
     def _create_code_mapper(
         self, label: str, year: int
     ) -> Callable[[pd.Series], pd.Series]:
         id_metadata = utils.resolve_metadata(
             self.settings.lib_metadata.id_information, year
+        )
+
+        self._check_limits(
+            attribute_metadata=id_metadata[self.settings.name],
+            label=label,
+            year=year,
         )
 
         if label == "code":
