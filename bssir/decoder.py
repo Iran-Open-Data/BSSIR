@@ -610,21 +610,32 @@ class IDDecoder:
         if not isinstance(id_metadata, dict):
             raise ValueError
         # pylint: disable=unsubscriptable-object
-        if label in id_metadata[self.settings.name].get("mappings", {}):
-            post_mapping_info = id_metadata[self.settings.name]["mappings"][label]
-            label = post_mapping_info["origin"]
-            post_mapping = self.settings.lib_metadata.id_information[
-                post_mapping_info["mapping"]
+        mapping = {}
+        while label in id_metadata[self.settings.name].get("mappings", {}):
+            mapping_info = id_metadata[self.settings.name]["mappings"][label]
+            label = mapping_info["origin"]
+            mapping_part = self.settings.lib_metadata.id_information[
+                mapping_info["mapping"]
             ]
-        else:
-            post_mapping = None
-        mapping = id_metadata[self.settings.name][label]
+            for key, value in mapping.items():
+                mapping_part = {
+                    k: (value if v == key else v)
+                    for k, v in mapping_part.items()
+                }
+            mapping.update(
+                {
+                    key: value for key, value
+                    in mapping_part.items()
+                    if key not in mapping
+                }
+            )
+
+        labeles = id_metadata[self.settings.name][label]
         code_builder = self._create_code_builder(id_metadata)
 
         def mapper(household_id_column: pd.Series) -> pd.Series:
-            mapped = code_builder(household_id_column).map(mapping)
-            if post_mapping is not None:
-                mapped = mapped.map(post_mapping)
+            mapped = code_builder(household_id_column).map(labeles)
+            mapped = mapped.replace(mapping)
             mapped = mapped.astype("category")
             mapped.name = label
             return mapped
@@ -657,3 +668,4 @@ class IDDecoder:
         year_and_id = [self.settings.year_col, self.settings.id_col]
         self.table = self.table.join(mapping_table, year_and_id)
         return self.table
+ 
