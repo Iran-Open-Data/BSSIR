@@ -404,6 +404,11 @@ class Pipeline:
             return
         self.table.dropna(subset=method_input, inplace=True)
 
+    def _fillna(self, method_input: list | str | None = None) -> None:
+        if method_input is None:
+            return
+        self.table.fillna(subset=method_input, inplace=True)
+    
 
 class TableFactory:
     """Builds DataFrames representing tables of data.
