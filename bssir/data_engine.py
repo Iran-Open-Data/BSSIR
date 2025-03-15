@@ -399,15 +399,20 @@ class Pipeline:
         )
         self.table = self.table.merge(other_table, on=columns)
 
-    def _drop_missings(self, method_input: list | str | None = None) -> None:
+    def _dropna(self, method_input: str | list | None = None) -> None:
         if method_input is None:
             return
         self.table.dropna(subset=method_input, inplace=True)
 
-    def _fillna(self, method_input: list | str | None = None) -> None:
+    def _fillna(self, method_input: str | list | dict | None = None) -> None:
         if method_input is None:
             return
-        self.table.fillna(subset=method_input, inplace=True)
+        if isinstance(method_input, str):
+            method_input = [method_input]
+        if isinstance(method_input, list):
+            method_input = {column: 0 for column in method_input}
+        for column, replacement in method_input.items():
+            self.table[column] = self.table[column].fillna(replacement)
     
 
 class TableFactory:
