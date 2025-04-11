@@ -331,8 +331,13 @@ def extract(
             if file.suffix.lower() in [".mdb", ".accdb"]
         ]
         for file in access_files:
+            add_prefix = len(access_files) > 1
             _extract_tables_from_access_file(
-                year, file, lib_defaults=lib_defaults, replace=replace
+                year,
+                file,
+                lib_defaults=lib_defaults,
+                replace=replace,
+                add_prefix=add_prefix,
             )
 
         dbf_files = [
@@ -345,17 +350,24 @@ def extract(
 
 
 def _extract_tables_from_access_file(
-    year: int, file_path: Path, *, lib_defaults: Defaults, replace: bool = True
+    year: int,
+    file_path: Path,
+    *,
+    lib_defaults: Defaults,
+    replace: bool = True,
+    add_prefix: bool = False,
 ) -> None:
     with _create_cursor(file_path) as cursor:
         table_list = _get_access_table_list(cursor)
+        name_prefix = file_path.stem if add_prefix else ""
         for table_name in table_list:
             _extract_table(
                 cursor,
                 year,
-                table_name,
+                table_name=table_name,
                 lib_defaults=lib_defaults,
                 replace=replace,
+                name_prefix=name_prefix,
             )
 
 
@@ -394,10 +406,11 @@ def _extract_table(
     *,
     lib_defaults: Defaults,
     replace: bool = True,
+    name_prefix: str = ""
 ):
     year_directory = lib_defaults.dirs.extracted.joinpath(str(year))
     year_directory.mkdir(parents=True, exist_ok=True)
-    file_path = year_directory.joinpath(f"{table_name}.csv")
+    file_path = year_directory.joinpath(f"{name_prefix}_{table_name}.csv")
     if (file_path.exists()) and (not replace):
         return
     try:
