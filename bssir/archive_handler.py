@@ -431,8 +431,10 @@ def _get_access_table(cursor: pyodbc.Cursor, table_name: str) -> pd.DataFrame:
 def _extract_tables_from_dbf_file(
     year: int, file_path: Path, *, lib_defaults: Defaults, replace: bool = True
 ) -> None:
-    dbf_file = DBF(file_path)
-    table = pd.DataFrame(iter(dbf_file))
+    try:
+        table = pd.DataFrame(iter(DBF(file_path)))
+    except UnicodeDecodeError:
+        table = pd.DataFrame(iter(DBF(file_path, encoding="cp720")))
     year_directory = lib_defaults.dirs.extracted.joinpath(str(year))
     year_directory.mkdir(parents=True, exist_ok=True)
     csv_file_path = year_directory.joinpath(f"{file_path.stem}.csv")
