@@ -685,8 +685,37 @@ class TableFactory:
 
         table_list = self._collect_schema_tables(table_names)
 
-        table = pd.concat(table_list)
+        table = self._create_concat_table(
+            table_list,
+            self.schema[table_name].get("concat_options", {}),
+        )
+
         table = self._apply_schema(table, table_name)
+        return table
+
+    def _create_concat_table(
+        self,
+        table_list: list[pd.DataFrame],
+        concat_options: dict,
+    ) -> pd.DataFrame:
+        if "merge_on" in concat_options:
+            concat_options["left_on"] = concat_options["merge_on"]
+            concat_options["right_on"] = concat_options["merge_on"]
+            del concat_options["merge_on"]
+
+        if len(concat_options) == 0:
+            table = pd.concat(table_list)
+        elif "on_columns" in concat_options:
+            concat_options["axis"] = "columns"
+            table_list = [table.set_index(concat_options["on_columns"]) for table in table_list]
+            del concat_options["on_columns"]
+            table = pd.concat(table_list, **concat_options).reset_index()
+        elif ("left_on" in concat_options) and ("right_on" in concat_options):
+            assert len(table_list) == 2
+            table = pd.merge(*table_list, **concat_options)
+        else:
+            raise ValueError
+
         return table
 
     def _collect_schema_tables(
