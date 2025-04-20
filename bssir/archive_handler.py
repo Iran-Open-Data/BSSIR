@@ -330,6 +330,8 @@ def extract(
             for file in year_directory.iterdir()
             if file.suffix.lower() in [".mdb", ".accdb"]
         ]
+        if replace:
+            _remove_extracted_directory(year, lib_defaults=lib_defaults)
         for file in access_files:
             add_prefix = len(access_files) > 1
             _extract_tables_from_access_file(
@@ -347,6 +349,19 @@ def extract(
             _extract_tables_from_dbf_file(
                 year, file, lib_defaults=lib_defaults, replace=replace
             )
+
+
+def _remove_extracted_directory(
+    year: int,
+    *,
+    lib_defaults: Defaults,
+) -> None:
+    extracted_directory = lib_defaults.dirs.extracted.joinpath(str(year))
+    if not extracted_directory.exists():
+        return
+    for file in extracted_directory.iterdir():
+        file.unlink()
+    extracted_directory.rmdir()
 
 
 def _extract_tables_from_access_file(
