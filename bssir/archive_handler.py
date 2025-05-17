@@ -32,7 +32,7 @@ raw data tables before cleaning.
 """
 
 from contextlib import contextmanager
-from typing import Generator, Literal
+from typing import Generator, Literal, Optional
 import shutil
 import platform
 from pathlib import Path
@@ -374,7 +374,7 @@ def _extract_tables_from_access_file(
 ) -> None:
     with _create_cursor(file_path) as cursor:
         table_list = _get_access_table_list(cursor)
-        name_prefix = file_path.stem if add_prefix else ""
+        name_prefix = file_path.stem if add_prefix else None
         for table_name in table_list:
             _extract_table(
                 cursor,
@@ -421,11 +421,12 @@ def _extract_table(
     *,
     lib_defaults: Defaults,
     replace: bool = True,
-    name_prefix: str = ""
+    name_prefix: Optional[str] = None
 ):
     year_directory = lib_defaults.dirs.extracted.joinpath(str(year))
     year_directory.mkdir(parents=True, exist_ok=True)
-    file_path = year_directory.joinpath(f"{name_prefix}_{table_name}.csv")
+    file_name = table_name if name_prefix is None else f"{name_prefix}_{table_name}"
+    file_path = year_directory.joinpath(f"{file_name}.csv")
     if (file_path.exists()) and (not replace):
         return
     try:
