@@ -712,7 +712,7 @@ class TableFactory:
             table = pd.concat(table_list, **concat_options).reset_index()
         elif ("left_on" in concat_options) and ("right_on" in concat_options):
             assert len(table_list) == 2
-            table = pd.merge(*table_list, **concat_options)
+            table = pd.merge(table_list[0], table_list[1], **concat_options)
         else:
             raise ValueError
 
