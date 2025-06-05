@@ -84,9 +84,15 @@ class API:
         archive_handler.unpack(years, replace=replace, lib_defaults=self.defaults)
         archive_handler.extract(years, replace=replace, lib_defaults=self.defaults)
 
-    def setup_config(self, replace=False) -> None:
+    def setup_config(
+        self,
+        mode: Literal["Standard", "Colab"] = "Standard",
+        replace: bool = False,
+    ) -> None:
         """Copy default config file to data directory."""
-        src = self.defaults.base_package_dir.joinpath("config", "settings_sample.yaml")
+        mode_str = "" if mode =="Standard" else mode.lower()
+        src_file_name = f"settings_sample_{mode_str}.yaml"
+        src = self.defaults.base_package_dir.joinpath("config", src_file_name)
         dst = self.defaults.root_dir.joinpath(self.defaults.local_settings)
         dst.parent.mkdir(parents=True, exist_ok=True)
         if (not dst.exists()) or replace:

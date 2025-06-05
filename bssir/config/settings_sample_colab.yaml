@@ -1,19 +1,9 @@
-# Local Directory
-# local_dir: Data
-# in_root: true
-
 # Mirrors
 mirrors:
-  - name: arvan
-    endpoint: https://s3.ir-tbz-sh1.arvanstorage.ir
-    bucket_name: iran-open-data
-  - name: liara
-    endpoint: https://storage.c2.liara.space
-    bucket_name: iran-open-data
   - name: amazon
     endpoint: https://iran-open-data.s3.us-east-2.amazonaws.com
     bucket_name: iran-open-data
-default_mirror: arvan
+default_mirror: amazon
 
 # Map
 default_map: humandata
