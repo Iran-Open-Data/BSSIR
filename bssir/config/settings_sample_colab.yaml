@@ -13,7 +13,7 @@ functions:
   # Load Table
   load_table:
     form: normalized
-    on_missing: create
+    on_missing: download
     save_downloaded: true
     redownload: false
     save_created: true
