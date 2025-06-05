@@ -253,6 +253,10 @@ class Defaults(BaseModel):
             self.local_dir = self.root_dir.joinpath(*self.local_dir.parts)
         else:
             self.local_dir = self.package_dir.joinpath(*self.local_dir.parts)
+        if not self.local_dir.exists():
+            self.local_dir.mkdir(parents=True)
+            with open(self.local_dir.joinpath(".gitignore"), mode="w") as file:
+                file.write("*")
 
     def create_dirs(self) -> None:
         path_dict = {}
