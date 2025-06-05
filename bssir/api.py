@@ -59,6 +59,8 @@ class API:
             self.setup_raw_data(years, replace=replace, download_source=download_source)
             self._create_cleaned_files(years=years, table_names=table_names)
         elif method == "download_cleaned":
+            if download_source == "original":
+                download_source = "mirror"
             self.utils.download_cleaned_tables(years, source=download_source)
         else:
             raise ValueError
