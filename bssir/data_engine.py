@@ -20,8 +20,6 @@ from raw provided data tables to cleaned analytic tables.
 Relies on metadata schema and configuration for how to process tables.
 
 """
-
-import re
 from pathlib import Path
 from typing import Iterable
 from types import ModuleType
@@ -159,7 +157,7 @@ class TableHandler:
 
     def get_local_path(self, table_name) -> Path:
         file_name = f"{self.year}_{table_name}.parquet"
-        local_path = self.lib_defaults.dirs.cleaned.joinpath(file_name)
+        local_path = self.lib_defaults.dir.cleaned.joinpath(file_name)
         return local_path
 
     def _create_table(self, table_name: str) -> pd.DataFrame:
@@ -178,7 +176,7 @@ class TableHandler:
 
     def _download_table(self, table_name: str) -> pd.DataFrame:
         table = pd.read_parquet(
-            f"{self.lib_defaults.online_dirs.cleaned}/{self.year}_{table_name}.parquet"
+            f"{self.lib_defaults.online_dirs[0].cleaned}/{self.year}_{table_name}.parquet"
         )
         if self.settings.save_downloaded:
             table.to_parquet(self.get_local_path(table_name))
@@ -544,7 +542,7 @@ class TableFactory:
             table = table_list.pop(0)
             if table.split(".")[0] == "external":
                 file_name = f"{table.split('.')[1]}.parquet"
-                local_path = self.lib_defaults.dirs.external.joinpath(file_name)
+                local_path = self.lib_defaults.dir.external.joinpath(file_name)
                 size = local_path.stat().st_size if local_path.exists() else None
                 dependencies[table] = {"size": size}
             elif "table_list" in self.lib_metadata.schema[table]:
@@ -558,7 +556,7 @@ class TableFactory:
                 table_list.extend(upstream_tables)
             elif table in self.lib_metadata.tables["table_availability"]:
                 file_name = f"{year}_{table}.parquet"
-                local_path = self.lib_defaults.dirs.cleaned.joinpath(file_name)
+                local_path = self.lib_defaults.dir.cleaned.joinpath(file_name)
                 size = local_path.stat().st_size if local_path.exists() else None
                 dependencies[table] = {"size": size}
             else:
@@ -595,7 +593,7 @@ class TableFactory:
         if not self.check_table_dependencies(table_name):
             raise FileNotFoundError
         file_name = f"{table_name}_{self.year}.parquet"
-        file_path = self.lib_defaults.dirs.cached.joinpath(file_name)
+        file_path = self.lib_defaults.dir.cached.joinpath(file_name)
         table = pd.read_parquet(file_path)
         return table
 
@@ -617,7 +615,7 @@ class TableFactory:
 
         """
         file_name = f"{table_name}_{self.year}_metadata.yaml"
-        cach_metadata_path = self.lib_defaults.dirs.cached.joinpath(file_name)
+        cach_metadata_path = self.lib_defaults.dir.cached.joinpath(file_name)
         with open(cach_metadata_path, encoding="utf-8") as file:
             cach_metadata = yaml.safe_load(file)
         file_dependencies = cach_metadata["dependencies"]
@@ -643,9 +641,9 @@ class TableFactory:
 
         """
         file_name = f"{table_name}_{self.year}.parquet"
-        file_path = self.lib_defaults.dirs.cached.joinpath(file_name)
+        file_path = self.lib_defaults.dir.cached.joinpath(file_name)
         file_name = f"{table_name}_{self.year}_metadata.yaml"
-        cach_metadata_path = self.lib_defaults.dirs.cached.joinpath(file_name)
+        cach_metadata_path = self.lib_defaults.dir.cached.joinpath(file_name)
         file_metadata = {
             "dependencies": self.extract_dependencies(table_name, self.year)
         }

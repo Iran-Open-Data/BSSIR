@@ -1,4 +1,4 @@
-from typing import Any, Callable, Literal, Iterable
+from typing import Any, Callable, Literal, Iterable, overload
 from types import ModuleType
 import shutil
 import importlib
@@ -20,6 +20,30 @@ class API:
         self.metadata = metadata
         self.utils = Utils(defaults, metadata)
 
+    @overload
+    def setup(
+        self,
+        years: _Years,
+        *,
+        table_names: str | Iterable[str] | None = None,
+        replace: bool = False,
+        method: Literal["create_from_raw"] = "create_from_raw",
+        download_source: Literal["original", "mirror"] | str = "original",
+    ) -> None:
+        ...
+
+    @overload
+    def setup(
+        self,
+        years: _Years,
+        *,
+        table_names: str | Iterable[str] | None = None,
+        replace: bool = False,
+        method: Literal["download_cleaned"] = "download_cleaned",
+        download_source: Literal["mirror"] | str = "mirror",
+    ) -> None:
+        ...
+
     def setup(
         self,
         years: _Years,
@@ -27,22 +51,24 @@ class API:
         table_names: str | Iterable[str] | None = None,
         replace: bool = False,
         method: Literal["create_from_raw", "download_cleaned"] = "create_from_raw",
-        download_source: Literal["original", "google_drive", "mirror"] = "original",
+        download_source: Literal["original", "mirror"] | str = "original",
     ) -> None:
         """Download, extract, and clean survey data."""
         years = self.utils.parse_years(years)
         if method == "create_from_raw":
             self.setup_raw_data(years, replace=replace, download_source=download_source)
             self._create_cleaned_files(years=years, table_names=table_names)
+        elif method == "download_cleaned":
+            self.utils.download_cleaned_tables(years, source=download_source)
         else:
-            self.utils.download_cleaned_tables(years)
+            raise ValueError
 
     def setup_raw_data(
         self,
         years: _Years,
         *,
         replace: bool = False,
-        download_source: Literal["original", "google_drive", "mirror"] = "original",
+        download_source: Literal["original", "mirror"] | str = "original",
     ) -> None:
         """Download and extract raw survey data."""
         years = self.utils.parse_years(years)
@@ -138,7 +164,7 @@ class API:
             table, table_name=table_name, year=year, lib_metadata=self.metadata
         )
         file_name = f"{year}_{table_name}.parquet"
-        table.to_parquet(self.defaults.dirs.cleaned.joinpath(file_name))
+        table.to_parquet(self.defaults.dir.cleaned.joinpath(file_name))
 
     def load_external_table(
         self,

@@ -27,14 +27,14 @@ __all__ = [
 
 class Utils:
     def __init__(self, defaults: Defaults, metadata: Metadata):
-        self.__defautls = defaults
-        self.__metadata = metadata
+        self._defautls = defaults
+        self._metadata = metadata
 
     def sevenzip(self, compressed_file: Path, output_directory: Path) -> None:
         sevenzip(
             compressed_file=compressed_file,
             output_directory=output_directory,
-            seven_zip_directory=self.__defautls.base_package_dir,
+            seven_zip_directory=self._defautls.base_package_dir,
         )
 
     def parse_years(
@@ -44,15 +44,15 @@ class Utils:
         table_name: str | None = None,
         form: Literal["raw", "cleaned", "normalized"] = "raw",
     ) -> list[int]:
-        table_availability = self.__metadata.tables["table_availability"].copy()
+        table_availability = self._metadata.tables["table_availability"].copy()
         if form == "normalized":
             table_availability.update(
-                self.__metadata.schema.get("table_availability", {})
+                self._metadata.schema.get("table_availability", {})
             )
         return parse_years(
             years=years,
             table_name=table_name,
-            available_years=self.__defautls.years,
+            available_years=self._defautls.years,
             tables_availability=table_availability,
         )
 
@@ -60,30 +60,43 @@ class Utils:
         self, table_names: str | Iterable[str], years: _Years
     ) -> list[tuple[str, int]]:
         if table_names == "all":
-            table_names = list(self.__metadata.tables["table_availability"].keys())
+            table_names = list(self._metadata.tables["table_availability"].keys())
         return create_table_year_pairs(
             table_names=table_names,
             years=years,
-            available_years=self.__defautls.years,
-            tables_availability=self.__metadata.tables["table_availability"],
+            available_years=self._defautls.years,
+            tables_availability=self._metadata.tables["table_availability"],
         )
 
-    def download_cleaned_tables(self, years: list[int]) -> None:
+    def download_cleaned_tables(
+        self,
+        years: list[int],
+        source: Literal["mirror"] | str = "mirror",
+    ) -> None:
         table_years = self.create_table_year_pairs("all", years)
         futures = []
-        with ThreadPoolExecutor(4) as executer:
+        with ThreadPoolExecutor(6) as executer:
             for table_name, year in table_years:
                 futures.append(
                     executer.submit(
-                        self.__download_cleaned_table, year=year, table_name=table_name
+                        self._download_cleaned_table,
+                        year=year,
+                        table_name=table_name,
+                        source=source,
                     )
                 )
         list(future.result() for future in futures)
 
-    def __download_cleaned_table(self, year: int, table_name: str) -> None:
+    def _download_cleaned_table(
+        self,
+        year: int,
+        table_name: str,
+        source: Literal["mirror"] | str = "mirror",
+    ) -> None:
         file_name = f"{year}_{table_name}.parquet"
-        path = self.__defautls.dirs.cleaned.joinpath(file_name)
-        url = f"{self.__defautls.online_dirs.cleaned}/{file_name}"
+        path = self._defautls.dir.cleaned.joinpath(file_name)
+        index = 0 if source == "mirror" else self._defautls.get_mirror_index(source)
+        url = f"{self._defautls.online_dirs[index].cleaned}/{file_name}"
         download(url, path)
 
     def download_map(
@@ -92,8 +105,8 @@ class Utils:
         download_map(
             map_name=map_name,
             source=source,
-            map_metadata=self.__metadata.maps,
-            maps_directory=self.__defautls.dirs.maps,
+            map_metadata=self._metadata.maps,
+            maps_directory=self._defautls.dir.maps,
         )
 
     def resolve_metadata(
@@ -112,17 +125,17 @@ class Utils:
         column_name: str,
         table_name: str,
     ) -> dict:
-        table_metadata = self.__metadata.tables[table_name]
+        table_metadata = self._metadata.tables[table_name]
         return extract_column_metadata(
             column_name=column_name,
             table_metadata=table_metadata,
-            lib_defaults=self.__defautls,
+            lib_defaults=self._defautls,
         )
 
     def exteract_code_metadata(self, column_code: str, table_name: str) -> dict:
-        table_metadata = self.__metadata.tables[table_name]
+        table_metadata = self._metadata.tables[table_name]
         return exteract_code_metadata(
             column_code=column_code,
             table_metadata=table_metadata,
-            lib_defaults=self.__defautls,
+            lib_defaults=self._defautls,
         )

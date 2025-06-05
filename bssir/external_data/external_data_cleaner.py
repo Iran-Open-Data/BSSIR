@@ -37,7 +37,7 @@ class ExternalDataCleaner:
             Loaded table data
 
         """
-        local_file = self.lib_defaults.dirs.external.joinpath(f"{self.name}.parquet")
+        local_file = self.lib_defaults.dir.external.joinpath(f"{self.name}.parquet")
 
         if self.metadata_type == "alias":
             name = self.metadata["alias"]
@@ -108,12 +108,12 @@ class ExternalDataCleaner:
 
     def _open_cleaned_data(self) -> pd.DataFrame:
         return pd.read_parquet(
-            self.lib_defaults.dirs.external.joinpath(f"{self.name}.parquet")
+            self.lib_defaults.dir.external.joinpath(f"{self.name}.parquet")
         )
 
     @property
     def raw_file_path(self) -> Path:
-        raw_folder_path = self.lib_defaults.dirs.external.joinpath("_raw")
+        raw_folder_path = self.lib_defaults.dir.external.joinpath("_raw")
         raw_folder_path.mkdir(exist_ok=True, parents=True)
         extension = self._find_extension()
         return raw_folder_path.joinpath(f"{self.name}.{extension}")
@@ -162,11 +162,11 @@ class ExternalDataCleaner:
 
     def save_table(self, table: pd.DataFrame) -> None:
         table.to_parquet(
-            self.lib_defaults.dirs.external.joinpath(f"{self.name}.parquet")
+            self.lib_defaults.dir.external.joinpath(f"{self.name}.parquet")
         )
 
     def _download_table(self) -> pd.DataFrame:
-        url = f"{self.lib_defaults.bucket_address}/EXTERNAL/{self.name}.parquet"
+        url = f"{self.lib_defaults.mirrors[0].bucket_address}/EXTERNAL/{self.name}.parquet"
         table = pd.read_parquet(url)
         if self.settings.save_downloaded:
             self.save_table(table)

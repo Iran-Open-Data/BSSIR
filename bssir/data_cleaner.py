@@ -56,7 +56,7 @@ def load_raw_table(
         If invalid table name, year, or corrupt metadata.
 
     """
-    year_directory = lib_defaults.dirs.extracted.joinpath(str(year))
+    year_directory = lib_defaults.dir.extracted.joinpath(str(year))
     if not year_directory.exists():
         archive_handler.setup(
             years=[year],
@@ -74,9 +74,9 @@ def load_raw_table(
             for file in list(file_code)
         ]
     elif isinstance(file_code, str) and (file_code.count("*") == 0):
-        files = [lib_defaults.dirs.extracted.joinpath(str(year), f"{file_code}.csv")]
+        files = [lib_defaults.dir.extracted.joinpath(str(year), f"{file_code}.csv")]
     elif isinstance(file_code, str):
-        files = lib_defaults.dirs.extracted.joinpath(str(year)).glob(file_code)
+        files = lib_defaults.dir.extracted.joinpath(str(year)).glob(file_code)
     else:
         raise ValueError(f"Table {table_name} is not available for year {year}")
 

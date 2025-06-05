@@ -51,7 +51,7 @@ def setup(
     lib_metadata: Metadata,
     lib_defaults: Defaults,
     replace: bool = False,
-    download_source: Literal["original", "google_drive", "mirror"] = "original",
+    download_source: Literal["original", "mirror"] | str = "original",
 ) -> None:
     """Download, unpack, and extract survey data for the specified years.
 
@@ -127,7 +127,7 @@ def download(
     lib_metadata: Metadata,
     lib_defaults: Defaults,
     replace: bool = False,
-    source: Literal["original", "google_drive", "mirror"] = "original",
+    source: Literal["original", "mirror"] | str = "original",
 ) -> None:
     """Download archive files for the specified years.
 
@@ -159,7 +159,7 @@ def download(
     parse_years : Parse and validate different year representations.
     """
 
-    def __download_file(url: str, path: Path):
+    def _download_file(url: str, path: Path):
         path.parent.mkdir(parents=True, exist_ok=True)
         if path.exists() and not replace:
             return
@@ -168,29 +168,30 @@ def download(
     for year in years:
         files = lib_metadata.raw_files[year]
 
-        if source in ["original", "google_drive"]:
+        if source == "original":
             for file in files.get("compressed_files", []):
-                file_path = lib_defaults.dirs.compressed.joinpath(
+                file_path = lib_defaults.dir.compressed.joinpath(
                     str(year), file["name"]
                 )
                 url = file[source]
-                __download_file(url, file_path)
+                _download_file(url, file_path)
             for file in files.get("unpacked_files", []):
-                file_path = lib_defaults.dirs.unpacked.joinpath(str(year), file["name"])
+                file_path = lib_defaults.dir.unpacked.joinpath(str(year), file["name"])
                 url = file[source]
-                __download_file(url, file_path)
+                _download_file(url, file_path)
 
-        elif source == "mirror":
+        else: 
+            index = 0 if source == "mirror"  else lib_defaults.get_mirror_index(source)
             for file in files.get("compressed_files", []):
                 file_str_path = f"{year}/{file['name']}"
-                url = f"{lib_defaults.online_dirs.compressed}/{file_str_path}"
-                file_path = lib_defaults.dirs.compressed.joinpath(file_str_path)
-                __download_file(url, file_path)
+                url = f"{lib_defaults.online_dirs[index].compressed}/{file_str_path}"
+                file_path = lib_defaults.dir.compressed.joinpath(file_str_path)
+                _download_file(url, file_path)
             for file in files.get("unpacked_files", []):
                 file_str_path = f"{year}/{file['name']}"
-                url = f"{lib_defaults.online_dirs.unpacked}/{file_str_path}"
-                file_path = lib_defaults.dirs.unpacked.joinpath(file_str_path)
-                __download_file(url, file_path)
+                url = f"{lib_defaults.online_dirs[index].unpacked}/{file_str_path}"
+                file_path = lib_defaults.dir.unpacked.joinpath(file_str_path)
+                _download_file(url, file_path)
 
 
 def unpack(years: list[int], *, lib_defaults: Defaults, replace: bool = False) -> None:
@@ -244,8 +245,8 @@ def _unpack_yearly_data_archive(
     unpack: Unpack archive files for the specified years.
     _unpack_archives_recursive : Recursively extracts nested archives.
     """
-    zip_files = lib_defaults.dirs.compressed.joinpath(str(year))
-    year_directory = lib_defaults.dirs.unpacked.joinpath(str(year))
+    zip_files = lib_defaults.dir.compressed.joinpath(str(year))
+    year_directory = lib_defaults.dir.unpacked.joinpath(str(year))
     year_directory.mkdir(parents=True, exist_ok=True)
     data_files = [
         file
@@ -324,7 +325,7 @@ def extract(
     parse_years : Parse and validate year inputs.
     """
     for year in years:
-        year_directory = lib_defaults.dirs.unpacked.joinpath(str(year))
+        year_directory = lib_defaults.dir.unpacked.joinpath(str(year))
         access_files = [
             file
             for file in year_directory.iterdir()
@@ -356,7 +357,7 @@ def _remove_extracted_directory(
     *,
     lib_defaults: Defaults,
 ) -> None:
-    extracted_directory = lib_defaults.dirs.extracted.joinpath(str(year))
+    extracted_directory = lib_defaults.dir.extracted.joinpath(str(year))
     if not extracted_directory.exists():
         return
     for file in extracted_directory.iterdir():
@@ -410,7 +411,7 @@ def _get_access_table_list(cursor: pyodbc.Cursor) -> list:
     access_tables = cursor.tables()
     for table in access_tables:
         table_list.append(table.table_name)
-    table_list = [table for table in table_list if table.find("MSys") == -1]
+    table_list = [table for table in table_list if "MSys" not in table]
     return table_list
 
 
@@ -423,7 +424,7 @@ def _extract_table(
     replace: bool = True,
     name_prefix: Optional[str] = None
 ):
-    year_directory = lib_defaults.dirs.extracted.joinpath(str(year))
+    year_directory = lib_defaults.dir.extracted.joinpath(str(year))
     year_directory.mkdir(parents=True, exist_ok=True)
     file_name = table_name if name_prefix is None else f"{name_prefix}_{table_name}"
     file_path = year_directory.joinpath(f"{file_name}.csv")
@@ -451,7 +452,7 @@ def _extract_tables_from_dbf_file(
         table = pd.DataFrame(iter(DBF(file_path)))
     except UnicodeDecodeError:
         table = pd.DataFrame(iter(DBF(file_path, encoding="cp720")))
-    year_directory = lib_defaults.dirs.extracted.joinpath(str(year))
+    year_directory = lib_defaults.dir.extracted.joinpath(str(year))
     year_directory.mkdir(parents=True, exist_ok=True)
     csv_file_path = year_directory.joinpath(f"{file_path.stem}.csv")
     if csv_file_path.exists() and not replace:

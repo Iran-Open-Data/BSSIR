@@ -3,9 +3,10 @@ Metadata module
 """
 import functools
 import re
+import urllib.parse
 
 from pathlib import Path
-from typing import Any, Annotated, Literal, Callable, Iterable
+from typing import Any, Annotated, Literal, Callable, Iterable, Optional
 
 from pydantic import BaseModel, BeforeValidator, ConfigDict, Field
 import yaml
@@ -134,6 +135,16 @@ def read_available_years(years: list[int] | str) -> list[int]:
     raise TypeError
 
 
+class Mirror(BaseModel):
+    name: str
+    endpoint: str
+    bucket_name: str
+
+    @property
+    def bucket_address(self) -> str:
+        return urllib.parse.urljoin(self.endpoint, self.bucket_name)
+
+
 _DefaultYears = Annotated[list[int], BeforeValidator(read_available_years)]
 
 
@@ -159,7 +170,7 @@ class DefaultFolderName(BaseModel):
     cached: str
 
 
-class DefaultDirectories(BaseModel):
+class DefaultDirectorie(BaseModel):
     compressed: Path
     unpacked: Path
     extracted: Path
@@ -169,7 +180,7 @@ class DefaultDirectories(BaseModel):
     cached: Path
 
 
-class DefaultOnlineDirectories(BaseModel):
+class DefaultOnlineDirectory(BaseModel):
     root: str
     compressed: str
     unpacked: str
@@ -213,8 +224,9 @@ class Defaults(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     package_name: str
-    bucket_address: str
-    online_dirs: DefaultOnlineDirectories = Field(None, validate_default=False)
+    mirrors: list[Mirror]
+    default_mirror: Optional[str] = None
+    online_dirs: list[DefaultOnlineDirectory] = Field([])
 
     years: _DefaultYears
 
@@ -227,7 +239,7 @@ class Defaults(BaseModel):
     in_root: bool
 
     folder_names: DefaultFolderName
-    dirs: DefaultDirectories = Field(None, validate_default=False)
+    dir: DefaultDirectorie = Field(None, validate_default=False) # type: ignore
 
     columns: DefaultColumns
     functions: DefaultFunctions
@@ -241,12 +253,12 @@ class Defaults(BaseModel):
     seven_zip_url: str
 
     def model_post_init(self, __context=None) -> None:
-        self.create_local_dir()
-        self.create_dirs()
-        self.create_online_dir()
-        self.create_meta_paths()
+        self._create_local_dir()
+        self._create_dirs()
+        self._create_online_dir()
+        self._create_meta_paths()
 
-    def create_local_dir(self) -> None:
+    def _create_local_dir(self) -> None:
         if self.local_dir.is_absolute():
             pass
         elif self.in_root:
@@ -258,7 +270,7 @@ class Defaults(BaseModel):
             with open(self.local_dir.joinpath(".gitignore"), mode="w") as file:
                 file.write("*")
 
-    def create_dirs(self) -> None:
+    def _create_dirs(self) -> None:
         path_dict = {}
         for key, value in self.folder_names.model_dump().items():
             path_dict[key] = (
@@ -267,22 +279,34 @@ class Defaults(BaseModel):
                 else self.local_dir.joinpath(value)
             )
             path_dict[key].mkdir(exist_ok=True, parents=True)
-        self.dirs = DefaultDirectories(**path_dict)
+        self.dir = DefaultDirectorie(**path_dict)
 
-    def create_online_dir(self):
-        root = f"{self.bucket_address}/{self.package_name}"
-        online_dict = {"root": root}
-        for key, value in self.folder_names.model_dump().items():
-            online_dict[key] = f"{root}/{value}"
-        self.online_dirs = DefaultOnlineDirectories(**online_dict)
+    def _create_online_dir(self):
+        for mirror in self.mirrors:
+            root = f"{mirror.bucket_address}/{self.package_name}"
+            online_dict = {"root": root}
+            for key, value in self.folder_names.model_dump().items():
+                online_dict[key] = f"{root}/{value}"
+            self.online_dirs.append(DefaultOnlineDirectory(**online_dict))
+        if self.default_mirror is not None:
+            index = self.get_mirror_index(self.default_mirror)
+            default_online_dir = self.online_dirs[index]
+            self.online_dirs.remove(default_online_dir)
+            self.online_dirs.insert(0, default_online_dir)
 
-    def create_meta_paths(self):
+    def _create_meta_paths(self):
         for key, value in self.base_package_metadata.items():
             self.base_package_metadata[key] = self.base_package_dir.joinpath(value)
         for key, value in self.package_metadata.items():
             self.package_metadata[key] = self.package_dir.joinpath(value)
         for key, value in self.local_metadata.items():
             self.local_metadata[key] = self.root_dir.joinpath(value)
+
+    def get_mirror_index(self, mirror_name: str) -> int:
+        for i, mirror in enumerate(self.mirrors):
+            if mirror.name == mirror_name:
+                return i
+        raise ValueError(f"Mirror '{mirror_name}' not found")
 
 
 class Metadata:
