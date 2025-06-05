@@ -73,10 +73,7 @@ def download_7zip():
     file_name = f"{platform.system()}-{platform.architecture()[0]}.zip"
     file_path = defaults.base_package_dir.joinpath(file_name)
 
-    if defaults.colab_mode:
-        url = defaults.seven_zip_url
-    else:
-        url = f"{defaults.mirrors[0].bucket_address}/7-Zip/{file_name}"
+    url = f"{defaults.mirrors[0].bucket_address}/7-Zip/{file_name}"
     download(url, file_path)
 
     with ZipFile(file_path) as zip_file:

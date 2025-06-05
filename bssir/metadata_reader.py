@@ -249,9 +249,6 @@ class Defaults(BaseModel):
     local_metadata: dict
     docs: DefaultDocs
 
-    colab_mode: bool
-    seven_zip_url: str
-
     def model_post_init(self, __context=None) -> None:
         self._create_local_dir()
         self._create_dirs()
