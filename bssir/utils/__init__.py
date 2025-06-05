@@ -5,7 +5,7 @@ from pathlib import Path
 
 from ..metadata_reader import Defaults, Metadata, _Years
 
-from .seven_zip_utils import extract as sevenzip
+from .archive_utils import extract
 from .download_utils import download, download_map
 from .parsing_utils import parse_years, create_table_year_pairs
 from .metadata_utils import (
@@ -30,8 +30,8 @@ class Utils:
         self._defautls = defaults
         self._metadata = metadata
 
-    def sevenzip(self, compressed_file: Path, output_directory: Path) -> None:
-        sevenzip(
+    def extract(self, compressed_file: Path, output_directory: Path) -> None:
+        extract(
             compressed_file=compressed_file,
             output_directory=output_directory,
             seven_zip_directory=self._defautls.base_package_dir,

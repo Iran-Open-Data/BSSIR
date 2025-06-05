@@ -259,7 +259,7 @@ def _unpack_yearly_data_archive(
         for file in data_files:
             file.unlink()
     for file in zip_files.iterdir():
-        utils.sevenzip(file, year_directory)
+        utils.extract(file, year_directory)
     _unpack_archives_recursive(year_directory)
     for path in year_directory.iterdir():
         if path.is_dir():
@@ -291,7 +291,7 @@ def _unpack_archives_recursive(directory: Path):
         if len(archive_files) == 0:
             break
         for file in archive_files:
-            utils.sevenzip(file, directory)
+            utils.extract(file, directory)
             Path(file).unlink()
 
 
