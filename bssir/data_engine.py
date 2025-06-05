@@ -309,10 +309,12 @@ class Pipeline:
         if isinstance(expression, int):
             self.table.loc[:, column_name] = expression
         else:
+            table = self.table.copy()
             for column in self.table.columns:
-                if (column in expression) and (self.table[column].dtype == "Float64"):
-                    self.table[column] = self.table[column].astype("float64")
-            self.table[column_name] = self.table.eval(expression, engine="python")
+                for dtype in ["Float64", "Float32", "Int64", "Int32"]:
+                    if (column in expression) and (table[column].dtype == dtype):
+                        table[column] = table[column].astype(dtype.lower()) # type: ignore
+            self.table[column_name] = table.eval(expression, engine="python")
 
     def __apply_categorical_instruction(
         self, column_name: str, categories: dict
