@@ -309,6 +309,9 @@ class Pipeline:
         if isinstance(expression, int):
             self.table.loc[:, column_name] = expression
         else:
+            for column in self.table.columns:
+                if (column in expression) and (self.table[column].dtype == "Float64"):
+                    self.table[column] = self.table[column].astype("float64")
             self.table[column_name] = self.table.eval(expression, engine="python")
 
     def __apply_categorical_instruction(
