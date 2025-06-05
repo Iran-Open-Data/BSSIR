@@ -431,7 +431,7 @@ def _extract_table(
         return
     try:
         table = _get_access_table(cursor, table_name)
-    except (pyodbc.ProgrammingError, pyodbc.OperationalError):
+    except pyodbc.Error:
         print(f"table {table_name} from {year} failed to extract")
         return
     table.to_csv(file_path, index=False)
