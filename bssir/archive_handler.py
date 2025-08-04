@@ -261,12 +261,9 @@ def _unpack_yearly_data_archive(
     for file in zip_files.iterdir():
         utils.extract(file, year_directory)
     _unpack_archives_recursive(year_directory)
-    for path in year_directory.iterdir():
-        if path.is_dir():
-            shutil.rmtree(path)
 
 
-def _unpack_archives_recursive(directory: Path):
+def _unpack_archives_recursive(target_directory: Path):
     """Recursively extract nested archives under the given directory.
 
     This searches the given directory for any ZIP/RAR files, and extracts
@@ -285,13 +282,20 @@ def _unpack_archives_recursive(directory: Path):
     None
     """
     while True:
+        for directory in [d for d in target_directory.iterdir() if d.is_dir()]:
+            for path in directory.iterdir():
+                if path.is_dir():
+                    shutil.copytree(path, path.parents[1])
+                else:
+                    shutil.copy(path, path.parents[1])
+            shutil.rmtree(directory)
         archive_files = [
-            file for file in directory.iterdir() if file.suffix in (".zip", ".rar")
+            file for file in target_directory.iterdir() if file.suffix in (".zip", ".rar")
         ]
         if len(archive_files) == 0:
             break
         for file in archive_files:
-            utils.extract(file, directory)
+            utils.extract(file, target_directory)
             Path(file).unlink()
 
 
