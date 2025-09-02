@@ -90,8 +90,10 @@ class API:
         replace: bool = False,
     ) -> None:
         """Copy default config file to data directory."""
-        mode_str = "" if mode =="Standard" else mode.lower()
-        src_file_name = f"settings_sample_{mode_str}.yaml"
+        if mode == "Standard":
+            src_file_name = "settings_sample.yaml"
+        else:
+            src_file_name = f"settings_sample_{mode.lower()}.yaml"
         src = self.defaults.base_package_dir.joinpath("config", src_file_name)
         dst = self.defaults.root_dir.joinpath(self.defaults.local_settings)
         dst.parent.mkdir(parents=True, exist_ok=True)
