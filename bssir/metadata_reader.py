@@ -415,11 +415,13 @@ class Config:
         return read_yaml(package_setting_path)
 
     def get_root_config(self) -> dict[str, Any]:
-        root_setting_path = self.root_dir.joinpath(self.settings["local_settings"])
-        try:
-            return read_yaml(root_setting_path)
-        except FileNotFoundError:
-            return {}
+        root_setting_path_list = [self.root_dir] + list(self.root_dir.parents)
+        for path in root_setting_path_list:
+            try:
+                return read_yaml(path.joinpath(self.settings["local_settings"]))
+            except FileNotFoundError:
+                continue
+        return {}
 
     def __setup_docs(self):
         package_root: Path = self.settings["package_dir"].parent
