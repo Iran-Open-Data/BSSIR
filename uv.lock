@@ -93,7 +93,7 @@ wheels = [
 
 [[package]]
 name = "bssir"
-version = "0.4.1"
+version = "0.6.0"
 source = { virtual = "." }
 dependencies = [
     { name = "dbfread" },
@@ -106,7 +106,7 @@ dependencies = [
     { name = "tabulate" },
 ]
 
-[package.dev-dependencies]
+[package.optional-dependencies]
 dev = [
     { name = "black" },
     { name = "ipykernel" },
@@ -121,28 +121,25 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "black", marker = "extra == 'dev'" },
     { name = "dbfread" },
+    { name = "ipykernel", marker = "extra == 'dev'" },
+    { name = "mkdocs", marker = "extra == 'dev'" },
+    { name = "mkdocs-autorefs", marker = "extra == 'dev'" },
+    { name = "mkdocs-literate-nav", marker = "extra == 'dev'" },
+    { name = "mkdocs-material", marker = "extra == 'dev'" },
+    { name = "mkdocstrings-python", marker = "extra == 'dev'" },
     { name = "pandas", specifier = ">=2" },
     { name = "pyarrow" },
     { name = "pydantic", specifier = ">=2" },
     { name = "pyodbc" },
+    { name = "pytest", marker = "extra == 'dev'" },
     { name = "pyyaml" },
     { name = "requests" },
     { name = "tabulate" },
+    { name = "tabulate", marker = "extra == 'dev'" },
 ]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "black" },
-    { name = "ipykernel" },
-    { name = "mkdocs" },
-    { name = "mkdocs-autorefs" },
-    { name = "mkdocs-literate-nav" },
-    { name = "mkdocs-material" },
-    { name = "mkdocstrings-python" },
-    { name = "pytest" },
-    { name = "tabulate" },
-]
+provides-extras = ["dev"]
 
 [[package]]
 name = "certifi"
