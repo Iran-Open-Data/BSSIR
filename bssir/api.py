@@ -98,7 +98,12 @@ class API:
         dst = self.defaults.root_dir.joinpath(self.defaults.local_settings)
         dst.parent.mkdir(parents=True, exist_ok=True)
         if (not dst.exists()) or replace:
-            shutil.copy(src, dst)
+            local_dir = str(self.defaults.root_dir.joinpath(self.defaults.local_dir))
+            with open(src, mode="r", encoding="utf-8") as file:
+                setup_text = file.read()
+            setup_text = setup_text.replace("{{local_dir}}", local_dir)
+            with open(dst, mode="w", encoding="utf-8") as file:
+                file.write(setup_text)
 
     def load_table(self, table_name: str, years: _Years, **kwargs) -> pd.DataFrame:
         """Load a table for the given table name and year(s)."""

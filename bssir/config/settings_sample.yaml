@@ -1,6 +1,6 @@
 # Local Directory
-# local_dir: Data
-# in_root: true
+local_dir: {{local_dir}}
+in_root: true
 
 # Mirrors
 mirrors:
