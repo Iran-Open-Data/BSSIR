@@ -95,7 +95,7 @@ class Utils:
     ) -> None:
         file_name = f"{year}_{table_name}.parquet"
         path = self._defautls.dir.cleaned.joinpath(file_name)
-        index = 0 if source == "mirror" else self._defautls.get_mirror_index(source)
+        index = self._defautls.get_mirror_index(source)
         url = f"{self._defautls.online_dirs[index].cleaned}/{file_name}"
         download(url, path)
 

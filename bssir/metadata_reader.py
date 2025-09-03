@@ -300,6 +300,8 @@ class Defaults(BaseModel):
             self.local_metadata[key] = self.root_dir.joinpath(value)
 
     def get_mirror_index(self, mirror_name: str) -> int:
+        if mirror_name == "mirror":
+            return 0
         for i, mirror in enumerate(self.mirrors):
             if mirror.name == mirror_name:
                 return i

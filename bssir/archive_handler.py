@@ -181,7 +181,7 @@ def download(
                 _download_file(url, file_path)
 
         else: 
-            index = 0 if source == "mirror"  else lib_defaults.get_mirror_index(source)
+            index = lib_defaults.get_mirror_index(source)
             for file in files.get("compressed_files", []):
                 file_str_path = f"{year}/{file['name']}"
                 url = f"{lib_defaults.online_dirs[index].compressed}/{file_str_path}"
