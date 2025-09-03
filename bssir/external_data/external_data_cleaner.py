@@ -13,9 +13,11 @@ class ExternalDataCleaner:
         self,
         name: str,
         lib_defaults: Defaults,
+        source: Literal["mirror"] | str = "mirror",
         **kwargs,
     ) -> None:
         self.name = name
+        self.source = source
         settings = lib_defaults.functions.load_external_table
         self.settings = settings.model_copy(update=kwargs)
         self.lib_defaults = lib_defaults
@@ -166,7 +168,8 @@ class ExternalDataCleaner:
         )
 
     def _download_table(self) -> pd.DataFrame:
-        url = f"{self.lib_defaults.mirrors[0].bucket_address}/EXTERNAL/{self.name}.parquet"
+        index = self.lib_defaults.get_mirror_index(self.source)
+        url = f"{self.lib_defaults.online_dirs[index].external}/{self.name}.parquet"
         table = pd.read_parquet(url)
         if self.settings.save_downloaded:
             self.save_table(table)
