@@ -72,6 +72,11 @@ class Maintainer:
                     continue
             url = f"{self.online_dir.cleaned}/{file_path.name}"
             self._upload_file_to_online_directory(file_path, url)
+    
+    def upload_external_files(self) -> None:
+        for file_path in self.lib_defaults.dir.external.iterdir():
+            url = f"{self.online_dir.external}/{file_path.name}"
+            self._upload_file_to_online_directory(file_path, url)
 
     def is_up_to_date(self, file_path: Path, url: str) -> bool:
         response = requests.head(url, timeout=10)
