@@ -71,17 +71,20 @@ def download_7zip():
         f"{platform.architecture()[0]} architecture"
     )
     file_name = f"{platform.system()}-{platform.architecture()[0]}.zip"
-    file_path = defaults.base_package_dir.joinpath(file_name)
+    file_path = defaults.root_dir.joinpath(file_name)
 
     url = f"{defaults.mirrors[0].bucket_address}/7-Zip/{file_name}"
     download(url, file_path)
 
     with ZipFile(file_path) as zip_file:
-        zip_file.extractall(defaults.base_package_dir)
+        zip_file.extractall(defaults.root_dir)
     file_path.unlink()
 
+    with open(defaults.root_dir.joinpath("7-Zip/.gitignore"), mode="w") as file:
+        file.write("# This file created automatically by BSSIR\n*\n")
+
     if platform.system() == "Linux":
-        defaults.base_package_dir.joinpath("7-Zip", "7zz").chmod(0o771)
+        defaults.root_dir.joinpath("7-Zip", "7zz").chmod(0o771)
 
 
 def download_map(

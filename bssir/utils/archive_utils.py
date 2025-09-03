@@ -27,14 +27,13 @@ import platform
 import zipfile
 
 from .download_utils import download_7zip
-from ..metadata_reader import BASE_PACKAGE_DIRECTORY
 
 
 def extract(
     compressed_file: Path,
     output_directory: Path,
     *,
-    seven_zip_directory: Path = BASE_PACKAGE_DIRECTORY,
+    seven_zip_directory: Path = Path(),
 ) -> None:
     """
     Extract a compressed file (ZIP or RAR) to the specified output directory.
@@ -78,7 +77,7 @@ def unrar(
     compressed_file: Path,
     output_directory: Path,
     *,
-    seven_zip_directory: Path = BASE_PACKAGE_DIRECTORY,
+    seven_zip_directory: Path = Path(),
 ) -> None:
     """
     Extract a RAR file to the specified output directory.
