@@ -21,7 +21,6 @@ class ExternalDataCleaner:
         settings = lib_defaults.functions.load_external_table
         self.settings = settings.model_copy(update=kwargs)
         self.lib_defaults = lib_defaults
-        self.lib_defaults = lib_defaults
         self.metadata = self._get_metadata()
         self.metadata_type = self._extract_type()
 
@@ -46,7 +45,9 @@ class ExternalDataCleaner:
             if name.count(".") == 0:
                 name = f"{self.name}.{name}"
             table = ExternalDataCleaner(
-                name=name, settings=self.settings, lib_defaults=self.lib_defaults
+                name=name,
+                lib_defaults=self.lib_defaults,
+                **self.settings.model_dump(),
             ).read_table()
         elif self.settings.form == "original":
             table = self._load_raw_file()
@@ -129,7 +130,10 @@ class ExternalDataCleaner:
         if (not self.raw_file_path.exists()) or self.settings.redownload:
             self._download_raw_file()
         if self.raw_file_path.suffix in [".xlsx"]:
-            table = pd.read_excel(self.raw_file_path, header=None)
+            sheet_name = self.metadata.get("sheet_name", 0)
+            table = pd.read_excel(
+                self.raw_file_path, header=None, sheet_name=sheet_name
+            )
         else:
             raise ValueError("Format not supported yet")
         return table
