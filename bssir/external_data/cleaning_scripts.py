@@ -118,6 +118,6 @@ def sci_cpi_1400_annual_urban_rural(
 
 def sci_gini_annual(table: pd.DataFrame) -> pd.DataFrame:
     table = table.loc[[2], 1:].T
-    index = pd.Index(range(1363, 1402), name="Year")
+    index = pd.Index(range(1363, 1403), name="Year")
     table = table.set_axis(index, axis="index").set_axis(["Gini"], axis="columns")
     return table

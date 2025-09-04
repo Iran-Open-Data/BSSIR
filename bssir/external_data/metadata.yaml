@@ -80,8 +80,9 @@ sci:
           - sci.cpi_1400_rural_maingroups.annual
 
   gini:
+    alias: annual
     annual:
-      url: https://www.amar.org.ir/Portals/0/PropertyAgent/461/Files/6539/2802z112111401.xlsx
+      url: https://amar.org.ir/Portals/0/Statistics/2802z112111402-14030722171334.xlsx
 
 
 cbi:
