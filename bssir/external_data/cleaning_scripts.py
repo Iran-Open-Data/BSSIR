@@ -94,6 +94,13 @@ def sci_cpi_1400_rural_maingroups_annual(
     return table
 
 
+def sci_cpi_1400_annual(table: pd.DataFrame) -> pd.DataFrame:
+    table = table.loc[[3], 1:].T
+    index = pd.Index(range(1390, 1390 + len(table.index)), name="Year")
+    table = table.set_axis(index, axis="index").set_axis(["CPI"], axis="columns")
+    return table
+
+
 def sci_cpi_1400_annual_urban_rural(
     table_list: list[pd.DataFrame],
 ) -> pd.DataFrame:

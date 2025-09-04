@@ -71,6 +71,9 @@ sci:
       alias: sci.cpi_1400.annual.urban_rural
 
     annual:
+      url: https://amar.org.ir/Portals/0/Statistics/ts_national_140405-14040611134713.xlsx
+      sheet_name: 6
+
       urban_rural:
         from:
           - sci.cpi_1400_urban_singleindex.annual
