@@ -1,6 +1,6 @@
 [project]
 name = "bssir"
-version = "0.6.0"
+version = "0.6.1"
 description = "Shared data-loading and transformation utilities for Iranian socioeconomic surveys."
 readme = "README.md"
 authors = [
@@ -9,7 +9,7 @@ authors = [
 keywords = ["iran", "survey", "data", "socioeconomic"]
 requires-python = ">=3.10"
 dependencies = [
-    "dbfread", 
+    "dbfread",
     "pandas>=2",
     "PyYAML",
     "pydantic>=2",
@@ -17,6 +17,7 @@ dependencies = [
     "requests",
     "pyarrow",
     "tabulate",
+    "openpyxl>=3.1.5",
 ]
 
 [project.optional-dependencies]
