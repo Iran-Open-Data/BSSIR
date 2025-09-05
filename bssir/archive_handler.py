@@ -285,7 +285,7 @@ def _unpack_archives_recursive(target_directory: Path):
         for directory in [d for d in target_directory.iterdir() if d.is_dir()]:
             for path in directory.iterdir():
                 if path.is_dir():
-                    shutil.copytree(path, path.parents[1])
+                    shutil.copytree(path, path.parents[1], dirs_exist_ok=True)
                 else:
                     shutil.copy(path, path.parents[1])
             shutil.rmtree(directory)
