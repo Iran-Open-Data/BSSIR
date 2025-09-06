@@ -18,11 +18,12 @@ dependencies = [
     "pyarrow",
     "tabulate",
     "openpyxl>=3.1.5",
+    "tqdm>=4.67.1",
 ]
 
 [project.optional-dependencies]
-dev = [
-    "ipykernel",
+all = [
+    "boto3",
     "black",
     "tabulate",
     "mkdocs",
@@ -31,6 +32,24 @@ dev = [
     "mkdocs-autorefs",
     "mkdocstrings-python",
     "pytest",
+    "ipykernel",
+    "ipywidgets",
+]
+dev = [
+    "black",
+    "mkdocs",
+    "mkdocs-material",
+    "mkdocs-literate-nav",
+    "mkdocs-autorefs",
+    "mkdocstrings-python",
+    "pytest",
+]
+maintain = [
+    "boto3",
+]
+notebook = [
+    "ipykernel",
+    "ipywidgets",
 ]
 
 [project.urls]
