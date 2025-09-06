@@ -1,63 +1,80 @@
+import logging
 from pathlib import Path
 import platform
 from zipfile import ZipFile
 
 import requests
+from tqdm.auto import tqdm
 
 from ..metadata_reader import defaults
 
 
 def download(url: str, path: Path) -> None:
-    """Downloads a file from a given URL and saves it to a specified local path.
+    """Downloads a file from a URL with a progress bar.
 
-    This function uses the requests library to send a GET request to the provided URL,
-    and then writes the response content to a file at the specified path. If the path
-    is not provided, the file is saved in a temporary directory. The function also
-    provides an option to display a progress bar during the download.
+    This function downloads a file in chunks while displaying a progress
+    bar. It checks if the file already exists and has the same size as the
+    remote file, in which case the download is skipped.
 
     Parameters
     ----------
     url : str
         The URL of the file to download.
-    path : str, Path, optional
-        The local path where the downloaded file should be saved. If None, the file
-        is saved in a temporary directory. Default is None.
-    show_progress_bar : bool, optional
-        If True, a progress bar is displayed during the download. Default is False.
-
-    Returns
-    -------
-    Path
-        The local path where the downloaded file was saved.
+    path : Path
+        The local path where the downloaded file should be saved.
 
     Raises
     ------
-    FileNotFoundError
-        If the file cannot be found at the given URL.
+    requests.exceptions.HTTPError
+        If the URL returns an error status code (e.g., 404 Not Found).
+    IOError
+        If the server does not provide the file size in the headers.
     """
-    response = requests.get(url, timeout=1000, stream=True)
-    content_iterator = response.iter_content(chunk_size=4096)
-    remote_file_size = response.headers.get("content-length")
-    if remote_file_size is not None:
-        remote_file_size = int(remote_file_size)
-    else:
-        raise FileNotFoundError("File is not found on the server")
-    if path.exists():
-        local_file_size = path.stat().st_size
-    else:
+    part_path = path.with_suffix(path.suffix + ".part")
+    
+    try:
+        response = requests.get(url, stream=True, timeout=60)
+        response.raise_for_status()
+
+        total_size = response.headers.get("content-length")
+        if total_size is None:
+            raise IOError(f"Server did not provide content-length for URL: {url}")
+        total_size = int(total_size)
+        
+        # Check if the final file already exists and is complete.
+        if path.exists() and path.stat().st_size == total_size:
+            logging.info(f"File {path.name} already exists. Skipping.")
+            # If a partial file is lingering, clean it up.
+            if part_path.exists():
+                part_path.unlink()
+            return
+
         path.parent.mkdir(parents=True, exist_ok=True)
-        local_file_size = 0
-    if remote_file_size == local_file_size:
-        return
-    with open(path, mode="wb") as file:
-        while True:
-            try:
-                chunk = next(content_iterator)
-            except StopIteration:
-                break
-            except requests.Timeout:
-                continue
-            file.write(chunk)
+        chunk_size = 8192
+
+        with open(part_path, "wb") as file, tqdm(
+            desc=f"Downloading {path.name}",
+            bar_format=defaults.bar_format,
+            total=total_size,
+            unit="B",
+            unit_scale=True,
+            unit_divisor=1024,
+            leave=False,
+        ) as progress_bar:
+            for chunk in response.iter_content(chunk_size=chunk_size):
+                file.write(chunk)
+                progress_bar.update(len(chunk))
+
+        # --- Rename the file only after the download is successful ---
+        part_path.rename(path)
+
+    except (requests.exceptions.RequestException, IOError) as e:
+        logging.error(f"Download failed for {url}. Error: {e}")
+        # --- Crucially, delete the partial file on any error ---
+        if part_path.exists():
+            logging.info(f"Deleting incomplete file: {part_path.name}")
+            part_path.unlink()
+        raise e
 
 
 def download_7zip():

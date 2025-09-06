@@ -161,7 +161,7 @@ class DefaultColumns(BaseModel):
 
 
 class DefaultFolderName(BaseModel):
-    compressed: str
+    original: str
     unpacked: str
     extracted: str
     cleaned: str
@@ -171,7 +171,7 @@ class DefaultFolderName(BaseModel):
 
 
 class DefaultDirectorie(BaseModel):
-    compressed: Path
+    original: Path
     unpacked: Path
     extracted: Path
     cleaned: Path
@@ -182,13 +182,18 @@ class DefaultDirectorie(BaseModel):
 
 class DefaultOnlineDirectory(BaseModel):
     root: str
-    compressed: str
+    original: str
     unpacked: str
     extracted: str
     cleaned: str
     external: str
     maps: str
     cached: str
+
+
+class SetupRawData(BaseModel):
+    replace: bool
+    download_source: Literal["original", "mirror", "arvan", "amazon"]
 
 
 class LoadTableSettings(BaseModel):
@@ -210,6 +215,7 @@ class LoadExternalTableSettings(BaseModel):
 
 
 class DefaultFunctions(BaseModel):
+    setup_raw_data: SetupRawData
     load_table: LoadTableSettings
     load_external_table: LoadExternalTableSettings
 
@@ -275,7 +281,6 @@ class Defaults(BaseModel):
                 if Path(value).is_absolute()
                 else self.local_dir.joinpath(value)
             )
-            path_dict[key].mkdir(exist_ok=True, parents=True)
         self.dir = DefaultDirectorie(**path_dict)
 
     def _create_online_dir(self):
@@ -299,13 +304,17 @@ class Defaults(BaseModel):
         for key, value in self.local_metadata.items():
             self.local_metadata[key] = self.root_dir.joinpath(value)
 
-    def get_mirror_index(self, mirror_name: str) -> int:
-        if mirror_name == "mirror":
+    def get_mirror_index(self, mirror_name: Optional[str]) -> int:
+        if (mirror_name is None) or (mirror_name == "mirror"):
             return 0
         for i, mirror in enumerate(self.mirrors):
             if mirror.name == mirror_name:
                 return i
         raise ValueError(f"Mirror '{mirror_name}' not found")
+
+    @property
+    def bar_format(self) -> str:
+        return "{desc:<30}: {percentage:3.0f}%|{bar}{r_bar}"
 
 
 class Metadata:

@@ -68,21 +68,25 @@ class API:
     def setup_raw_data(
         self,
         years: _Years,
-        *,
-        replace: bool = False,
-        download_source: Literal["original", "mirror"] | str = "original",
+        **kwargs,
     ) -> None:
         """Download and extract raw survey data."""
         years = self.utils.parse_years(years)
+        settings = self.defaults.functions.setup_raw_data
+        settings = settings.model_copy(update=kwargs)
         archive_handler.download(
             years,
-            replace=replace,
-            source=download_source,
+            replace=settings.replace,
+            source=settings.download_source,
             lib_metadata=self.metadata,
             lib_defaults=self.defaults,
         )
-        archive_handler.unpack(years, replace=replace, lib_defaults=self.defaults)
-        archive_handler.extract(years, replace=replace, lib_defaults=self.defaults)
+        archive_handler.unpack(
+            years, replace=settings.replace, lib_defaults=self.defaults
+        )
+        archive_handler.extract(
+            years, replace=settings.replace, lib_defaults=self.defaults
+        )
 
     def setup_config(
         self,

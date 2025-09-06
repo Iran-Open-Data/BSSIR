@@ -12,15 +12,12 @@ local_settings: config/settings.yaml
 
 # Local Directory
 local_dir: Data
-in_root: false
+in_root: true
 
 # Mirrors
 mirrors:
   - name: arvan
     endpoint: https://s3.ir-tbz-sh1.arvanstorage.ir
-    bucket_name: iran-open-data
-  - name: liara
-    endpoint: https://storage.c2.liara.space
     bucket_name: iran-open-data
   - name: amazon
     endpoint: https://iran-open-data.s3.us-east-2.amazonaws.com
@@ -31,7 +28,7 @@ default_mirror: arvan
 folder_names:
   cached: _cache
   metadata: _metadata
-  compressed: 1_compressed
+  original: 1_original
   unpacked: 2_unpacked
   extracted: 3_extracted
   cleaned: 4_cleaned
@@ -43,6 +40,11 @@ default_map: humandata
 
 ## Functions
 functions:
+  ## Setup Raw Data
+  setup_raw_data:
+    replace: false
+    download_source: original
+
   ## Load Table
   load_table:
     form: normalized
