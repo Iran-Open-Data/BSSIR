@@ -243,11 +243,14 @@ class Maintainer:
         """
         s3_key = url.split("/", 4)[-1]
         logging.info(f"Uploading {file_path.name} to {s3_key}")
+        extra_args = {}
+        if not self.lib_defaults.private_data:
+            extra_args["ACL"] = "public-read"
         try:
             self.bucket.upload_file(
                 Filename=str(file_path),
                 Key=s3_key,
-                ExtraArgs={"ACL": "public-read"}
+                ExtraArgs=extra_args,
             )
         except ClientError as e:
             logging.error(f"Failed to upload {file_path.name}: {e}")
