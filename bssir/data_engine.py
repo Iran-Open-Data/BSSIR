@@ -157,6 +157,7 @@ class TableHandler:
 
     def get_local_path(self, table_name) -> Path:
         file_name = f"{self.year}_{table_name}.parquet"
+        self.lib_defaults.dir.cleaned.mkdir(exist_ok=True, parents=True)
         local_path = self.lib_defaults.dir.cleaned.joinpath(file_name)
         return local_path
 
