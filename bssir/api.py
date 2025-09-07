@@ -74,18 +74,12 @@ class API:
         years = self.utils.parse_years(years)
         settings = self.defaults.functions.setup_raw_data
         settings = settings.model_copy(update=kwargs)
-        archive_handler.download(
+        archive_handler.setup(
             years,
-            replace=settings.replace,
-            source=settings.download_source,
             lib_metadata=self.metadata,
             lib_defaults=self.defaults,
-        )
-        archive_handler.unpack(
-            years, replace=settings.replace, lib_defaults=self.defaults
-        )
-        archive_handler.extract(
-            years, replace=settings.replace, lib_defaults=self.defaults
+            replace=settings.replace,
+            download_source=settings.download_source,
         )
 
     def setup_config(

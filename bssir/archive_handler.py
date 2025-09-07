@@ -1,38 +1,46 @@
 """
-This module provides utility functions for downloading, unpacking, and extracting
-household budget survey data from archive files. 
+Utilities to download, unpack and extract raw survey tables from archive files.
 
-Key functions:
+This module provides a small pipeline for obtaining raw household budget survey
+data and exporting raw tables as CSVs. It is intentionally low-level: it
+downloads archive files, unpacks them (including nested archives), locates
+MS Access (.mdb/.accdb) and DBF (.dbf) data files, then extracts each table
+into a CSV under the configured "extracted" directory.
 
-- setup() - Downloads, unpacks, and extracts data for specified years
-- download() - Downloads archive files for given years 
-- unpack() - Unpacks archive files into directories
-- extract() - Extracts tables from Access DBs as CSVs
+Primary functions
+- setup(years, lib_metadata, lib_defaults, replace, download_source)
+  Orchestrates download -> unpack -> extract for the requested years.
+- download(years, lib_metadata, lib_defaults, replace, source)
+  Downloads archive files listed in metadata.
+- unpack(years, lib_defaults, replace)
+  Unpacks archive files and flattens nested archives.
+- extract(years, lib_defaults, replace)
+  Finds Access and DBF files in unpacked directories and writes CSVs.
 
-The key functions allow:
+Design notes
+- Access extraction uses pyodbc; DBF extraction uses dbfread; pandas is used to
+  create CSVs.
+- The module expects Metadata and Defaults objects (from metadata_reader) to
+  provide file lists, local directories and UI settings (progress bar format).
+- When multiple Access files exist for a year, CSV filenames may be prefixed
+  with the Access filename stem to avoid collisions.
+- Extraction attempts to avoid leaving partial CSVs (atomic or .part -> replace
+  patterns are used where appropriate) and logs errors per table so a single
+  failure does not stop processing other files.
 
-- Downloading survey data archive files for specified years from an online directory.
+Platform & dependency notes
+- On Windows the code expects an appropriate MS Access ODBC driver (used by
+  pyodbc). On non-Windows systems an MDBTools-based driver may be required.
+- Required third-party packages: pyodbc, dbfread, pandas, tqdm.
 
-- Unpacking the downloaded archive files (which are in .rar format) into directories.
-  Nested archives are extracted recursively.
-  
-- Connecting to the MS Access database file contained in each archive.
-
-- Extracting all tables from the Access database as CSV files.
-
-This enables access to the raw underlying survey data tables extracted directly 
-from the archive Access database files, before any cleaning or processing is applied. 
-
-The extracted CSV table data can then be loaded and cleaned as needed by the
-data_cleaner module. 
-
-Typical usage often only requires the cleaned processed data from data_engine.  
-However, this module is useful for development and checking details in the original
-raw data tables before cleaning.
+This module is intended for developers and reproducible processing workflows
+that need access to original raw tables before any cleaning. Higher-level
+consumers should prefer the cleaned outputs produced by the project's
+data_cleaner / data_engine modules.
 """
 import logging
 from contextlib import contextmanager
-from typing import Generator, Literal, Optional
+from typing import Generator, Literal, Optional, Iterable
 import shutil
 import platform
 from pathlib import Path
@@ -47,7 +55,8 @@ from .metadata_reader import Defaults, Metadata
 
 
 ARCHIVE_EXTENSIONS = {".zip", ".rar"}
-DATA_FILE_EXTENSIONS = {".dbf", ".mdb", ".accdb"}
+MS_ACCESS_FILE_EXTENSIONS = {".mdb", ".accdb"}
+DBF_FILE_EXTENSIONS = {".dbf"}
 
 
 def setup(
@@ -55,65 +64,37 @@ def setup(
     *,
     lib_metadata: Metadata,
     lib_defaults: Defaults,
-    replace: bool = False,
-    download_source: Literal["original", "mirror"] | str = "original",
+    replace: bool,
+    download_source: Literal["original", "mirror"] | str,
 ) -> None:
     """Download, unpack, and extract survey data for the specified years.
 
-    This function executes the full workflow to download, unpack, and
-    extract the raw survey data tables for the given years.
-
-    It calls the download(), unpack(), and extract() functions internally.
-
-    The years can be specified as:
-
-    - int: A single year
-    - Iterable[int]: A list or range of years
-    - str: A string range like "1390-1400"
-    - "all": All available years (default)
-    - "last": Just the last year
-
-    Years are parsed and validated by the `parse_years()` helper.
-
-    Existing files are skipped unless `replace=True`.
+    This function orchestrates the entire data setup pipeline by sequentially
+    calling the download, unpack, and extract functions. It is the primary
+    function for preparing the raw data.
 
     Parameters
     ----------
-    years : _Years, optional
-        Years to setup data for. Default is "all".
-
-    replace : bool, optional
-        Whether to re-download and overwrite existing files.
-
-    Returns
-    -------
-    None
-
-    Examples
-    --------
-    >>> setup(1393) # Setup only 1393 skip if files already exist
-
-    >>> setup("1390-1400") # Setup 1390 to 1400
-
-    >>> setup("last", replace=True) # Setup last year, replace if already exists
-
-    Notes
-    -----
-    This function is intended for development use to access the raw data.
-
-    For analysis you likely only need the cleaned dataset.
-
-    Warnings
-    --------
-    Setting up the full range of years will download and extract
-    approximately 12 GB of data.
+    years : list[int]
+        A list of integer years for which to set up the data.
+    lib_metadata : Metadata
+        An instance of the `Metadata` class. It provides structured access to all
+        the metadata required for the setup process, such as the list of raw
+        files to download for each year, table schemas, and processing instructions.
+    lib_defaults
+        An instance of the `Defaults` class. It serves as the central
+        configuration hub, providing all necessary settings like local directory
+        paths for storing data, online mirror URLs, and other default values.
+    replace : bool
+        If True, any existing files will be overwritten.
+    download_source : str
+        The source from which to download data, e.g., "original" or a mirror.
 
     See Also
     --------
-    download : Download archive files.
-    unpack : Unpack archive files.
-    extract : Extract tables from Access DBs.
-    parse_years : Validate and parse year inputs.
+    download : Downloads the raw archive files.
+    unpack : Unpacks the downloaded archives.
+    extract : Extracts data tables from databases into CSV format.
     """
     download(
         years,
@@ -131,8 +112,8 @@ def download(
     *,
     lib_metadata: Metadata,
     lib_defaults: Defaults,
-    replace: bool = False,
-    source: Literal["original", "mirror"] | str = "original",
+    replace: bool,
+    source: Literal["original", "mirror"] | str,
 ) -> None:
     """Downloads data archives for a list of specified years.
 
@@ -144,15 +125,14 @@ def download(
     ----------
     years : list[int]
         A list of integer years to download.
-    lib_metadata : _Metadata
+    lib_metadata : Metadata
         A configuration object containing metadata about the files.
-    lib_defaults : _Defaults
+    lib_defaults : Defaults
         A configuration object with default settings, like directory paths.
-    replace : bool, optional
-        If True, existing files will be re-downloaded, by default False.
-    source : str, optional
-        The download source, either "original" or a mirror name,
-        by default "original".
+    replace : bool
+        If True, existing files will be re-downloaded.
+    source : str
+        The download source, either "original" or a mirror name.
     """
     for year in tqdm(
         years,
@@ -335,18 +315,12 @@ def _unpack_nested_archives(target_dir: Path) -> None:
         sub_dirs = [d for d in target_dir.iterdir() if d.is_dir()]
 
         # --- 2. Find and extract any archives at the current level ---
-        archive_files = [
-            f for f in target_dir.iterdir()
-            if f.is_file() and f.suffix.lower() in ARCHIVE_EXTENSIONS
-        ]
+        archive_files = _find_files_with_extensions(target_dir, ARCHIVE_EXTENSIONS)
         logging.info(f"Found {len(archive_files)} nested archives to unpack.")
         for archive in archive_files:
             utils.extract(archive, target_dir)
             archive.unlink()  # Clean up the archive file after extraction.
-        archive_files = [
-            f for f in target_dir.iterdir()
-            if f.is_file() and f.suffix.lower() in ARCHIVE_EXTENSIONS
-        ]
+        archive_files = _find_files_with_extensions(target_dir, ARCHIVE_EXTENSIONS)
 
         # If no archives or subdirectories are left to extract, our work is done.
         if (not archive_files) and (not sub_dirs):
@@ -357,30 +331,35 @@ def extract(
     years: list[int],
     *,
     lib_defaults: Defaults,
-    replace: bool = False,
+    replace: bool,
 ) -> None:
-    """Extract tables from Access DBs into CSV files for the given years.
+    """Extract raw tables from unpacked data into CSV files.
 
-    This connects to the Access database file for each specified year,
-    extracts all the tables, and saves them as CSV files under
-    defaults.extracted_data.
+    For each year in `years` this function:
+    - Scans lib_defaults.dir.unpacked/<year> for MS Access (.mdb/.accdb) and DBF (.dbf) files.
+    - For each Access file, opens a connection, reads every table and writes a CSV to
+      lib_defaults.dir.extracted/<year>. If multiple Access files exist for a year,
+      CSV filenames are prefixed with the Access filename stem to avoid name collisions.
+    - For each DBF file, reads the DBF and writes a CSV with the DBF filename stem.
 
     Parameters
     ----------
-    years: _Years, optional
-        Years to extract tables for. Default is "all".
+    years : list[int]
+        Years to extract tables for.
+    lib_defaults : Defaults
+        Configuration object providing directory paths (unpacked, extracted) and UI settings.
+    replace : bool
+        If True, overwrite existing extracted CSV files; if False, skip existing files.
 
-    replace: bool, optional
-        Whether to overwrite existing extracted CSV files.
+    Notes
+    -----
+    - Missing unpacked directories are skipped (a warning is logged).
+    - Access extraction uses pyodbc; DBF extraction uses dbfread. Errors extracting individual
+      tables are logged and do not stop the overall extraction process.
 
     Returns
     -------
     None
-
-    See Also
-    --------
-    setup : Download, unpack, and extract data for given years.
-    parse_years : Parse and validate year inputs.
     """
     for year in tqdm(
         years,
@@ -388,14 +367,10 @@ def extract(
         bar_format=lib_defaults.bar_format,
         unit="Year",
     ):
-        year_directory = lib_defaults.dir.unpacked.joinpath(str(year))
-        access_files = [
-            file
-            for file in year_directory.iterdir()
-            if file.suffix.lower() in [".mdb", ".accdb"]
-        ]
+        source_dir = lib_defaults.dir.unpacked.joinpath(str(year))
+        access_files = _find_files_with_extensions(source_dir, MS_ACCESS_FILE_EXTENSIONS)
         if replace:
-            _remove_extracted_directory(year, lib_defaults=lib_defaults)
+            shutil.rmtree(lib_defaults.dir.extracted / str(year))
         for file in access_files:
             add_prefix = len(access_files) > 1
             _extract_tables_from_access_file(
@@ -406,26 +381,11 @@ def extract(
                 add_prefix=add_prefix,
             )
 
-        dbf_files = [
-            file for file in year_directory.iterdir() if file.suffix.lower() == ".dbf"
-        ]
+        dbf_files = _find_files_with_extensions(source_dir, DBF_FILE_EXTENSIONS)
         for file in dbf_files:
             _extract_tables_from_dbf_file(
                 year, file, lib_defaults=lib_defaults, replace=replace
             )
-
-
-def _remove_extracted_directory(
-    year: int,
-    *,
-    lib_defaults: Defaults,
-) -> None:
-    extracted_directory = lib_defaults.dir.extracted.joinpath(str(year))
-    if not extracted_directory.exists():
-        return
-    for file in extracted_directory.iterdir():
-        file.unlink()
-    extracted_directory.rmdir()
 
 
 def _extract_tables_from_access_file(
@@ -433,49 +393,186 @@ def _extract_tables_from_access_file(
     file_path: Path,
     *,
     lib_defaults: Defaults,
-    replace: bool = True,
-    add_prefix: bool = False,
+    replace: bool,
+    add_prefix: bool,
 ) -> None:
-    with _create_cursor(file_path) as cursor:
-        table_list = _get_access_table_list(cursor)
-        name_prefix = file_path.stem if add_prefix else None
-        for table_name in table_list:
-            _extract_table(
-                cursor,
-                year,
-                table_name=table_name,
-                lib_defaults=lib_defaults,
-                replace=replace,
-                name_prefix=name_prefix,
-            )
+    """Extract all non-system tables from an Access file into CSVs.
+
+    Behaviour
+    - If the Access file does not exist, logs and returns.
+    - Opens a DB cursor using _create_cursor(). Connection errors are caught
+      and logged so extraction can continue for other files/years.
+    - Obtains a list of table names via _get_access_table_list() and extracts
+      each table using _extract_table(). When multiple Access files exist for
+      a year, `add_prefix` controls whether the Access filename stem is added
+      as a prefix to avoid name collisions.
+    - Uses a nested progress bar for per-table progress (respecting
+      lib_defaults.bar_format) and logs if no tables were found.
+
+    Parameters
+    ----------
+    year : int
+        Year being processed (used to determine destination directory).
+    file_path : Path
+        Path to the .mdb/.accdb file to read.
+    lib_defaults : Defaults
+        Defaults/configuration object (provides extracted dir and UI settings).
+    replace : bool
+        If True, overwrite existing CSVs; if False, skip existing files.
+    add_prefix : bool
+        If True, prefix CSV filenames with the Access file stem to avoid collisions.
+
+    Returns
+    -------
+    None
+    """
+    if not file_path.exists():
+        logging.error(f"Access file not found: {file_path}")
+        return
+
+    try:
+        with _create_cursor(file_path) as cursor:
+            table_list = _get_access_table_list(cursor)
+            if not table_list:
+                logging.info(f"No user tables found in Access DB: {file_path}")
+                return
+
+            name_prefix = file_path.stem if add_prefix else None
+            for table_name in tqdm(
+                table_list,
+                desc=f"Extracting tables from {file_path.name}",
+                bar_format=lib_defaults.bar_format,
+                unit="Table",
+                leave=False,
+            ):
+                _extract_table(
+                    cursor,
+                    year,
+                    table_name=table_name,
+                    lib_defaults=lib_defaults,
+                    replace=replace,
+                    name_prefix=name_prefix,
+                )
+    except pyodbc.Error as exc:
+        logging.error(f"Failed to open Access DB '{file_path}': {exc}")
+    except Exception as exc:
+        logging.exception(f"Unexpected error extracting from Access DB '{file_path}': {exc}")
 
 
 @contextmanager
 def _create_cursor(file_path: Path) -> Generator[pyodbc.Cursor, None, None]:
+    """Context manager that yields a pyodbc cursor for an Access database file.
+
+    Builds an ODBC connection string with _make_connection_string(), opens a
+    pyodbc.Connection and yields a cursor. The connection is always closed when
+    the context exits. Connection errors are logged and re-raised so callers
+    can handle them.
+
+    Parameters
+    ----------
+    file_path : Path
+        Path to the .mdb/.accdb file.
+
+    Yields
+    ------
+    pyodbc.Cursor
+        A cursor object from an open pyodbc connection.
+
+    Raises
+    ------
+    pyodbc.Error
+        If opening the connection fails.
+    """
     connection_string = _make_connection_string(file_path)
-    connection = pyodbc.connect(connection_string)
+    try:
+        connection = pyodbc.connect(connection_string)
+    except pyodbc.Error as exc:
+        logging.error(f"Failed to connect to Access DB '{file_path}': {exc}")
+        raise
+
     try:
         yield connection.cursor()
     finally:
-        connection.close()
+        try:
+            connection.close()
+        except Exception as exc:
+            logging.warning(f"Error closing connection to '{file_path}': {exc}")
 
 
-def _make_connection_string(file_path: Path):
+def _make_connection_string(path: Path):
+    """Return an ODBC connection string for an Access database file.
+
+    Chooses a driver based on the host platform:
+    - Windows: "Microsoft Access Driver (*.mdb, *.accdb)"
+    - Non-Windows: "MDBTools" (common unixODBC/MDBTools setup)
+
+    Parameters
+    ----------
+    path : Path
+        Path to the .mdb/.accdb file. The file does not have to exist, 
+        but a warning is logged if it is missing.
+
+    Returns
+    -------
+    str
+        A connection string suitable for pyodbc.connect(), e.g.
+        "DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:\\path\\to\\file.mdb;"
+
+    Notes
+    -----
+    - The caller must ensure an appropriate ODBC driver is installed on the system.
+    - This function does not open any connections; it only builds the string.
+    """
+    if not path.exists():
+        logging.warning(f"Access file not found: {path}")
+
     if platform.system() == "Windows":
         driver = "Microsoft Access Driver (*.mdb, *.accdb)"
     else:
         driver = "MDBTools"
-    conn_str = f"DRIVER={{{driver}}};" f"DBQ={file_path};"
+
+    conn_str = f"DRIVER={{{driver}}};" f"DBQ={path};"
     return conn_str
 
 
-def _get_access_table_list(cursor: pyodbc.Cursor) -> list:
-    table_list = []
-    access_tables = cursor.tables()
-    for table in access_tables:
-        table_list.append(table.table_name)
-    table_list = [table for table in table_list if "MSys" not in table]
-    return table_list
+def _get_access_table_list(cursor: pyodbc.Cursor) -> list[str]:
+    """Return non-system table names from an Access database cursor.
+
+    Calls cursor.tables() and returns a deduplicated list of table names.
+    Includes objects of type TABLE (when table type is available)
+    and excludes Access system tables (names starting with "MSys").
+
+    The implementation is defensive about the shape of rows returned by
+    pyodbc (attribute names or positional fields) and logs errors instead
+    of raising so callers can continue processing other files.
+    """
+    table_names: list[str] = []
+    try:
+        for row in cursor.tables():
+            # Robustly extract the table name (attribute, uppercase key, or positional)
+            name = getattr(row, "table_name", None) or getattr(row, "TABLE_NAME", None)
+            if not name:
+                try:
+                    name = row[2]
+                except Exception:
+                    continue
+            name = str(name)
+
+            # If the row provides a type, prefer only TABLE
+            ttype = getattr(row, "table_type", None) or getattr(row, "TABLE_TYPE", None)
+            if ttype:
+                if str(ttype).upper() != "TABLE":
+                    continue
+
+            # Skip Access system tables
+            if name.startswith("MSys"):
+                continue
+
+            table_names.append(name)
+    except Exception as exc:
+        logging.error(f"Error listing tables from Access DB: {exc}")
+
+    return table_names
 
 
 def _extract_table(
@@ -484,24 +581,80 @@ def _extract_table(
     table_name: str,
     *,
     lib_defaults: Defaults,
-    replace: bool = True,
+    replace: bool,
     name_prefix: Optional[str] = None
 ):
-    year_directory = lib_defaults.dir.extracted.joinpath(str(year))
-    year_directory.mkdir(parents=True, exist_ok=True)
+    """Read a table from an Access cursor and write it atomically to CSV.
+
+    Behaviour
+    - Ensures the destination directory exists.
+    - Skips writing if the target CSV already exists and `replace` is False.
+
+    Parameters
+    ----------
+    cursor
+        Open pyodbc cursor for the Access database.
+    year
+        The year (used to select the destination subdirectory).
+    table_name
+        Name of the table to extract.
+    lib_defaults
+        Defaults object providing the extracted dir path and UI settings.
+    replace
+        If True, overwrite existing CSVs; if False, skip existing files.
+    name_prefix
+        Optional prefix to prepend to the CSV filename (used when multiple
+        Access files for a year would otherwise produce name collisions).
+
+    Returns
+    -------
+    None
+    """
+    dest_dir = lib_defaults.dir.extracted.joinpath(str(year))
+    dest_dir.mkdir(parents=True, exist_ok=True)
+
     file_name = table_name if name_prefix is None else f"{name_prefix}_{table_name}"
-    file_path = year_directory.joinpath(f"{file_name}.csv")
+    file_path = dest_dir.joinpath(f"{file_name}.csv")
+
     if (file_path.exists()) and (not replace):
+        logging.info(f"Skipping existing extracted table: {file_path}")
         return
+
+    # Read table (propagates pyodbc.Error or other exceptions to be handled here)
     try:
         table = _get_access_table(cursor, table_name)
-    except pyodbc.Error:
-        print(f"table {table_name} from {year} failed to extract")
+    except pyodbc.Error as exc:
+        logging.error(f"Failed to read table '{table_name}' for year {year}: {exc}")
         return
+    except Exception as exc:
+        logging.error(f"Unexpected error reading table '{table_name}' for year {year}: {exc}", exc_info=True)
+        return
+
     table.to_csv(file_path, index=False)
 
 
 def _get_access_table(cursor: pyodbc.Cursor, table_name: str) -> pd.DataFrame:
+    """Fetch an Access table into a pandas DataFrame.
+
+    Executes "SELECT * FROM [table_name]" and returns a DataFrame.
+
+    Parameters
+    ----------
+    cursor : pyodbc.Cursor
+        Open cursor against an Access database.
+    table_name : str
+        Table name to read (will be quoted with square brackets).
+
+    Returns
+    -------
+    pd.DataFrame
+        DataFrame containing the table rows (may be empty).
+
+    Raises
+    ------
+    pyodbc.Error
+        Propagated from the underlying ODBC call if the query fails.
+    """
     rows = cursor.execute(f"SELECT * FROM [{table_name}]").fetchall()
     headers = [c[0] for c in cursor.description]
     table = pd.DataFrame.from_records(rows, columns=headers)
@@ -521,3 +674,39 @@ def _extract_tables_from_dbf_file(
     if csv_file_path.exists() and not replace:
         return
     table.to_csv(csv_file_path, index=False)
+
+
+def _find_files_with_extensions(
+    directory: Path, extensions: Iterable[str]
+) -> list[Path]:
+    """Finds all files in a directory that match a given set of extensions.
+
+    This function searches the specified directory (non-recursively) and
+    returns a list of `Path` objects for files whose extensions are in the
+    provided set. The comparison is case-insensitive.
+
+    Parameters
+    ----------
+    directory
+        The `Path` object representing the directory to search.
+    extensions
+        An iterable of string extensions to look for (e.g., {".zip", ".rar"}).
+        The leading dot is required.
+
+    Returns
+    -------
+    list[Path]
+        A list of `Path` objects for the matching files, or an empty list if
+        the directory does not exist.
+    """
+    if not directory.is_dir():
+        logging.warning(f"Directory not found: {directory}")
+        return []
+
+    # Ensure extensions are lowercase for case-insensitive comparison
+    extensions_set = {ext.lower() for ext in extensions}
+    return [
+        file
+        for file in directory.iterdir()
+        if file.is_file() and file.suffix.lower() in extensions_set
+    ]
