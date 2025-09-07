@@ -1,6 +1,6 @@
+import logging
 from typing import Any, Callable, Literal, Iterable, overload
 from types import ModuleType
-import shutil
 import importlib
 
 import pandas as pd
@@ -70,10 +70,41 @@ class API:
         years: _Years,
         **kwargs,
     ) -> None:
-        """Download and extract raw survey data."""
+        """Download and extract raw (unprocessed) survey tables for the requested years.
+
+        This method:
+        - Normalises and validates the requested years.
+        - Merges runtime overrides from kwargs into the package default settings for
+            the setup_raw_data function.
+        - Calls archive_handler.setup(...) to download and extract archives into the
+            configured "unpacked" / "extracted" directories.
+
+        Parameters
+        ----------
+        years : _Years
+            Year or iterable of years (see self.utils.parse_years for accepted forms).
+        **kwargs
+            Optional overrides for the defaults.functions.setup_raw_data model.
+            Typical keys: replace (bool), download_source (str). Unknown keys will
+            be passed to model_copy(update=...) and may raise if invalid.
+
+        Raises
+        ------
+        ValueError
+            If no years are resolved from the provided input.
+        Exception
+            Any exceptions raised by settings.model_copy(...) or archive_handler.setup
+            are logged and re-raised to the caller.
+        """
         years = self.utils.parse_years(years)
-        settings = self.defaults.functions.setup_raw_data
-        settings = settings.model_copy(update=kwargs)
+
+        settings_model = self.defaults.functions.setup_raw_data
+        try:
+            settings = settings_model.model_copy(update=kwargs)
+        except Exception as exc:
+            logging.error("Invalid settings for setup_raw_data: %s", exc)
+            raise
+
         archive_handler.setup(
             years,
             lib_metadata=self.metadata,
