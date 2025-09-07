@@ -47,6 +47,7 @@ functions:
 
   ## Load Table
   load_table:
+    years: last
     form: normalized
     on_missing: create
     save_downloaded: true
