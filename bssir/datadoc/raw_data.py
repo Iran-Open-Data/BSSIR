@@ -201,3 +201,9 @@ def generate_raw_description(api: API):
         md_file_path = api.defaults.docs.raw_tables.joinpath(f"{table_name}.md")
         with md_file_path.open(mode="w", encoding="utf-8") as md_file:
             md_file.write(md_page_content)
+
+
+def create_raw_data_documentation(api: API) -> None:
+    generate_availability_tables(api)
+    generate_raw_summary_tables(api)
+    generate_raw_description(api)
