@@ -230,6 +230,10 @@ class Defaults(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     package_name: str
+
+    default_download_source: str
+    private_data: bool
+
     mirrors: list[Mirror]
     default_mirror: Optional[str] = None
     online_dirs: list[DefaultOnlineDirectory] = Field([])
@@ -305,7 +309,7 @@ class Defaults(BaseModel):
             self.local_metadata[key] = self.root_dir.joinpath(value)
 
     def get_mirror_index(self, mirror_name: Optional[str]) -> int:
-        if (mirror_name is None) or (mirror_name == "mirror"):
+        if (mirror_name is None) or (mirror_name in ["mirror", "original"]):
             return 0
         for i, mirror in enumerate(self.mirrors):
             if mirror.name == mirror_name:

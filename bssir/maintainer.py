@@ -2,13 +2,12 @@ import logging
 from pathlib import Path
 from typing import Optional, Iterable
 
-import tomllib
-import boto3
 import requests
 from botocore.exceptions import ClientError, NoCredentialsError
 
 from .metadata_reader import Defaults, Metadata
-logging.basicConfig(level=logging.INFO)
+from .utils.s3 import get_bucket
+
 
 class Maintainer:
     """Manages uploading and syncing data files to an S3-compatible mirror.
@@ -55,34 +54,9 @@ class Maintainer:
         self.lib_metadata = lib_metadata
 
         index = lib_defaults.get_mirror_index(mirror_name)
-        mirror = lib_defaults.mirrors[index]
-
-        try:
-            with open("tokens.toml", "rb") as file:
-                token = tomllib.load(file)[mirror.name]
-        except FileNotFoundError:
-            logging.error("Could not find 'tokens.toml'. Please ensure it exists.")
-            raise
-        except KeyError:
-            logging.error(f"Token for mirror '{mirror.name}' not found in 'tokens.toml'.")
-            raise
-
-        try:
-            s3_resource = boto3.resource(
-                "s3",
-                endpoint_url=mirror.endpoint,
-                aws_access_key_id=token["access_key"],
-                aws_secret_access_key=token["secret_key"],
-            )
-            self.bucket = s3_resource.Bucket(mirror.bucket_name) # type: ignore
-        except NoCredentialsError:
-            logging.error("Boto3 could not find credentials. Check your token file.")
-            raise
-        except ClientError as e:
-            logging.error(f"Failed to connect to S3 bucket '{mirror.bucket_name}': {e}")
-            raise
-
         self.online_dir = lib_defaults.online_dirs[index]
+        mirror = lib_defaults.mirrors[index]
+        self.bucket = get_bucket(mirror)
 
     def upload_raw_files(self, years: Optional[list[int]] = None) -> None:
         """Uploads raw data files for specified years.

@@ -1,12 +1,12 @@
 """
 Module for cleaning raw data into proper format
 """
-
+import logging
 from typing import Literal
 
 import pandas as pd
 
-from . import archive_handler
+# from . import archive_handler
 from .metadata_reader import Defaults, Metadata
 from . import utils
 
@@ -58,30 +58,25 @@ def load_raw_table(
     """
     year_directory = lib_defaults.dir.extracted.joinpath(str(year))
     if not year_directory.exists():
-        archive_handler.setup(
-            years=[year],
-            lib_metadata=lib_metadata,
-            lib_defaults=lib_defaults,
-        )
+        raise
 
     file_code = utils.resolve_metadata(
         lib_metadata.tables[table_name]["file_code"], year
     )
+    file_code_list: list = file_code if isinstance(file_code, list) else [file_code]
+    file_list = []
+    for file in file_code_list:
+        file_list.extend(
+            list(lib_defaults.dir.extracted.joinpath(str(year)).glob(file))
+        )
 
-    if isinstance(file_code, list):
-        files = [
-            year_directory.joinpath(f"{file}.csv")
-            for file in list(file_code)
-        ]
-    elif isinstance(file_code, str) and (file_code.count("*") == 0):
-        files = [lib_defaults.dir.extracted.joinpath(str(year), f"{file_code}.csv")]
-    elif isinstance(file_code, str):
-        files = lib_defaults.dir.extracted.joinpath(str(year)).glob(file_code)
+    if len(file_list):
+        logging.info(f"{len(file_list)} files")
     else:
-        raise ValueError(f"Table {table_name} is not available for year {year}")
+        logging.warning(f"Table {table_name} is not available for year {year}")
 
     table = pd.concat(
-        [pd.read_csv(file, low_memory=False) for file in files],
+        [pd.read_csv(file, dtype=str) for file in file_list],
         ignore_index=True,
     )
 

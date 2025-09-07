@@ -24,6 +24,7 @@ dependencies = [
 [project.optional-dependencies]
 all = [
     "boto3",
+    "boto3-stubs[s3]",
     "black",
     "tabulate",
     "mkdocs",
@@ -46,6 +47,7 @@ dev = [
 ]
 maintain = [
     "boto3",
+    "boto3-stubs[s3]",
 ]
 notebook = [
     "ipykernel",

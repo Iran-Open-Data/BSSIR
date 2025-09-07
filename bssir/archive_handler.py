@@ -140,16 +140,53 @@ def download(
         bar_format=lib_defaults.bar_format,
         unit="Year",
     ):
-        _download_year(
-            year,
-            lib_metadata=lib_metadata,
-            lib_defaults=lib_defaults,
-            replace=replace,
-            source=source,
+        if lib_defaults.private_data:
+            _download_year_private_data(
+                year,
+                lib_metadata=lib_metadata,
+                lib_defaults=lib_defaults,
+                replace=replace,
+                source=source,
+            )
+        else:
+            _download_year_public_data(
+                year,
+                lib_metadata=lib_metadata,
+                lib_defaults=lib_defaults,
+                replace=replace,
+                source=source,
+            )
+
+
+def _download_year_private_data(
+    year: int,
+    *,
+    lib_metadata: Metadata,
+    lib_defaults: Defaults,
+    replace: bool,
+    source: str,
+) -> None:
+    from .utils.s3 import get_bucket
+    index = lib_defaults.get_mirror_index(source)
+    mirror = lib_defaults.mirrors[index]
+    bucket = get_bucket(mirror)
+    for file_info in tqdm(
+        _gets_files_to_download(year, lib_metadata=lib_metadata),
+        desc=f"Downloading files for {year}",
+        bar_format=lib_defaults.bar_format,
+        unit="File",
+        leave=False,
+    ):
+        target_path = lib_defaults.dir.original.joinpath(file_info["name"])
+        if target_path.exists() and not replace:
+            continue
+        bucket.download_file(
+            f'{lib_defaults.folder_names.original}/{str(year)}/{file_info["name"]}',
+            str(target_path.absolute()),
         )
 
 
-def _download_year(
+def _download_year_public_data(
     year: int,
     *,
     lib_metadata: Metadata,
@@ -162,11 +199,6 @@ def _download_year(
     This helper function constructs the appropriate URLs and local file paths
     based on the download source and then downloads each file.
     """
-    files_to_download: list[dict] = lib_metadata.raw_files.get(year, {}).get("files", [])
-    if not files_to_download:
-        logging.warning(f"No files listed in metadata for year {year}.")
-        return
-
     # Determine the base URL and path based on the source once
     if source == "original":
         base_url_template = None  # URL is directly in file metadata
@@ -176,7 +208,7 @@ def _download_year(
     base_path = lib_defaults.dir.original
 
     for file_info in tqdm(
-        files_to_download,
+        _gets_files_to_download(year, lib_metadata=lib_metadata),
         desc=f"Downloading files for {year}",
         bar_format=lib_defaults.bar_format,
         unit="File",
@@ -199,6 +231,17 @@ def _download_year(
             continue
 
         utils.download(url, local_path)
+
+
+def _gets_files_to_download(
+    year: int,
+    *,
+    lib_metadata: Metadata,
+) -> list[dict]:
+    files_to_download: list[dict] = lib_metadata.raw_files.get(year, {}).get("files", [])
+    if not files_to_download:
+        logging.warning(f"No files listed in metadata for year {year}.")
+    return files_to_download
 
 
 def unpack(years: list[int], *, lib_defaults: Defaults, replace: bool = False) -> None:

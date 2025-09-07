@@ -14,6 +14,10 @@ local_settings: config/settings.yaml
 local_dir: Data
 in_root: true
 
+# Download Source
+default_download_source: original
+private_data: false
+
 # Mirrors
 mirrors:
   - name: arvan
