@@ -57,6 +57,7 @@ from .metadata_reader import Defaults, Metadata
 ARCHIVE_EXTENSIONS = {".zip", ".rar"}
 MS_ACCESS_FILE_EXTENSIONS = {".mdb", ".accdb"}
 DBF_FILE_EXTENSIONS = {".dbf"}
+STATA_FILE_EXTENSIONS = {".dta"}
 
 
 def setup(
@@ -180,10 +181,12 @@ def _download_year_private_data(
         target_path = lib_defaults.dir.original.joinpath(file_info["name"])
         if target_path.exists() and not replace:
             continue
-        bucket.download_file(
-            f'{lib_defaults.folder_names.original}/{str(year)}/{file_info["name"]}',
-            str(target_path.absolute()),
+        item_key = (
+            f'{lib_defaults.package_name}/{lib_defaults.folder_names.original}/'
+            f'{str(year)}/{file_info["name"]}'
         )
+        logging.info(f"Downloading from private bucket: {item_key}")
+        bucket.download_file(item_key, str(target_path.absolute()))
 
 
 def _download_year_public_data(
@@ -427,6 +430,12 @@ def extract(
         dbf_files = _find_files_with_extensions(source_dir, DBF_FILE_EXTENSIONS)
         for file in dbf_files:
             _extract_tables_from_dbf_file(
+                year, file, lib_defaults=lib_defaults, replace=replace
+            )
+
+        stata_files = _find_files_with_extensions(source_dir, STATA_FILE_EXTENSIONS)
+        for file in stata_files:
+            _extract_tables_from_stata_file(
                 year, file, lib_defaults=lib_defaults, replace=replace
             )
 
@@ -707,15 +716,27 @@ def _get_access_table(cursor: pyodbc.Cursor, table_name: str) -> pd.DataFrame:
 def _extract_tables_from_dbf_file(
     year: int, file_path: Path, *, lib_defaults: Defaults, replace: bool = True
 ) -> None:
-    try:
-        table = pd.DataFrame(iter(DBF(file_path)))
-    except UnicodeDecodeError:
-        table = pd.DataFrame(iter(DBF(file_path, encoding="cp720")))
     year_directory = lib_defaults.dir.extracted.joinpath(str(year))
     year_directory.mkdir(parents=True, exist_ok=True)
     csv_file_path = year_directory.joinpath(f"{file_path.stem}.csv")
     if csv_file_path.exists() and not replace:
         return
+    try:
+        table = pd.DataFrame(iter(DBF(file_path)))
+    except UnicodeDecodeError:
+        table = pd.DataFrame(iter(DBF(file_path, encoding="cp720")))
+    table.to_csv(csv_file_path, index=False)
+
+
+def _extract_tables_from_stata_file(
+    year: int, file_path: Path, *, lib_defaults: Defaults, replace: bool = True
+) -> None:
+    year_directory = lib_defaults.dir.extracted.joinpath(str(year))
+    year_directory.mkdir(parents=True, exist_ok=True)
+    csv_file_path = year_directory.joinpath(f"{file_path.stem}.csv")
+    if csv_file_path.exists() and not replace:
+        return
+    table = pd.read_stata(file_path)
     table.to_csv(csv_file_path, index=False)
 
 
