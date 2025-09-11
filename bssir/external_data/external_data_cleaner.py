@@ -167,6 +167,7 @@ class ExternalDataCleaner:
         return getattr(cleaning_module, self.name.replace(".", "_"))
 
     def save_table(self, table: pd.DataFrame) -> None:
+        self.lib_defaults.dir.external.mkdir(exist_ok=True, parents=True)
         table.to_parquet(
             self.lib_defaults.dir.external.joinpath(f"{self.name}.parquet")
         )

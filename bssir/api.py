@@ -208,6 +208,7 @@ class API:
             table, table_name=table_name, year=year, lib_metadata=self.metadata
         )
         file_name = f"{year}_{table_name}.parquet"
+        self.defaults.dir.cleaned.mkdir(exist_ok=True, parents=True)
         table.to_parquet(self.defaults.dir.cleaned.joinpath(file_name))
 
     def load_external_table(
