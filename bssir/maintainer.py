@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Optional, Iterable
 
 import requests
-from botocore.exceptions import ClientError, NoCredentialsError
+from botocore.exceptions import ClientError
 
 from .metadata_reader import Defaults, Metadata
 from .utils.s3 import get_bucket
@@ -215,17 +215,24 @@ class Maintainer:
             Also returns False if the online check fails for any reason.
 
         """
-        try:
-            response = requests.head(url, timeout=10)
-            response.raise_for_status()  # Raise exception for 4xx or 5xx status
-            online_file_size = int(response.headers.get("Content-Length", 0))
-        except requests.exceptions.RequestException as e:
-            # If the file doesn't exist online (404) or another error occurs,
-            # assume it's not up-to-date.
-            logging.info(
-                f"Could not check online status for {url}. Proceeding with upload."
-            )
-            return False
+        if self.lib_defaults.private_data:
+            try:
+                s3_key = url.split("/", 4)[-1]
+                online_file_size = self.bucket.Object(s3_key).content_length
+            except ClientError as e:
+                return False
+        else:
+            try:
+                response = requests.head(url, timeout=10)
+                response.raise_for_status()  # Raise exception for 4xx or 5xx status
+                online_file_size = int(response.headers.get("Content-Length", 0))
+            except requests.exceptions.RequestException as e:
+                # If the file doesn't exist online (404) or another error occurs,
+                # assume it's not up-to-date.
+                logging.info(
+                    f"Could not check online status for {url}. Proceeding with upload."
+                )
+                return False
         
         local_file_size = file_path.stat().st_size
         return online_file_size == local_file_size
