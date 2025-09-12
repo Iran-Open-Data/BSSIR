@@ -359,7 +359,7 @@ def _apply_type_to_column(column: pd.Series, column_metadata: dict) -> pd.Series
         return pd.to_numeric(cleaned_column, downcast=target_type)
 
     if target_type in PANDAS_NUMERICALS:
-        return cleaned_column.astype(target_type)
+        return cleaned_column.astype(target_type, errors="raise")
 
     if target_type == "category":
         categories_map = column_metadata.get("categories")
@@ -398,6 +398,12 @@ def _general_cleaning(column: pd.Series) -> pd.Series:
         
         # Remove all characters defined in the chars_to_remove set.
         .str.replace(f"[{chars_to_remove}]+", "", regex=True)
+
+        # Move a trailing hyphen to the front (e.g., "123-" -> "-123").
+        .str.replace(r"^(.*)-$", r"-\1", regex=True)
+
+        # Remove trailing ".0" from numbers.
+        .str.replace(r"\.0$", "", regex=True)
         
         # Replace fields containing only whitespace/periods/hyphens with None.
         .replace(r"^[\s\.\-]*$", None, regex=True)
