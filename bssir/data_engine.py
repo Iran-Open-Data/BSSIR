@@ -177,7 +177,9 @@ class TableHandler:
 
     def _download_table(self, table_name: str) -> pd.DataFrame:
         table = pd.read_parquet(
-            f"{self.lib_defaults.online_dirs[0].cleaned}/{self.year}_{table_name}.parquet"
+            f"{self.lib_defaults.get_mirror().bucket_address}/"
+            f"{self.lib_defaults.get_online_dir().cleaned}/"
+            f"{self.year}_{table_name}.parquet"
         )
         if self.settings.save_downloaded:
             table.to_parquet(self.get_local_path(table_name))
@@ -646,14 +648,15 @@ class TableFactory:
             Name of table being cached
 
         """
+        self.lib_defaults.dir.cached.mkdir(exist_ok=True, parents=True)
         file_name = f"{table_name}_{self.year}.parquet"
         file_path = self.lib_defaults.dir.cached.joinpath(file_name)
         file_name = f"{table_name}_{self.year}_metadata.yaml"
-        cach_metadata_path = self.lib_defaults.dir.cached.joinpath(file_name)
+        cache_metadata_path = self.lib_defaults.dir.cached.joinpath(file_name)
         file_metadata = {
             "dependencies": self.extract_dependencies(table_name, self.year)
         }
-        with open(cach_metadata_path, mode="w", encoding="utf-8") as file:
+        with open(cache_metadata_path, mode="w", encoding="utf-8") as file:
             yaml.safe_dump(file_metadata, file)
         table.to_parquet(file_path, index=False)
 

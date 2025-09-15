@@ -53,10 +53,9 @@ class Maintainer:
         self.lib_defaults = lib_defaults
         self.lib_metadata = lib_metadata
 
-        index = lib_defaults.get_mirror_index(mirror_name)
-        self.online_dir = lib_defaults.online_dirs[index]
-        mirror = lib_defaults.mirrors[index]
-        self.bucket = get_bucket(mirror)
+        self.online_dir = lib_defaults.get_online_dir(mirror_name)
+        self.mirror = lib_defaults.get_mirror(mirror_name)
+        self.bucket = get_bucket(self.mirror)
 
     def upload_raw_files(self, years: Optional[list[int]] = None) -> None:
         """Uploads raw data files for specified years.
@@ -190,15 +189,15 @@ class Maintainer:
             if not file_path.is_file():
                 continue
 
-            url = f"{online_base_url}/{file_path.relative_to(local_base_path).as_posix()}"
+            file_key = f"{online_base_url}/{file_path.relative_to(local_base_path).as_posix()}"
 
-            if self._is_up_to_date(file_path, url):
+            if self._is_up_to_date(file_path, file_key):
                 logging.debug(f"File is up-to-date, skipping: {file_path.name}")
                 continue
 
-            self._upload_file(file_path, url)
+            self._upload_file(file_path, file_key)
 
-    def _is_up_to_date(self, file_path: Path, url: str) -> bool:
+    def _is_up_to_date(self, file_path: Path, file_key: str) -> bool:
         """Checks if a local file is the same size as the online version.
 
         Parameters
@@ -217,11 +216,11 @@ class Maintainer:
         """
         if self.lib_defaults.private_data:
             try:
-                s3_key = url.split("/", 4)[-1]
-                online_file_size = self.bucket.Object(s3_key).content_length
+                online_file_size = self.bucket.Object(file_key).content_length
             except ClientError as e:
                 return False
         else:
+            url = f"{self.mirror.bucket_address}/{file_key}"
             try:
                 response = requests.head(url, timeout=10)
                 response.raise_for_status()  # Raise exception for 4xx or 5xx status
@@ -237,7 +236,7 @@ class Maintainer:
         local_file_size = file_path.stat().st_size
         return online_file_size == local_file_size
 
-    def _upload_file(self, file_path: Path, url: str) -> None:
+    def _upload_file(self, file_path: Path, file_key: str) -> None:
         """Uploads a single file to the S3 bucket.
 
         Parameters
@@ -248,15 +247,14 @@ class Maintainer:
             The destination key (path) within the S3 bucket.
 
         """
-        s3_key = url.split("/", 4)[-1]
-        logging.info(f"Uploading {file_path.name} to {s3_key}")
+        logging.info(f"Uploading {file_path.name} to {file_key}")
         extra_args = {}
         if not self.lib_defaults.private_data:
             extra_args["ACL"] = "public-read"
         try:
             self.bucket.upload_file(
                 Filename=str(file_path),
-                Key=s3_key,
+                Key=file_key,
                 ExtraArgs=extra_args,
             )
         except ClientError as e:

@@ -202,12 +202,6 @@ def _download_year_public_data(
     This helper function constructs the appropriate URLs and local file paths
     based on the download source and then downloads each file.
     """
-    # Determine the base URL and path based on the source once
-    if source == "original":
-        base_url_template = None  # URL is directly in file metadata
-    else:
-        mirror_index = lib_defaults.get_mirror_index(source)
-        base_url_template = lib_defaults.online_dirs[mirror_index].original
     base_path = lib_defaults.dir.original
 
     for file_info in tqdm(
@@ -227,7 +221,11 @@ def _download_year_public_data(
                 logging.error(f"Missing 'original' URL for {file_name} in year {year}.")
                 continue
         else:
-            url = f"{base_url_template}/{relative_path.as_posix()}"
+            url = (
+                f"{lib_defaults.get_mirror(source).bucket_address}/"
+                f"{lib_defaults.get_online_dir(source).original}/"
+                f"{relative_path.as_posix()}"
+            )
 
         if local_path.exists() and not replace:
             logging.info(f"Skipping existing file: {local_path}")

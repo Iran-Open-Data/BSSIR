@@ -173,8 +173,11 @@ class ExternalDataCleaner:
         )
 
     def _download_table(self) -> pd.DataFrame:
-        index = self.lib_defaults.get_mirror_index(self.source)
-        url = f"{self.lib_defaults.online_dirs[index].external}/{self.name}.parquet"
+        url = (
+            f"{self.lib_defaults.get_mirror(self.source).bucket_address}/"
+            f"{self.lib_defaults.get_online_dir(self.source).external}/"
+            f"{self.name}.parquet"
+        )
         table = pd.read_parquet(url)
         if self.settings.save_downloaded:
             self.save_table(table)

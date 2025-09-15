@@ -5,9 +5,11 @@ import logging
 from typing import Any, Literal
 
 import pandas as pd
-
 from .metadata_reader import Defaults, Metadata
 from . import utils
+
+
+pd.set_option('future.no_silent_downcasting', True)
 
 
 PANDAS_NUMERICALS = [
@@ -185,11 +187,13 @@ def _apply_metadata_to_table(
         If a column is found that is not defined in the metadata
         and the table's 'missings' setting is 'error'.
     """
+    logging.info(f"Applying metadata to table with {len(table.columns)} columns.")
     table_settings = default_settings.copy()
     table_settings.update(table_metadata.get("settings", {}))
 
     processed_columns = {}
     for column_name, column_data in table.items():
+        logging.info(f"Appying metadata to column {column_name}")
         if not isinstance(column_name, str):
             actual_type = type(column_name).__name__
             msg = (
@@ -346,6 +350,19 @@ def _apply_type_to_column(column: pd.Series, column_metadata: dict) -> pd.Series
 
     cleaned_column = _general_cleaning(column.copy())
 
+    if target_type == "category":
+        categories_map = column_metadata.get("categories")
+        if categories_map is None:
+            raise KeyError(
+                f"Column '{column.name}' with type 'category' is missing the "
+                "'categories' map in its metadata."
+            )
+        return (
+            cleaned_column
+            .astype("category")
+            .cat.rename_categories(categories_map)
+        )
+
     if target_type == "boolean":
         true_condition = column_metadata.get("true_condition")
         if true_condition is None:
@@ -360,19 +377,6 @@ def _apply_type_to_column(column: pd.Series, column_metadata: dict) -> pd.Series
 
     if target_type in PANDAS_NUMERICALS:
         return cleaned_column.astype(target_type, errors="raise")
-
-    if target_type == "category":
-        categories_map = column_metadata.get("categories")
-        if categories_map is None:
-            raise KeyError(
-                f"Column '{column.name}' with type 'category' is missing the "
-                "'categories' map in its metadata."
-            )
-        return (
-            cleaned_column
-            .astype("category")
-            .cat.rename_categories(categories_map)
-        )
 
     raise ValueError(
         f"Metadata for column '{column.name}' contains an invalid type: "

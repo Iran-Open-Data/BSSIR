@@ -95,8 +95,11 @@ class Utils:
     ) -> None:
         file_name = f"{year}_{table_name}.parquet"
         path = self._defautls.dir.cleaned.joinpath(file_name)
-        index = self._defautls.get_mirror_index(source)
-        url = f"{self._defautls.online_dirs[index].cleaned}/{file_name}"
+        url = (
+            f"{self._defautls.get_mirror(source).bucket_address}/"
+            f"{self._defautls.get_online_dir(source).cleaned}/"
+            f"{file_name}"
+        )
         download(url, path)
 
     def download_map(

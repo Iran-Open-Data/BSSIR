@@ -30,6 +30,7 @@ def download(url: str, path: Path) -> None:
     IOError
         If the server does not provide the file size in the headers.
     """
+    logging.info(f"Downloading {url} to {path}.")
     part_path = path.with_suffix(path.suffix + ".part")
     
     try:

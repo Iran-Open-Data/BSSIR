@@ -62,15 +62,13 @@ def get_bucket(mirror: Mirror) -> Bucket:
     try:
         s3_resource = boto3.resource(
             "s3",
+            region_name=mirror.region_name,
             endpoint_url=mirror.endpoint,
             aws_access_key_id=token["access_key"],
             aws_secret_access_key=token["secret_key"],
         )
-        # The Bucket object is a high-level abstraction. Its creation does not
-        # trigger a network request or validate the bucket's existence.
         bucket = s3_resource.Bucket(mirror.bucket_name)  # type: ignore
     except NoCredentialsError:
-        # This is unlikely if the token file is parsed correctly, but good to have.
         logging.error("Boto3 could not process credentials. Check token format.")
         raise
     except KeyError as e:
@@ -99,30 +97,3 @@ def get_bucket(mirror: Mirror) -> Bucket:
         raise
 
     return bucket
-
-    # try:
-    #     with open("tokens.toml", "rb") as file:
-    #         token = tomllib.load(file)[mirror.name]
-    # except FileNotFoundError:
-    #     logging.error("Could not find 'tokens.toml'. Please ensure it exists.")
-    #     raise
-    # except KeyError:
-    #     logging.error(f"Token for mirror '{mirror.name}' not found in 'tokens.toml'.")
-    #     raise
-
-    # try:
-    #     s3_resource = boto3.resource(
-    #         "s3",
-    #         endpoint_url=mirror.endpoint,
-    #         aws_access_key_id=token["access_key"],
-    #         aws_secret_access_key=token["secret_key"],
-    #     )
-    #     bucket = s3_resource.Bucket(mirror.bucket_name) # type: ignore
-    # except NoCredentialsError:
-    #     logging.error("Boto3 could not find credentials. Check your token file.")
-    #     raise
-    # except ClientError as e:
-    #     logging.error(f"Failed to connect to S3 bucket '{mirror.bucket_name}': {e}")
-    #     raise
-
-    # return bucket
