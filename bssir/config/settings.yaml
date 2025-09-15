@@ -2,7 +2,7 @@
 package_name: BSSIR
 
 # Years (list of years or range in for of: "first_year - last_year")
-years: "1363-1402"
+years: "1363-1403"
 
 # Package Settings
 package_settings: config/settings.yaml
@@ -24,8 +24,9 @@ mirrors:
     endpoint: https://s3.ir-tbz-sh1.arvanstorage.ir
     bucket_name: iran-open-data
   - name: amazon
-    endpoint: https://iran-open-data.s3.us-east-2.amazonaws.com
     bucket_name: iran-open-data
+    region_name: us-east-2
+    url_format: https://{bucket_name}.s3.{region_name}.amazonaws.com
 default_mirror: arvan
 
 # Folder Names
@@ -44,16 +45,25 @@ default_map: humandata
 
 ## Functions
 functions:
+  ## Setup
+  setup:
+    years: last
+    table_names: all
+    replace: false
+    method: create_from_raw
+    download_source: mirror
+
   ## Setup Raw Data
   setup_raw_data:
+    years: last
     replace: false
-    download_source: original
+    download_source: mirror
 
   ## Load Table
   load_table:
     years: last
     form: normalized
-    on_missing: create
+    on_missing: download
     save_downloaded: true
     redownload: false
     save_created: true

@@ -137,12 +137,20 @@ def read_available_years(years: list[int] | str) -> list[int]:
 
 class Mirror(BaseModel):
     name: str
-    endpoint: str
+    endpoint: Optional[str] = None
     bucket_name: str
+    region_name: Optional[str] = None
+    url_format: Optional[str] = None
 
     @property
     def bucket_address(self) -> str:
-        return urllib.parse.urljoin(self.endpoint, self.bucket_name)
+        if self.endpoint:
+            url = urllib.parse.urljoin(self.endpoint, self.bucket_name)
+        else:
+            assert self.url_format is not None
+            assert self.region_name is not None
+            url = self.url_format.format(**self.model_dump())
+        return url
 
 
 _DefaultYears = Annotated[list[int], BeforeValidator(read_available_years)]
@@ -180,7 +188,7 @@ class DefaultDirectorie(BaseModel):
     cached: Path
 
 
-class DefaultOnlineDirectory(BaseModel):
+class OnlineDirectory(BaseModel):
     root: str
     original: str
     unpacked: str
@@ -191,7 +199,16 @@ class DefaultOnlineDirectory(BaseModel):
     cached: str
 
 
+class Setup(BaseModel):
+    years: _Years
+    table_names: Any
+    replace: bool
+    method: Literal["create_from_raw", "download_cleaned"]
+    download_source: Literal["original", "mirror", "arvan", "amazon"]
+
+
 class SetupRawData(BaseModel):
+    years: _Years
     replace: bool
     download_source: Literal["original", "mirror", "arvan", "amazon"]
 
@@ -215,6 +232,7 @@ class LoadExternalTableSettings(BaseModel):
 
 
 class DefaultFunctions(BaseModel):
+    setup: Setup
     setup_raw_data: SetupRawData
     load_table: LoadTableSettings
     load_external_table: LoadExternalTableSettings
@@ -236,7 +254,7 @@ class Defaults(BaseModel):
 
     mirrors: list[Mirror]
     default_mirror: Optional[str] = None
-    online_dirs: list[DefaultOnlineDirectory] = Field([])
+    online_dirs: list[OnlineDirectory] = Field([])
 
     years: _DefaultYears
 
@@ -288,12 +306,12 @@ class Defaults(BaseModel):
         self.dir = DefaultDirectorie(**path_dict)
 
     def _create_online_dir(self):
-        for mirror in self.mirrors:
-            root = f"{mirror.bucket_address}/{self.package_name}"
+        for ـ in self.mirrors:
+            root = self.package_name
             online_dict = {"root": root}
             for key, value in self.folder_names.model_dump().items():
                 online_dict[key] = f"{root}/{value}"
-            self.online_dirs.append(DefaultOnlineDirectory(**online_dict))
+            self.online_dirs.append(OnlineDirectory(**online_dict))
         if self.default_mirror is not None:
             index = self.get_mirror_index(self.default_mirror)
             default_online_dir = self.online_dirs[index]
@@ -308,13 +326,21 @@ class Defaults(BaseModel):
         for key, value in self.local_metadata.items():
             self.local_metadata[key] = self.root_dir.joinpath(value)
 
-    def get_mirror_index(self, mirror_name: Optional[str]) -> int:
+    def get_mirror_index(self, mirror_name: Optional[str] = None) -> int:
         if (mirror_name is None) or (mirror_name in ["mirror", "original"]):
             return 0
         for i, mirror in enumerate(self.mirrors):
             if mirror.name == mirror_name:
                 return i
         raise ValueError(f"Mirror '{mirror_name}' not found")
+
+    def get_mirror(self, mirror_name: Optional[str] = None) -> Mirror:
+        index = self.get_mirror_index(mirror_name)
+        return self.mirrors[index]
+
+    def get_online_dir(self, mirror_name: Optional[str] = None) -> OnlineDirectory:
+        index = self.get_mirror_index(mirror_name)
+        return self.online_dirs[index]
 
     @property
     def bar_format(self) -> str:

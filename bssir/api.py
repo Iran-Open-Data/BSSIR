@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Callable, Literal, Iterable, overload
+from typing import Any, Callable, Literal, Iterable, overload, Optional
 from types import ModuleType
 import importlib
 
@@ -20,56 +20,29 @@ class API:
         self.metadata = metadata
         self.utils = Utils(defaults, metadata)
 
-    @overload
-    def setup(
-        self,
-        years: _Years,
-        *,
-        table_names: str | Iterable[str] | None = None,
-        replace: bool = False,
-        method: Literal["create_from_raw"] = "create_from_raw",
-        download_source: Literal["original", "mirror"] | str = "original",
-    ) -> None:
-        ...
-
-    @overload
-    def setup(
-        self,
-        years: _Years,
-        *,
-        table_names: str | Iterable[str] | None = None,
-        replace: bool = False,
-        method: Literal["download_cleaned"] = "download_cleaned",
-        download_source: Literal["mirror"] | str = "mirror",
-    ) -> None:
-        ...
-
-    def setup(
-        self,
-        years: _Years,
-        *,
-        table_names: str | Iterable[str] | None = None,
-        replace: bool = False,
-        method: Literal["create_from_raw", "download_cleaned"] = "create_from_raw",
-        download_source: Literal["original", "mirror"] | str = "original",
-    ) -> None:
+    def setup(self, **kwargs) -> None:
         """Download, extract, and clean survey data."""
-        years = self.utils.parse_years(years)
-        if method == "create_from_raw":
-            self.setup_raw_data(years, replace=replace, download_source=download_source)
-            self._create_cleaned_files(years=years, table_names=table_names)
-        elif method == "download_cleaned":
-            if download_source == "original":
-                download_source = "mirror"
-            self.utils.download_cleaned_tables(years, source=download_source)
+        settings_model = self.defaults.functions.setup
+        try:
+            settings = settings_model.model_copy(update=kwargs)
+        except Exception as exc:
+            logging.error("Invalid settings for setup: %s", exc)
+            raise
+        logging.debug(f"Setup with settings: {settings}")
+        years = self.utils.parse_years(settings.years)
+        if settings.method == "create_from_raw":
+            self.setup_raw_data(**settings.model_dump())
+            self._create_cleaned_files(years=years, table_names=settings.table_names)
+        elif settings.method == "download_cleaned":
+            if (not settings.download_source) or (settings.download_source == "original"):
+                source = "mirror"
+            else:
+                source = settings.download_source
+            self.utils.download_cleaned_tables(years, source=source)
         else:
             raise ValueError
 
-    def setup_raw_data(
-        self,
-        years: _Years,
-        **kwargs,
-    ) -> None:
+    def setup_raw_data(self, **kwargs) -> None:
         """Download and extract raw (unprocessed) survey tables for the requested years.
 
         This method:
@@ -96,14 +69,13 @@ class API:
             Any exceptions raised by settings.model_copy(...) or archive_handler.setup
             are logged and re-raised to the caller.
         """
-        years = self.utils.parse_years(years)
-
         settings_model = self.defaults.functions.setup_raw_data
         try:
             settings = settings_model.model_copy(update=kwargs)
         except Exception as exc:
             logging.error("Invalid settings for setup_raw_data: %s", exc)
             raise
+        years = self.utils.parse_years(settings.years)
 
         archive_handler.setup(
             years,
