@@ -67,6 +67,7 @@ def download(url: str, path: Path) -> None:
                 progress_bar.update(len(chunk))
 
         # --- Rename the file only after the download is successful ---
+        path.unlink(missing_ok=True)
         part_path.rename(path)
 
     except (requests.exceptions.RequestException, IOError) as e:
