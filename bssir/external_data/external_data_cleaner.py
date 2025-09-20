@@ -69,7 +69,7 @@ class ExternalDataCleaner:
     def _create_table(self) -> pd.DataFrame:
         if self.metadata_type == "manual":
             table = self._download_table()
-        elif self.metadata_type == "url":
+        elif self.metadata_type in ["file", "url"]:
             table = self._clean_raw_file()
         elif self.metadata_type == "from":
             table = self._collect_and_clean()
@@ -92,8 +92,8 @@ class ExternalDataCleaner:
                 break
         return metadata
 
-    def _extract_type(self) -> Literal["manual", "url", "from", "alias"]:
-        for metadata_type in ("manual", "url", "from", "alias"):
+    def _extract_type(self) -> Literal["manual", "file", "url", "from", "alias"]:
+        for metadata_type in ("manual", "file", "url", "from", "alias"):
             if (metadata_type in self.metadata) or (self.metadata == metadata_type):
                 return metadata_type
         raise ValueError(f"Metadata type is missing for {self.name}")
@@ -101,12 +101,19 @@ class ExternalDataCleaner:
     def _find_extension(self) -> str:
         available_extentions = ["xlsx"]
         extension = self.metadata.get("extension", None)
-        url = self.metadata.get("url", None)
 
-        if (extension is None) and (url is not None):
-            extension = url.rsplit(".", maxsplit=1)[1]
+        if (extension is None) and (self.url is not None):
+            try:
+                extension = self.url.rsplit(".", maxsplit=1)[1]
+            except IndexError:
+                raise ValueError(f"URL '{self.url}' does not have a valid file extension.")
 
-        assert extension in available_extentions
+        if extension not in available_extentions:
+            raise ValueError(
+                f"Unsupported file extension '{extension}'. "
+                f"Supported extensions are: {', '.join(available_extentions)}"
+            )
+
         return extension
 
     def _open_cleaned_data(self) -> pd.DataFrame:
@@ -119,16 +126,25 @@ class ExternalDataCleaner:
         raw_folder_path = self.lib_defaults.dir.external.joinpath("_raw")
         raw_folder_path.mkdir(exist_ok=True, parents=True)
         extension = self._find_extension()
-        return raw_folder_path.joinpath(f"{self.name}.{extension}")
+        if self.metadata_type == "file":
+            name = self.metadata["file"]["name"]
+        else:
+            name = self.name
+        return raw_folder_path.joinpath(f"{name}.{extension}")
 
-    def _download_raw_file(self) -> None:
-        url = self.metadata["url"]
-        utils.download(url, self.raw_file_path)
+    @property
+    def url(self) -> str:
+        if "file" in self.metadata:
+            assert "url" in self.metadata["file"]
+            url = self.metadata["file"]["url"]
+        else:
+            url = self.metadata["url"]
+        return url
 
     def _load_raw_file(self) -> pd.DataFrame:
         assert self.raw_file_path is not None
         if (not self.raw_file_path.exists()) or self.settings.redownload:
-            self._download_raw_file()
+            utils.download(self.url, self.raw_file_path)
         if self.raw_file_path.suffix in [".xlsx"]:
             sheet_name = self.metadata.get("sheet_name", 0)
             table = pd.read_excel(

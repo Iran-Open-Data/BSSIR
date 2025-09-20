@@ -548,8 +548,8 @@ class TableFactory:
         dependencies: dict[str, dict] = {}
         while len(table_list) > 0:
             table = table_list.pop(0)
-            if table.split(".")[0] == "external":
-                file_name = f"{table.split('.')[1]}.parquet"
+            if table.split(".", 1)[0] == "external":
+                file_name = f"{table.split(".", 1)[1]}.parquet"
                 local_path = self.lib_defaults.dir.external.joinpath(file_name)
                 size = local_path.stat().st_size if local_path.exists() else None
                 dependencies[table] = {"size": size}
@@ -735,8 +735,8 @@ class TableFactory:
         table_names = [table_names] if isinstance(table_names, str) else table_names
         table_list = [
             self.load(name)
-            if name.split(".")[0] != "external"
-            else api.load_external_table(name.split(".")[1])
+            if name.split(".", 1)[0] != "external"
+            else api.load_external_table(name.split(".", 1)[1])
             for name in table_names
         ]
         table_list = [table for table in table_list if not table.empty]

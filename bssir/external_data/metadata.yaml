@@ -1,3 +1,15 @@
+files:
+  sci_cpi_all: &sci_cpi_all
+    name: sci_cpi_all
+    url: https://amar.org.ir/Portals/0/Statistics/ts_national_140405-14040611134713.xlsx
+
+  sci_cpi_urban: &sci_cpi_urban
+    name: sci_cpi_urban
+    url: https://amar.org.ir/Portals/0/Statistics/ts_urban_140405-14040611135418.xlsx
+
+  sci_cpi_rural: &sci_cpi_rural
+    name: sci_cpi_rural
+    url: https://amar.org.ir/Portals/0/Statistics/ts_rural-140405-14040611134931.xlsx
 
 
 hbsir_counties: manual
@@ -43,17 +55,38 @@ sci:
 
       urban_rural:
         from:
-          - sci.cpi_1395_urban_singleindex.annual
-          - sci.cpi_1395_rural_maingroups.annual
+          - sci.cpi_1395_urban.annual
+          - sci.cpi_1395_rural.annual
 
-  cpi_1400_urban_singleindex:
+  cpi_1400_urban:
     alias: annual
 
     monthly:
-      url: https://www.amar.org.ir/Portals/0/PropertyAgent/461/Files/27231/2302u220940206.xlsx
+      file: *sci_cpi_urban
+      sheet_name: -1
+
+    quarterly:
+      from:
+        - sci.cpi_1400_urban.monthly
 
     annual:
-      from: sci.cpi_1400_urban_singleindex.monthly
+      file: *sci_cpi_urban
+      sheet_name: -2
+
+  cpi_1400_rural:
+    alias: annual
+
+    monthly:
+      file: *sci_cpi_rural
+      sheet_name: 2
+
+    quarterly:
+      file: *sci_cpi_rural
+      sheet_name: 2
+
+    annual:
+      file: *sci_cpi_rural
+      sheet_name: 6
 
   cpi_1400_rural_maingroups:
     alias: annual
@@ -71,13 +104,34 @@ sci:
       alias: sci.cpi_1400.annual.urban_rural
 
     annual:
-      url: https://amar.org.ir/Portals/0/Statistics/ts_national_140405-14040611134713.xlsx
+      file: *sci_cpi_all
       sheet_name: 6
 
       urban_rural:
         from:
-          - sci.cpi_1400_urban_singleindex.annual
-          - sci.cpi_1400_rural_maingroups.annual
+          - sci.cpi_1400_urban.annual
+          - sci.cpi_1400_rural.annual
+
+    quarterly:
+      from:
+        - sci.cpi_1400.monthly
+
+      urban_rural:
+        from:
+          - sci.cpi_1400_urban.quarterly
+          - sci.cpi_1400_rural.quarterly
+
+    monthly:
+      file: *sci_cpi_all
+      sheet_name: 2
+
+      urban_rural:
+        from:
+          - sci.cpi_1400_urban.monthly
+          - sci.cpi_1400_rural.monthly
+
+  cpi:
+    goto: sci.cpi_1400
 
   gini:
     alias: annual
