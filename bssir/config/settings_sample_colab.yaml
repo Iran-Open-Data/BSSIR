@@ -1,8 +1,4 @@
 # Mirrors
-mirrors:
-  - name: amazon
-    endpoint: https://iran-open-data.s3.us-east-2.amazonaws.com
-    bucket_name: iran-open-data
 default_mirror: amazon
 
 # Map
@@ -36,7 +32,6 @@ columns:
 
 # Local Metadata
 local_metadata:
-  instruction: metadata/_instruction.yaml
   raw_files: metadata/raw_files.yaml
   tables: metadata/tables.yaml
   maps: metadata/maps.yaml
