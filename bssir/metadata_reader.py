@@ -312,11 +312,6 @@ class Defaults(BaseModel):
             for key, value in self.folder_names.model_dump().items():
                 online_dict[key] = f"{root}/{value}"
             self.online_dirs.append(OnlineDirectory(**online_dict))
-        if self.default_mirror is not None:
-            index = self.get_mirror_index(self.default_mirror)
-            default_online_dir = self.online_dirs[index]
-            self.online_dirs.remove(default_online_dir)
-            self.online_dirs.insert(0, default_online_dir)
 
     def _create_meta_paths(self):
         for key, value in self.base_package_metadata.items():
@@ -328,7 +323,7 @@ class Defaults(BaseModel):
 
     def get_mirror_index(self, mirror_name: Optional[str] = None) -> int:
         if (mirror_name is None) or (mirror_name in ["mirror", "original"]):
-            return 0
+            mirror_name = self.default_mirror
         for i, mirror in enumerate(self.mirrors):
             if mirror.name == mirror_name:
                 return i
