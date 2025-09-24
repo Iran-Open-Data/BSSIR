@@ -39,6 +39,8 @@ def load_external_table(
 
 def setup_external_data() -> None:
     for table in [
+        "hbsir_counties",
+        "hbsir_weights",
         "sci.cpi_1400.monthly",
         "sci.cpi_1400.quarterly",
         "sci.cpi_1400.annual",
