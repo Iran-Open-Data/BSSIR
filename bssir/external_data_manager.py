@@ -5,7 +5,6 @@ import pandas as pd
 
 from .metadata_reader import config
 from .api import API, _DataSource, _Frequency, _SeparateBy
-from .maintainer import Maintainer
 
 
 _ExternalTable = Literal[
@@ -39,6 +38,8 @@ def load_external_table(
 
 
 def setup_external_data() -> None:
+    from .maintainer import Maintainer
+
     for table in [
         "hbsir_counties",
         "hbsir_weights",
