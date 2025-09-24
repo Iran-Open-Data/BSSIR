@@ -307,10 +307,9 @@ class Defaults(BaseModel):
 
     def _create_online_dir(self):
         for ـ in self.mirrors:
-            root = self.package_name
-            online_dict = {"root": root}
+            online_dict = {}
             for key, value in self.folder_names.model_dump().items():
-                online_dict[key] = f"{root}/{value}"
+                online_dict[key] = value
             self.online_dirs.append(OnlineDirectory(**online_dict))
 
     def _create_meta_paths(self):
