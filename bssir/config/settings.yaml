@@ -37,8 +37,8 @@ folder_names:
   unpacked: 2_unpacked
   extracted: 3_extracted
   cleaned: 4_cleaned
-  external: external
-  maps: maps
+  external: External_Data
+  maps: Maps
 
 # Map
 default_map: humandata
