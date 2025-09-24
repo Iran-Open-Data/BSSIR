@@ -307,7 +307,7 @@ class Defaults(BaseModel):
 
     def _create_online_dir(self):
         for ـ in self.mirrors:
-            online_dict = {}
+            online_dict = {"root": ""}
             for key, value in self.folder_names.model_dump().items():
                 online_dict[key] = value
             self.online_dirs.append(OnlineDirectory(**online_dict))
