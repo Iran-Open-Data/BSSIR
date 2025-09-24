@@ -33,6 +33,10 @@ cpi:
 cpi_1400:
   goto: sci.cpi_1400
 
+ppp_conversion_factor:
+  goto: wb.ppp_conversion_factor
+
+
 sci:
   cpi_1395_urban_singleindex:
     monthly:
@@ -167,3 +171,16 @@ imf:
   ppp_conversion_factor:
     url: https://www.imf.org/external/datamapper/api/v1/PPPEX/IRN
     extension: json
+
+  population:
+    url: https://www.imf.org/external/datamapper/api/v1/LP/IRN
+    extension: json
+
+  inflation:
+    url: https://www.imf.org/external/datamapper/api/v1/PCPIPCH/IRN
+    extension: json
+
+  inflation_us:
+    url: https://www.imf.org/external/datamapper/api/v1/PCPIPCH/USA
+    extension: json
+

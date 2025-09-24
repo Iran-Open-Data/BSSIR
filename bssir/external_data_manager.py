@@ -5,6 +5,7 @@ import pandas as pd
 
 from .metadata_reader import config
 from .api import API, _DataSource, _Frequency, _SeparateBy
+from .maintainer import Maintainer
 
 
 _ExternalTable = Literal[
@@ -55,5 +56,17 @@ def setup_external_data() -> None:
         "sci.cpi_1400.annual.urban_rural",
         "wb.ppp_conversion_factor",
         "imf.ppp_conversion_factor",
+        "imf.population",
+        "imf.inflation",
+        "imf.inflation_us",
     ]:
         load_external_table(table, recreate=True, redownload=True)
+    for mirror in defaults.mirrors:
+        (
+            Maintainer(
+                lib_defaults=defaults,
+                lib_metadata=metadata,
+                mirror_name=mirror.name,
+            )
+            .upload_external_files()
+        )

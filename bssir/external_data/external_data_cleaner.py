@@ -164,7 +164,7 @@ class ExternalDataCleaner:
         try:
             table = self.cleaning_function(table)
         except AttributeError:
-            logging.warning(f"Cleaning function {self.name.replace('.', '_')} do not exist")
+            logging.info(f"Cleaning function {self.name.replace('.', '_')} do not exist")
         return table
 
     def _collect_and_clean(self) -> pd.DataFrame:
