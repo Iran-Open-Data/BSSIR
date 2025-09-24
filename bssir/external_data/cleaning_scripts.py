@@ -23,14 +23,14 @@ def monthly_to_quarterly_by_average(table: pd.DataFrame) -> pd.DataFrame:
     )
 
 
-def sci_cpi_1395_urban_singleindex_monthly(table: pd.DataFrame) -> pd.DataFrame:
+def sci_cpi_1395_urban_monthly(table: pd.DataFrame) -> pd.DataFrame:
     table = table.loc[2:, [2]]
     table.index = create_year_month_index(1361, 1401)
     table.columns = ["CPI"]
     return table
 
 
-def sci_cpi_1395_urban_singleindex_annual(table: pd.DataFrame) -> pd.DataFrame:
+def sci_cpi_1395_urban_annual(table: pd.DataFrame) -> pd.DataFrame:
     table.columns = ["Year", "CPI"]
     table = table.loc[2:]
     table = table.set_index("Year")
@@ -52,16 +52,16 @@ def sci_cpi_1395_rural_maingroups_annual(table: pd.DataFrame) -> pd.DataFrame:
 
 
 def sci_cpi_1395_monthly(table: pd.DataFrame) -> pd.DataFrame:
-    table = table.loc[[3], 1:].T
+    table = table.loc[[3], 1:].transpose()
     table.columns = ["CPI"]
-    table.index = create_year_month_index(1390, 1401)
+    table.index = create_year_month_index(1390, 1390 + len(table.index) // 12 - 1)
     return table
 
 
 def sci_cpi_1395_annual(table: pd.DataFrame) -> pd.DataFrame:
-    table = table.loc[[4], 1:].T.astype("float64")
+    table = table.loc[[4], 1:].transpose().astype("float64")
     table.columns = ["CPI"]
-    table.index = pd.Index(range(1390, 1401), name="Year")
+    table.index = pd.Index(range(1390,  1390 + len(table.index)), name="Year")
     return table
 
 
@@ -207,3 +207,18 @@ def sci_gini_annual(table: pd.DataFrame) -> pd.DataFrame:
     index = pd.Index(range(1363, 1403), name="Year")
     table = table.set_axis(index, axis="index").set_axis(["Gini"], axis="columns")
     return table
+
+
+def wb_ppp_conversion_factor(table: pd.DataFrame) -> pd.DataFrame:
+    return (
+        table
+        .loc[lambda df: df["Country Code"].eq("IRN")]
+        .transpose()
+        .reset_index(names=["Year"])
+        .loc[lambda df: df["Year"].astype(str).str.isnumeric()]
+        .astype({"Year": int})
+        .assign(Year=lambda df: df["Year"].sub(621))
+        .dropna()
+        .set_index(["Year"])
+        .set_axis(["PPP_Conversion_Factor"], axis="columns")
+    )

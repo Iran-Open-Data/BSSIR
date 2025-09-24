@@ -1,14 +1,22 @@
 files:
-  sci_cpi_all: &sci_cpi_all
-    name: sci_cpi_all
+  sci_cpi_1390_all: &sci_cpi_1390_all
+    name: sci_cpi_1390_all
+    url: https://amar.org.ir/Portals/0/Statistics/ts_cpi_1390=100-14040208110737.xlsx
+
+  sci_cpi_1395: &sci_cpi_1395
+    name: sci_cpi_1395
+    url: https://amar.org.ir/Portals/0/Statistics/ts_cpi_1395=100-14040208113537.xlsx
+
+  sci_cpi_1400_all: &sci_cpi_1400_all
+    name: sci_cpi_1400_all
     url: https://amar.org.ir/Portals/0/Statistics/ts_national_140405-14040611134713.xlsx
 
-  sci_cpi_urban: &sci_cpi_urban
-    name: sci_cpi_urban
+  sci_cpi_1400_urban: &sci_cpi_1400_urban
+    name: sci_cpi_1400_urban
     url: https://amar.org.ir/Portals/0/Statistics/ts_urban_140405-14040611135418.xlsx
 
-  sci_cpi_rural: &sci_cpi_rural
-    name: sci_cpi_rural
+  sci_cpi_1400_rural: &sci_cpi_1400_rural
+    name: sci_cpi_1400_rural
     url: https://amar.org.ir/Portals/0/Statistics/ts_rural-140405-14040611134931.xlsx
 
 
@@ -43,7 +51,8 @@ sci:
 
   cpi_1395:
     monthly:
-      url: https://www.amar.org.ir/Portals/0/PropertyAgent/461/Files/9346/2302n220140111.xlsx
+      file: *sci_cpi_1395
+      sheet_name: 8
 
       urban_rural:
         from:
@@ -51,7 +60,8 @@ sci:
           - sci.cpi_1395_rural_maingroups.monthly
 
     annual:
-      url: https://www.amar.org.ir/Portals/0/PropertyAgent/461/Files/9811/2302n220111400_V2-14011013.xlsx
+      file: *sci_cpi_1395
+      sheet_name: 9
 
       urban_rural:
         from:
@@ -62,7 +72,7 @@ sci:
     alias: annual
 
     monthly:
-      file: *sci_cpi_urban
+      file: *sci_cpi_1400_urban
       sheet_name: -1
 
     quarterly:
@@ -70,22 +80,22 @@ sci:
         - sci.cpi_1400_urban.monthly
 
     annual:
-      file: *sci_cpi_urban
+      file: *sci_cpi_1400_urban
       sheet_name: -2
 
   cpi_1400_rural:
     alias: annual
 
     monthly:
-      file: *sci_cpi_rural
+      file: *sci_cpi_1400_rural
       sheet_name: 2
 
     quarterly:
-      file: *sci_cpi_rural
+      file: *sci_cpi_1400_rural
       sheet_name: 2
 
     annual:
-      file: *sci_cpi_rural
+      file: *sci_cpi_1400_rural
       sheet_name: 6
 
   cpi_1400_rural_maingroups:
@@ -104,7 +114,7 @@ sci:
       alias: sci.cpi_1400.annual.urban_rural
 
     annual:
-      file: *sci_cpi_all
+      file: *sci_cpi_1400_all
       sheet_name: 6
 
       urban_rural:
@@ -122,7 +132,7 @@ sci:
           - sci.cpi_1400_rural.quarterly
 
     monthly:
-      file: *sci_cpi_all
+      file: *sci_cpi_1400_all
       sheet_name: 2
 
       urban_rural:
@@ -145,3 +155,15 @@ cbi:
 
     annual:
       manual
+
+
+wb:
+  ppp_conversion_factor:
+    url: https://api.worldbank.org/v2/en/indicator/PA.NUS.PPP?downloadformat=csv
+    extension: zip
+
+
+imf:
+  ppp_conversion_factor:
+    url: https://www.imf.org/external/datamapper/api/v1/PPPEX/IRN
+    extension: json

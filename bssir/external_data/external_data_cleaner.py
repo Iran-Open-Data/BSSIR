@@ -1,3 +1,4 @@
+import logging
 from typing import Callable, Literal
 import importlib
 from pathlib import Path
@@ -39,6 +40,7 @@ class ExternalDataCleaner:
 
         """
         local_file = self.lib_defaults.dir.external.joinpath(f"{self.name}.parquet")
+        logging.info(self.metadata)
 
         if self.metadata_type == "alias":
             name = self.metadata["alias"]
@@ -99,7 +101,7 @@ class ExternalDataCleaner:
         raise ValueError(f"Metadata type is missing for {self.name}")
 
     def _find_extension(self) -> str:
-        available_extentions = ["xlsx"]
+        available_extentions = ["json", "xlsx", "zip"]
         extension = self.metadata.get("extension", None)
 
         if (extension is None) and (self.url is not None):
@@ -145,7 +147,9 @@ class ExternalDataCleaner:
         assert self.raw_file_path is not None
         if (not self.raw_file_path.exists()) or self.settings.redownload:
             utils.download(self.url, self.raw_file_path)
-        if self.raw_file_path.suffix in [".xlsx"]:
+        if self.reading_function:
+            table = self.reading_function(self.raw_file_path)
+        elif self.raw_file_path.suffix in [".xlsx"]:
             sheet_name = self.metadata.get("sheet_name", 0)
             table = pd.read_excel(
                 self.raw_file_path, header=None, sheet_name=sheet_name
@@ -160,7 +164,7 @@ class ExternalDataCleaner:
         try:
             table = self.cleaning_function(table)
         except AttributeError:
-            print(f"Cleaning function {self.name.replace('.', '_')} do not exist")
+            logging.warning(f"Cleaning function {self.name.replace('.', '_')} do not exist")
         return table
 
     def _collect_and_clean(self) -> pd.DataFrame:
@@ -181,6 +185,18 @@ class ExternalDataCleaner:
             "bssir.external_data.cleaning_scripts"
         )
         return getattr(cleaning_module, self.name.replace(".", "_"))
+
+    @property
+    def reading_function(
+        self,
+    ) -> Callable[[Path], pd.DataFrame] | None:
+        reading_module = importlib.import_module(
+            "bssir.external_data.reading_scripts"
+        )
+        try:
+            return getattr(reading_module, self.name.replace(".", "_"))
+        except AttributeError:
+            return None
 
     def save_table(self, table: pd.DataFrame) -> None:
         self.lib_defaults.dir.external.mkdir(exist_ok=True, parents=True)
