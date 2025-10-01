@@ -1,6 +1,6 @@
 [project]
 name = "bssir"
-version = "0.6.3"
+version = "0.6.4"
 description = "Shared data-loading and transformation utilities for Iranian socioeconomic surveys."
 readme = "README.md"
 authors = [
