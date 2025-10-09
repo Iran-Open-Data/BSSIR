@@ -975,7 +975,7 @@ cbi_sample:
 
   # 1 9 X X
   # Zanjan: زنجان
-  Abhar: ture                               # ابهر
+  Abhar: true                               # ابهر
   Khodabandeh: false                        # خدابنده
   Zanjan: true                              # زنجان
   Eejrud: false                             # ایجرود
