@@ -328,7 +328,7 @@ county_name_translation:
   Nain: نایین
   Najafabad: نجف آباد
   Natanz: نطنز
-  Shahinshahro Meymeh: شاهین شهرومیمه
+  Shahinshahr-o-Meymeh: شاهین شهرومیمه
   Mobarakeh: مبارکه
   Aran-o-Bidgol: آران وبیدگل
   Tiran-o-Korun: تیران وکرون
@@ -414,7 +414,7 @@ county_name_translation:
   # 1 6 X X
   # Ilam: ایلام
   Ilam: ایلام
-  Darreh Shahr: دره شهر
+  Darreh_Shahr: دره شهر
   Dehloran: دهلران
   Shirvan-o-Chardavol: چرداول
   Mehran: مهران
@@ -486,8 +486,8 @@ county_name_translation:
   # 2 2 X X
   # Hormozgan: هرمزگان
   Abumusa: ابوموسی
-  Bandar-Lengeh: بندرعباس
-  Bandar-Abbas: بندرلنگه
+  Bandar-Lengeh: بندرلنگه
+  Bandar-Abbas: بندرعباس 
   Qeshm: قشم
   Minab: میناب
   Jask: جاسک
@@ -595,6 +595,531 @@ county_name_translation:
   Taleghan: طالقان
   Eshtehard: اشتهارد
   Fardis: فردیس
+
+
+cbi_sample:
+  # 0 0 X X
+  # Markazi: مرکزی
+  Arak: true                             #  # اراک
+  Ashtian: false                            # آشتیان
+  Tafresh: false                            # تفرش
+  Khomein: false                            # خمین
+  Delijan: false                            # دلیجان
+  Saveh: true                            #  # ساوه
+  Shazand: false                            # شازند
+  Mahallat: false                           # محلات
+  Zarandieh: false                          # زرندیه
+  Komeijan: false                           # کمیجان
+  Khondab: false                            # خنداب
+  Farahan: false                            # فراهان
+
+  # 0 1 X X
+  # Gilan: گیلان
+  Astara: false                             # آستارا
+  Astane-ye-Ashrafiyeh: false               # آستانه اشرفیه
+  Bandar-e-Anzali: true                  #  # بندرانزلی
+  Talesh: false                             # طوالش
+  Rasht: true                            #  # رشت
+  Rudbar: false                             # رودبار
+  Rudsar: false                             # رودسر
+  Some'e-Sara: false                        # صومعه سرا
+  Fuman: false                              # فومن
+  Langrud: false                            # لنگرود
+  Lahijan: true                          #  # لاهیجان
+  Shaft: false                              # شفت
+  Amlash: false                             # املش
+  Rezvanshahr: false                        # رضوانشهر
+  Siahkal: false                            # سیاهکل
+  Masal: false                              # ماسال
+
+  # 0 2 X X
+  # Mazandaran: مازندران
+  Amol: false                               # آمل
+  Babol: true                            #  # بابل
+  Behshahr: true                         #  # بهشهر
+  Tonekabon: true                        #  # تنکابن
+  Ramsar: false                             # رامسر
+  Sari: true                             #  # ساری
+  Savadkuh: false                           # سوادکوه
+  Qaemshahr: false                          # قائم شهر
+  Nur: false                                # نور
+  Noshahr: false                            # نوشهر
+  Babolsar: false                           # بابلسر
+  Mahmudabad: false                         # محمودآباد
+  Neka: false                               # نکا
+  Chalus: true                           #  # چالوس
+  Juybar: false                             # جویبار
+  Galugah: false                            # گلوگاه
+  Feredunkenar: false                       # فریدونکنار
+  Abbasabad: false                          # عباس آباد
+  Miandorud: false                          # میاندورود
+  Simorgh: false                            # سیمرغ
+  Northern_Savadkooh: false                 # سوادکوه شمالی
+  Kelardasht: false                         # کلاردشت
+
+  # 0 3 X X
+  # East_Azerbaijan: آذربایجان شرقی
+  Ahar: true                                # اهر
+  Tabriz: true                              # تبریز
+  Sarab: true                               # سراب
+  Maragheh: true                            # مراغه
+  Marand: false                             # مرند
+  Mianeh: false                             # میانه
+  Hashtrud: false                           # هشترود
+  Bonab: false                              # بناب
+  Bostanabad: false                         # بستان آباد
+  Shabestar: false                          # شبستر
+  Kalibar: false                            # کلیبر
+  Heris: false                              # هریس
+  Jolfa: false                              # جلفا
+  Malekan: false                            # ملکان
+  Azarshahr: false                          # آذرشهر
+  Osku: false                               # اسکو
+  Charuymaq: false                          # چاراویماق
+  Varzaqan: false                           # ورزقان
+  Ajabshir: false                           # عجب شیر
+  Khodaafarin: false                        # خداآفرین
+
+  # 0 4 X X
+  # West_Azerbaijan: آذربایجان غربی
+  Urumia: true                              # ارومیه
+  Piranshahr: false                         # پیرانشهر
+  Khoy: true                                # خوی
+  Sardasht: false                           # سردشت
+  Salmas: false                             # سلماس
+  Maku: true                                # ماکو
+  Mahabad: true                             # مهاباد
+  Miandoab: false                           # میاندوآب
+  Naqadeh: false                            # نقده
+  Bukan: false                              # بوکان
+  Shahindej: false                          # شاهین دژ
+  Takab: false                              # تکاب
+  Oshnaviyeh: false                         # اشنویه
+  Chaldoran: false                          # چالدران
+  Poldasht: false                           # پلدشت
+  Chaypareh: false                          # چایپاره
+  Showt: false                              # شوط
+
+  # 0 5 X X
+  # Kermanshah: کرمانشاه
+  Islamabad-e-Gharb: false                  # اسلام آبادغرب
+  Kermanshah: true                          # کرمانشاه
+  Paveh: false                              # پاوه
+  Sarpol-e-Zahab: false                     # سرپل ذهاب
+  Sonqor: true                              # سنقر
+  Qasr-e-Shirin: false                      # قصرشیرین
+  Kangavar: false                           # کنگاور
+  Gilan-e-Gharb: false                      # گیلانغرب
+  Javanrud: false                           # جوانرود
+  Sahneh: false                             # صحنه
+  Harsin: false                             # هرسین
+  Solas-e-Babajani: false                   # ثلاث باباجانی
+  Dalaho: false                             # دالاهو
+  Ravansar: false                           # روانسر
+
+  # 0 6 X X
+  # Khuzestan: خوزستان
+  Abadan: true                              # آبادان
+  Andimeshk: false                          # اندیمشک
+  Ahvaz: true                               # اهواز
+  Izeh: false                               # ایذه
+  Mahshahr: false                           # بندرماهشهر
+  Behbahan: true                            # بهبهان
+  Khorramshahr: false                       # خرمشهر
+  Dezful: true                              # دزفول
+  Dasht-e-Azadegan: false                   # دشت آزادگان
+  Ramhormoz: false                          # رامهرمز
+  Shadegan: false                           # شادگان
+  Shushtar: false                           # شوشتر
+  Masjed-Soleyman: false                    # مسجدسلیمان
+  Shush: false                              # شوش
+  Baghmalek: false                          # باغ ملک
+  Omidiyeh: false                           # امیدیه
+  Lali: false                               # لالی
+  Hendijan: false                           # هندیجان
+  Ramshir: false                            # رامشیر
+  Guotvand: false                           # گتوند
+  Andika: false                             # اندیکا
+  Haftgol: false                            # هفتگل
+  Hoveizeh: false                           # هویزه
+  Bavi: false                               # باوی
+  Hamidieh: false                           # حمیدیه
+  Aghajari: false                           # آغاجاری
+  Karoun: false                             # کارون
+
+  # 0 7 X X
+  # Fars: فارس
+  Abadeh: false                             # آباده
+  Estahban: false                           # استهبان
+  Eqlid: true                               # اقلید
+  Jahrom: false                             # جهرم
+  Darab: true                               # داراب
+  Sepidan: false                            # سپیدان
+  Shiraz: true                              # شیراز
+  Fasa: false                               # فسا
+  Firuzabad: false                          # فیروزآباد
+  Kazerun: true                             # کازرون
+  Larestan: false                           # لارستان
+  Marvdasht: false                          # مرودشت
+  Mamasani: false                           # ممسنی
+  Neyriz: false                             # نی ریز
+  Lamerd: false                             # لامرد
+  Bavanat: false                            # بوانات
+  Arsanjan: false                           # ارسنجان
+  Khorrambid: false                         # خرم بید
+  Zarrindasht: false                        # زرین دشت
+  Qir-o-Karzin: false                       # قیروکارزین
+  Mehr: false                               # مهر
+  Farashband: false                         # فراشبند
+  Pasargad: false                           # پاسارگاد
+  Khonj: false                              # خنج
+  Sarvestan: false                          # سروستان
+  Rostam: false                             # رستم
+  Gerash: false                             # گراش
+  Kavar: false                              # کوار
+  Kherameh: false                           # خرامه
+
+  # 0 8 X X
+  # Kerman: کرمان
+  Baft: false                               # بافت
+  Bam: true                                 # بم
+  Jiroft: false                             # جیرفت
+  Rafsanjan: true                           # رفسنجان
+  Zarand: false                             # زرند
+  Sirjan: false                             # سیرجان
+  Shahr-e-Babak: false                      # شهربابک
+  Kerman: true                              # کرمان
+  Kahnuj: false                             # کهنوج
+  Bardsir: false                            # بردسیر
+  Ravar: false                              # راور
+  Anbarabad: false                          # عنبرآباد
+  Manujan: false                            # منوجان
+  Kuhbonan: false                           # کوهبنان
+  Roudbar-e-Jonub: false                    # رودبارجنوب
+  Ghaleye-Ganj: false                       # قلعه گنج
+  Rigan: false                              # ریگان
+  Rabar: false                              # رابر
+  Fahraj: false                             # فهرج
+  Anar: false                               # انار
+  Normashir: false                          # نرماشیر
+  Faryab: false                             # فاریاب
+  Arzuiyeh: false                           # ارزوئیه
+
+  # 0 9 X X
+  # Razavi_Khorasan: خراسان رضوی
+  Taybad: false                             # تایباد
+  Torbat-e-Heydarieh: true                  # تربت حیدریه
+  Torbat-e-Jam: false                       # تربت جام
+  Dargaz: false                             # درگز
+  Sabzevar: true                            # سبزوار
+  Quchan: false                             # قوچان
+  Kashmar: false                            # کاشمر
+  Gonabad: false                            # گناباد
+  Mashhad: true                             # مشهد
+  Nishapur: false                           # نیشابور
+  Chenaran: false                           # چناران
+  Khaf: false                               # خواف
+  Sarakhs: false                            # سرخس
+  Fariman: false                            # فریمان
+  Bardaskan: false                          # بردسکن
+  Rashtkhar: false                          # رشتخوار
+  Kalat: false                              # کلات
+  Khalilabad: false                         # خلیل آباد
+  Mahvelat: false                           # مه ولات
+  Bajestan: false                           # بجستان
+  Torghabe-o-Shandiz: false                 # بینالود
+  Firuzeh: false                            # فیروزه
+  Joghatai: false                           # جغتای
+  Zave: false                               # زاوه
+  Jowayin: false                            # جوین
+  Bakharz: false                            # باخرز
+  Khoshab: false                            # خوشاب
+  Davarzan: false                           # داورزن
+
+  # 1 0 X X
+  # Isfahan: اصفهان
+  Ardestan: false                           # اردستان
+  Isfahan: true                             # اصفهان
+  Khomeinishahr: false                      # خمینی شهر
+  Khansar: false                            # خوانسار
+  Semirom: false                            # سمیرم
+  Faridan: false                            # فریدن
+  Fereydunshahr: false                      # فریدونشهر
+  Falavarjan: false                         # فلاورجان
+  Shahreza: true                            # شهرضا
+  Kashan: true                              # کاشان
+  Golpayegan: true                          # گلپایگان
+  Lenjan: false                             # لنجان
+  Nain: false                               # نایین
+  Najafabad: false                          # نجف آباد
+  Natanz: false                             # نطنز
+  Shahinshahr-o-Meymeh: false               # شاهین شهرومیمه
+  Mobarakeh: false                          # مبارکه
+  Aran-o-Bidgol: false                      # آران وبیدگل
+  Tiran-o-Korun: false                      # تیران وکرون
+  Chadegan: false                           # چادگان
+  Dehaghan: false                           # دهاقان
+  Borkhar: false                            # برخوار
+  Khorobiyabanak: false                     # خور و بیابانک
+  Booeino_Miyandasht: false                 # بو یین و میاندشت
+
+  # 1 1 X X
+  # Sistan_and_Baluchestan: سیتان و بلوچستان
+  Iranshahr: false                          # ایرانشهر
+  Chabahar: false                           # چابهار
+  Khash: false                              # خاش
+  Zabol: true                               # زابل
+  Zahedan: true                             # زاهدان
+  Saravan: false                            # سراوان
+  Nikshahr: false                           # نیک شهر
+  Sarbaz: false                             # سرباز
+  Konarak: false                            # کنارک
+  Zehak: false                              # زهک
+  Hirmand: false                            # هیرمند
+  Dalgan: false                             # دلگان
+  Mehrestan: false                          # مهرستان
+  Sibo_Soran: false                         # سیب و سوران
+  Nimrouz: false                            # نیمروز
+  Hamoun: false                             # هامون
+  Mirjaveh: false                           # میرجاوه
+  Ghasre_Ghand: false                       # قصرقند
+  Fanouj: false                             # فنوج
+
+  # 1 2 X X
+  # Kurdistan: کردستان
+  Baneh: false                              # بانه
+  Bijar: false                              # بیجار
+  Saqqez: true                              # سقز
+  Sannandaj: true                           # سنندج
+  Qorveh: false                             # قروه
+  Marivan: false                            # مریوان
+  Divandarreh: false                        # دیواندره
+  Kamyaran: false                           # کامیاران
+  Sarvabad: false                           # سروآباد
+  Dehgolan: false                           # دهگلان
+  
+  # 1 3 X X
+  # Hamadan: همدان
+  Tuyserkan: true                           # تویسرکان
+  Malayer: true                             # ملایر
+  Nahavand: false                           # نهاوند
+  Hamadan: true                             # همدان
+  Kabudarahang: false                       # کبودرآهنگ
+  Asadabad: false                           # اسدآباد
+  Bahar: false                              # بهار
+  Razan: false                              # رزن
+  Famenin: false                            # فامنین
+  
+  # 1 4 X X
+  # Chaharmahal_and_Bakhtiari: چهارمحال و بختیاری
+  Borujen: true                             # بروجن
+  Shahrekord: true                          # شهرکرد
+  Farsan: false                             # فارسان
+  Lordegan: false                           # لردگان
+  Ardal: false                              # اردل
+  Kuhrang: false                            # کوهرنگ
+  Kiaar: false                              # کیار
+  Saman: false                              # سامان
+  Ben: false                                # بن
+
+  # 1 5 X X
+  # Lorestan: لرستان
+  Aligudarz: true                           # الیگودرز
+  Borujerd: true                            # بروجرد
+  Khorramabad: true                         # خرم آباد
+  Delfan: false                             # دلفان
+  Dorud: false                              # دورود
+  Kuhdasht: false                           # کوهدشت
+  Azna: false                               # ازنا
+  Poldokhtar: false                         # پلدختر
+  Selseleh: false                           # سلسله
+  Doureh: false                             # دوره
+  Romeshkan: false                          # رومشکان
+
+  # 1 6 X X
+  # Ilam: ایلام
+  Ilam: true                                # ایلام
+  Darreh_Shahr: false                       # دره شهر
+  Dehloran: true                            # دهلران
+  Shirvan-o-Chardavol: false                # چرداول
+  Mehran: false                             # مهران
+  Abdanan:  false                           # آبدانان
+  Eyvan:  false                             # ایوان
+  Malekshahi: false                         # ملکشاهی
+  Sirvan: false                             # سیروان
+  Badre:  false                             # بدره
+
+  # 1 7 X X
+  # Kohgiluyeh_and_Boyer_Ahmad: کهگیلویه و بویر احمد
+  Boyer-Ahmad: true                         # بویر احمد (شهر یاسوج)
+  Kohgeluyeh: false                         # کهگیلویه
+  Gachsaran: true                           # گچساران (شهر دوگنبدان)
+  Dena: false                               # دنا
+  Bahmai: false                             # بهمئی
+  Charam: false                             # چرام
+  Basht: false                              # باشت
+  Landeh: false                             # لنده
+
+  # 1 8 X X
+  # Bushehr: بوشهر
+  Bushehr: true                             # بوشهر
+  Tangestan: false                          # تنگستان
+  Dashtestan: true                          # دشتستان (شهر برازجان)
+  Dashti: false                             # دشتی
+  Dayyer: false                             # دیر
+  Kangan: false                             # کنگان
+  Ganaveh: false                            # گناوه
+  Deylam: false                             # دیلم
+  Jam: false                                # جم
+  Asaluyeh: false                           # عسلویه
+
+  # 1 9 X X
+  # Zanjan: زنجان
+  Abhar: ture                               # ابهر
+  Khodabandeh: false                        # خدابنده
+  Zanjan: true                              # زنجان
+  Eejrud: false                             # ایجرود
+  Khorramdarreh: false                      # خرمدره
+  Tarom: false                              # طارم
+  Mahneshan: false                          # ماهنشان
+  Soltanieh: false                          # سلطانیه
+
+  # 2 0 X X
+  # Semnan: سمنان
+  Damghan: true                             # دامغان
+  Semnan: true                              # سمنان
+  Shahrud: false                            # شاهرود
+  Garmsar: false                            # گرمسار
+  Mehdishahr: false                         # مهدی شهر
+  Aradan: false                             # آرادان
+  Meyami: false                             # میامی
+  Sorkheh: false                            # سرخه
+
+  # 2 1 X X
+  # Yazd: یزد
+  Ardekan: true                             # اردکان
+  Bafq: false                               # بافق
+  Taft: false                               # تفت
+  Mehriz: false                             # مهریز
+  Yazd: true                                # یزد
+  Meybod: false                             # میبد
+  Abarkuh: false                            # ابرکوه
+  Ashkezar: false                           # اشکذر
+  Khatam: false                             # خاتم
+  Bahabad: false                            # بهاباد
+
+  # 2 2 X X
+  # Hormozgan: هرمزگان
+  Abumusa: false                            # ابوموسی
+  Bandar-Lengeh: false                      # بندرلنگه
+  Bandar-Abbas: true                        # بندرعباس
+  Qeshm: false                              # قشم
+  Minab: true                               # میناب
+  Jask: false                               # جاسک
+  Rudan: false                              # رودان
+  Hajiabad: false                           # حاجی اباد
+  Bastak: false                             # بستک
+  Khamir: false                             # خمیر
+  Parsian: false                            # پارسیان
+  Sirik: false                              # سیریک
+  Bashagard: false                          # بشاگرد
+
+  # 2 3 X X
+  # Tehran: تهران
+  Tehran: true                              # تهران
+  Damavand: false                           # دماوند
+  Rey: false                                # ری
+  Shemiranat: false                         # شمیرانات
+  Varamin: true                             # ورامین
+  Shahriar: false                           # شهریار
+  Islamshahr: true                          # اسلام شهر
+  Robat-Karim: false                        # رباط کریم
+  Pakdasht: false                           # پاکدشت
+  Firuzkuh: false                           # فیروزکوه
+  Shahr-e_Qods: false                       # قدس
+  Malard: false                             # ملارد
+  Pishva: false                             # پیشوا
+  Baharestan: false                         # بهارستان
+  Pardis: false                             # پردیس
+  Qarchak: false                            # قرچک
+
+  # 2 4 X X
+  # Ardabil: اردبیل
+  Ardabil: true                             # اردبیل
+  Bilasavar: false                          # بیله سوار
+  Khalkhal: true                            # خلخال
+  Meshginshahr: false                       # مشگین شهر
+  Germi: false                              # گرمی
+  Parsabad: false                           # پارس آباد
+  Kowsar: false                             # کوثر
+  Namin: false                              # نمین
+  Nir: false                                # نیر
+  Sareyn: false                             # سرعین
+
+
+  # 2 5 X X
+  # Qom: قم
+  Qom: true                                 # قم
+
+  # 2 6 X X
+  # Qazvin: قزوین
+  Buin-Zahra: false                         # بوئین زهرا
+  Takestan: true                            # تاکستان
+  Qazvin: true                              # قزوین
+  Abyek: false                              # آبیک
+  Alborz: false                             # البرز
+  Avaj: false                               # آوج
+
+  # 2 7 X X
+  # Golestan: گلستان
+  Bandar-e-Gaz: false                       # بندرگز
+  Bandar-e-Torkaman: false                  # ترکمن
+  Aliabad: false                            # علی آباد
+  Kordkuy: false                            # کردکوی
+  Gorgan: true                              # گرگان
+  Gonbad-e-Kavus: true                      # گنبدکاووس
+  Minudasht: false                          # مینودشت
+  Aqqala: false                             # آق قلا
+  Kolaleh: false                            # کلاله
+  Azadshahr: false                          # آزادشهر
+  Ramian: false                             # رامیان
+  Maravehtapeh: false                       # مراوه تپه
+  Gomishan: false                           # گمیشان
+  Galikash: false                           # گالیکش
+
+  # 2 8 X X
+  # North_Khorasan: خراسان شمالی
+  Esfarayen: false                          # اسفراین
+  Bojnurd: true                             # بجنورد
+  Jajrom: false                             # جاجرم
+  Shirvan: true                             # شیروان
+  Faroj: false                              # فاروج
+  Maneh-o-Samalqan: false                   # مانه و سملقان
+  Germeh: false                             # گرمه
+  Razo_Jalgelan: false                      # راز و جرگلان
+
+  # 2 9 X X
+  # South_Khorasan: خراسان جنوبی
+  Birjand: true                             # بیرجند
+  Darmian: false                            # درمیان
+  Sarbisheh: false                          # سربیشه
+  Qaen: true                                # قائنات
+  Nehbandan: false                          # نهبندان
+  Sarayan: false                            # سرایان
+  Ferdows: false                            # فردوس
+  Boshruyeh: false                          # بشرویه
+  Zirkouh: false                            # زیرکوه
+  Khusf: false                              # خوسف
+  Tabas: false                              # طبس
+
+  # 3 0 X X
+  # Alborz: البرز
+  Karaj: true                               # کرج
+  Savojbolagh: false                        # ساوجبلاغ
+  Nazarabad: false                          # نظرآباد
+  Taleghan:  false                          # طالقان
+  Eshtehard: false                          # اشتهارد
+  Fardis:  false                            # فردیس
 
 
 geodiv_county_mapping_1391:
