@@ -35,6 +35,7 @@ all = [
     "pytest",
     "ipykernel",
     "ipywidgets",
+    "seaborn",
 ]
 dev = [
     "black",
@@ -52,6 +53,9 @@ maintain = [
 notebook = [
     "ipykernel",
     "ipywidgets",
+]
+plot = [
+    "seaborn",
 ]
 
 [project.urls]
