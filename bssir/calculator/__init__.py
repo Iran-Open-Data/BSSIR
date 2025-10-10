@@ -56,9 +56,10 @@ class Calculator:
         if bins > 0:
             quantile = (
                 quantile.multiply(bins)
-                .floordiv(1)
-                .add(1)
-                .clip(1, bins)
+                .case_when([
+                    (lambda s: s.mod(1).eq(0), lambda s: s),
+                    (lambda s: s.mod(1).ne(0), lambda s: s.floordiv(1).add(1)),
+                ])
                 .astype("Int64")
                 .rename(quantile_column_name)
             )

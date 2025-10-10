@@ -35,10 +35,6 @@ class QuantileSettings(BaseModel):
     groupby: list[str] = []
     years: list[int] | None = None
 
-    def model_post_init(self, __context=None) -> None:
-        if self.weight_column is None:
-            self.weight_column = self.api.defaults.columns.weight
-
 
 class Quantiler:
     """
@@ -62,13 +58,14 @@ class Quantiler:
     ) -> None:
         self.settings = settings.model_copy()
 
-        self.table = table
-        if self.table is not None:
-            if ("Year" in self.table.index.names) and ("ID" in self.table.index.names):
-                self.original_index = pd.DataFrame(index=self.table.index)
+        if table is not None:
+            if ("Year" in table.index.names) and ("ID" in table.index.names):
+                self.original_index = pd.DataFrame(index=table.index)
             else:
-                self.original_index = self.table[["Year", "ID"]]
-            self.table = self.table.copy().reset_index().set_index(["Year", "ID"])
+                self.original_index = table[["Year", "ID"]]
+            self.table = table.copy().reset_index().set_index(["Year", "ID"])
+        else:
+            self.table = table
         self.years = self._find_years()
         self.value_table = self.create_value_table()
 
@@ -90,7 +87,7 @@ class Quantiler:
             .loc[:, self.settings.equivalence_scale]
         )
         value_table["Values"] = value_table["Values"].div(equivalence_scale)
-        value_table = value_table.reset_index().dropna().sort_values("Values")
+        value_table = value_table.dropna().sort_values("Values")
         return value_table
 
     def _find_years(self) -> list[int]:
@@ -138,33 +135,48 @@ class Quantiler:
         groupby_columns = ["Year"] if self.settings.annual else []
         groupby_columns.extend(self.settings.groupby)
         quantile = (
-            self.value_table.pipe(self._add_attributes)
+            self.value_table
+            .pipe(self._add_attributes)
             .pipe(self._add_weights)
-            .groupby(groupby_columns)
-            .apply(self._calculate_subgroup_quantile)
-            .set_index(["Year", "ID"])["Quantile"]
+            .groupby(groupby_columns, group_keys=False)
+            .apply(self._calculate_subgroup_quantile, include_groups=False) # type: ignore
+            .pipe(self._align_with_table)
+            .loc[:, "Quantile"]
         )
-        quantile = self._align_with_table(quantile)
         return quantile
 
     def _calculate_subgroup_quantile(self, subgroup: pd.DataFrame) -> pd.DataFrame:
         return subgroup.assign(
-            CumWeight=lambda df: df[self.settings.weight_column].cumsum(),
+            CumWeight=lambda df: df["__quantile_weight"].cumsum(),
             Quantile=lambda df: df["CumWeight"] / df["CumWeight"].iloc[-1],
-        ).loc[:, ["Year", "ID", "Quantile"]]
+        )
 
     def _add_weights(self, table: pd.DataFrame) -> pd.DataFrame:
-        if self.settings.weighted:
-            return self.settings.api.add_weight(table)
-        return table.assign(Weight=1)
+        if self.settings.weight_column is not None:
+            assert isinstance(self.table, pd.DataFrame)
+            table = (
+                table
+                .join(self.table[self.settings.weight_column])
+                .rename(columns={self.settings.weight_column: "__quantile_weight"})
+            )
+        elif self.settings.weighted:
+            weight_col = self.settings.api.defaults.columns.weight
+            table = (
+                self.settings.api
+                .add_weight(table)
+                .rename(columns={weight_col: "__quantile_weight"})
+            )
+        else:
+            table["__quantile_weight"] = 1
+        return table
 
     def _add_attributes(self, table: pd.DataFrame) -> pd.DataFrame:
         for attribute in self.settings.groupby:  # type: ignore
             table = self.settings.api.add_attribute(table, name=attribute)
         return table
 
-    def _align_with_table(self, quantile: pd.Series) -> pd.Series:
+    def _align_with_table(self, quantile: pd.DataFrame) -> pd.DataFrame:
         if self.table is None:
             return quantile
-        quantile = self.original_index.join(quantile, on=["Year", "ID"])["Quantile"]
+        quantile = self.original_index.join(quantile, on=["Year", "ID"])
         return quantile
