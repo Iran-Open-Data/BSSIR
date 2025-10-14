@@ -216,7 +216,7 @@ class Pipeline:
         pipeline_params: dict,
         settings: LoadTableSettings,
     ) -> None:
-        self.table = table
+        self.table = table.copy()
         self.steps = steps
         self.pipeline_params = pipeline_params
         self.settings = settings
@@ -322,16 +322,16 @@ class Pipeline:
     def __apply_categorical_instruction(
         self, column_name: str, categories: dict
     ) -> None:
-        categorical_column = pd.Series(
-            index=self.table.index,
-            dtype=pd.CategoricalDtype(list(categories.keys()))
-        )
+        dtype = pd.CategoricalDtype(list(categories.keys()))
+        categorical_column = pd.Series(index=self.table.index, dtype=dtype)
 
         for category, condition in categories.items():
             filt = self.__construct_filter(column_name, condition)
             categorical_column.loc[filt] = category
 
-        self.table[column_name] = categorical_column
+        if column_name in self.table.columns:
+            self.table[column_name] = self.table[column_name].astype(dtype)
+        self.table.loc[:, column_name] = categorical_column
 
     def __construct_filter(self, column_name, condition) -> pd.Series:
         if condition is None:
@@ -408,7 +408,7 @@ class Pipeline:
     def _dropna(self, method_input: str | list | None = None) -> None:
         if method_input is None:
             return
-        self.table.dropna(subset=method_input, inplace=True)
+        self.table = self.table.dropna(subset=method_input)
 
     def _fillna(self, method_input: str | list | dict | None = None) -> None:
         if method_input is None:
@@ -549,7 +549,7 @@ class TableFactory:
         while len(table_list) > 0:
             table = table_list.pop(0)
             if table.split(".", 1)[0] == "external":
-                file_name = f"{table.split(".", 1)[1]}.parquet"
+                file_name = f"{table.split('.', 1)[1]}.parquet"
                 local_path = self.lib_defaults.dir.external.joinpath(file_name)
                 size = local_path.stat().st_size if local_path.exists() else None
                 dependencies[table] = {"size": size}
