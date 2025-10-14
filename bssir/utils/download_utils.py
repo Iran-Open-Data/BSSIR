@@ -32,16 +32,17 @@ def download(url: str, path: Path) -> None:
     """
     logging.info(f"Downloading {url} to {path}.")
     part_path = path.with_suffix(path.suffix + ".part")
-    
+
     try:
         response = requests.get(url, stream=True, timeout=60)
         response.raise_for_status()
 
         total_size = response.headers.get("content-length")
         if total_size is None:
-            raise IOError(f"Server did not provide content-length for URL: {url}")
+            total_size = 0
+            logging.warning(f"Server did not provide content-length for URL: {url}")
         total_size = int(total_size)
-        
+
         # Check if the final file already exists and is complete.
         if path.exists() and path.stat().st_size == total_size:
             logging.info(f"File {path.name} already exists. Skipping.")
@@ -66,13 +67,11 @@ def download(url: str, path: Path) -> None:
                 file.write(chunk)
                 progress_bar.update(len(chunk))
 
-        # --- Rename the file only after the download is successful ---
         path.unlink(missing_ok=True)
         part_path.rename(path)
 
     except (requests.exceptions.RequestException, IOError) as e:
         logging.error(f"Download failed for {url}. Error: {e}")
-        # --- Crucially, delete the partial file on any error ---
         if part_path.exists():
             logging.info(f"Deleting incomplete file: {part_path.name}")
             part_path.unlink()
