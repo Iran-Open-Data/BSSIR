@@ -62,6 +62,7 @@ def download(url: str, path: Path) -> None:
             unit_scale=True,
             unit_divisor=1024,
             leave=False,
+            disable=True,
         ) as progress_bar:
             for chunk in response.iter_content(chunk_size=chunk_size):
                 file.write(chunk)

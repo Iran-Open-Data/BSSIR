@@ -140,6 +140,7 @@ def download(
         desc="Downloading annual data",
         bar_format=lib_defaults.bar_format,
         unit="Year",
+        disable=True,
     ):
         if lib_defaults.private_data:
             _download_year_private_data(
@@ -177,6 +178,7 @@ def _download_year_private_data(
         bar_format=lib_defaults.bar_format,
         unit="File",
         leave=False,
+        disable=True,
     ):
         target_path = lib_defaults.dir.original.joinpath(file_info["name"])
         if target_path.exists() and not replace:
@@ -210,6 +212,7 @@ def _download_year_public_data(
         bar_format=lib_defaults.bar_format,
         unit="File",
         leave=False,
+        disable=True,
     ):
         file_name: str = file_info["name"]
         relative_path = Path(str(year), file_name)
@@ -274,6 +277,7 @@ def unpack(years: list[int], *, lib_defaults: Defaults, replace: bool = False) -
         desc="Unpacking annual archives",
         bar_format=lib_defaults.bar_format,
         unit="Year",
+        disable=True,
     ):
         _unpack_year(year, lib_defaults=lib_defaults, replace=replace)
 
@@ -410,6 +414,7 @@ def extract(
         desc="Extracting annual archives",
         bar_format=lib_defaults.bar_format,
         unit="Year",
+        disable=True,
     ):
         source_dir = lib_defaults.dir.unpacked.joinpath(str(year))
         access_files = _find_files_with_extensions(source_dir, MS_ACCESS_FILE_EXTENSIONS)
@@ -494,6 +499,7 @@ def _extract_tables_from_access_file(
                 bar_format=lib_defaults.bar_format,
                 unit="Table",
                 leave=False,
+                disable=True,
             ):
                 _extract_table(
                     cursor,
