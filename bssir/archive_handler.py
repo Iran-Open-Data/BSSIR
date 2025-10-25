@@ -419,7 +419,7 @@ def extract(
         source_dir = lib_defaults.dir.unpacked.joinpath(str(year))
         access_files = _find_files_with_extensions(source_dir, MS_ACCESS_FILE_EXTENSIONS)
         if replace:
-            shutil.rmtree(lib_defaults.dir.extracted / str(year))
+            shutil.rmtree(lib_defaults.dir.extracted/str(year), ignore_errors=True)
         for file in access_files:
             add_prefix = len(access_files) > 1
             _extract_tables_from_access_file(
