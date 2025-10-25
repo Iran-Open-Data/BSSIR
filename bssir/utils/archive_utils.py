@@ -49,13 +49,16 @@ def extract(
     """
     suffix = compressed_file.suffix.lower()
     if suffix == ".zip":
-        unzip(compressed_file=compressed_file, output_directory=output_directory)
-    elif suffix == ".rar":
-        unrar(
-            compressed_file=compressed_file,
-            output_directory=output_directory,
-            seven_zip_directory=seven_zip_directory,
-        )
+        try:
+            unzip(compressed_file=compressed_file, output_directory=output_directory)
+            return
+        except zipfile.BadZipFile:
+            pass
+    unrar(
+        compressed_file=compressed_file,
+        output_directory=output_directory,
+        seven_zip_directory=seven_zip_directory,
+    )
 
 
 def unzip(compressed_file: Path, output_directory: Path) -> None:
