@@ -58,6 +58,7 @@ ARCHIVE_EXTENSIONS = {".zip", ".rar"}
 MS_ACCESS_FILE_EXTENSIONS = {".mdb", ".accdb"}
 DBF_FILE_EXTENSIONS = {".dbf"}
 STATA_FILE_EXTENSIONS = {".dta"}
+CSV_FILE_EXTENSIONS = {".csv"}
 
 
 def setup(
@@ -442,6 +443,12 @@ def extract(
                 year, file, lib_defaults=lib_defaults, replace=replace
             )
 
+        csv_files = _find_files_with_extensions(source_dir, CSV_FILE_EXTENSIONS)
+        for file in csv_files:
+            _move_csv_file(
+                year, file, lib_defaults=lib_defaults, replace=replace
+            )
+
 
 def _extract_tables_from_access_file(
     year: int,
@@ -742,6 +749,17 @@ def _extract_tables_from_stata_file(
         return
     table = pd.read_stata(file_path)
     table.to_csv(csv_file_path, index=False)
+
+
+def _move_csv_file(
+    year: int, file_path: Path, *, lib_defaults: Defaults, replace: bool = True
+) -> None:
+    year_directory = lib_defaults.dir.extracted.joinpath(str(year))
+    year_directory.mkdir(parents=True, exist_ok=True)
+    csv_file_path = year_directory.joinpath(f"{file_path.stem}.csv")
+    if csv_file_path.exists() and not replace:
+        return
+    shutil.copy(file_path, csv_file_path)
 
 
 def _find_files_with_extensions(
