@@ -153,7 +153,8 @@ wheels = [
 
 [[package]]
 name = "bssir"
-source = { virtual = "." }
+version = "0.6.5"
+source = { editable = "." }
 dependencies = [
     { name = "dbfread" },
     { name = "openpyxl" },
@@ -206,6 +207,7 @@ plot = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "bssir" },
     { name = "ruff" },
 ]
 
@@ -250,7 +252,10 @@ requires-dist = [
 provides-extras = ["all", "dev", "maintain", "notebook", "plot"]
 
 [package.metadata.requires-dev]
-dev = [{ name = "ruff", specifier = ">=0.14.0" }]
+dev = [
+    { name = "bssir", editable = "." },
+    { name = "ruff", specifier = ">=0.14.0" },
+]
 
 [[package]]
 name = "certifi"
