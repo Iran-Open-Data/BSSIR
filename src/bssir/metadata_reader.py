@@ -459,14 +459,13 @@ class Config:
         return {}
 
     def __setup_docs(self):
-        package_root: Path = self.settings["package_dir"].parent
         self.settings["docs"] = {
-            key: package_root.joinpath("docs", *value.split("/"))
+            key: self.root_dir.joinpath("docs", *value.split("/"))
             for key, value in self.settings["docs"].items()
         }
         for path in self.settings["docs"].values():
             path.mkdir(parents=True, exist_ok=True)
-        gitignore = package_root.joinpath("docs", "temp", ".gitignore")
+        gitignore = self.root_dir.joinpath("docs", "temp", ".gitignore")
         gitignore.parent.mkdir(parents=True, exist_ok=True)
         if not gitignore.exists():
             with gitignore.open(mode="w") as file:
