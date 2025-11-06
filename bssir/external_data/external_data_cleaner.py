@@ -1,3 +1,4 @@
+import json
 import logging
 from typing import Callable, Literal
 import importlib
@@ -147,13 +148,17 @@ class ExternalDataCleaner:
         assert self.raw_file_path is not None
         if (not self.raw_file_path.exists()) or self.settings.redownload:
             utils.download(self.url, self.raw_file_path)
+        suffix = self.raw_file_path.suffix
         if self.reading_function:
             table = self.reading_function(self.raw_file_path)
-        elif self.raw_file_path.suffix in [".xlsx"]:
+        elif suffix in [".xlsx"]:
             sheet_name = self.metadata.get("sheet_name", 0)
             table = pd.read_excel(
                 self.raw_file_path, header=None, sheet_name=sheet_name
             )
+        elif suffix == ".json":
+            with self.raw_file_path.open(encoding="utf-8") as file:
+                json_content = json.load(file)
         else:
             raise ValueError("Format not supported yet")
         return table

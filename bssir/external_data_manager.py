@@ -55,6 +55,7 @@ def setup_external_data() -> None:
         "sci.cpi_1400.monthly.urban_rural",
         "sci.cpi_1400.quarterly.urban_rural",
         "sci.cpi_1400.annual.urban_rural",
+        "sci.urban_food_items_price.monthly",
         "wb.ppp_conversion_factor",
         "imf.ppp_conversion_factor",
         "imf.population",

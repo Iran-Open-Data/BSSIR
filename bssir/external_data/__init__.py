@@ -13,7 +13,7 @@ __all__ = ["load_table"]
 
 
 _DataSource = Literal["SCI", "CBI"]
-_Frequency = Literal["Annual", "Monthly"]
+_Frequency = Literal["Annual", "Quarterly", "Monthly"]
 _SeparateBy = Literal["Urban_Rural", "Province"]
 
 

@@ -1,5 +1,5 @@
 import logging
-from typing import Any, Callable, Literal, Iterable, overload, Optional
+from typing import Any, Callable, Literal, Iterable
 from types import ModuleType
 import importlib
 
@@ -10,7 +10,7 @@ from . import archive_handler, data_cleaner, external_data, data_engine, decoder
 from .utils import Utils
 
 _DataSource = Literal["SCI", "CBI"]
-_Frequency = Literal["Annual", "Monthly"]
+_Frequency = Literal["Annual", "Quarterly", "Monthly"]
 _SeparateBy = Literal["Urban_Rural", "Province"]
 
 
