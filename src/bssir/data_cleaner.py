@@ -350,6 +350,9 @@ def _apply_type_to_column(column: pd.Series, column_metadata: dict) -> pd.Series
 
     cleaned_column = _general_cleaning(column.copy())
 
+    if replace_map := column_metadata.get("replace"):
+        cleaned_column = cleaned_column.replace(replace_map)
+
     if target_type == "category":
         categories_map = column_metadata.get("categories")
         if categories_map is None:
