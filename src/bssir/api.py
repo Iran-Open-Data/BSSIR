@@ -6,7 +6,7 @@ import importlib
 import pandas as pd
 
 from .metadata_reader import Defaults, Metadata, _Years, LoadTableSettings
-from . import archive_handler, data_cleaner, external_data, data_engine, decoder
+from . import data_cleaner, external_data, data_engine, decoder
 from .utils import Utils
 
 _DataSource = Literal["SCI", "CBI"]
@@ -69,6 +69,8 @@ class API:
             Any exceptions raised by settings.model_copy(...) or archive_handler.setup
             are logged and re-raised to the caller.
         """
+        from . import archive_handler
+
         settings_model = self.defaults.functions.setup_raw_data
         try:
             settings = settings_model.model_copy(update=kwargs)
