@@ -458,7 +458,7 @@ class Config:
                 continue
         return {}
 
-    def __setup_docs(self):
+    def setup_docs(self):
         self.settings["docs"] = {
             key: self.root_dir.joinpath("docs", *value.split("/"))
             for key, value in self.settings["docs"].items()
@@ -480,7 +480,6 @@ class Config:
         self.settings["base_package_dir"] = self.base_package_dir
         self.settings["package_dir"] = package_path
         self.settings["root_dir"] = self.root_dir
-        self.__setup_docs()
         _defaults = Defaults(**self.settings)
         _metadata = Metadata(_defaults)
         return _defaults, _metadata
