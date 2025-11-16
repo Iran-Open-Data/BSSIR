@@ -32,18 +32,23 @@ all = [
   "mkdocs-literate-nav",
   "mkdocs-autorefs",
   "mkdocstrings-python",
+  "mkdocs-jupyter",
   "pytest",
   "ipykernel",
   "ipywidgets",
   "seaborn",
 ]
-dev = [
-  "black",
+docs = [
+  "tabulate",
   "mkdocs",
   "mkdocs-material",
   "mkdocs-literate-nav",
   "mkdocs-autorefs",
   "mkdocstrings-python",
+  "mkdocs-jupyter",
+]
+dev = [
+  "black",
   "pytest",
 ]
 maintain = [
