@@ -1,7 +1,7 @@
 from .external_data_manager import load_external_table
 
 
-__version__ = "0.6.6"
+__version__ = "0.6.7"
 
 __all__ = [
     "load_external_table",
