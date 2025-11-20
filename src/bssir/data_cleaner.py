@@ -71,6 +71,9 @@ def load_raw_table(
         msg = f"Extracted data directory not found for year {year}: {year_directory}"
         logging.error(msg)
         raise FileNotFoundError(msg)
+    
+    table_settings = _get_table_settings(table_name, year, lib_metadata=lib_metadata)
+    encoding = table_settings["encoding"]
 
     file_code = utils.resolve_metadata(
         lib_metadata.tables[table_name]["file_code"], year
@@ -90,8 +93,26 @@ def load_raw_table(
         f"Loading {len(file_paths)} file(s) for table '{table_name}' in year {year}."
     )
 
-    tables_to_concat = [pd.read_csv(path, dtype=str) for path in file_paths]
-    return pd.concat(tables_to_concat, ignore_index=True)
+    tables_to_concat = [
+        pd.read_csv(path, dtype=str, encoding=encoding) for path in file_paths
+    ]
+
+    raw_table = pd.concat(tables_to_concat, ignore_index=True)
+    return raw_table
+
+
+def _get_table_settings(
+    table_name: str,
+    year: int,
+    *,
+    lib_metadata: Metadata,
+) -> dict:
+    default_settings = lib_metadata.tables["default_settings"]
+    table_metadata = utils.resolve_metadata(lib_metadata.tables[table_name], year)
+    assert isinstance(table_metadata, dict)
+    table_settings = default_settings.copy()
+    table_settings.update(table_metadata.get("settings", {}))
+    return table_settings
 
 
 def _normalize_file_patterns(file_code: Any) -> list[str]:
