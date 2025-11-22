@@ -5896,7 +5896,7 @@ isic_4:
 
 isic_4_two_digit:
 
-  items: &isic4_items
+  items: &isic4_two_digit_items
     A:
       level: 1
       title: Agriculture, forestry and fishing
