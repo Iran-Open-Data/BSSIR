@@ -725,6 +725,407 @@ isco:
       code: {start: 500, end: 600}
 
 
+isco_two_digit:
+  defaults:
+    levels: [1]
+    column_names: ["Occupation"]
+
+  items:
+    '1':
+      level: 1
+      label: managers
+      title: Managers
+      farsi_title: مدیران
+      code: {start: 10, end: 20}
+
+    '11':
+      level: 2
+      label: chief_executives_senior_officials_and_legislators
+      title: Chief Executives, Senior Officials and Legislators
+      farsi_title: مدیران ارشد اجرایی، مقامات ارشد و قانون‌گذاران
+      code: {start: 11, end: 12}
+
+    '12':
+      level: 2
+      label: administrative_and_commercial_managers
+      title: Administrative and Commercial Managers
+      farsi_title: مدیران امور اداری و تجاری
+      code: {start: 12, end: 13}
+
+    '13':
+      level: 2
+      label: production_and_specialized_services_managers
+      title: Production and Specialized Services Managers
+      farsi_title: مدیران تولید و خدمات تخصصی
+      code: {start: 13, end: 14}
+
+    '14':
+      level: 2
+      label: hospitality_retail_and_other_services_managers
+      title: Hospitality, Retail and Other Services Managers
+      farsi_title: مدیران مهمان‌داری، خرده‌فروشی و مدیران سایر خدمات
+      code: {start: 14, end: 15}
+
+    '2':
+      level: 1
+      label: professionals
+      title: Professionals
+      farsi_title: متخصصان
+      code: {start: 20, end: 30}
+
+    '21':
+      level: 2
+      label: science_and_engineering_professionals
+      title: Science and Engineering Professionals
+      farsi_title: متخصصان علوم پایه و علوم مهندسی
+      code: {start: 21, end: 22}
+
+    '22':
+      level: 2
+      label: health_professionals
+      title: Health Professionals
+      farsi_title: متخصصان سلامت و بهداشت
+      code: {start: 22, end: 23}
+
+    '23':
+      level: 2
+      label: teaching_professionals
+      title: Teaching Professionals
+      farsi_title: متخصصان آموزش
+      code: {start: 23, end: 24}
+
+    '24':
+      level: 2
+      label: business_and_administration_professionals
+      title: Business and Administration Professionals
+      farsi_title: متخصصان امور تجاری و اداری 
+      code: {start: 24, end: 25}
+
+    '25':
+      level: 2
+      label: information_and_communications_technology_professionals
+      title: Information and Communications Technology Professionals
+      farsi_title: متخصصان فناوری اطلاعات و ارتباطات
+      code: {start: 25, end: 26}
+
+    '26':
+      level: 2
+      label: legal_social_and_cultural_professionals
+      title: Legal, Social and Cultural Professionals
+      farsi_title: متخصصان امور حقوقی، اجتماعی و مذهبی
+      code: {start: 26, end: 27}
+
+    '3':
+      level: 1
+      label: technicians_and_associate_professionals
+      title: Technicians and Associate Professionals
+      farsi_title: تکنسین‌ها و کمک‌متخصصان
+      code: {start: 30, end: 40}
+
+    '31':
+      level: 2
+      label: science_and_engineering_associate_professionals
+      title: Science and Engineering Associate Professionals
+      farsi_title: کمک‌متخصصان علوم پایه و علوم مهندسی
+      code: {start: 31, end: 32}
+
+    '32':
+      level: 2
+      label: health_associate_professionals
+      title: Health Associate Professionals
+      farsi_title: کمک‌متخصصان سلامت و بهداشت 
+      code: {start: 32, end: 33}
+
+    '33':
+      level: 2
+      label: business_and_administration_associate_professionals
+      title: Business and Administration Associate Professionals
+      farsi_title: کمک‌متخصصان امور تجاری و اداری  
+      code: {start: 33, end: 34}
+
+    '34':
+      level: 2
+      label: legal_social_cultural_and_related_associate_professionals
+      title: Legal, Social, Cultural and Related Associate Professionals
+      farsi_title: کمک‌متخصصان امور حقوقی، اجتماعی، فرهنگی، مذهبی و امور مرتبط
+      code: {start: 34, end: 35}
+
+    '35':
+      level: 2
+      label: information_and_communications_technicians
+      title: Information and Communications Technicians
+      farsi_title: تکنسین‌های اطلاعات و ارتباطات
+      code: {start: 35, end: 36}
+
+    '4':
+      level: 1
+      label: clerical_support_workers
+      title: Clerical Support Workers
+      farsi_title: کارکنان پشتیبانی دفتری
+      code: {start: 40, end: 50}
+
+    '41':
+      level: 2
+      label: general_and_keyboard_clerks
+      title: General and Keyboard Clerks
+      farsi_title: کارکنان امور عمومی دفتری و متصدیان ماشین‌های اداری 
+      code: {start: 41, end: 42}
+
+    '42':
+      level: 2
+      label: customer_services_clerks
+      title: Customer Services Clerks
+      farsi_title: کارکنان ارائه خدمات به مشتریان
+      code: {start: 42, end: 43}
+
+    '43':
+      level: 2
+      label: numerical_and_material_recording_clerks
+      title: Numerical and Material Recording Clerks
+      farsi_title: متصدیان ثبت ارقام و اقلام 
+      code: {start: 43, end: 44}
+
+    '44':
+      level: 2
+      label: other_clerical_support_workers
+      title: Other Clerical Support Workers
+      farsi_title: سایر کارکنان پشتیبانی دفتری
+      code: {start: 44, end: 45}
+
+    '5':
+      level: 1
+      label: service_and_sales_workers
+      title: Service and Sales Workers
+      farsi_title: کارکنان ارائه خدمات و کارکنان فروش
+      code: {start: 50, end: 60}
+
+    '51':
+      level: 2
+      label: personal_service_workers
+      title: Personal Service Workers
+      farsi_title: کارکنان ارائه خدمات شخصی
+      code: {start: 51, end: 52}
+
+    '52':
+      level: 2
+      label: sales_workers
+      title: Sales Workers
+      farsi_title: کارکنان فروش
+      code: {start: 52, end: 53}
+
+    '53':
+      level: 2
+      label: personal_care_workers
+      title: Personal Care Workers
+      farsi_title: کارکنان ارائه مراقبت‌های‌ شخصی
+      code: {start: 53, end: 54}
+
+    '54':
+      level: 2
+      label: protective_services_workers
+      title: Protective Services Workers
+      farsi_title: کارکنان ارائه خدمات حفاظتی
+      code: {start: 54, end: 55}
+
+    '6':
+      level: 1
+      label: skilled_agricultural_forestry_and_fishery_workers
+      title: Skilled Agricultural, Forestry and Fishery Workers
+      farsi_title: کارکنان ماهر کشاورزی، جنگل‌داری و ماهیگیری
+      code: {start: 60, end: 70}
+
+    '61':
+      level: 2
+      label: market_oriented_skilled_agricultural_workers
+      title: Market-oriented Skilled Agricultural Workers
+      farsi_title: کارکنان ماهر کشاورزی بازارمدار
+      code: {start: 61, end: 62}
+
+    '62':
+      level: 2
+      label: market_oriented_skilled_forestry_fishery_and_hunting_workers
+      title: Market-Oriented Skilled Forestry, Fishery and Hunting Workers
+      farsi_title: کارکنان ماهر جنگل‌داری، ماهیگیری و شکار بازارمدار
+      code: {start: 62, end: 63}
+
+    '63':
+      level: 2
+      label: subsistence_farmers_fishers_hunters_and_gatherers
+      title: Subsistence Farmers, Fishers, Hunters and Gatherers
+      farsi_title: کشاورزان، ماهیگیران، شکارچیان و گردآوران خودمصرف
+      code: {start: 63, end: 64}
+
+
+    '7':
+      level: 1
+      label: craft_and_related_trades_workers
+      title: Craft and Related Trades Workers
+      farsi_title: صنعتگران و کارکنان حرفه‌های مرتبط
+      code: {start: 70, end: 80}
+
+    '71':
+      level: 2
+      label: building_and_related_trades_workers_(excluding_electricians)
+      title: Building and Related Trades Workers (excluding Electricians)
+      farsi_title: کارکنان اجرای طرح‌های عمرانی یا ساختمان‌سازی و کارکنان
+        حرفه‌های مرتبط (به‌جز برق‌کارها)
+      code: {start: 71, end: 72}
+
+    '72':
+      level: 2
+      label: metal_machinery_and_related_trades_workers
+      title: Metal, Machinery and Related Trades Workers
+      farsi_title: کارکنان فلزکاری، ماشین‌آلات فلزکاری و کارکنان حرفه‌های مرتبط
+      code: {start: 72, end: 73}
+
+    '73':
+      level: 2
+      label: handicraft_and_printing_workers
+      title: Handicraft and Printing Workers
+      farsi_title: کارکنان صنایع دستی و چاپ
+      code: {start: 73, end: 74}
+
+    '74':
+      level: 2
+      label: electrical_and_electronics_trades_workers
+      title: Electrical and Electronics Trades Workers
+      farsi_title: کارکنان مشاغل مربوط به برق و الکترونیک و کارکنان حرفه‌های مرتبط
+      code: {start: 74, end: 75}
+
+    '75':
+      level: 2
+      label: food_processing_woodworking_garment_and_other_craft_and_related_
+        trades_workers
+      title: >
+        Food Processing, Woodworking, Garment and Other Craft and Related
+        Trades Workers
+      farsi_title: کارکنان فراوری مواد غذایی، کار روی چوب، پوشاک و کارکنان سایر
+        صنایع و حرفه‌های مرتبط
+      code: {start: 75, end: 76}
+
+
+    '8':
+      level: 1
+      label: plant_and_machine_operators_and_assemblers
+      title: Plant and Machine Operators, and Assemblers
+      farsi_title: متصدیان ماشین‌آلات و دستگاه‌ها و مونتاژکاران
+      code: {start: 80, end: 90}
+
+    '81':
+      level: 2
+      label: stationary_plant_and_machine_operators
+      title: Stationary Plant and Machine Operators
+      farsi_title: متصدیان ماشین‌آلات و دستگاه‌های ثابت
+      code: {start: 81, end: 82}
+
+    '82':
+      level: 2
+      label: assemblers
+      title: Assemblers
+      farsi_title: مونتاژکاران
+      code: {start: 82, end: 83}
+
+    '83':
+      level: 2
+      label: drivers_and_mobile_plant_operators
+      title: Drivers and Mobile Plant Operators
+      farsi_title: رانندگان و متصدیان ماشین‌آلات متحرک
+      code: {start: 83, end: 84}
+
+
+    '9':
+      level: 1
+      label: elementary_occupations
+      title: Elementary Occupations
+      farsi_title: کارکنان مشاغل ساده  
+      code: {start: 90, end: 100}
+
+    '91':
+      level: 2
+      label: cleaners_and_helpers
+      title: Cleaners and Helpers
+      farsi_title: نظافتچی‌ها و مستخدمان (غیراز خدمتکاران)
+      code: {start: 91, end: 92}
+
+    '92':
+      level: 2
+      label: agricultural_forestry_and_fishery_labourers
+      title: Agricultural, Forestry and Fishery Labourers
+      farsi_title: کارگران مشاغل ساده کشاورزی، جنگل‌داری و ماهیگیری 
+      code: {start: 92, end: 93}
+
+    '93':
+      level: 2
+      label: labourers_in_mining_construction_manufacturing_and_transport
+      title: Labourers in Mining, Construction, Manufacturing and Transport
+      farsi_title: کارگران مشاغل ساده معادن، اجرای طرح‌های عمرانی یا
+        ساختمان‌سازی، تولید صنعتی و حمل‌ونقل
+      code: {start: 93, end: 94}
+
+    '94':
+      level: 2
+      label: food_preparation_assistants
+      title: Food Preparation Assistants
+      farsi_title: دستیاران آماده‌سازی غذا
+      code: {start: 94, end: 95}
+
+    '95':
+      level: 2
+      label: street_and_related_sales_and_service_workers
+      title: Street and Related Sales and Service Workers
+      farsi_title: کارکنان فروش و خدمات خیابانی و خدمات مرتبط
+      code: {start: 95, end: 96}
+
+    '96':
+      level: 2
+      label: refuse_workers_and_other_elementary_workers
+      title: Refuse Workers and Other Elementary Workers
+      farsi_title: کارکنان مشاغل مرتبط با زباله‌ها و سایر کارکنان مشاغل ساده
+      code: {start: 96, end: 97}
+
+    '0':
+      level: 1
+      label: armed_forces_occupations
+      title: Armed Forces Occupations
+      farsi_title: مشاغل نیروهای مسلح
+      code: {start: 1, end: 10}
+
+    # '01':
+    #   level: 2
+    #   label: commissioned_armed_forces_officers
+    #   title: Commissioned Armed forces Officers
+    #   farsi_title: افسران نیروهای مسلح
+    #   code: {start: 1, end: 2}
+
+    # '02':
+    #   level: 2
+    #   label: non_commissioned_armed_forces_officers
+    #   title: Non-commissioned Armed Forces Officers
+    #   farsi_title: درجه داران نیروهای مسلح
+    #   code: {start: 2, end: 3}
+
+    # '03':
+    #   level: 2
+    #   label: armed_forces_occupations_other_ranks
+    #   title: Armed Forces Occupations, Other Ranks
+    #   farsi_title: سایر مشاغل نیروهای مسلح
+    #   code: {start: 3, end: 4}
+
+    '04':
+      level: 2
+      label: 
+      title: 
+      farsi_title: نیروهای مسلح (کادر نیروهای نظامی و انتظامی)
+      code: {start: 4, end: 5}
+
+    '05':
+      level: 2
+      label: 
+      title: 
+      farsi_title: درجه‌داران و افسران وظیفه و سربازان نیروهای نظامی و انتظامی
+      code: {start: 5, end: 6}
+
+
 original:
   defaults:
     levels: [1]
