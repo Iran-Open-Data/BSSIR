@@ -59,14 +59,15 @@ def parse_years(
     else:
         table_available_years = None
 
-    if years == "all":
-        if table_available_years is None:
-            raise ValueError
-        years = table_available_years
-    elif years == "last":
-        if available_years is None:
-            raise ValueError
-        years = max(available_years)
+    if isinstance(years, str):
+        if years == "all":
+            if table_available_years is None:
+                raise ValueError
+            years = table_available_years
+        elif years == "last":
+            if available_years is None:
+                raise ValueError
+            years = max(available_years)
 
     year_list = _parse_years_param(years)
 
