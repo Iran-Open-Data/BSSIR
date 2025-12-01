@@ -18,12 +18,145 @@ isco:
       farsi_title: مدیران ارشد اجرایی، مقامات ارشد و قانون‌گذاران
       code: {start: 1100, end: 1200}
 
+    '111':
+      level: 3
+      label: legislators_and_senior_officials
+      title: Legislators and Senior Officials
+      farsi_title: قانون‌گذاران و مقامات ارشد
+      code: {start: 1110, end: 1120}
+
+    # '1111':
+    #   level: 4
+    #   label: legislators
+    #   title: Legislators
+    #   farsi_title: قانون‌گذاران
+    #   code: 1111
+
+    # '1112':
+    #   level: 4
+    #   label: senior_government_officials
+    #   title: Senior Government Officials
+    #   farsi_title: مقامات ارشد دولتی
+    #   code: 1112
+
+    # '1113':
+    #   level: 4
+    #   label: traditional_chiefs_and_heads_of_villages
+    #   title: Traditional Chiefs and Heads of Villages
+    #   farsi_title: رییسان و کدخدای های سنتی روستاها
+    #   code: 1113
+
+    '1114':
+      level: 4
+      label: senior_officials_of_special_interest_organizations
+      title: Senior Officials of Special-interest Organizations
+      farsi_title: مقامات ارشد سازمان های دارای منافع خاص
+      code: 1114
+
+    '1115':
+      level: 4
+      label: legislators_and_senior_government_officials
+      title: Legislators and Senior Government Officials
+      farsi_title: قانون‌گذاران و مقامات ارشد دولتی
+      code: 1115
+
+    '112':
+      level: 3
+      label: managing_directors_and_chief_executives
+      title: Managing Directors and Chief Executives
+      farsi_title: مدیران عامل و مدیران ارشد اجرایی
+      code: {start: 1120, end: 1130}
+
+    '1120':
+      level: 4
+      label: managing_directors_and_chief_executives
+      title: Managing Directors and Chief Executives
+      farsi_title: مدیران عامل و مدیران ارشد اجرایی
+      code: 1120
+
     '12':
       level: 2
       label: administrative_and_commercial_managers
       title: Administrative and Commercial Managers
       farsi_title: مدیران امور اداری و تجاری
       code: {start: 1200, end: 1300}
+
+    '121':
+      level: 3
+      label: business_services_and_administration_managers
+      title: Business Services and Administration Managers
+      farsi_title: مدیران خدمات سازمانی و امور اداری
+      code: {start: 1210, end: 1220}
+
+    # '1211':
+    #   level: 4
+    #   label: finance_managers
+    #   title: Finance Managers
+    #   farsi_title: مدیران مالی
+    #   code: 1211
+
+    '1212':
+      level: 4
+      label: human_resource_managers
+      title: Human Resource Managers
+      farsi_title: مدیران منابع انسانی
+      code: 1212
+
+    # '1213':
+    #   level: 4
+    #   label: policy_and_planning_managers
+    #   title: Policy and Planning Managers
+    #   farsi_title: مدیران سیاست­گذاری و برنامه‌­ریزی
+    #   code: 1213
+
+    '1214':
+      level: 4
+      label: 
+      title: 
+      farsi_title: مدیران امور مالی و بیمه
+      code: 1214
+
+    '1215':
+      level: 4
+      label: 
+      title: 
+      farsi_title: مدیران امور اداری، حقوقی و برنامه‌ریزی
+      code: 1215
+
+    '1219':
+      level: 4
+      label: business_services_and_administration_managers_not_elsewhere_classified
+      title: Business Services and Administration Managers Not Elsewhere Classified
+      farsi_title: مدیران خدمات سازمانی و امور اداری، طبقه‌بندی‌نشده در جای دیگر 
+      code: 1219
+
+    '122':
+      level: 3
+      label: sales_marketing_and_development_managers
+      title: Sales, Marketing and Development Managers
+      farsi_title: مدیران فروش، بازاریابی و توسعه
+      code: {start: 1220, end: 1230}
+
+    '1221':
+      level: 4
+      label: sales_and_marketing_managers
+      title: Sales and Marketing Managers
+      farsi_title: مدیران فروش و بازاریابی
+      code: 1221
+
+    '1222':
+      level: 4
+      label: advertising_and_public_relations_managers
+      title: Advertising and Public Relations Managers
+      farsi_title: مدیران تبلیغات و روابط عمومی
+      code: 1222
+
+    '1223':
+      level: 4
+      label: research_and_development_managers
+      title: Research and Development Managers
+      farsi_title: مدیران تحقیق و توسعه
+      code: 1223
 
     '13':
       level: 2
@@ -32,13 +165,201 @@ isco:
       farsi_title: مدیران تولید و خدمات تخصصی
       code: {start: 1300, end: 1400}
 
+    '131':
+      level: 3
+      label: production_managers_in_agriculture_forestry_and_fisheries
+      title: Production Managers in Agriculture, Forestry and Fisheries
+      farsi_title: مدیران تولید در کشاورزی، جنگل‌داری و شیلات
+      code: {start: 1310, end: 1320}
+
+    '1311':
+      level: 4
+      label: agricultural_and_forestry_production_managers
+      title: Agricultural and Forestry Production Managers
+      farsi_title: مدیران تولید در کشاورزی و جنگل‌داری
+      code: 1311
+
+    '1312':
+      level: 4
+      label: aquaculture_and_fisheries_production_managers
+      title: Aquaculture and Fisheries Production Managers
+      farsi_title: مدیران تولید در آبزی‌پروری و شیلات
+      code: 1312
+
+    '132':
+      level: 3
+      label: manufacturing_mining_construction_and_distribution_managers
+      title: Manufacturing, Mining, Construction and Distribution Managers
+      farsi_title: مدیران تولید صنعتی، استخراج معادن، ساخت و ساز، توزیع
+      code: {start: 1320, end: 1330}
+
+    '1321':
+      level: 4
+      label: manufacturing_managers
+      title: Manufacturing Managers
+      farsi_title: مدیران تولید صنعتی
+      code: 1321
+
+    '1322':
+      level: 4
+      label: mining_managers
+      title: Mining Managers
+      farsi_title: مدیران استخراج معادن
+      code: 1322
+
+    '1323':
+      level: 4
+      label: construction_managers
+      title: Construction Managers
+      farsi_title: مدیران اجرای طرح‌های ساخت و ساز
+      code: 1323
+
+    '1324':
+      level: 4
+      label: supply_distribution_and_related_managers
+      title: Supply, Distribution and Related Managers
+      farsi_title: مدیران تامین، توزیع، حمل‌و‌نقل و فعالیت­های مرتبط
+      code: 1324
+
+    '1325':
+      level: 4
+      label: 
+      title: 
+      farsi_title: مدیران امور حمل‌ و نقل و انبارداری
+      code: 1325
+
+    '133':
+      level: 3
+      label: information_and_communications_technology_service_managers
+      title: Information and Communications Technology Service managers
+      farsi_title: مدیران ارائه خدمات فناوری اطلاعات و ارتباطات
+      code: {start: 1330, end: 1340}
+
+    '1330':
+      level: 4
+      label: information_and_communications_technology_service_managers
+      title: Information and Communications Technology Service Managers
+      farsi_title: مدیران ارائه خدمات فناوری اطلاعات و ارتباطات
+      code: 1330
+
+    '134':
+      level: 3
+      label: professional_services_managers
+      title: Professional Services Managers
+      farsi_title: مدیران ارائه خدمات حرفه‌ای و تخصصی
+      code: {start: 1340, end: 1350}
+
+    '1341':
+      level: 4
+      label: child_care_service_managers
+      title: Child Care Service Managers
+      farsi_title: مدیران ارائه خدمات مراقبت از کودکان
+      code: 1341
+
+    '1342':
+      level: 4
+      label: health_service_managers
+      title: Health Service Managers
+      farsi_title: مدیران ارائه خدمات بهداشتی- درمانی
+      code: 1342
+
+    '1343':
+      level: 4
+      label: aged_care_service_managers
+      title: Aged Care Service Managers
+      farsi_title: مدیران ارائه خدمات مراقبت از سالمندان
+      code: 1343
+
+    '1344':
+      level: 4
+      label: social_welfare_managers
+      title: Social Welfare Managers
+      farsi_title: مدیران ارائه خدمات رفاه اجتماعی
+      code: 1344
+
+    '1345':
+      level: 4
+      label: education_managers
+      title: Education Managers
+      farsi_title: مدیران آموزش
+      code: 1345
+
+    '1346':
+      level: 4
+      label: financial_and_insurance_services_branch_managers
+      title: Financial and Insurance Services Branch managers
+      farsi_title: مدیران شعب ارائه خدمات مالی و بیمه
+      code: 1346
+
+    '1349':
+      level: 4
+      label: professional_services_managers_not_elsewhere_classified
+      title: Professional Services Managers Not Elsewhere Classified
+      farsi_title: مدیران ارائه خدمات حرفه‌ای و تخصصی، طبقه‌بندی‌نشده در جای دیگر
+      code: 1349
+
     '14':
       level: 2
       label: hospitality_retail_and_other_services_managers
       title: Hospitality, Retail and Other Services Managers
-      farsi_title: مدیران مهمان‌داری، خرده‌فروشی و مدیران سایر خدمات
+      farsi_title: مدیران مهمان‌داری، خرده‌فروشی و سایر خدمات
       code: {start: 1400, end: 1500}
 
+    '141':
+      level: 3
+      label: hotel_and_restaurant_managers
+      title: Hotel and Restaurant Managers
+      farsi_title: مدیران هتل‌ها و رستوران‌ها
+      code: {start: 1410, end: 1420}
+
+    '1411':
+      level: 4
+      label: hotel_managers
+      title: Hotel Managers
+      farsi_title: مدیران هتل‌ها
+      code: 1411
+
+    '1412':
+      level: 4
+      label: restaurant_managers
+      title: Restaurant Managers
+      farsi_title: مدیران رستوران‌ها
+      code: 1412
+
+    '142':
+      level: 3
+      label: retail_and_wholesale_trade_managers
+      title: Retail and Wholesale Trade Managers
+      farsi_title: مدیران عمده‌فروشی‌ها و خرده‌فروشی‌ها
+      code: {start: 1420, end: 1430}
+
+    '1420':
+      level: 4
+      label: retail_and_wholesale_trade_managers
+      title: Retail and Wholesale Trade Managers
+      farsi_title: مدیران عمده‌فروشی‌ها و خرده‌فروشی‌ها
+      code: 1420
+
+    '143':
+      level: 3
+      label: other_services_managers
+      title: Other Services Managers
+      farsi_title: مدیران سایر خدمات
+      code: {start: 1430, end: 1440}
+
+    '1431':
+      level: 4
+      label: sports_recreation_and_cultural_centre_managers
+      title: Sports, Recreation and Cultural Centre Managers
+      farsi_title: مدیران مراکز ورزشی، تفریحی و فرهنگی
+      code: 1431
+
+    '1439':
+      level: 4
+      label: services_managers_not_elsewhere_classified
+      title: Services Managers Not Elsewhere Classified
+      farsi_title: مدیران خدمات طبقه‌بندی‌نشده در جای دیگر
+      code: 1439
 
     '2':
       level: 1
@@ -54,12 +375,376 @@ isco:
       farsi_title: متخصصان علوم پایه و علوم مهندسی
       code: {start: 2100, end: 2200}
 
+    '211':
+      level: 3
+      label: physical_and_earth_science_professionals
+      title: Physical and Earth Science Professionals
+      farsi_title: متخصصان علوم فیزیک و علوم زمین
+      code: {start: 2110, end: 2120}
+
+    '2111':
+      level: 4
+      label: physicists_and_astronomers
+      title: Physicists and Astronomers
+      farsi_title: فیزیک‌دانان و اخترشناسان
+      code: 2111
+
+    '2112':
+      level: 4
+      label: meteorologists
+      title: Meteorologists
+      farsi_title: متخصصان هواشناسی
+      code: 2112
+
+    '2113':
+      level: 4
+      label: chemists
+      title: Chemists
+      farsi_title: شیمی‌دانان
+      code: 2113
+
+    '2114':
+      level: 4
+      label: geologists_and_geophysicists
+      title: Geologists and geophysicists
+      farsi_title: زمین‌شناسان و متخصصان ژئوفیزیک
+      code: 2114
+
+    '212':
+      level: 3
+      label: mathematicians_actuaries_and_statisticians
+      title: Mathematicians, Actuaries and Statisticians
+      farsi_title: ریاضی‌دانان، آمار بیمه‌شناسان و آمارشناسان
+      code: {start: 2120, end: 2130}
+
+    '2120':
+      level: 4
+      label: mathematicians_actuaries_and_statisticians
+      title: Mathematicians, Actuaries and Statisticians
+      farsi_title: ریاضی‌دانان، آمار بیمه‌شناسان و آمارشناسان
+      code: 2120
+
+    '213':
+      level: 3
+      label: life_science_professionals
+      title: Life Science Professionals
+      farsi_title: متخصصان علوم زیستی
+      code: {start: 2130, end: 2140}
+
+    '2131':
+      level: 4
+      label: biologists_botanists_zoologists_and_related_professionals
+      title: Biologists, Botanists, Zoologists and Related Professionals
+      farsi_title: زیست‌شناسان، گیاه‌شناسان، جانورشناسان و متخصصان مرتبط
+      code: 2131
+
+    '2132':
+      level: 4
+      label: farming_forestry_and_fisheries_advisers
+      title: Farming, Forestry and Fisheries Advisers
+      farsi_title: متخصصان کشاورزی، دامداری، جنگل‌داری و شیلات
+      code: 2132
+
+    # '2133':
+    #   level: 4
+    #   label: environmental_protection_professionals
+    #   title: Environmental Protection Professionals
+    #   farsi_title: متخصصان حفاظت محیط‌زیست
+    #   code: 2133
+
+    '2134':
+      level: 4
+      label: 
+      title: 
+      farsi_title: متخصصان و مهندسان حفاظت محیط‌زیست
+      code: 2134
+
+    '214':
+      level: 3
+      label: engineering_professionals_excluding_electrotechnology
+      title: Engineering Professionals (excluding Electrotechnology)
+      farsi_title: متخصصان علوم مهندسی (به‌جز فناوری برق)
+      code: {start: 2140, end: 2150}
+
+    '2141':
+      level: 4
+      label: industrial_and_production_engineers
+      title: Industrial and Production Engineers
+      farsi_title: مهندسان صنایع و تولید
+      code: 2141
+
+    '2142':
+      level: 4
+      label: civil_engineers
+      title: Civil Engineers
+      farsi_title: مهندسان عمران
+      code: 2142
+
+    # '2143':
+    #   level: 4
+    #   label: environmental_engineers
+    #   title: Environmental Engineers
+    #   farsi_title: مهندسان محیط زیست
+    #   code: 2143
+
+    '2144':
+      level: 4
+      label: mechanical_engineers
+      title: Mechanical Engineers
+      farsi_title: مهندسان مکانیک
+      code: 2144
+
+    '2145':
+      level: 4
+      label: chemical_engineers
+      title: Chemical Engineers
+      farsi_title: مهندسان شیمی
+      code: 2145
+
+    '2146':
+      level: 4
+      label: mining_engineers_metallurgists_and_related_professionals
+      title: Mining Engineers, Metallurgists and Related Professionals
+      farsi_title: مهندسان معدن، مهندسان متالورژی و فلزشناسی و متخصصان مرتبط
+      code: 2146
+
+    '2149':
+      level: 4
+      label: engineering_professionals_not_elsewhere_classified
+      title: Engineering Professionals Not Elsewhere Classified
+      farsi_title: متخصصان علوم مهندسی، طبقه‌بندی‌نشده در جای دیگر
+      code: 2149
+
+    '215':
+      level: 3
+      label: electrotechnology_engineers
+      title: Electrotechnology Engineers
+      farsi_title: مهندسان فناوری برق
+      code: {start: 2150, end: 2160}
+
+    '2151':
+      level: 4
+      label: electrical_engineers
+      title: Electrical Engineers
+      farsi_title: مهندسان برق
+      code: 2151
+
+    '2152':
+      level: 4
+      label: electronics_engineers
+      title: Electronics Engineers
+      farsi_title: مهندسان الکترونیک
+      code: 2152
+
+    '2153':
+      level: 4
+      label: telecommunications_engineers
+      title: Telecommunications Engineers
+      farsi_title: مهندسان مخابرات
+      code: 2153
+
+    '216':
+      level: 3
+      label: architects_planners_surveyors_and_designers
+      title: Architects, Planners, Surveyors and Designers
+      farsi_title: معماران، طراحان عمرانی، نقشه‌برداران و طراحان صنعتی و هنری
+      code: {start: 2160, end: 2170}
+
+    '2161':
+      level: 4
+      label: building_architects
+      title: Building Architects
+      farsi_title: معماران ساختمان
+      code: 2161
+
+    '2162':
+      level: 4
+      label: landscape_architects
+      title: Landscape Architects
+      farsi_title: معماران محوطه‌سازی ‌
+      code: 2162
+
+    '2163':
+      level: 4
+      label: product_and_garment_designers
+      title: Product and Garment Designers
+      farsi_title: طراحان محصولات (طراحان صنعتی) و طراحان پوشاک
+      code: 2163
+
+    '2164':
+      level: 4
+      label: town_and_traffic_planners
+      title: Town and Traffic Planners
+      farsi_title: طراحان و برنامه‌ریزان شهری و ترافیک
+      code: 2164
+
+    '2165':
+      level: 4
+      label: cartographers_and_surveyors
+      title: Cartographers and Surveyors
+      farsi_title: متخصصان نقشه‌کشی و نقشه‌برداری
+      code: 2165
+
+    '2166':
+      level: 4
+      label: graphic_and_multimedia_designers
+      title: Graphic and Multimedia Designers
+      farsi_title: طراحان گرافیک و چندرسانه‌ای‌ها
+      code: 2166
+
     '22':
       level: 2
       label: health_professionals
       title: Health Professionals
       farsi_title: متخصصان سلامت و بهداشت
       code: {start: 2200, end: 2300}
+
+    '221':
+      level: 3
+      label: medical_doctors
+      title: Medical Doctors
+      farsi_title: پزشکان
+      code: {start: 2210, end: 2220}
+
+    '2211':
+      level: 4
+      label: generalist_medical_practitioners
+      title: Generalist Medical Practitioners
+      farsi_title: پزشکان عمومی
+      code: 2211
+
+    '2212':
+      level: 4
+      label: specialist_medical_practitioners
+      title: Specialist Medical Practitioners
+      farsi_title: پزشکان متخصص
+      code: 2212
+
+    '222':
+      level: 3
+      label: nursing_and_midwifery_professionals
+      title: Nursing and Midwifery Professionals
+      farsi_title: پرستاران و ماماهای متخصص
+      code: {start: 2220, end: 2230}
+
+    '2221':
+      level: 4
+      label: nursing_professionals
+      title: Nursing Professionals
+      farsi_title: پرستاران متخصص
+      code: 2221
+
+    '2222':
+      level: 4
+      label: midwifery_professionals
+      title: Midwifery Professionals
+      farsi_title: ماماهای متخصص
+      code: 2222
+
+    '223':
+      level: 3
+      label: traditional_and_complementary_medicine_professionals
+      title: Traditional and Complementary Medicine Professionals
+      farsi_title: متخصصان پزشکی سنتی و تکمیلی
+      code: {start: 2230, end: 2240}
+
+    '2230':
+      level: 4
+      label: traditional_and_complementary_medicine_professionals
+      title: Traditional and Complementary Medicine Professionals
+      farsi_title: متخصصان پزشکی سنتی و تکمیلی
+      code: 2230
+
+    '224':
+      level: 3
+      label: paramedical_practitioners
+      title: Paramedical Practitioners
+      farsi_title: متخصصان پیراپزشکی
+      code: {start: 2240, end: 2250}
+
+    '2240':
+      level: 4
+      label: paramedical_practitioners
+      title: Paramedical Practitioners
+      farsi_title: متخصصان پیراپزشکی
+      code: 2240
+
+    '225':
+      level: 3
+      label: veterinarians
+      title: Veterinarians
+      farsi_title: دام‌پزشکان
+      code: {start: 2250, end: 2260}
+
+    '2250':
+      level: 4
+      label: veterinarians
+      title: Veterinarians
+      farsi_title: دام‌پزشکان
+      code: 2250
+
+    '226':
+      level: 3
+      label: other_health_professionals
+      title: Other Health Professionals
+      farsi_title: سایر متخصصان سلامت و بهداشت
+      code: {start: 2260, end: 2270}
+
+    '2261':
+      level: 4
+      label: dentists
+      title: Dentists
+      farsi_title: دندان‌پزشکان
+      code: 2261
+
+    '2262':
+      level: 4
+      label: pharmacists
+      title: Pharmacists
+      farsi_title: داروسازان و داروخانه‌داران (به‌جز داروشناسان)
+      code: 2262
+
+    '2263':
+      level: 4
+      label: environmental_and_occupational_health_and_hygiene_professionals
+      title: Environmental and Occupational Health and Hygiene Professionals
+      farsi_title: متخصصان سلامت، بهداشت و پاکیزگی محیطی و شغلی
+      code: 2263
+
+    '2264':
+      level: 4
+      label: physiotherapists
+      title: Physiotherapists
+      farsi_title: متخصصان فیزیوتراپی
+      code: 2264
+
+    '2265':
+      level: 4
+      label: dieticians_and_nutritionists
+      title: Dieticians and Nutritionists
+      farsi_title: متخصصان رژیم غذایی و تغذیه
+      code: 2265
+
+    '2266':
+      level: 4
+      label: audiologists_and_speech_therapists
+      title: Audiologists and Speech Therapists
+      farsi_title: متخصصان شنوایی‌سنجی و گفتاردرمانی
+      code: 2266
+
+    '2267':
+      level: 4
+      label: optometrists_and_ophthalmic_opticians
+      title: Optometrists and Ophthalmic Opticians
+      farsi_title: متخصصان بینایی‌سنجی و تجویز عینک‌ و لنز
+      code: 2267
+
+    '2269':
+      level: 4
+      label: health_professionals_not_elsewhere_classified
+      title: Health Professionals Not Elsewhere Classified
+      farsi_title: متخصصان سلامت و بهداشت، طبقه‌بندی‌نشده در جای دیگر
+      code: 2269
 
     '23':
       level: 2
@@ -68,12 +753,243 @@ isco:
       farsi_title: متخصصان آموزش
       code: {start: 2300, end: 2400}
 
+    '231':
+      level: 3
+      label: university_and_higher_education_teachers
+      title: University and Higher Education Teachers
+      farsi_title: مدرسان دانشگاه‌ها و مؤسسات آموزش عالی
+      code: {start: 2310, end: 2320}
+
+    '2310':
+      level: 4
+      label: university_and_higher_education_teachers
+      title: University and Higher Education Teachers
+      farsi_title: مدرسان دانشگاه‌ها و مؤسسات آموزش عالی
+      code: 2310
+
+    '232':
+      level: 3
+      label: vocational_education_teachers
+      title: Vocational education teachers
+      farsi_title: مربیان آموزش فنی‌و‌حرفه‌ای
+      code: {start: 2320, end: 2330}
+
+    '2320':
+      level: 4
+      label: vocational_education_teachers
+      title: Vocational Education Teachers
+      farsi_title: مربیان آموزش فنی‌و‌حرفه‌ای
+      code: 2320
+
+    '233':
+      level: 3
+      label: secondary_education_teachers
+      title: Secondary Education Teachers
+      farsi_title: دبیران آموزش متوسطه
+      code: {start: 2330, end: 2340}
+
+    '2330':
+      level: 4
+      label: secondary_education_teachers
+      title: Secondary Education Teachers
+      farsi_title: دبیران آموزش متوسطه
+      code: 2330
+
+    '234':
+      level: 3
+      label: primary_school_and_early_childhood_teachers
+      title: Primary School and Early Childhood Teachers
+      farsi_title: آموزگاران دوره ابتدایی و پیش‌دبستانی
+      code: {start: 2340, end: 2350}
+
+    '2341':
+      level: 4
+      label: primary_school_teachers
+      title: Primary School Teachers
+      farsi_title: آموزگاران دوره ابتدایی
+      code: 2341
+
+    '2342':
+      level: 4
+      label: early_childhood_educators
+      title: Early Childhood Educators
+      farsi_title: آموزگاران و مربیان آموزشی دوره پیش‌دبستانی و مهدهای کودک
+      code: 2342
+
+    '235':
+      level: 3
+      label: other_teaching_professionals
+      title: Other Teaching Professionals
+      farsi_title: سایر متخصصان آموزش
+      code: {start: 2350, end: 2360}
+
+    '2351':
+      level: 4
+      label: education_methods_specialists
+      title: Education Methods Specialists
+      farsi_title: متخصصان روش‌های تدریس
+      code: 2351
+
+    '2352':
+      level: 4
+      label: special_needs_teachers
+      title: Special Needs Teachers
+      farsi_title: معلمان افراد دارای نیازهای خاص
+      code: 2352
+
+    '2353':
+      level: 4
+      label: other_language_teachers
+      title: Other Language Teachers
+      farsi_title: سایر معلمان زبان
+      code: 2353
+
+    # '2354':
+    #   level: 4
+    #   label: other_music_teachers
+    #   title: Other Music Teachers
+    #   farsi_title: سایر معلمان موسیقی 
+    #   code: 2354
+
+    # '2355':
+    #   level: 4
+    #   label: other_arts_teachers
+    #   title: Other Arts Teachers
+    #   farsi_title: سایر معلمان هنر (بجز موسیقی)
+    #   code: 2355
+
+    '2356':
+      level: 4
+      label: information_technology_trainers
+      title: Information Technology Trainers
+      farsi_title: مربیان فناوری اطلاعات
+      code: 2356
+
+    '2357':
+      level: 4
+      label: 
+      title: 
+      farsi_title: سایر معلمان موسیقی 
+      code: {start: 2357, end: 2358}
+
+    '2359':
+      level: 4
+      label: teaching_professionals_not_elsewhere_classified
+      title: Teaching Professionals Not Elsewhere Classified
+      farsi_title: متخصصان آموزش، طبقه‌بندی‌نشده در جای دیگر
+      code: 2359
+
     '24':
       level: 2
       label: business_and_administration_professionals
       title: Business and Administration Professionals
-      farsi_title: متخصصان امور تجاری و اداری 
+      farsi_title: متخصصان امور تجاری و اداری
       code: {start: 2400, end: 2500}
+
+    '241':
+      level: 3
+      label: finance_professionals
+      title: Finance Professionals
+      farsi_title: متخصصان امور مالی
+      code: {start: 2410, end: 2420}
+
+    '2411':
+      level: 4
+      label: accountants
+      title: Accountants
+      farsi_title: حسابداران
+      code: 2411
+
+    # '2412':
+    #   level: 4
+    #   label: financial_and_investment_advisers
+    #   title: Financial and Investment Advisers
+    #   farsi_title: مشاوران مالی و سرمایه‌گذاری 
+    #   code: 2412
+
+    # '2413':
+    #   level: 4
+    #   label: financial_analysts
+    #   title: Financial Analysts
+    #   farsi_title: تحلیل­گران مالی 
+    #   code: 2413
+
+    '2414':
+      level: 4
+      label: 
+      title: 
+      farsi_title: مشاوران مالی و سرمایه‌گذاری و تحلیل‌گران مالی
+      code: 2414
+
+    '242':
+      level: 3
+      label: administration_professionals
+      title: Administration Professionals
+      farsi_title: متخصصان امور اداری
+      code: {start: 2420, end: 2430}
+
+    '2421':
+      level: 4
+      label: management_and_organization_analysts
+      title: Management and Organization Analysts
+      farsi_title: تحلیل‌گران مدیریت و سازمان‌
+      code: 2421
+
+    '2422':
+      level: 4
+      label: policy_administration_professionals
+      title: Policy Administration Professionals
+      farsi_title: متخصصان امور سیاست‌گذاری
+      code: 2422
+
+    '2423':
+      level: 4
+      label: personnel_and_careers_professionals
+      title: Personnel and Careers Professionals
+      farsi_title: متخصصان نیروی کار و کارراهه شغلی
+      code: 2423
+
+    '2424':
+      level: 4
+      label: training_and_staff_development_professionals
+      title: Training and Staff Development Professionals
+      farsi_title: متخصصان آموزش و توسعه منابع انسانی
+      code: 2424
+
+    '243':
+      level: 3
+      label: sales_marketing_and_public_relations_professionals
+      title: Sales, Marketing and Public Relations Professionals
+      farsi_title: متخصصان فروش، بازاریابی و روابط عمومی
+      code: {start: 2430, end: 2440}
+
+    '2431':
+      level: 4
+      label: advertising_and_marketing_professionals
+      title: Advertising and Marketing Professionals
+      farsi_title: متخصصان تبلیغات و بازاریابی
+      code: 2431
+
+    '2432':
+      level: 4
+      label: public_relations_professionals
+      title: Public Relations Professionals
+      farsi_title: متخصصان روابط عمومی
+      code: 2432
+
+    '2433':
+      level: 4
+      label: technical_and_medical_sales_professionals_excluding_ict
+      title: Technical and Medical Sales Professionals (excluding ICT)
+      farsi_title: متخصصان فروش محصولات صنعتی و پزشکی (به‌جز فناوری اطلاعات و ارتباطات)
+      code: 2433
+
+    '2434':
+      level: 4
+      label: information_and_communications_technology_sales_professionals
+      title: Information and Communications Technology Sales Professionals
+      farsi_title: متخصصان فروش فناوری اطلاعات و ارتباطات
+      code: 2434
 
     '25':
       level: 2
@@ -82,6 +998,83 @@ isco:
       farsi_title: متخصصان فناوری اطلاعات و ارتباطات
       code: {start: 2500, end: 2600}
 
+    '251':
+      level: 3
+      label: software_and_applications_developers_and_analysts
+      title: Software and Applications Developers and Analysts
+      farsi_title: سازندگان و تحلیل‌گران نرم‌افزار و برنامه‌های کاربردی رایانه‌ای
+      code: {start: 2510, end: 2520}
+
+    '2511':
+      level: 4
+      label: systems_analysts
+      title: Systems Analysts
+      farsi_title: تحلیل‌گران سیستم‌‌های رایانه‌ای
+      code: 2511
+
+    '2512':
+      level: 4
+      label: software_developers
+      title: Software Developers
+      farsi_title: سازندگان نرم‌افزار
+      code: 2512
+
+    '2513':
+      level: 4
+      label: web_and_multimedia_developers
+      title: Web and Multimedia Developers
+      farsi_title: متخصصان ساخت وب و چندرسانه‌ای‌ها
+      code: 2513
+
+    '2514':
+      level: 4
+      label: applications_programmers
+      title: Applications Programmers
+      farsi_title: برنامه‌نویسان برنامه‌های کاربردی رایانه‌ای
+      code: 2514
+
+    '2519':
+      level: 4
+      label: software_and_applications_developers_and_analysts_not_elsewhere_classified
+      title: Software and Applications Developers and Analysts Not Elsewhere Classified
+      farsi_title: سازندگان و تحلیل‌گران نرم‌افزار و برنامه‌های کاربردی رایانه‌ای، طبقه‌بندی‌نشده در جای دیگر
+      code: 2519
+
+    '252':
+      level: 3
+      label: database_and_network_professionals
+      title: Database and Network Professionals
+      farsi_title: متخصصان پایگاه داده‌ها و شبکه‌های رایانه‌ای
+      code: {start: 2520, end: 2530}
+
+    '2521':
+      level: 4
+      label: database_designers_and_administrators
+      title: Database Designers and Administrators
+      farsi_title: طراحان و مدیران پایگاه داده‌ها
+      code: 2521
+
+    '2522':
+      level: 4
+      label: systems_aministrators
+      title: Systems Aministrators
+      farsi_title: مدیران سیستم‌های رایانه‌ای
+      code: 2522
+
+    '2523':
+      level: 4
+      label: computer_network_professionals
+      title: Computer Network Professionals
+      farsi_title: متخصصان شبکه‌های رایانه‌ای
+      code: 2523
+
+    '2529':
+      level: 4
+      label: database_and_network_professionals_not_elsewhere_classified
+      title: Database and Network Professionals Not Elsewhere Classified
+      farsi_title: متخصصان پایگاه داده‌ها و شبکه‌‌های رایانه‌ای، طبقه‌بندی‌نشده در جای دیگر
+      code: 2529
+
     '26':
       level: 2
       label: legal_social_and_cultural_professionals
@@ -89,49 +1082,999 @@ isco:
       farsi_title: متخصصان امور حقوقی، اجتماعی و مذهبی
       code: {start: 2600, end: 2700}
 
+    '261':
+      level: 3
+      label: legal_professionals
+      title: Legal Professionals
+      farsi_title: متخصصان امور حقوقی
+      code: {start: 2610, end: 2620}
+
+    '2611':
+      level: 4
+      label: lawyers
+      title: Lawyers
+      farsi_title: حقوق‌دان‌ها
+      code: 2611
+
+    '2612':
+      level: 4
+      label: judges
+      title: Judges
+      farsi_title: قاضی­ها
+      code: 2612
+
+    '2619':
+      level: 4
+      label: legal_professionals_not_elsewhere_classified
+      title: Legal Professionals Not Elsewhere Classified
+      farsi_title: متخصصان امور حقوقی، طبقه‌بندی‌نشده در جای دیگر
+      code: 2619
+
+    '262':
+      level: 3
+      label: librarians_archivists_and_curators
+      title: Librarians, Archivists and Curators
+      farsi_title: کتابدارها، متخصصان امور بایگانی و موزه‌دارها
+      code: {start: 2620, end: 2630}
+
+    '2621':
+      level: 4
+      label: archivists_and_curators
+      title: Archivists and Curators
+      farsi_title: متخصصان امور بایگانی و موزه‌دارها
+      code: 2621
+
+    '2622':
+      level: 4
+      label: librarians_and_related_information_professionals
+      title: Librarians and Related Information Professionals
+      farsi_title: کتابدارها و متخصصان اطلاعات مرتبط
+      code: 2622
+
+    '263':
+      level: 3
+      label: social_and_religious_professionals
+      title: Social and Religious Professionals
+      farsi_title: متخصصان امور اجتماعی و مذهبی
+      code: {start: 2630, end: 2640}
+
+    '2631':
+      level: 4
+      label: economists
+      title: Economists
+      farsi_title: اقتصاددانان
+      code: 2631
+
+    '2632':
+      level: 4
+      label: sociologists_anthropologists_and_related_professionals
+      title: Sociologists, Anthropologists and Related Professionals
+      farsi_title: جامعه­شناسان، مردم­شناسان، جغرافی­دانان و متخصصان مرتبط
+      code: 2632
+
+    '2633':
+      level: 4
+      label: philosophers_historians_and_political_scientists
+      title: Philosophers, Historians and Political Scientists
+      farsi_title: فیلسوفان، تاریخ‌دانان و دانشمندان علوم سیاسی
+      code: 2633
+
+    '2634':
+      level: 4
+      label: psychologists
+      title: Psychologists
+      farsi_title: روان‌شناسان
+      code: 2634
+
+    '2635':
+      level: 4
+      label: social_work_and_counselling_professionals
+      title: Social Work and Counselling Professionals
+      farsi_title: متخصصان مددکاری اجتماعی و مشاوره
+      code: 2635
+
+    # '2636':
+    #   level: 4
+    #   label: religious_professionals
+    #   title: Religious Professionals
+    #   farsi_title: متخصصان امور مذهبی 
+    #   code: 2636
+
+    '2637':
+      level: 4
+      label: 
+      title: 
+      farsi_title: متخصصان امور مذهبی اسلامی
+      code: 2637
+
+    '2638':
+      level: 4
+      label: 
+      title: 
+      farsi_title: متخصصان امور مذهبی غیراسلامی
+      code: 2638
+
+    '2639':
+      level: 4
+      label: 
+      title: 
+      farsi_title: متخصصان امور اجتماعی و مذهبی، طبقه‌بندی‌نشده در جای دیگر
+      code: 2639
+
+    '264':
+      level: 3
+      label: authors_journalists_and_linguists
+      title: Authors, Journalists and Linguists
+      farsi_title: مؤلفان، روزنامه‌نگاران و زبان‌شناسان
+      code: {start: 2640, end: 2650}
+
+    '2641':
+      level: 4
+      label: authors_and_related_writers
+      title: Authors and Related Writers
+      farsi_title: مؤلفان و نویسندگان
+      code: 2641
+
+    '2642':
+      level: 4
+      label: journalists
+      title: Journalists
+      farsi_title: روزنامه‌نگاران و خبرنگاران
+      code: 2642
+
+    '2643':
+      level: 4
+      label: translators_interpreters_and_other_linguists
+      title: Translators, Interpreters and Other Linguists
+      farsi_title: مترجمان و زبان‌شناسان
+      code: 2643
+
+    '265':
+      level: 3
+      label: creative_and_performing_artists
+      title: Creative and Performing Artists
+      farsi_title: هنرمندان هنرهای نمایشی و آفرینش­های هنری
+      code: {start: 2650, end: 2660}
+
+    '2651':
+      level: 4
+      label: visual_artists
+      title: Visual Artists
+      farsi_title: هنرمندان هنرهای تجسمی
+      code: 2651
+
+    '2652':
+      level: 4
+      label: musicians_singers_and_composers
+      title: Musicians, Singers and Composers
+      farsi_title: موسیقی‌دان‌ها، خوانندگان و آهنگ‌سازان
+      code: 2652
+
+    '2653':
+      level: 4
+      label: dancers_and_choreographers
+      title: Dancers and Choreographers
+      farsi_title: طراحان و هنرمندان حرکات موزون
+      code: 2653
+
+    '2654':
+      level: 4
+      label: film_stage_and_related_directors_and_producers
+      title: Film, Stage and Related Directors and Producers
+      farsi_title: تهیه‌کنندگان و کارگردانان‌ فیلم، نمایش و امور مرتبط
+      code: 2654
+
+    '2655':
+      level: 4
+      label: actors
+      title: Actors
+      farsi_title: هنرپیشگان
+      code: 2655
+
+    '2656':
+      level: 4
+      label: announcers_on_radio_television_and_other_media
+      title: Announcers on Radio, Television and Other Media
+      farsi_title: گویندگان رادیو، تلویزیون و سایر رسانه‌ها
+      code: 2656
+
+    '2659':
+      level: 4
+      label: creative_and_performing_artists_not_elsewhere_classified
+      title: Creative and Performing Artists Not Elsewhere Classified
+      farsi_title: هنرمندان هنرهای نمایشی و آفرینش­های هنری ، طبقه‌بندی‌نشده در جای دیگر
+      code: 2659
 
     '3':
       level: 1
       label: technicians_and_associate_professionals
       title: Technicians and Associate Professionals
-      farsi_title: تکنسین‌ها و کمک‌متخصصان
+      farsi_title: تکنسین‌‌ها و کمکمتخصصان
       code: {start: 3000, end: 4000}
 
     '31':
       level: 2
       label: science_and_engineering_associate_professionals
       title: Science and Engineering Associate Professionals
-      farsi_title: کمک‌متخصصان علوم پایه و علوم مهندسی
+      farsi_title: کمکمتخصصان علوم پایه و علوم مهندسی
       code: {start: 3100, end: 3200}
+
+    '311':
+      level: 3
+      label: physical_and_engineering_science_technicians
+      title: Physical and Engineering Science Technicians
+      farsi_title: تکنسین‌‌های علوم فیزیک و علوم مهندسی
+      code: {start: 3110, end: 3120}
+
+    '3111':
+      level: 4
+      label: chemical_and_physical_science_technicians
+      title: Chemical and Physical Science Technicians
+      farsi_title: تکنسین‌‌های علوم شیمی و فیزیک
+      code: 3111
+
+    '3112':
+      level: 4
+      label: civil_engineering_technicians
+      title: Civil Engineering Technicians
+      farsi_title: تکنسین‌‌های مهندسی عمران
+      code: 3112
+
+    '3113':
+      level: 4
+      label: electrical_engineering_technicians
+      title: Electrical Engineering Technicians
+      farsi_title: تکنسین‌‌های مهندسی برق
+      code: 3113
+
+    '3114':
+      level: 4
+      label: electronics_engineering_technicians
+      title: Electronics Engineering Technicians
+      farsi_title: تکنسین‌‌های مهندسی الکترونیک
+      code: 3114
+
+    '3115':
+      level: 4
+      label: mechanical_engineering_technicians
+      title: Mechanical Engineering Technicians
+      farsi_title: تکنسین‌‌های مهندسی مکانیک
+      code: 3115
+
+    '3116':
+      level: 4
+      label: chemical_engineering_technicians
+      title: Chemical Engineering Technicians
+      farsi_title: تکنسین‌‌های مهندسی شیمی
+      code: 3116
+
+    '3117':
+      level: 4
+      label: mining_and_metallurgical_technicians
+      title: Mining and metallurgical technicians
+      farsi_title: تکنسین‌‌های معدن، متالورژی و استخراج نفت و گاز
+      code: 3117
+
+    '3118':
+      level: 4
+      label: draughtspersons
+      title: Draughtspersons
+      farsi_title: تکنسین‌‌های نقشه‌کشی
+      code: 3118
+
+    '3119':
+      level: 4
+      label: physical_and_engineering_science_technicians_not_elsewhere_classified
+      title: Physical and Engineering Science Technicians Not Elsewhere Classified
+      farsi_title: تکنسین‌‌های علوم فیزیک و علوم مهندسی، طبقه‌بندی‌نشده در جای دیگر
+      code: 3119
+
+    '312':
+      level: 3
+      label: mining_manufacturing_and_construction_supervisors
+      title: Mining, Manufacturing and Construction Supervisors
+      farsi_title: سرپرستان معادن، تولید صنعتی و اجرای طرح‌های عمرانی یا ساختمان‌سازی
+      code: {start: 3120, end: 3130}
+
+    '3121':
+      level: 4
+      label: mining_supervisors
+      title: Mining Supervisors
+      farsi_title: سرپرستان معادن
+      code: 3121
+
+    '3122':
+      level: 4
+      label: manufacturing_supervisors
+      title: Manufacturing Supervisors
+      farsi_title: سرپرستان تولید صنعتی
+      code: 3122
+
+    '3123':
+      level: 4
+      label: construction_supervisors
+      title: Construction Supervisors
+      farsi_title: سرپرستان اجرای طرح‌های ساخت و ساز
+      code: 3123
+
+    '313':
+      level: 3
+      label: process_control_technicians
+      title: Process Control Technicians
+      farsi_title: تکنسین‌‌های کنترل فرایندها
+      code: {start: 3130, end: 3140}
+
+    '3131':
+      level: 4
+      label: power_production_plant_operators
+      title: Power Production Plant Operators
+      farsi_title: متصدیان کنترل نیروگاه تولید برق
+      code: 3131
+
+    '3132':
+      level: 4
+      label: incinerator_and_water_treatment_plant_operators
+      title: Incinerator and Water Treatment Plant Operators
+      farsi_title: متصدیان کنترل کوره‌های زباله‌سوز و تصفیه‌خانه آب
+      code: 3132
+
+    '3133':
+      level: 4
+      label: chemical_processing_plant_controllers
+      title: Chemical Processing Plant Controllers
+      farsi_title: متصدیان کنترل تجهیزات فراوری شیمیایی مواد
+      code: 3133
+
+    '3134':
+      level: 4
+      label: petroleum_and_natural_gas_refining_plant_operators
+      title: Petroleum and Natural Gas Refining Plant Operators
+      farsi_title: متصدیان کنترل تجهیزات پالایشگاه نفت و گاز طبیعی
+      code: 3134
+
+    '3135':
+      level: 4
+      label: metal_production_process_controllers
+      title: Metal Production Process Controllers
+      farsi_title: متصدیان کنترل فرایند تولید فلزات
+      code: 3135
+
+    '3139':
+      level: 4
+      label: process_control_technicians_not_elsewhere_classified
+      title: Process Control Technicians Not Elsewhere Classified
+      farsi_title: تکنسین‌‌های کنترل فرایندها، طبقه‌بندی‌نشده در جای دیگر
+      code: 3139
+
+    '314':
+      level: 3
+      label: life_science_technicians_and_related_associate_professionals
+      title: Life Science Technicians and Related Associate Professionals
+      farsi_title: تکنسین‌‌های علوم زیستی و کمکمتخصصان مرتبط
+      code: {start: 3140, end: 3150}
+
+    '3141':
+      level: 4
+      label: life_science_technicians_excluding_medical
+      title: Life Science Technicians (excluding Medical)
+      farsi_title: تکنسین‌‌های علوم زیستی (به‌جز پزشکی)
+      code: 3141
+
+    '3142':
+      level: 4
+      label: agricultural_technicians
+      title: Agricultural Technicians
+      farsi_title: تکنسین‌‌های کشاورزی
+      code: 3142
+
+    '3143':
+      level: 4
+      label: forestry_technicians
+      title: Forestry Technicians
+      farsi_title: تکنسین‌‌های جنگل‌داری
+      code: 3143
+
+    '315':
+      level: 3
+      label: ship_and_aircraft_controllers_and_technicians
+      title: Ship and Aircraft Controllers and Technicians
+      farsi_title: متصدیان کنترل و تکنسین‌‌های کشتی و هواپیما
+      code: {start: 3150, end: 3160}
+
+    '3151':
+      level: 4
+      label: ships_engineers
+      title: Ships' Engineers
+      farsi_title: مهندسان کشتی
+      code: 3151
+
+    '3152':
+      level: 4
+      label: ships_deck_officers_and_pilots
+      title: Ships' Deck Officers and Pilots
+      farsi_title: افسران عرشه و سکان‌داران کشتی
+      code: 3152
+
+    '3153':
+      level: 4
+      label: aircraft_pilots_and_related_associate_professionals
+      title: Aircraft Pilots and Related Associate Professionals
+      farsi_title: خلبانان هواپیماها و کمکمتخصصان مرتبط
+      code: 3153
+
+    '3154':
+      level: 4
+      label: air_traffic_controllers
+      title: Air Traffic Controllers
+      farsi_title: متصدیان کنترل ترافیک هوایی
+      code: 3154
+
+    '3155':
+      level: 4
+      label: air_traffic_safety_electronics_technicians
+      title: Air Traffic Safety Electronics Technicians
+      farsi_title: تکنسین‌‌های الکترونیک ایمنی ترافیک هوایی
+      code: 3155
 
     '32':
       level: 2
       label: health_associate_professionals
       title: Health Associate Professionals
-      farsi_title: کمک‌متخصصان سلامت و بهداشت 
+      farsi_title: کمکمتخصصان سلامت و بهداشت
       code: {start: 3200, end: 3300}
+
+    '321':
+      level: 3
+      label: medical_and_pharmaceutical_technicians
+      title: Medical and Pharmaceutical Technicians
+      farsi_title: تکنسین‌‌های پزشکی و داروسازی
+      code: {start: 3210, end: 3220}
+
+    '3211':
+      level: 4
+      label: medical_imaging_and_therapeutic_equipment_technicians
+      title: Medical Imaging and Therapeutic Equipment Technicians
+      farsi_title: تکنسین‌‌های تجهیزات تصویربرداری پزشکی و درمانی
+      code: 3211
+
+    '3212':
+      level: 4
+      label: medical_and_pathology_laboratory_technicians
+      title: Medical and Pathology Laboratory Technicians
+      farsi_title: تکنسین‌‌های آزمایشگاه پزشکی و آسیب‌شناسی
+      code: 3212
+
+    '3213':
+      level: 4
+      label: pharmaceutical_technicians_and_assistants
+      title: Pharmaceutical Technicians and Assistants
+      farsi_title: تکنسین‌‌ها و دستیاران داروسازی
+      code: 3213
+
+    '3214':
+      level: 4
+      label: medical_and_dental_prosthetic_technicians
+      title: Medical and Dental Prosthetic Technicians
+      farsi_title: تکنسین‌‌های ساخت پروتزهای پزشکی و دندان‌پزشکی
+      code: 3214
+
+    '322':
+      level: 3
+      label: nursing_and_midwifery_associate_professionals
+      title: Nursing and Midwifery Associate Professionals
+      farsi_title: کمکمتخصصان پرستاری و مامایی
+      code: {start: 3220, end: 3230}
+
+    '3221':
+      level: 4
+      label: nursing_associate_professionals
+      title: Nursing Associate Professionals
+      farsi_title: کمکمتخصصان پرستاری
+      code: 3221
+
+    '3222':
+      level: 4
+      label: midwifery_associate_professionals
+      title: Midwifery Associate Professionals
+      farsi_title: کمکمتخصصان مامایی
+      code: 3222
+
+    '323':
+      level: 3
+      label: traditional_and_complementary_medicine_associate_professionals
+      title: Traditional and Complementary Medicine Associate Professionals
+      farsi_title: کمکمتخصصان پزشکی سنتی و مکمل
+      code: {start: 3230, end: 3240}
+
+    '3230':
+      level: 4
+      label: traditional_and_complementary_medicine_associate_professionals
+      title: Traditional and Complementary Medicine Associate Professionals
+      farsi_title: کمکمتخصصان پزشکی سنتی و مکمل
+      code: 3230
+
+    '324':
+      level: 3
+      label: veterinary_technicians_and_assistants
+      title: Veterinary Technicians and Assistants
+      farsi_title: تکنسین‌‌ها و دستیاران دام‌پزشکی
+      code: {start: 3240, end: 3250}
+
+    '3240':
+      level: 4
+      label: veterinary_technicians_and_assistants
+      title: Veterinary Technicians and Assistants
+      farsi_title: تکنسین‌‌ها و دستیاران دام‌پزشکی
+      code: 3240
+
+    '325':
+      level: 3
+      label: other_health_associate_professionals
+      title: Other Health Associate Professionals
+      farsi_title: سایر کمکمتخصصان سلامت و بهداشت
+      code: {start: 3250, end: 3260}
+
+    '3251':
+      level: 4
+      label: dental_assistants_and_therapists
+      title: Dental Assistants and Therapists
+      farsi_title: دستیاران دندان‌پزشکی و درمانگران دندان
+      code: 3251
+
+    '3252':
+      level: 4
+      label: medical_records_and_health_information_technicians
+      title: Medical Records and Health Information Technicians
+      farsi_title: تکنسین‌‌های مدارک پزشکی و اطلاعات سلامت و بهداشت
+      code: 3252
+
+    '3253':
+      level: 4
+      label: community_health_workers
+      title: Community Health Workers
+      farsi_title: مددکاران سلامت و بهداشت
+      code: 3253
+
+    '3254':
+      level: 4
+      label: dispensing_opticians
+      title: Dispensing Opticians
+      farsi_title: عینک‌ساز‌ها
+      code: 3254
+
+    '3255':
+      level: 4
+      label: physiotherapy_technicians_and_assistants
+      title: Physiotherapy Technicians and Assistants
+      farsi_title: تکنسین‌‌ها و دستیاران فیزیوتراپی
+      code: 3255
+
+    '3256':
+      level: 4
+      label: medical_assistants
+      title: Medical Assistants
+      farsi_title: دستیاران امور پزشکی
+      code: 3256
+
+    '3257':
+      level: 4
+      label: environmental_and_occupational_health_inspectors_and_associates
+      title: Environmental and Occupational Health Inspectors and Associates
+      farsi_title: بازرسان و دستیاران سلامت و بهداشت محیطی و حرفه­ای
+      code: 3257
+
+    '3258':
+      level: 4
+      label: ambulance_workers
+      title: Ambulance Workers
+      farsi_title: کارکنان آمبولانس
+      code: 3258
+
+    '3259':
+      level: 4
+      label: health_associate_professionals_not_elsewhere_classified
+      title: Health Associate Professionals Not Elsewhere Classified
+      farsi_title: کمکمتخصصان سلامت و بهداشت، طبقه‌بندی‌نشده در جای دیگر
+      code: 3259
 
     '33':
       level: 2
       label: business_and_administration_associate_professionals
       title: Business and Administration Associate Professionals
-      farsi_title: کمک‌متخصصان امور تجاری و اداری  
+      farsi_title: کمکمتخصصان امور تجاری و اداری
       code: {start: 3300, end: 3400}
+
+    '331':
+      level: 3
+      label: financial_and_mathematical_associate_professionals
+      title: Financial and Mathematical Associate Professionals
+      farsi_title: کمکمتخصصان امور مالی و محاسباتی
+      code: {start: 3310, end: 3320}
+
+    '3311':
+      level: 4
+      label: securities_and_finance_dealers_and_brokers
+      title: Securities and Finance Dealers and Brokers
+      farsi_title: واسطه‌ها و کارگزاران اوراق بهادار و تأمین سرمایه
+      code: 3311
+
+    '3312':
+      level: 4
+      label: credit_and_loans_officers
+      title: Credit and Loans Officers
+      farsi_title: کارشناسان اعتبارات و وام
+      code: 3312
+
+    '3313':
+      level: 4
+      label: accounting_associate_professionals
+      title: Accounting Associate Professionals
+      farsi_title: کمکمتخصصان حسابداری
+      code: 3313
+
+    '3314':
+      level: 4
+      label: statistical_mathematical_and_related_associate_professionals
+      title: Statistical, Mathematical and Related Associate Professionals
+      farsi_title: کمکمتخصصان آمار، ریاضی و امور مرتبط
+      code: 3314
+
+    '3315':
+      level: 4
+      label: valuers_and_loss_assessors
+      title: Valuers and Loss Assessors
+      farsi_title: ارزش‌گذاران و ارزیابان خسارت
+      code: 3315
+
+    '332':
+      level: 3
+      label: sales_and_purchasing_agents_and_brokers
+      title: Sales and Purchasing Agents and Brokers
+      farsi_title: کارگزاران و واسطه‌های خریدوفروش
+      code: {start: 3320, end: 3330}
+
+    '3321':
+      level: 4
+      label: insurance_representatives
+      title: Insurance Representatives
+      farsi_title: نمایندگان بیمه
+      code: 3321
+
+    '3322':
+      level: 4
+      label: commercial_sales_representatives
+      title: Commercial Sales Representatives
+      farsi_title: نمایندگان فروش تجاری
+      code: 3322
+
+    '3323':
+      level: 4
+      label: buyers
+      title: Buyers
+      farsi_title: مسئولان خرید
+      code: 3323
+
+    '3324':
+      level: 4
+      label: trade_brokers
+      title: Trade Brokers
+      farsi_title: واسطه‌‌های امور تجاری
+      code: 3324
+
+    '333':
+      level: 3
+      label: business_services_agents
+      title: Business Services Agents
+      farsi_title: کارگزاران خدمات کسب‌وکار
+      code: {start: 3330, end: 3340}
+
+    '3331':
+      level: 4
+      label: clearing_and_forwarding_aents
+      title: Clearing and Forwarding Aents
+      farsi_title: کارگزاران ترخیص و ارسال کالا 
+      code: 3331
+
+    '3332':
+      level: 4
+      label: conference_and_event_planners
+      title: Conference and Event Planners
+      farsi_title: برنامه‌ریزان کنفرانس‌ها و رویدادها
+      code: 3332
+
+    '3333':
+      level: 4
+      label: employment_agents_and_contractors
+      title: Employment agents and contractors
+      farsi_title: پیمانکاران استخدام و کاریاب­ها
+      code: 3333
+
+    '3334':
+      level: 4
+      label: real_estate_agents_and_property_managers
+      title: Real Estate Agents and Property Managers
+      farsi_title: مدیران و مشاوران معملات املاک
+      code: 3334
+
+    '3339':
+      level: 4
+      label: business_services_agents_not_elsewhere_classified
+      title: Business Services Agents Not Elsewhere Classified
+      farsi_title: کارگزاران خدمات کسب‌و‌کار، طبقه‌بندی‌نشده در جای دیگر
+      code: 3339
+
+    '334':
+      level: 3
+      label: administrative_and_specialized_secretaries
+      title: Administrative and Specialized Secretaries
+      farsi_title: منشی‌های امور اداری و تخصصی
+      code: {start: 3340, end: 3350}
+
+    '3341':
+      level: 4
+      label: office_supervisors
+      title: Office Supervisors
+      farsi_title: سرپرستان دفاتر
+      code: 3341
+
+    '3342':
+      level: 4
+      label: legal_secretaries
+      title: Legal Secretaries
+      farsi_title: منشی‌های حقوقی
+      code: 3342
+
+    '3343':
+      level: 4
+      label: administrative_and_executive_secretaries
+      title: Administrative and Executive Secretaries
+      farsi_title: منشی‌های اداری و اجرایی
+      code: 3343
+
+    '3344':
+      level: 4
+      label: medical_secretaries
+      title: Medical Secretaries
+      farsi_title: منشی‌های امور پزشکی
+      code: 3344
+
+    '335':
+      level: 3
+      label: government_regulatory__associate_professionals
+      title: Government Regulatory  Associate Professionals
+      farsi_title: کمکمتخصصان نظارتی دولت
+      code: {start: 3350, end: 3360}
+
+    '3351':
+      level: 4
+      label: customs_and_border_inspectors
+      title: Customs and Border Inspectors
+      farsi_title: بازرسان مرزی و گمرک 
+      code: 3351
+
+    '3352':
+      level: 4
+      label: government_tax_and_excise_officials
+      title: Government Tax and Excise Officials
+      farsi_title: مأموران مالیات مستقیم و غیرمستقیم دولت
+      code: 3352
+
+    '3353':
+      level: 4
+      label: government_social_benefits_officials
+      title: Government Social Benefits Officials
+      farsi_title: مأموران مزایای اجتماعی دولت
+      code: 3353
+
+    '3354':
+      level: 4
+      label: government_licensing_officials
+      title: Government Licensing Officials
+      farsi_title: مأموران صدور مجوزهای دولتی
+      code: 3354
+
+    '3355':
+      level: 4
+      label: police_inspectors_and_detectives
+      title: Police Inspectors and Detectives
+      farsi_title: بازرسان و کارآگاهان پلیس
+      code: 3355
+
+    '3359':
+      level: 4
+      label: government_regulatory_associatepprofessionals_not_elsewhere_classified
+      title: Government Regulatory AssociatePprofessionals Not Elsewhere Classified
+      farsi_title: کمکمتخصصان نظارتی دولت، طبقه‌بندی‌نشده در جای دیگر
+      code: 3359
 
     '34':
       level: 2
       label: legal_social_cultural_and_related_associate_professionals
       title: Legal, Social, Cultural and Related Associate Professionals
-      farsi_title: کمک‌متخصصان امور حقوقی، اجتماعی، فرهنگی، مذهبی و امور مرتبط
+      farsi_title: کمکمتخصصان امور حقوقی، اجتماعی، فرهنگی، مذهبی و امور مرتبط
       code: {start: 3400, end: 3500}
+
+    '341':
+      level: 3
+      label: legal_social_and_religious_associate_professionals
+      title: Legal, Social and Religious Associate Professionals
+      farsi_title: کمکمتخصصان امور حقوقی، اجتماعی و مذهبی
+      code: {start: 3410, end: 3420}
+
+    '3411':
+      level: 4
+      label: legal_and_related_associate_professionals
+      title: Legal and Related Associate Professionals
+      farsi_title: کمکمتخصصان امور حقوقی و امور مرتبط
+      code: 3411
+
+    '3412':
+      level: 4
+      label: social_work_associate_professionals
+      title: Social Work Associate Professionals
+      farsi_title: کمکمتخصصان مددکاری اجتماعی
+      code: 3412
+
+    # '3413':
+    #   level: 4
+    #   label: religious_associate_professionals
+    #   title: Religious Associate Professionals
+    #   farsi_title: کمکمتخصصان امور مذهبی 
+    #   code: 3413
+
+    '3414':
+      level: 4
+      label: 
+      title: 
+      farsi_title: کمکمتخصصان امور مذهبی اسلامی 
+      code: 3414
+
+    '3415':
+      level: 4
+      label: 
+      title: 
+      farsi_title: کمکمتخصصان امور مذهبی غیراسلامی 
+      code: 3415
+
+    '342':
+      level: 3
+      label: sports_and_fitness_workers
+      title: Sports and Fitness Workers
+      farsi_title: کارکنان امور ورزشی و تناسب اندام
+      code: {start: 3420, end: 3430}
+
+    '3421':
+      level: 4
+      label: athletes_and_sports_players
+      title: Athletes and Sports Players
+      farsi_title: ورزش‌کاران و بازیکنان ورزشی
+      code: 3421
+
+    # '3422':
+    #   level: 4
+    #   label: sports_coaches_instructors_and_officials
+    #   title: Sports Coaches, Instructors and Officials
+    #   farsi_title: مربیان، سرپرستان و مسئولین ورزش
+    #   code: 3422
+
+    # '3423':
+    #   level: 4
+    #   label: fitness_and_recreation_instructors_and_programme_leaders
+    #   title: Fitness and Recreation Instructors and Programme Leaders
+    #   farsi_title: سرپرستان تناسب اندام و ورزش­های تفریحی در فضای باز
+    #   code: 3423
+
+    '3423':
+      level: 4
+      label: 
+      title: 
+      farsi_title: مربیان و مقامات ورزشی و سرپرستان برنامه‌های تفریحی و تناسب اندام
+      code: 3423
+
+    '343':
+      level: 3
+      label: artistic_cultural_and_culinary_associate_professionals
+      title: Artistic, Cultural and Culinary Associate Professionals
+      farsi_title: کمکمتخصصان امور هنری، فرهنگی و آشپزی
+      code: {start: 3430, end: 3440}
+
+    '3431':
+      level: 4
+      label: photographers
+      title: Photographers
+      farsi_title: عکاس‌ها
+      code: 3431
+
+    '3432':
+      level: 4
+      label: interior_designers_and_decorators
+      title: Interior Designers and Decorators
+      farsi_title: طراحان و دکوراتورهای داخلی
+      code: 3432
+
+    '3433':
+      level: 4
+      label: gallery_museum_and_library_technicians
+      title: Gallery, Museum and Library Technicians
+      farsi_title: تکنسین‌‌های گالری، موزه و کتابخانه
+      code: 3433
+
+    '3434':
+      level: 4
+      label: chefs
+      title: Chefs
+      farsi_title: سرآشپزها
+      code: 3434
+
+    '3435':
+      level: 4
+      label: other_artistic_and_cultural_associate_professionals
+      title: Other Artistic and Cultural Associate Professionals
+      farsi_title: سایر کمکمتخصصان امور هنری و فرهنگی
+      code: 3435
 
     '35':
       level: 2
       label: information_and_communications_technicians
       title: Information and Communications Technicians
-      farsi_title: تکنسین‌های اطلاعات و ارتباطات
+      farsi_title: تکنسین‌‌های اطلاعات و ارتباطات
       code: {start: 3500, end: 3600}
 
+    '351':
+      level: 3
+      label: information_and_communications_technology_operations_and_user_support_technicians
+      title: Information and Communications Technology Operations and User Support Technicians
+      farsi_title: تکنسین‌‌های پشتیبانی عملیات و کاربران فناوری اطلاعات و ارتباطات
+      code: {start: 3510, end: 3520}
+
+    '3511':
+      level: 4
+      label: information_and_communications_technology_operations_technicians
+      title: Information and Communications Technology Operations Technicians
+      farsi_title: تکنسین‌‌های پشتیبانی عملیات فناوری اطلاعات و ارتباطات
+      code: 3511
+
+    '3512':
+      level: 4
+      label: information_and_communications_technology_user_support_technicians
+      title: Information and Communications Technology User Support Technicians
+      farsi_title: تکنسین‌‌های پشتیبانی کاربران فناوری اطلاعات و ارتباطات
+      code: 3512
+
+    '3513':
+      level: 4
+      label: computer_network_and_systems_technicians
+      title: Computer Network and Systems Technicians
+      farsi_title: تکنسین‌‌های شبکه و سیستم‌های رایانه‌ای
+      code: 3513
+
+    '3514':
+      level: 4
+      label: web_technicians
+      title: Web Technicians
+      farsi_title: تکنسین‌‌های وب
+      code: 3514
+
+    '352':
+      level: 3
+      label: telecommunications_and_broadcasting_technicians
+      title: Telecommunications and Broadcasting Technicians
+      farsi_title: تکنسین‌‌های مخابرات و پخش رادیویی و تلویزیونی
+      code: {start: 3520, end: 3530}
+
+    '3521':
+      level: 4
+      label: broadcasting_and_audio_visual_technicians
+      title: Broadcasting and Audio-visual Technicians
+      farsi_title: تکنسین‌های تجهیزات پخش رادیویی و تلویزیونی و صوتی- تصویری
+      code: 3521
+
+    '3522':
+      level: 4
+      label: telecommunications_engineering_technicians
+      title: Telecommunications Engineering Technicians
+      farsi_title: تکنسین‌‌های مخابرات
+      code: 3522
 
     '4':
       level: 1
@@ -144,8 +2087,57 @@ isco:
       level: 2
       label: general_and_keyboard_clerks
       title: General and Keyboard Clerks
-      farsi_title: کارکنان امور عمومی دفتری و متصدیان ماشین‌های اداری 
+      farsi_title: کارکنان امور عمومی دفتری و متصدیان ماشین‌های اداری
       code: {start: 4100, end: 4200}
+
+    '411':
+      level: 3
+      label: general_office_clerks
+      title: General Office Clerks
+      farsi_title: کارکنان امور عمومی دفتری
+      code: {start: 4110, end: 4120}
+
+    '4110':
+      level: 4
+      label: general_office_clerks
+      title: General Office Clerks
+      farsi_title: کارکنان امور عمومی دفتری
+      code: 4110
+
+    '412':
+      level: 3
+      label: secretaries_general
+      title: Secretaries (general)
+      farsi_title: منشی‌ (عمومی)
+      code: {start: 4120, end: 4130}
+
+    '4120':
+      level: 4
+      label: secretaries_general
+      title: Secretaries (general)
+      farsi_title: منشی‌ (عمومی)
+      code: 4120
+
+    '413':
+      level: 3
+      label: keyboard_operators
+      title: Keyboard Operators
+      farsi_title: متصدیان ماشین‌های اداری
+      code: {start: 4130, end: 4140}
+
+    '4131':
+      level: 4
+      label: typists_and_word_processing_operators
+      title: Typists and Word Processing Operators
+      farsi_title: ماشین‌نویس‌ها و واژه‌پردازها
+      code: 4131
+
+    '4132':
+      level: 4
+      label: data_entry_clerks
+      title: Data Entry Clerks
+      farsi_title: متصدیان ورود اطلاعات
+      code: 4132
 
     '42':
       level: 2
@@ -154,12 +2146,173 @@ isco:
       farsi_title: کارکنان ارائه خدمات به مشتریان
       code: {start: 4200, end: 4300}
 
+    '421':
+      level: 3
+      label: tellers_money_collectors_and_related_clerks
+      title: Tellers, Money Collectors and Related Clerks
+      farsi_title: تحویل‌داران، مأموران جمع‌آوری پول و کارکنان امور مرتبط
+      code: {start: 4210, end: 4220}
+
+    '4211':
+      level: 4
+      label: bank_tellers_and_related_clerks
+      title: Bank Tellers and Related Clerks
+      farsi_title: تحویل‌داران بانک و کارکنان مشاغل مرتبط
+      code: 4211
+
+    # '4212':
+    #   level: 4
+    #   label: bookmakers_croupiers_and_related_gaming_workers
+    #   title: Bookmakers, Croupiers and Related Gaming Workers
+    #   farsi_title: دلال­های شرط بندی و مشاغل مرتبط
+    #   code: 4212
+
+    '4213':
+      level: 4
+      label: pawnbrokers_and_money_lenders
+      title: Pawnbrokers and Money-lenders
+      farsi_title: گروبردارها و وام‌دهندگان
+      code: 4213
+
+    '4214':
+      level: 4
+      label: debt_collectors_and_related_workers
+      title: Debt Collectors and Related Workers
+      farsi_title: کارکنان وصول مطالبات، جمع­آوری خیریه و مشاغل مرتبط
+      code: 4214
+
+    '422':
+      level: 3
+      label: client_information_workers
+      title: Client Information Workers
+      farsi_title: کارکنان اطلاعات مشتریان
+      code: {start: 4220, end: 4230}
+
+    '4221':
+      level: 4
+      label: travel_consultants_and_clerks
+      title: Travel Consultants and Clerks
+      farsi_title: مشاوران سفر و متصدیان امور مسافرتی
+      code: 4221
+
+    '4222':
+      level: 4
+      label: contact_centre_information_clerks
+      title: Contact Centre Information Clerks
+      farsi_title: کارکنان اطلاع‌رسانی مراکز تماس مشتریان
+      code: 4222
+
+    '4223':
+      level: 4
+      label: telephone_switchboard_operators
+      title: Telephone Switchboard Operators
+      farsi_title: تلفنچی
+      code: 4223
+
+    '4224':
+      level: 4
+      label: hotel_receptionists
+      title: Hotel Receptionists
+      farsi_title: کارکنان پذیرش هتل‌ها و مهمان‌پذیرها
+      code: 4224
+
+    '4225':
+      level: 4
+      label: inquiry_clerks
+      title: Inquiry Clerks
+      farsi_title: کارکنان پاسخ‌گویی به شکایات و سوالات
+      code: 4225
+
+    '4226':
+      level: 4
+      label: receptionists_general
+      title: Receptionists (general)
+      farsi_title: کارکنان پذیرش عمومی به‌جز هتل‌ها
+      code: 4226
+
+    '4227':
+      level: 4
+      label: survey_and_market_research_interviewers
+      title: Survey and Market Research Interviewers
+      farsi_title: آمارگیرها و بازارسنج‌ها
+      code: 4227
+
+    '4229':
+      level: 4
+      label: client_information_workers_not_elsewhere_classified
+      title: Client Information Workers Not Elsewhere Classified
+      farsi_title: کارکنان ارائه اطلاعات به مشتریان، طبقه‌بندی‌نشده در جای دیگر
+      code: 4229
+
     '43':
       level: 2
       label: numerical_and_material_recording_clerks
       title: Numerical and Material Recording Clerks
-      farsi_title: متصدیان ثبت ارقام و اقلام 
+      farsi_title: کارکنان ثبت ارقام و اقلام
       code: {start: 4300, end: 4400}
+
+    '431':
+      level: 3
+      label: numerical_clerks
+      title: Numerical Clerks
+      farsi_title: کارکنان ثبت ارقام
+      code: {start: 4310, end: 4320}
+
+    '4311':
+      level: 4
+      label: accounting_and_bookkeeping_clerks
+      title: Accounting and Bookkeeping Clerks
+      farsi_title: کارکنان امور حسابداری و دفترداری حسابداری
+      code: 4311
+
+    '4312':
+      level: 4
+      label: statistical_finance_and_insurance_clerks
+      title: Statistical, Finance and Insurance Clerks
+      farsi_title: کارکنان امور آماری، مالی و بیمه
+      code: 4312
+
+    '4313':
+      level: 4
+      label: payroll_clerks
+      title: Payroll Clerks
+      farsi_title: کارکنان امور حقوق و دستمزد
+      code: 4313
+
+    '432':
+      level: 3
+      label: material_recording_and_transport_clerks
+      title: Material Recording and Transport Clerks
+      farsi_title: کارکنان ثبت اقلام و حمل‌و‌نقل
+      code: {start: 4320, end: 4330}
+
+    # '4321':
+    #   level: 4
+    #   label: stock_clerks
+    #   title: Stock Clerks
+    #   farsi_title: کارکنان دفتری انبار
+    #   code: 4321
+
+    # '4322':
+    #   level: 4
+    #   label: production_clerks
+    #   title: Production Clerks
+    #   farsi_title: کارکنان برنامه­ریزی تولید و تامین مواد
+    #   code: 4322
+
+    '4323':
+      level: 4
+      label: transport_clerks
+      title: Transport Clerks
+      farsi_title: کارکنان دفتری حمل‌و‌نقل
+      code: 4323
+
+    '4324':
+      level: 4
+      label: 
+      title: 
+      farsi_title: متصدیان انبار و تأمین مواد اولیه یا اقلام تولید
+      code: 4324
 
     '44':
       level: 2
@@ -168,6 +2321,61 @@ isco:
       farsi_title: سایر کارکنان پشتیبانی دفتری
       code: {start: 4400, end: 4500}
 
+    '441':
+      level: 3
+      label: other_clerical_support_workers
+      title: Other Clerical Support Workers
+      farsi_title: سایر کارکنان پشتیبانی دفتری
+      code: {start: 4410, end: 4420}
+
+    '4411':
+      level: 4
+      label: library_clerks
+      title: Library Clerks
+      farsi_title: کارکنان کتابخانه
+      code: 4411
+
+    '4412':
+      level: 4
+      label: mail_carriers_and_sorting_clerks
+      title: Mail Carriers and Sorting Clerks
+      farsi_title: نامه‌رسان‌ها و کارکنان دفاتر پستی
+      code: 4412
+
+    '4413':
+      level: 4
+      label: coding_proofreading_and_related_clerks
+      title: Coding, Proofreading and Related Clerks
+      farsi_title: کارکنان کدگذاری، ویرایش فنی و امور مرتبط
+      code: 4413
+
+    '4414':
+      level: 4
+      label: scribes_and_related_workers
+      title: Scribes and Related Workers
+      farsi_title: عریضا­نویسان، کاتبان و کارکنان مشاغل مرتبط
+      code: 4414
+
+    '4415':
+      level: 4
+      label: filing_and_copying_clerks
+      title: Filing and Copying Clerks
+      farsi_title: متصدیان بایگانی و تهیه رونوشت
+      code: 4415
+
+    '4416':
+      level: 4
+      label: personnel_clerks
+      title: Personnel Clerks
+      farsi_title: کارکنان امور پرسنلی
+      code: 4416
+
+    '4419':
+      level: 4
+      label: clerical_support_workers_not_elsewhere_classified
+      title: Clerical Support Workers Not Elsewhere Classified
+      farsi_title: کارکنان پشتیبانی دفتری، طبقه‌بندی‌نشده در جای دیگر
+      code: 4419
 
     '5':
       level: 1
@@ -183,12 +2391,306 @@ isco:
       farsi_title: کارکنان ارائه خدمات شخصی
       code: {start: 5100, end: 5200}
 
+    '511':
+      level: 3
+      label: travel_attendants_conductors_and_guides
+      title: Travel Attendants, Conductors and Guides
+      farsi_title: مهمان‌داران، راهبران و راهنماهای سفر
+      code: {start: 5110, end: 5120}
+
+    '5111':
+      level: 4
+      label: travel_attendants_and_travel_stewards
+      title: Travel Attendants and Travel Stewards
+      farsi_title: مهمان‌داران سفر
+      code: 5111
+
+    '5112':
+      level: 4
+      label: transport_conductors
+      title: Transport Conductors
+      farsi_title: راهبران حمل‌و‌نقل عمومی
+      code: 5112
+
+    '5113':
+      level: 4
+      label: travel_guides
+      title: Travel Guides
+      farsi_title: راهنماهای سفر 
+      code: 5113
+
+    '512':
+      level: 3
+      label: cooks
+      title: Cooks
+      farsi_title: آشپزها
+      code: {start: 5120, end: 5130}
+
+    '5120':
+      level: 4
+      label: cooks
+      title: Cooks
+      farsi_title: آشپزها
+      code: 5120
+
+    '513':
+      level: 3
+      label: waiters_and_bartenders
+      title: Waiters and Bartenders
+      farsi_title: پیشخدمت‌های رستوران و کافه‌
+      code: {start: 5130, end: 5140}
+
+    '5131':
+      level: 4
+      label: waiters
+      title: Waiters
+      farsi_title: پیشخدمت‌های رستوران  
+      code: 5131
+
+    '5132':
+      level: 4
+      label: bartenders
+      title: Bartenders
+      farsi_title: پیشخدمت‌های کافه‌
+      code: 5132
+
+    '514':
+      level: 3
+      label: hairdressers_beauticians_and_related_workers
+      title: Hairdressers, Beauticians and Related Workers
+      farsi_title: آرایشگران، مراقبین زیبایی و کارکنان مشاغل مرتبط
+      code: {start: 5140, end: 5150}
+
+    # '5141':
+    #   level: 4
+    #   label: hairdressers
+    #   title: Hairdressers
+    #   farsi_title: آرایشگران و پیرایشگران
+    #   code: 5141
+
+    # '5142':
+    #   level: 4
+    #   label: beauticians_and_related_workers
+    #   title: Beauticians and Related Workers
+    #   farsi_title: مراقبین زیبایی
+    #   code: 5142
+
+    '5143':
+      level: 4
+      label: 
+      title: 
+      farsi_title: آرایشگران مو، چهره، بدن و کارکنان مشاغل مرتبط
+      code: 5143
+
+    '515':
+      level: 3
+      label: building_and_housekeeping_supervisors
+      title: Building and Housekeeping Supervisors
+      farsi_title: سرپرستان خانه­داری و نگهداری ساختمان
+      code: {start: 5150, end: 5160}
+
+    '5151':
+      level: 4
+      label: cleaning_and_housekeeping_supervisors_in_offices_hotels_and_other_establishments
+      title: Cleaning and Housekeeping Supervisors in Offices, Hotels and Other Establishments
+      farsi_title: سرپرستان خانه­داری و امور نظافت در اداره‌ها، هتل‌ها و سایر مؤسسات
+      code: 5151
+
+    '5152':
+      level: 4
+      label: domestic_housekeepers
+      title: Domestic Housekeepers
+      farsi_title: خدمتکاران منازل 
+      code: 5152
+
+    '5153':
+      level: 4
+      label: building_caretakers
+      title: Building Caretakers
+      farsi_title: سرایداران و مراقبین ساختمان
+      code: 5153
+
+    '516':
+      level: 3
+      label: other_personal_services_workers
+      title: Other Personal Services Workers
+      farsi_title: سایر کارکنان ارائه خدمات شخصی
+      code: {start: 5160, end: 5170}
+
+    '5161':
+      level: 4
+      label: astrologers_fortune_tellers_and_related_workers
+      title: Astrologers, Fortune-tellers and Related Workers
+      farsi_title: طالع‌بین‌ها، فال‌گیرها و کارکنان مشاغل مرتبط
+      code: 5161
+
+    '5162':
+      level: 4
+      label: companions_and_valets
+      title: Companions and Valets
+      farsi_title: ملازمان و پیشخدمتان مخصوص
+      code: 5162
+
+    '5163':
+      level: 4
+      label: undertakers_and_embalmers
+      title: Undertakers and Embalmers
+      farsi_title: مأموران کفن‌و‌دفن و مومیایی‌کنندگان اجساد
+      code: 5163
+
+    '5164':
+      level: 4
+      label: pet_groomers_and_animal_care_workers
+      title: Pet Groomers and Animal Care Workers
+      farsi_title: تیمارگران و مراقبت‌کنندگان حیوانات
+      code: 5164
+
+    '5165':
+      level: 4
+      label: driving_instructors
+      title: Driving Instructors
+      farsi_title: مربیان رانندگی
+      code: 5165
+
+    '5169':
+      level: 4
+      label: personal_services_workers_not_elsewhere_classified
+      title: Personal Services Workers Not Elsewhere Classified
+      farsi_title: کارکنان ارائه خدمات شخصی، طبقه‌بندی‌نشده در جای دیگر
+      code: 5169
+
     '52':
       level: 2
       label: sales_workers
       title: Sales Workers
       farsi_title: کارکنان فروش
       code: {start: 5200, end: 5300}
+
+    '521':
+      level: 3
+      label: street_and_market_salespersons
+      title: Street and Market Salespersons
+      farsi_title: فروشندگان غرفه، دکه و دوره­گردان
+      code: {start: 5210, end: 5220}
+
+    '5211':
+      level: 4
+      label: stall_and_market_salespersons
+      title: Stall and Market Salespersons
+      farsi_title: فروشندگان غرفه­ها و دکه‌ها (به‌جز مواد خوراکی آماده مصرف)
+      code: 5211
+
+    '5212':
+      level: 4
+      label: street_food_salespersons
+      title: Street Food Salespersons
+      farsi_title: فروشندگان دوره‌گرد غذا و نوشیدنی
+      code: 5212
+
+    '522':
+      level: 3
+      label: shop_aalespersons
+      title: Shop Aalespersons
+      farsi_title: مغازه­داران و فروشندگان فروشگاه­ها
+      code: {start: 5220, end: 5230}
+
+    # '5221':
+    #   level: 4
+    #   label: shopkeepers
+    #   title: Shopkeepers
+    #   farsi_title: مغازه داران
+    #   code: 5221
+
+    # '5222':
+    #   level: 4
+    #   label: shop_supervisors
+    #   title: Shop Supervisors
+    #   farsi_title: سرپرستان فروشگاه­ها
+    #   code: 5222
+
+    # '5223':
+    #   level: 4
+    #   label: shop_sales_assistants
+    #   title: Shop Sales Assistants
+    #   farsi_title: فروشندگان فروشگاه­ها و دستیاران فروش
+    #   code: 5223
+
+    '5224':
+      level: 4
+      label: 
+      title: 
+      farsi_title: مغازه‌داران، سرپرستان و فروشندگان فروشگاه‌ها
+      code: 5224
+
+    '523':
+      level: 3
+      label: cashiers_and_ticket_clerks
+      title: Cashiers and Ticket Clerks
+      farsi_title: صندوق‌داران فروشگاه­ها و فروشندگان بلیت (بجز سفر)
+      code: {start: 5230, end: 5240}
+
+    '5230':
+      level: 4
+      label: cashiers_and_ticket_clerks
+      title: Cashiers and Ticket Clerks
+      farsi_title: صندوق‌داران فروشگاه­ها و فروشندگان بلیت (بجز سفر)
+      code: 5230
+
+    '524':
+      level: 3
+      label: other_sales_workers
+      title: Other Sales Workers
+      farsi_title: سایر کارکنان فروش
+      code: {start: 5240, end: 5250}
+
+    '5241':
+      level: 4
+      label: fashion_and_other_models
+      title: Fashion and Other Models
+      farsi_title: مدل­های تبلیغات لباس و سایر محصولات
+      code: 5241
+
+    '5242':
+      level: 4
+      label: sales_demonstrators
+      title: Sales Demonstrators
+      farsi_title: ویزیتورهای محصولات
+      code: 5242
+
+    '5243':
+      level: 4
+      label: door_to_door_salespersons
+      title: Door-to-door Salespersons
+      farsi_title: فروشندگان خانه‌به‌خانه
+      code: 5243
+
+    '5244':
+      level: 4
+      label: contact_centre_salespersons
+      title: Contact Centre Salespersons
+      farsi_title: فروشندگان غیرحضوری یا مجازی
+      code: 5244
+
+    '5245':
+      level: 4
+      label: service_station_attendants
+      title: Service Station Attendants
+      farsi_title: متصدیان جایگاه سوخت و خدمات جزئی خودرو
+      code: 5245
+
+    '5246':
+      level: 4
+      label: food_service_counter_attendants
+      title: Food Service Counter Attendants
+      farsi_title: متصدیان پیشخوان فروش خوراکی و نوشیدنی
+      code: 5246
+
+    '5249':
+      level: 4
+      label: sales_workers_not_elsewhere_classified
+      title: Sales Workers Not Elsewhere Classified
+      farsi_title: کارکنان فروش، طبقه‌بندی‌نشده در جای دیگر
+      code: 5249
 
     '53':
       level: 2
@@ -197,6 +2699,55 @@ isco:
       farsi_title: کارکنان ارائه مراقبت‌های‌ شخصی
       code: {start: 5300, end: 5400}
 
+    '531':
+      level: 3
+      label: child_care_workers_and_teachers_aides
+      title: Child Care Workers and Teachers' Aides
+      farsi_title: کارکنان مراقبت از کودکان، و کمک‌مربیان کودکان
+      code: {start: 5310, end: 5320}
+
+    '5311':
+      level: 4
+      label: child_care_workers
+      title: Child Care Workers
+      farsi_title: کارکنان مراقبت از کودکان
+      code: 5311
+
+    '5312':
+      level: 4
+      label: teachers_aides
+      title: Teachers' Aides
+      farsi_title: کمک‌آموزگاران دوره­های ابتدایی و پیش­دبستانی
+      code: 5312
+
+    '532':
+      level: 3
+      label: personal_care_workers_in_health_services
+      title: Personal Care Workers in Health Services
+      farsi_title: کارکنان ارائه مراقبت‌های شخصی در خدمات سلامت و بهداشت
+      code: {start: 5320, end: 5330}
+
+    '5321':
+      level: 4
+      label: health_care_assistants
+      title: Health Care Assistants
+      farsi_title: دستیاران مراقبت سلامت و بهداشت
+      code: 5321
+
+    '5322':
+      level: 4
+      label: home_based_personal_care_workers
+      title: Home-based Personal Care Workers
+      farsi_title: کارکنان ارائه مراقبت‌های شخصی در منازل
+      code: 5322
+
+    '5329':
+      level: 4
+      label: personal_care_workers_in_health_services_not_elsewhere_classified
+      title: Personal Care Workers in Health Services Not Elsewhere Classified
+      farsi_title: کارکنان ارائه مراقبت‌های شخصی در خدمات سلامت و بهداشت، طبقه‌بندی‌نشده در جای دیگر
+      code: 5329
+
     '54':
       level: 2
       label: protective_services_workers
@@ -204,27 +2755,208 @@ isco:
       farsi_title: کارکنان ارائه خدمات حفاظتی
       code: {start: 5400, end: 5500}
 
+    '541':
+      level: 3
+      label: protective_services_workers
+      title: Protective Services Workers
+      farsi_title: کارکنان ارائه خدمات حفاظتی
+      code: {start: 5410, end: 5420}
+
+    '5411':
+      level: 4
+      label: fire_fighters
+      title: Fire Fighters
+      farsi_title: آتش‌نشان‌ها
+      code: 5411
+
+    '5412':
+      level: 4
+      label: police_officers
+      title: Police Officers
+      farsi_title: مأموران پلیس
+      code: 5412
+
+    '5413':
+      level: 4
+      label: prison_guards
+      title: Prison Guards
+      farsi_title: نگهبانان زندان
+      code: 5413
+
+    '5414':
+      level: 4
+      label: security_guards
+      title: Security Guards
+      farsi_title: مأموران حراست و حفاظت
+      code: 5414
+
+    '5419':
+      level: 4
+      label: protective_services_workers_not_elsewhere_classified
+      title: Protective Services Workers Not Elsewhere Classified
+      farsi_title: کارکنان ارائه خدمات حفاظتی، طبقه‌بندی‌نشده در جای دیگر
+      code: 5419
 
     '6':
       level: 1
       label: skilled_agricultural_forestry_and_fishery_workers
       title: Skilled Agricultural, Forestry and Fishery Workers
-      farsi_title: کارکنان ماهر کشاورزی، جنگل‌داری و ماهیگیری
+      farsi_title: کارکنان ماهر کشاورزی، جنگل‌داری و شیلات
       code: {start: 6000, end: 7000}
 
     '61':
       level: 2
       label: market_oriented_skilled_agricultural_workers
       title: Market-oriented Skilled Agricultural Workers
-      farsi_title: کارکنان ماهر کشاورزی بازارمدار
+      farsi_title: کارکنان ماهر کشاورزی بازارمحور
       code: {start: 6100, end: 6200}
+
+    '611':
+      level: 3
+      label: market_gardeners_and_crop_growers
+      title: Market Gardeners and Crop Growers
+      farsi_title: باغداران و تولیدکنندگان محصولات کشاورزی
+      code: {start: 6110, end: 6120}
+
+    '6111':
+      level: 4
+      label: field_crop_and_vegetable_growers
+      title: Field Crop and Vegetable Growers
+      farsi_title: تولیدکنندگان محصولات زراعی و سبزیجات
+      code: 6111
+
+    '6112':
+      level: 4
+      label: tree_and_shrub_crop_growers
+      title: Tree and Shrub Crop Growers
+      farsi_title: تولیدکنندگان محصولات درختی و بوته‌ای
+      code: 6112
+
+    '6113':
+      level: 4
+      label: gardeners_horticultural_and_nursery_growers
+      title: Gardeners, Horticultural and Nursery Growers
+      farsi_title: باغبانان و پرورش‌دهندگان گل و نهال
+      code: 6113
+
+    '6114':
+      level: 4
+      label: mixed_crop_growers
+      title: Mixed Crop Growers
+      farsi_title: تولیدکنندگان محصولات کشاورزی به‌صورت مختلط
+      code: 6114
+
+    '612':
+      level: 3
+      label: animal_producers
+      title: Animal Producers
+      farsi_title: پرورش‌دهندگان حیوانات
+      code: {start: 6120, end: 6130}
+
+    '6121':
+      level: 4
+      label: livestock_and_dairy_producers
+      title: Livestock and Dairy Producers
+      farsi_title: پرورش‌دهندگان دام‌ و حیوانات کاری
+      code: 6121
+
+    '6122':
+      level: 4
+      label: poultry_producers
+      title: Poultry Producers
+      farsi_title: پرورش‌دهندگان طیور 
+      code: 6122
+
+    '6123':
+      level: 4
+      label: apiarists_and_sericulturists
+      title: Apiarists and Sericulturists
+      farsi_title: پرورش‌دهندگان زنبور عسل و کرم ابریشم
+      code: 6123
+
+    '6129':
+      level: 4
+      label: animal_producers_not_elsewhere_classified
+      title: Animal Producers Not Elsewhere Classified
+      farsi_title: پرورش‌دهندگان حیوانات، طبقه‌بندی‌نشده در جای دیگر
+      code: 6129
+
+    '613':
+      level: 3
+      label: mixed_crop_and_animal_producers
+      title: Mixed Crop and Animal Producers
+      farsi_title: تولیدکنندگان محصولات کشاورزی و پرورش‌دهندگان حیوانات به‌صورت مختلط
+      code: {start: 6130, end: 6140}
+
+    '6130':
+      level: 4
+      label: mixed_crop_and_animal_producers
+      title: Mixed Crop and Animal Producers
+      farsi_title: تولیدکنندگان محصولات کشاورزی و پرورش‌دهندگان حیوانات به‌صورت مختلط
+      code: 6130
 
     '62':
       level: 2
       label: market_oriented_skilled_forestry_fishery_and_hunting_workers
       title: Market-Oriented Skilled Forestry, Fishery and Hunting Workers
-      farsi_title: کارکنان ماهر جنگل‌داری، ماهیگیری و شکار بازارمدار
+      farsi_title: کارکنان ماهر جنگل‌داری، شیلات و شکار بازارمحور
       code: {start: 6200, end: 6300}
+
+    '621':
+      level: 3
+      label: forestry_and_related_workers
+      title: Forestry and Related Workers
+      farsi_title: کارکنان جنگل‌داری و کارکنان مشاغل مرتبط
+      code: {start: 6210, end: 6220}
+
+    '6210':
+      level: 4
+      label: forestry_and_related_workers
+      title: Forestry and Related Workers
+      farsi_title: کارکنان جنگل‌داری و کارکنان مشاغل مرتبط
+      code: 6210
+
+    '622':
+      level: 3
+      label: fishery_workers_hunters_and_trappers
+      title: Fishery Workers, Hunters and Trappers
+      farsi_title: کارکنان شیلات، شکارچیان و تله‌گذاران
+      code: {start: 6220, end: 6230}
+
+    '6221':
+      level: 4
+      label: aquaculture_workers
+      title: Aquaculture Workers
+      farsi_title: کارکنان آبزی‌پروری
+      code: 6221
+
+    # '6222':
+    #   level: 4
+    #   label: inland_and_coastal_waters_fishery_workers
+    #   title: Inland and Coastal Waters Fishery Workers
+    #   farsi_title: کارگران ماهر ماهیگیری در آب­های کم عمق و ساحلی
+    #   code: 6222
+
+    # '6223':
+    #   level: 4
+    #   label: deep_sea_fishery_workers
+    #   title: Deep-sea Fishery Workers
+    #   farsi_title: کارگران ماهر ماهیگیری در آب­های عمیق و اقیانوسی
+    #   code: 6223
+
+    '6224':
+      level: 4
+      label: hunters_and_trappers
+      title: Hunters and Trappers
+      farsi_title: شکارچیان و تله‌گذاران
+      code: 6224
+
+    '6225':
+      level: 4
+      label: 
+      title: 
+      farsi_title: کارکنان ماهیگیری در آب‌های داخلی، ساحلی و عمیق
+      code: 6225
 
     '63':
       level: 2
@@ -233,68 +2965,957 @@ isco:
       farsi_title: کشاورزان، ماهیگیران، شکارچیان و گردآوران خودمصرف
       code: {start: 6300, end: 6400}
 
+    '631':
+      level: 3
+      label: subsistence_crop_farmers
+      title: Subsistence Crop Farmers
+      farsi_title: کشاورزان خودمصرف
+      code: {start: 6310, end: 6320}
+
+    '6310':
+      level: 4
+      label: subsistence_crop_farmers
+      title: Subsistence Crop Farmers
+      farsi_title: کشاورزان خودمصرف
+      code: 6310
+
+    '632':
+      level: 3
+      label: subsistence_livestock_farmers
+      title: Subsistence Livestock Farmers
+      farsi_title: دامداران خودمصرف
+      code: {start: 6320, end: 6330}
+
+    '6320':
+      level: 4
+      label: subsistence_livestock_farmers
+      title: Subsistence Livestock Farmers
+      farsi_title: دامداران خودمصرف
+      code: 6320
+
+    '633':
+      level: 3
+      label: subsistence_mixed_crop_and_livestock_farmers
+      title: Subsistence Mixed Crop and Livestock Farmers
+      farsi_title: کشاورز و دامدار توام خودمصرف
+      code: {start: 6330, end: 6340}
+
+    '6330':
+      level: 4
+      label: subsistence_mixed_crop_and_livestock_farmers
+      title: Subsistence Mixed Crop and Livestock Farmers
+      farsi_title: کشاورز و دامدار توام خودمصرف
+      code: 6330
+
+    '634':
+      level: 3
+      label: subsistence_fishers_hunters_trappers_and_gatherers
+      title: Subsistence Fishers, Hunters, Trappers and Gatherers
+      farsi_title: ماهیگیران، شکارچیان، تله‌گذاران و گردآوران گیاهان خودرو خودمصرف
+      code: {start: 6340, end: 6350}
+
+    '6340':
+      level: 4
+      label: subsistence_fishers_hunters_trappers_and_gatherers
+      title: Subsistence Fishers, Hunters, Trappers and Gatherers
+      farsi_title: ماهیگیران، شکارچیان، تله‌گذاران و گردآوران گیاهان خودرو خودمصرف
+      code: 6340
 
     '7':
       level: 1
       label: craft_and_related_trades_workers
       title: Craft and Related Trades Workers
-      farsi_title: صنعتگران و کارکنان حرفه‌های مرتبط
+      farsi_title: صنعتگران و کارکنان کسب و کارهای مرتبط
       code: {start: 7000, end: 8000}
 
     '71':
       level: 2
-      label: building_and_related_trades_workers_(excluding_electricians)
+      label: building_and_related_trades_workers_excluding_electricians
       title: Building and Related Trades Workers (excluding Electricians)
-      farsi_title: کارکنان اجرای طرح‌های عمرانی یا ساختمان‌سازی و کارکنان
-        حرفه‌های مرتبط (به‌جز برق‌کارها)
+      farsi_title: کارگران ماهر ساختمان­سازی و کسب و کارهای مرتبط (بجز برق­کارها)
       code: {start: 7100, end: 7200}
+
+    '711':
+      level: 3
+      label: building_frame_and_related_trades_workers
+      title: Building Frame and Related Trades Workers
+      farsi_title: کارکنان مشاغل مرتبط با اسکلت ساختمان و کارکنان کسب و کارهای مرتبط
+      code: {start: 7110, end: 7120}
+
+    '7111':
+      level: 4
+      label: house_builders
+      title: House Builders
+      farsi_title: بناها
+      code: 7111
+
+    '7112':
+      level: 4
+      label: bricklayers_and_related_workers
+      title: Bricklayers and Related Workers
+      farsi_title: آجرچین‌ها و کارکنان مشاغل مرتبط
+      code: 7112
+
+    '7113':
+      level: 4
+      label: stonemasons_stone_cutters_splitters_and_carvers
+      title: Stonemasons, Stone Cutters, Splitters and Carvers
+      farsi_title: سنگ‌کاران، سنگ‌تراشان، سنگ‌برها و تزیین‌کاران سنگ ساختمانی
+      code: 7113
+
+    '7114':
+      level: 4
+      label: concrete_placers_concrete_finishers_and_related_workers
+      title: Concrete Placers, Concrete Finishers and Related Workers
+      farsi_title: بتون‌ریزها، پرداخت‌‌کاران بتون و کارکنان مشاغل مرتبط
+      code: 7114
+
+    '7115':
+      level: 4
+      label: carpenters_and_joiners
+      title: Carpenters and Joiners
+      farsi_title: نجاران و چوب­کارهای ساختمانی
+      code: 7115
+
+    '7119':
+      level: 4
+      label: building_frame_and_related_trades_workers_not_elsewhere_classified
+      title: Building Frame and Related Trades Workers Not Elsewhere Classified
+      farsi_title: کارگران ماهر مشاغل مرتبط با اسکلت ساختمان و کسب و کارهای مرتبط، طبقه‌بندی‌نشده در جای دیگر
+      code: 7119
+
+    '712':
+      level: 3
+      label: building_finishers_and_related_trades_workers
+      title: Building Finishers and Related Trades Workers
+      farsi_title: کارگران ماهر کارهای تکمیلی ساختمان و کسب و کارهای مرتبط
+      code: {start: 7120, end: 7130}
+
+    '7121':
+      level: 4
+      label: roofers
+      title: Roofers
+      farsi_title: سقف سازها
+      code: 7121
+
+    '7122':
+      level: 4
+      label: floor_layers_and_tile_setters
+      title: Floor Layers and Tile Setters
+      farsi_title: کف ساز‌ها و کاشی‌کارها
+      code: 7122
+
+    '7123':
+      level: 4
+      label: plasterers
+      title: Plasterers
+      farsi_title: اندودکارها، گچ‌کارها و سیمان‌کارها
+      code: 7123
+
+    '7124':
+      level: 4
+      label: insulation_workers
+      title: Insulation Workers
+      farsi_title: عایق‌کارها
+      code: 7124
+
+    '7125':
+      level: 4
+      label: glaziers
+      title: Glaziers
+      farsi_title: شیشه‌برها
+      code: 7125
+
+    '7126':
+      level: 4
+      label: plumbers_and_pipe_fitters
+      title: Plumbers and Pipe Fitters
+      farsi_title: لوله‌کش‌های ساختمانی و صنعتی
+      code: 7126
+
+    '7127':
+      level: 4
+      label: air_conditioning_and_refrigeration_mechanics
+      title: Air Conditioning and Refrigeration Mechanics
+      farsi_title: نصابان و تعمیرکاران تجهیزات تهویه مطبوع‌ و سرمایشی
+      code: 7127
+
+    '713':
+      level: 3
+      label: painters_building_structure_cleaners_and_related_trades_workers
+      title: Painters, Building Structure Cleaners and Related Trades Workers
+      farsi_title: نقاشان، تمیزکارهای سازه‌های ساختمانی و کارکنان کسب و کار مرتبط
+      code: {start: 7130, end: 7140}
+
+    '7131':
+      level: 4
+      label: painters_and_related_workers
+      title: Painters and Related Workers
+      farsi_title: نقاشان ساختمانی و کارکنان مشاغل مرتبط
+      code: 7131
+
+    '7132':
+      level: 4
+      label: spray_painters_and_varnishers
+      title: Spray Painters and Varnishers
+      farsi_title: رنگ­کارها و جلاکارهای صنعتی
+      code: 7132
+
+    '7133':
+      level: 4
+      label: building_structure_cleaners
+      title: Building Structure Cleaners
+      farsi_title: تمیزکارهای سازه‌های ساختمانی
+      code: 7133
 
     '72':
       level: 2
       label: metal_machinery_and_related_trades_workers
       title: Metal, Machinery and Related Trades Workers
-      farsi_title: کارکنان فلزکاری، ماشین‌آلات فلزکاری و کارکنان حرفه‌های مرتبط
+      farsi_title: کارگران ماهر شکل­دهی فلزات، ماشین­کاری و کسب و کارهای مرتبط
       code: {start: 7200, end: 7300}
+
+    '721':
+      level: 3
+      label: sheet_and_structural_metal_workers_moulders_and_welders_and_related_workers
+      title: Sheet and Structural Metal Workers, Moulders and Welders, and Related Workers
+      farsi_title: ورق­کاران و فلزکاران سازه­ای، قالب­سازهای ریخته­گری، جوشکارها و کارکنان مشاغل مرتبط
+      code: {start: 7210, end: 7220}
+
+    '7211':
+      level: 4
+      label: metal_moulders_and_coremakers
+      title: Metal Moulders and Coremakers
+      farsi_title: سازندگان قالب‌ها و ماهیچه‌های ریخته‌گری فلزات
+      code: 7211
+
+    '7212':
+      level: 4
+      label: welders_and_flame_cutters
+      title: Welders and Flame Cutters
+      farsi_title: جوش‌کارها و برش‌کارهای با شعله (فلزات)
+      code: 7212
+
+    '7213':
+      level: 4
+      label: sheet_metal_workers
+      title: Sheet Metal Workers
+      farsi_title: ورق‌کارها (فلزات)
+      code: 7213
+
+    '7214':
+      level: 4
+      label: structural_metal_preparers_and_erectors
+      title: Structural Metal Preparers and Erectors
+      farsi_title: سازندگان و نصب‌کنندگان سازه‌های فلزی
+      code: 7214
+
+    '7215':
+      level: 4
+      label: riggers_and_cable_splicers
+      title: Riggers and Cable Splicers
+      farsi_title: سیم‌بکسل‌اندازها و سیم‌بکسل‌بندها
+      code: 7215
+
+    '722':
+      level: 3
+      label: blacksmiths_toolmakers_and_related_trades_workers
+      title: Blacksmiths, Toolmakers and Related Trades Workers
+      farsi_title: آهنگران، ابزارسازان و کارکنان کسب و کارهای مرتبط
+      code: {start: 7220, end: 7230}
+
+    '7221':
+      level: 4
+      label: blacksmiths_hammersmiths_and_forging_press_workers
+      title: Blacksmiths, Hammersmiths and Forging Press Workers
+      farsi_title: آهنگران، چکش‌کاران و پرس‌کاران
+      code: 7221
+
+    '7222':
+      level: 4
+      label: toolmakers_and_related_workers
+      title: Toolmakers and Related Workers
+      farsi_title: ابزارسازان و کارکنان کسب و کارهای مرتبط
+      code: 7222
+
+    # '7223':
+    #   level: 4
+    #   label: metal_working_machine_tool_setters_and__operators
+    #   title: Metal Working Machine Tool Setters and  Operators
+    #   farsi_title: متصدیان و تنظیم کنندگان ماشین ابزار فلزکاری
+    #   code: 7223
+
+    # '7224':
+    #   level: 4
+    #   label: metal_polishers_wheel_grinders_and_tool_sharpeners
+    #   title: Metal Polishers, Wheel Grinders and Tool Sharpeners
+    #   farsi_title: صیقل کاران فلزات، سنگ زن ها و تیزکنندگان ابزارآلات
+    #   code: 7224
+
+    '7225':
+      level: 4
+      label: 
+      title: 
+      farsi_title: ‌متصدیان و تنظیم‌کنندگان دستگاه‌های فلزکاری، تراش‌کاری، صیقل‌کاری و سنگ‌زنی فلزات و تیزکنندگان ابزار
+      code: 7225
+
+    '723':
+      level: 3
+      label: machinery_mechanics_and_repairers
+      title: Machinery Mechanics and Repairers
+      farsi_title: مکانیک‌ها و تعمیرکاران ماشین‌آلات
+      code: {start: 7230, end: 7240}
+
+    '7231':
+      level: 4
+      label: motor_vehicle_mechanics_and_repairers
+      title: Motor Vehicle Mechanics and Repairers
+      farsi_title: مکانیک‌ها و تعمیرکاران وسایل نقلیه موتوری جاده‌ای
+      code: 7231
+
+    '7232':
+      level: 4
+      label: aircraft_engine_mechanics_and_repairers
+      title: Aircraft Engine Mechanics and Repairers
+      farsi_title: مکانیک‌ها و تعمیرکاران وسایل نقلیه موتوری هوایی
+      code: 7232
+
+    '7233':
+      level: 4
+      label: agricultural_and_industrial_machinery_mechanics_and_repairers
+      title: Agricultural and Industrial Machinery Mechanics and Repairers
+      farsi_title: مکانیک‌ها و تعمیرکاران ماشین‌آلات کشاورزی و صنعتی 
+      code: 7233
+
+    '7234':
+      level: 4
+      label: bicycle_and_related_repairers
+      title: Bicycle and Related Repairers
+      farsi_title: تعمیرکاران دوچرخه و وسایل مشابه
+      code: 7234
 
     '73':
       level: 2
       label: handicraft_and_printing_workers
       title: Handicraft and Printing Workers
-      farsi_title: کارکنان صنایع دستی و چاپ
+      farsi_title: کارکنان ماهر صنایع دستی و چاپ
       code: {start: 7300, end: 7400}
+
+    '731':
+      level: 3
+      label: handicraft_workers
+      title: Handicraft Workers
+      farsi_title: کارکنان ماهر صنایع دستی
+      code: {start: 7310, end: 7320}
+
+    '7311':
+      level: 4
+      label: precision_instrument_makers_and_repairers
+      title: Precision-instrument Makers and Repairers
+      farsi_title: سازندگان و تعمیرکاران ابزار دقیق
+      code: 7311
+
+    '7312':
+      level: 4
+      label: musical_instrument_makers_and_tuners
+      title: Musical Instrument Makers and Tuners
+      farsi_title: سازندگان و تنظیم‌کنندگان آلات موسیقی
+      code: 7312
+
+    '7313':
+      level: 4
+      label: jewellery_and_precious_metal_workers
+      title: Jewellery and Precious Metal Workers
+      farsi_title: کارگران ماهر ساخت جواهرات و سایر اقلام از سنگ­ها و فلزات گرانبها
+      code: 7313
+
+    '7314':
+      level: 4
+      label: potters_and_related_workers
+      title: Potters and Related Workers
+      farsi_title: سفالگران و کارکنان مشاغل مرتبط
+      code: 7314
+
+    '7315':
+      level: 4
+      label: glass_makers_cutters_grinders_and_finishers
+      title: Glass Makers, Cutters, Grinders and Finishers
+      farsi_title: شیشه‌گران
+      code: 7315
+
+    '7316':
+      level: 4
+      label: sign_writers_decorative_painters_engravers_and_etchers
+      title: Sign Writers, Decorative Painters, Engravers and Etchers
+      farsi_title: تابلونویسان، منبت­کاران، حکاکان و نقاشان تزئینی
+      code: 7316
+
+    '7317':
+      level: 4
+      label: handicraft_workers_in_wood_basketry_and_related_materials
+      title: Handicraft Workers in Wood, Basketry and Related Materials
+      farsi_title: کارگران ماهر صنایع دستی ساخته‌شده از چوب، نی و مواد مرتبط
+      code: 7317
+
+    '7318':
+      level: 4
+      label: handicraft_workers_in_textile_leather_and_related_materials
+      title: Handicraft Workers in Textile, Leather and Related Materials
+      farsi_title: کارگران ماهر صنایع دستی ساخته‌شده از منسوجات، چرم و مواد مرتبط
+      code: 7318
+
+    '7319':
+      level: 4
+      label: handicraft_workers_not_elsewhere_classified
+      title: Handicraft Workers Not Elsewhere Classified
+      farsi_title: کارگران ماهر صنایع دستی، طبقه‌بندی‌نشده در جای دیگر
+      code: 7319
+
+    '732':
+      level: 3
+      label: printing_trades_workers
+      title: Printing Trades Workers
+      farsi_title: کارکنان ماهر چاپ
+      code: {start: 7320, end: 7330}
+
+    '7321':
+      level: 4
+      label: pre_press_technicians
+      title: Pre-press Technicians
+      farsi_title: تکنسین‌های آماده­سازی پیش از چاپ
+      code: 7321
+
+    '7322':
+      level: 4
+      label: printers
+      title: Printers
+      farsi_title: متصدیان چاپ 
+      code: 7322
+
+    '7323':
+      level: 4
+      label: print_finishing_and_binding_workers
+      title: Print Finishing and Binding Workers
+      farsi_title: متصدیان کارهای پس از چاپ و صحافی
+      code: 7323
 
     '74':
       level: 2
       label: electrical_and_electronics_trades_workers
       title: Electrical and Electronics Trades Workers
-      farsi_title: کارکنان مشاغل مربوط به برق و الکترونیک و کارکنان حرفه‌های مرتبط
+      farsi_title: کارکنان ماهر برق و الکترونیک 
       code: {start: 7400, end: 7500}
+
+    '741':
+      level: 3
+      label: electrical_equipment_installers_and_repairers
+      title: Electrical Equipment Installers and Repairers
+      farsi_title: نصبان‌ و تعمیرکاران تجهیزات برقی
+      code: {start: 7410, end: 7420}
+
+    '7411':
+      level: 4
+      label: building_and_related_electricians
+      title: Building and Related Electricians
+      farsi_title: برق‌کاران ساختمان و امور مرتبط
+      code: 7411
+
+    '7412':
+      level: 4
+      label: electrical_mechanics_and_fitters
+      title: Electrical Mechanics and Fitters
+      farsi_title: نصابان ماشین­آلات و تجهیزات برقی
+      code: 7412
+
+    '7413':
+      level: 4
+      label: electrical_line_installers_and_repairers
+      title: Electrical Line Installers and Repairers
+      farsi_title: نصابان و تعمیرکاران خطوط برق
+      code: 7413
+
+    '742':
+      level: 3
+      label: electronics_and_telecommunications_installers_and_repairers
+      title: Electronics and Telecommunications Installers and Repairers
+      farsi_title: نصابان و تعمیرکاران تجهیزات الکترونیکی و مخابراتی
+      code: {start: 7420, end: 7430}
+
+    '7421':
+      level: 4
+      label: electronics_mechanics_and_servicers
+      title: Electronics Mechanics and Servicers
+      farsi_title: نصابان و تعمیرکاران تجهیزات الکترونیکی
+      code: 7421
+
+    '7422':
+      level: 4
+      label: information_and_communications_technology_installers_and_servicers
+      title: Information and Communications Technology Installers and Servicers
+      farsi_title: نصابان و تعمیرکنندگان تجهیزات فناوری اطلاعات و ارتباطات
+      code: 7422
 
     '75':
       level: 2
-      label: food_processing_woodworking_garment_and_other_craft_and_related_
-        trades_workers
-      title: >
-        Food Processing, Woodworking, Garment and Other Craft and Related
-        Trades Workers
-      farsi_title: کارکنان فراوری مواد غذایی، کار روی چوب، پوشاک و کارکنان سایر
-        صنایع و حرفه‌های مرتبط
+      label: food_processing_woodworking_garment_and_other_craft_and_related_trades_workers
+      title: Food Processing, Woodworking, Garment and Other Craft and Related Trades Workers
+      farsi_title: کارگران ماهر فراوری مواد غذایی، چوب، پوشاک و سایر کسب و کارهای مرتبط
       code: {start: 7500, end: 7600}
 
+    '751':
+      level: 3
+      label: food_processing_and_related_trades_workers
+      title: Food Processing and Related Trades Workers
+      farsi_title: کارگران ماهر فراوری مواد غذایی و کسب و کارهای مرتبط
+      code: {start: 7510, end: 7520}
+
+    '7511':
+      level: 4
+      label: butchers_fishmongers_and_related_food_preparers
+      title: Butchers, Fishmongers and Related Food Preparers
+      farsi_title: آماده‌کنندگان مواد غذایی گوشتی
+      code: 7511
+
+    # '7512':
+    #   level: 4
+    #   label: bakers_pastry_cooks_and_confectionery_makers
+    #   title: Bakers, Pastry-cooks and Confectionery Makers
+    #   farsi_title: نانوایان و شیرینی­پزها
+    #   code: 7512
+
+    '7513':
+      level: 4
+      label: dairy_products_makers
+      title: Dairy Products Makers
+      farsi_title: تولیدکنندگان فراورده‌های لبنی
+      code: 7513
+
+    '7514':
+      level: 4
+      label: fruit_vegetable_and_related_preservers
+      title: Fruit, Vegetable and Related Preservers
+      farsi_title: فراوری‌کنندگان میوه، سبزیجات و مانند آن
+      code: 7514
+
+    '7515':
+      level: 4
+      label: food_and_beverage_tasters_and_graders
+      title: Food and Beverage Tasters and Graders
+      farsi_title: کارگران ماهر تشخیص طعم و درجه‌بندی مواد غذایی و نوشیدنی
+      code: 7515
+
+    '7516':
+      level: 4
+      label: tobacco_preparers_and_tobacco_products_makers
+      title: Tobacco Preparers and Tobacco Products Makers
+      farsi_title: آماده­کنندگان تنباکو و تولیدکنندگان محصولات دخانی
+      code: 7516
+
+    '7517':
+      level: 4
+      label: 
+      title: 
+      farsi_title: نانواها
+      code: 7517
+
+    '7518':
+      level: 4
+      label: 
+      title: 
+      farsi_title: نان شیرینی‌پزها و شیرینی‌پزها
+      code: 7518
+
+    '752':
+      level: 3
+      label: wood_treaters_cabinet_makers_and_related_trades_workers
+      title: Wood Treaters, Cabinet-makers and Related Trades Workers
+      farsi_title: عمل­آورندگان چوب، درودگران و کارکنان کسب و کارهای مرتبط
+      code: {start: 7520, end: 7530}
+
+    '7521':
+      level: 4
+      label: wood_treaters
+      title: Wood Treaters
+      farsi_title: عمل‌آورندگان چوب
+      code: 7521
+
+    '7522':
+      level: 4
+      label: cabinet_makers_and_related_workers
+      title: Cabinet-makers and Related Workers
+      farsi_title: درودگران و کارکنان مشاغل مرتبط
+      code: 7522
+
+    '7523':
+      level: 4
+      label: woodworking_machine_tool_setters_and_operators
+      title: Woodworking Machine Tool Setters and Operators
+      farsi_title: متصدیان و تنظیم­کنندگان ماشین ابزار چوب­کاری
+      code: 7523
+
+    '753':
+      level: 3
+      label: garment_and_related_trades_workers
+      title: Garment and Related Trades Workers
+      farsi_title: کارگران ماهر صنعت پوشاک و کسب و کارهای مرتبط
+      code: {start: 7530, end: 7540}
+
+    # '7531':
+    #   level: 4
+    #   label: tailors_dressmakers_furriers_and_hatters
+    #   title: Tailors, Dressmakers, Furriers and Hatters
+    #   farsi_title: خیاطان، خزدوزان و کلاه دوزان
+    #   code: 7531
+
+    '7532':
+      level: 4
+      label: garment_and_related_patternmakers_and_cutters
+      title: Garment and Related Patternmakers and Cutters
+      farsi_title: الگوسازان و برش‌کاران پوشاک و مانند آن
+      code: 7532
+
+    # '7533':
+    #   level: 4
+    #   label: sewing_embroidery_and_related_workers
+    #   title: Sewing, Embroidery and Related Workers
+    #   farsi_title: دست دوزان، گلدوزان و کارکنان مشاغل مرتبط
+    #   code: 7533
+
+    # '7534':
+    #   level: 4
+    #   label: upholsterers_and_related_workers
+    #   title: Upholsterers and Related Workers
+    #   farsi_title: مبلمان دوزها و کارکنان مشاغل مرتبط
+    #   code: 7534
+
+    '7535':
+      level: 4
+      label: pelt_dressers_tanners_and_fellmongers
+      title: Pelt Dressers, Tanners and Fellmongers
+      farsi_title: دباغان و پرداخت­کنندگان چرم
+      code: 7535
+
+    '7536':
+      level: 4
+      label: shoemakers_and_related_workers
+      title: Shoemakers and Related Workers
+      farsi_title: 
+      code: 7536
+
+    '7537':
+      level: 4
+      label: 
+      title: 
+      farsi_title: خیاط‌ها و سایر دوزندگان- دستی یا غیرصنعتی
+      code: 7537
+
+    '754':
+      level: 3
+      label: other_craft_and_related_workers
+      title: Other Craft and Related Workers
+      farsi_title: سایر صنعتگران و کارکنان مشاغل مرتبط
+      code: {start: 7540, end: 7550}
+
+    '7541':
+      level: 4
+      label: underwater_divers
+      title: Underwater Divers
+      farsi_title: غواص‌ها
+      code: 7541
+
+    '7542':
+      level: 4
+      label: shotfirers_and_blasters
+      title: Shotfirers and Blasters
+      farsi_title: تخریبچی‌ها و متصدیان انفجار
+      code: 7542
+
+    '7543':
+      level: 4
+      label: product_graders_and_testers_except_foods_and_beverages
+      title: Product Graders and Testers (except Foods and Beverages)
+      farsi_title: کارکنان درجه‌بندی و آزمایش محصولات (به‌جز مواد خوراکی، نوشیدنی و دخانی)
+      code: 7543
+
+    '7544':
+      level: 4
+      label: fumigators_and_other_pest_and_weed_controllers
+      title: Fumigators and Other Pest and Weed Controllers
+      farsi_title: سمپاشان و سایر کنترل‌کنندگان آفات و علف‌های هرز
+      code: 7544
+
+    '7549':
+      level: 4
+      label: craft_and_related_workers_not_elsewhere_classified
+      title: Craft and Related Workers not Elsewhere Classified
+      farsi_title: صنعتگران و کارکنان مشاغل مرتبط، طبقه‌بندی‌نشده در جای دیگر
+      code: 7549
 
     '8':
       level: 1
       label: plant_and_machine_operators_and_assemblers
       title: Plant and Machine Operators, and Assemblers
-      farsi_title: متصدیان ماشین‌آلات و دستگاه‌ها و مونتاژکاران
+      farsi_title: متصدیان ماشین‌آلات و تجهیزات و مونتاژکاران
       code: {start: 8000, end: 9000}
 
     '81':
       level: 2
       label: stationary_plant_and_machine_operators
       title: Stationary Plant and Machine Operators
-      farsi_title: متصدیان ماشین‌آلات و دستگاه‌های ثابت
+      farsi_title: متصدیان ماشین‌آلات و تجهیزات ثابت
       code: {start: 8100, end: 8200}
+
+    '811':
+      level: 3
+      label: mining_and_mineral_processing_plant_operators
+      title: Mining and Mineral Processing Plant Operators
+      farsi_title: متصدیان تجهیزات استخراج و فراوری مواد معدنی
+      code: {start: 8110, end: 8120}
+
+    '8111':
+      level: 4
+      label: miners_and_quarriers
+      title: Miners and Quarriers
+      farsi_title: معدنچیان
+      code: 8111
+
+    '8112':
+      level: 4
+      label: mineral_and_stone_processing_plant_operators
+      title: Mineral and Stone Processing Plant Operators
+      farsi_title: متصدیان ماشین‌آلات فراوری سنگ و مواد معدنی 
+      code: 8112
+
+    '8113':
+      level: 4
+      label: well_drillers_and_borers_and_related_workers
+      title: Well Drillers and Borers and Related Workers
+      farsi_title: حفاران چاه، مته زن­ها و کارکنان مشاغل مرتبط
+      code: 8113
+
+    '8114':
+      level: 4
+      label: cement_stone_and_other_mineral_products_machine_operators
+      title: Cement, Stone and Other Mineral Products Machine Operators
+      farsi_title: متصدیان دستگاه‌های تولید محصولات سیمانی، سنگی و سایر مواد معدنی
+      code: 8114
+
+    '812':
+      level: 3
+      label: metal_processing_and_finishing_plant_operators
+      title: Metal Processing and Finishing Plant Operators
+      farsi_title: متصدیان ماشین‌آلات فراوری و پرداخت فلزات
+      code: {start: 8120, end: 8130}
+
+    '8121':
+      level: 4
+      label: metal_processing_plant_operators
+      title: Metal Processing Plant Operators
+      farsi_title: متصدیان ماشین‌آلات فراوری فلزات
+      code: 8121
+
+    '8122':
+      level: 4
+      label: metal_finishing_plating_and_coating_machine_operators
+      title: Metal Finishing, Plating and Coating Machine Operators
+      farsi_title: متصدیان ماشین­آلات پرداخت، آب‌کاری و روکش‌کاری فلزات
+      code: 8122
+
+    '813':
+      level: 3
+      label: chemical_and_photographic_products_plant_and_machine_operators
+      title: Chemical and Photographic Products Plant and Machine Operators
+      farsi_title: متصدیان ماشین­آلات و تجهیزات تولید محصولات شیمیایی و عکاسی
+      code: {start: 8130, end: 8140}
+
+    '8131':
+      level: 4
+      label: chemical_products_plant_and_machine_operators
+      title: Chemical Products Plant and Machine Operators
+      farsi_title: متصدیان ماشین‌آلات و تجهیزات تولید محصولات شیمیایی
+      code: 8131
+
+    '8132':
+      level: 4
+      label: photographic_products_machine_operators
+      title: Photographic Products Machine Operators
+      farsi_title: متصدیان ماشین­آلات تولید فیلم و کاغذ عکاسی، چاپ عکس و مانند آن
+      code: 8132
+
+    '814':
+      level: 3
+      label: rubber_plastic_and_paper_products_machine_operators
+      title: Rubber, Plastic and Paper Products Machine Operators
+      farsi_title: متصدیان ماشین­آلات تولید محصولات لاستیکی، پلاستیکی و کاغذی
+      code: {start: 8140, end: 8150}
+
+    '8141':
+      level: 4
+      label: rubber_products_machine_operators
+      title: Rubber Products Machine Operators
+      farsi_title: متصدیان ماشین­آلات تولید محصولات لاستیکی
+      code: 8141
+
+    '8142':
+      level: 4
+      label: plastic_products_machine_operators
+      title: Plastic Products Machine Operators
+      farsi_title: متصدیان ماشین­آلات تولید محصولات پلاستیکی
+      code: 8142
+
+    '8143':
+      level: 4
+      label: paper_products_machine_operators
+      title: Paper Products Machine Operators
+      farsi_title: متصدیان ماشین­آلات تولید محصولات کاغذی
+      code: 8143
+
+    '815':
+      level: 3
+      label: textile_fur_and_leather_products_machine_operators
+      title: Textile, Fur and Leather Products Machine Operators
+      farsi_title: متصدیان ماشین­آلات تولید محصولات نساجی، پوستی و چرمی
+      code: {start: 8150, end: 8160}
+
+    '8151':
+      level: 4
+      label: fibre_preparing_spinning_and_winding_machine_operators
+      title: Fibre Preparing, Spinning and Winding Machine Operators
+      farsi_title: متصدیان ماشین­آلات آماده‌سازی، ریسندگی و چله پیچی الیاف
+      code: 8151
+
+    '8152':
+      level: 4
+      label: weaving_and_knitting_machine_operators
+      title: Weaving and Knitting Machine Operators
+      farsi_title: متصدیان ماشین­آلات بافت منسوجات
+      code: 8152
+
+    '8153':
+      level: 4
+      label: sewing_machine_operators
+      title: Sewing Machine Operators
+      farsi_title: متصدیان ماشین­آلات دوخت صنعتی
+      code: 8153
+
+    '8154':
+      level: 4
+      label: bleaching_dyeing_and_fabric_cleaning_machine_operators
+      title: Bleaching, Dyeing and Fabric Cleaning Machine Operators
+      farsi_title: متصدیان ماشین­آلات رنگ‌‌بری، رنگرزی و شستشوی نهایی پارچه
+      code: 8154
+
+    '8155':
+      level: 4
+      label: fur_and_leather_preparing_machine_operators
+      title: Fur and Leather Preparing Machine Operators
+      farsi_title: متصدیان ماشین­آلات پرداخت پوست و چرم
+      code: 8155
+
+    '8156':
+      level: 4
+      label: shoemaking_and_related_machine_operators
+      title: Shoemaking and Related Machine Operators
+      farsi_title: متصدیان ماشین­آلات تولید کفش و محصولات مرتبط 
+      code: 8156
+
+    '8157':
+      level: 4
+      label: laundry_machine_operators
+      title: Laundry Machine Operators
+      farsi_title: متصدیان ماشین­­آلات لباسشویی، خشکشویی و اتوشویی
+      code: 8157
+
+    '8159':
+      level: 4
+      label: textile_fur_and_leather_products_machine_operators_not_elsewhere_classified
+      title: Textile, Fur and Leather Products Machine Operators Not Elsewhere Classified
+      farsi_title: متصدیان ماشین­آلات تولید محصولات نساجی، پوستی و چرمی، طبقه‌بندی‌نشده در جای دیگر
+      code: 8159
+
+    '816':
+      level: 3
+      label: food_and_related_products_machine_operators
+      title: Food and Related Products Machine Operators
+      farsi_title: متصدیان ماشین­آلات تولید مواد غذایی، محصولات دخانی و محصولات مرتبط
+      code: {start: 8160, end: 8170}
+
+    '8160':
+      level: 4
+      label: food_and_related_products_machine_operators
+      title: Food and Related Products Machine Operators
+      farsi_title: متصدیان ماشین­آلات تولید مواد غذایی، محصولات دخانی و محصولات مرتبط
+      code: 8160
+
+    '817':
+      level: 3
+      label: wood_processing_and_papermaking_plant_operators
+      title: Wood Processing and Papermaking Plant Operators
+      farsi_title: متصدیان تجهیزات فراوری چوب و تولید کاغذ
+      code: {start: 8170, end: 8180}
+
+    '8171':
+      level: 4
+      label: pulp_and_papermaking_plant_operators
+      title: Pulp and Papermaking Plant Operators
+      farsi_title: متصدیان تجهیزات تولید خمیر کاغذ و کاغذ
+      code: 8171
+
+    '8172':
+      level: 4
+      label: wood_processing_plant_operators
+      title: Wood Processing Plant Operators
+      farsi_title: متصدیان تجهیزات فراوری چوب
+      code: 8172
+
+    '818':
+      level: 3
+      label: other_stationary_plant_and_machine_operators
+      title: Other Stationary Plant and Machine Operators
+      farsi_title: سایر متصدیان ماشین‌آلات و تجهیزات ثابت
+      code: {start: 8180, end: 8190}
+
+    # '8181':
+    #   level: 4
+    #   label: glass_and_ceramics_plant_operators
+    #   title: Glass and Ceramics Plant Operators
+    #   farsi_title: متصدیان تجهیزات تولید شیشه و سرامیک
+    #   code: 8181
+
+    '8182':
+      level: 4
+      label: steam_engine_and_boiler_operators
+      title: Steam Engine and Boiler Operators
+      farsi_title: متصدیان موتورها و دیگ‌های بخار
+      code: 8182
+
+    '8183':
+      level: 4
+      label: packing_bottling_and_labelling_machine_operators
+      title: Packing, Bottling and Labelling Machine Operators
+      farsi_title: متصدیان ماشین‌آلات بسته‌بندی، بطری پر کنی و برچسب‌زنی
+      code: 8183
+
+    '8184':
+      level: 4
+      label: 
+      title: 
+      farsi_title: متصدیان ماشین‌آلات سفالگری و تولید محصولات مرتبط
+      code: 8184
+
+    '8185':
+      level: 4
+      label: 
+      title: 
+      farsi_title: متصدیان ماشین‌آلات شیشه‌گری و تولید محصولات مرتبط
+      code: 8185
+
+    '8189':
+      level: 4
+      label: stationary_plant_and_machine_operators_not_elsewhere_classified
+      title: Stationary Plant and Machine Operators Not Elsewhere Classified
+      farsi_title: متصدیان ماشین‌آلات و تجهیزات ثابت، طبقه‌بندی‌نشده در جای دیگر
+      code: 8189
 
     '82':
       level: 2
@@ -303,6 +3924,34 @@ isco:
       farsi_title: مونتاژکاران
       code: {start: 8200, end: 8300}
 
+    '821':
+      level: 3
+      label: assemblers
+      title: Assemblers
+      farsi_title: مونتاژکاران
+      code: {start: 8210, end: 8220}
+
+    '8211':
+      level: 4
+      label: mechanical_machinery_assemblers
+      title: Mechanical Machinery Assemblers
+      farsi_title: مونتاژکاران ماشین‌آلات مکانیکی
+      code: 8211
+
+    '8212':
+      level: 4
+      label: electrical_and_electronic_equipment_assemblers
+      title: Electrical and Electronic Equipment Assemblers
+      farsi_title: مونتاژکاران تجهیزات و وسایل برقی و الکترونیکی
+      code: 8212
+
+    '8219':
+      level: 4
+      label: assemblers_not_elsewhere_classified
+      title: Assemblers Not Elsewhere Classified
+      farsi_title: مونتاژکاران، طبقه‌بندی‌نشده در جای دیگر
+      code: 8219
+
     '83':
       level: 2
       label: drivers_and_mobile_plant_operators
@@ -310,93 +3959,200 @@ isco:
       farsi_title: رانندگان و متصدیان ماشین‌آلات متحرک
       code: {start: 8300, end: 8400}
 
+    '831':
+      level: 3
+      label: locomotive_engine_drivers_and_related_workers
+      title: Locomotive Engine Drivers and Related Workers
+      farsi_title: لوکوموتیوران‌ها و کارکنان مشاغل مرتبط
+      code: {start: 8310, end: 8320}
+
+    '8311':
+      level: 4
+      label: locomotive_engine_drivers
+      title: Locomotive Engine Drivers
+      farsi_title: لوکوموتیوران‌ها
+      code: 8311
+
+    '8312':
+      level: 4
+      label: railway_brake_signal_and_switch_operators
+      title: Railway Brake, Signal and Switch Operators
+      farsi_title: متصدیان ترمز، ارسال سیگنال و تعویض خطوط راه‌آهن
+      code: 8312
+
+    '832':
+      level: 3
+      label: car_van_and_motorcycle_drivers
+      title: Car, Van and Motorcycle Drivers
+      farsi_title: رانندگان خودروهای سواری، وانت و موتورسیکلت
+      code: {start: 8320, end: 8330}
+
+    '8321':
+      level: 4
+      label: motorcycle_drivers
+      title: Motorcycle Drivers
+      farsi_title: رانندگان موتورسیکلت
+      code: 8321
+
+    '8322':
+      level: 4
+      label: car_taxi_and_van_drivers
+      title: Car, Taxi and Van Drivers
+      farsi_title: رانندگان خودروهای سواری، تاکسی و وانت
+      code: 8322
+
+    '833':
+      level: 3
+      label: heavy_truck_and_bus_drivers
+      title: Heavy Truck and Bus Drivers
+      farsi_title: رانندگان کامیون‌ و اتوبوس
+      code: {start: 8330, end: 8340}
+
+    '8331':
+      level: 4
+      label: bus_and_tram_drivers
+      title: Bus and Tram Drivers
+      farsi_title: رانندگان اتوبوس و تراموا
+      code: 8331
+
+    '8332':
+      level: 4
+      label: heavy_truck_and_lorry_drivers
+      title: Heavy Truck and Lorry Drivers
+      farsi_title: رانندگان ماشین‌های سنگین و کامیون‌ها
+      code: 8332
+
+    '834':
+      level: 3
+      label: mobile_plant_operators
+      title: Mobile Plant Operators
+      farsi_title: متصدیان تجهیزات متحرک
+      code: {start: 8340, end: 8350}
+
+    '8341':
+      level: 4
+      label: mobile_farm_and_forestry_plant_operators
+      title: Mobile Farm and Forestry Plant Operators
+      farsi_title: متصدیان تجهیزات متحرک کشاورزی و جنگل‌داری
+      code: 8341
+
+    '8342':
+      level: 4
+      label: earthmoving_and_related_plant_operators
+      title: Earthmoving and Related Plant Operators
+      farsi_title: متصدیان ماشین‌آلات خاک‌برداری و تجهیزات مرتبط
+      code: 8342
+
+    '8343':
+      level: 4
+      label: crane_hoist_and_related_plant_operators
+      title: Crane, hoist and related plant operators
+      farsi_title: متصدیان جرثقیل، نقاله و ماشین‌آلات مرتبط
+      code: 8343
+
+    '8344':
+      level: 4
+      label: lifting_truck_operators
+      title: Lifting Truck Operators
+      farsi_title: متصدیان لیفتراک‌ها
+      code: 8344
+
+    '835':
+      level: 3
+      label: ships_deck_crews_and_related_workers
+      title: Ships' Deck Crews and Related Workers
+      farsi_title: خدمه عرشه‌ کشتی و کارکنان امور مرتبط
+      code: {start: 8350, end: 8360}
+
+    '8350':
+      level: 4
+      label: ships_deck_crews_and_related_workers
+      title: Ships' Deck Crews and Related Workers
+      farsi_title: خدمه عرشه‌ کشتی و کارکنان امور مرتبط
+      code: 8350
 
     '9':
       level: 1
       label: elementary_occupations
       title: Elementary Occupations
-      farsi_title: کارکنان مشاغل ساده  
+      farsi_title: کارکنان مشاغل ساده
       code: {start: 9000, end: 10000}
 
     '91':
       level: 2
       label: cleaners_and_helpers
       title: Cleaners and Helpers
-      farsi_title: نظافتچی‌ها و مستخدمان (غیراز خدمتکاران)
+      farsi_title: نظافتچی‌ها و وردست­ها
       code: {start: 9100, end: 9200}
 
     '911':
       level: 3
       label: domestic_hotel_and_office_cleaners_and_helpers
       title: Domestic, Hotel and Office Cleaners and Helpers
-      farsi_title: نظافتچی‌ها و مستخدمان منازل، هتل‌ها و اداره‌ها (غیراز خدمتکاران)
+      farsi_title: نظافتچی­ها و وردست­های منازل، هتل­ها و اداره­ها
       code: {start: 9110, end: 9120}
 
     '9111':
       level: 4
       label: domestic_cleaners_and_helpers
       title: Domestic Cleaners and Helpers
-      farsi_title: نظافتچی‌ها و مستخدمان منازل (غیراز خدمتکاران)
+      farsi_title: نظافتچی‌ها و وردست­های منازل
       code: 9111
 
     '9112':
       level: 4
       label: cleaners_and_helpers_in_offices_hotels_and_other_establishments
       title: Cleaners and Helpers in Offices, Hotels and Other Establishments
-      farsi_title: >
-        نظافتچی‌ها و مستخدمان اداره‌ها، هتل‌ها و سایر مؤسسات، و
-        وسایل نقلیه (غیراز خدمتکاران)
+      farsi_title: نظافتچی‌ها و وردست­های اداره‌ها، هتل‌ها و سایر مؤسسات
       code: 9112
 
     '912':
       level: 3
       label: vehicle_window_laundry_and_other_hand_cleaning_workers
       title: Vehicle, Window, Laundry and Other Hand Cleaning Workers
-      farsi_title: >
-        تمیزکنندگان خودرو، شیشه‌پاک‌کن‌ها، رخت‌شوها و سایر
-        تمیزکنندگان دستی
+      farsi_title: ماشین­شوی­ها، شیشه پاک­کن­ها، رختشوی­ها و سایر تمیزکنندگان - دستی
       code: {start: 9120, end: 9130}
 
     '9121':
       level: 4
       label: hand_launderers_and_pressers
       title: Hand Launderers and Pressers
-      farsi_title: رخت‌شو‌ها و اتوکش‌ها - دستی
+      farsi_title: رخت‌شو‌ها و اتوکش‌ها- دستی
       code: 9121
 
     '9122':
       level: 4
       label: vehicle_cleaners
       title: Vehicle Cleaners
-      farsi_title: تمیزکنندگان خودرو و ماشینشوها
+      farsi_title: ماشین‌شوها
       code: 9122
 
     '9123':
       level: 4
       label: window_cleaners
       title: Window Cleaners
-      farsi_title: شیشه پاک‌کن‌های ساختمان‌ها 
+      farsi_title: شیشه پاک‌کن‌ها- بجز خودرو
       code: 9123
 
     '9129':
       level: 4
       label: other_cleaning_workers
       title: Other Cleaning Workers
-      farsi_title: سایر تمیزکنندگان- دستی
+      farsi_title: سایر نظافتچی­ها
       code: 9129
 
     '92':
       level: 2
       label: agricultural_forestry_and_fishery_labourers
       title: Agricultural, Forestry and Fishery Labourers
-      farsi_title: کارگران مشاغل ساده کشاورزی، جنگل‌داری و ماهیگیری 
+      farsi_title: کارگران ساده کشاورزی، جنگل‌داری و شیلات
       code: {start: 9200, end: 9300}
 
     '921':
       level: 3
       label: agricultural_forestry_and_fishery_labourers
       title: Agricultural, Forestry and Fishery Labourers
-      farsi_title: کارگران مشاغل ساده کشاورزی، جنگل‌داری و ماهیگیری 
+      farsi_title: کارگران ساده کشاورزی، جنگل‌داری و شیلات
       code: {start: 9210, end: 9220}
 
     '9211':
@@ -410,16 +4166,14 @@ isco:
       level: 4
       label: livestock_farm_labourers
       title: Livestock Farm Labourers
-      farsi_title: >
-        کارگران ساده مزارع پرورش دام‌، طیور، زنبور عسل، کرم ابریشم و
-        سایر مزارع پرورش حیوانات به‌‌جز آبزیان
+      farsi_title: کارگران ساده مزارع دامپروری
       code: 9212
 
     '9213':
       level: 4
       label: mixed_crop_and_livestock_farm_labourers
       title: Mixed Crop and Livestock Farm Labourers
-      farsi_title: کارگران ساده مزارع مختلط کشاورزی و دامدار‌ی 
+      farsi_title: کارگران ساده مزارع مختلط کشاورزی و دامپروری
       code: 9213
 
     '9214':
@@ -440,83 +4194,91 @@ isco:
       level: 4
       label: fishery_and_aquaculture_labourers
       title: Fishery and Aquaculture Labourers
-      farsi_title: کارگران ساده ماهیگیری و آبزی‌پروری
+      farsi_title: کارگران ساده شیلات و آبزی‌پروری
       code: 9216
 
     '93':
       level: 2
       label: labourers_in_mining_construction_manufacturing_and_transport
       title: Labourers in Mining, Construction, Manufacturing and Transport
-      farsi_title: کارگران مشاغل ساده معادن، اجرای طرح‌های عمرانی یا
-        ساختمان‌سازی، تولید صنعتی و حمل‌ونقل
+      farsi_title: کارگران ساده معادن، ساخت و ساز، تولید صنعتی و حمل و نقل
       code: {start: 9300, end: 9400}
 
     '931':
       level: 3
       label: mining_and_construction_labourers
       title: Mining and Construction Labourers
-      farsi_title: >
-        کارگران مشاغل ساده معادن و اجرای طرح‌های عمرانی یا
-        ساختمان‌سازی
+      farsi_title: کارگران ساده معادن، ساخت و ساز، تولید صنعتی و حمل و نقل
       code: {start: 9310, end: 9320}
 
     '9311':
       level: 4
       label: mining_and_quarrying_labourers
       title: Mining and Quarrying Labourers
-      farsi_title: کارگران ساده معادن                                   
+      farsi_title: کارگران ساده معادن
       code: 9311
 
-    '9312':
-      level: 4
-      label: civil_engineering_labourers
-      title: Civil Engineering Labourers
-      code: 9312
+    # '9312':
+    #   level: 4
+    #   label: civil_engineering_labourers
+    #   title: Civil Engineering Labourers
+    #   farsi_title: کارگران ساده سازه­های عمرانی
+    #   code: 9312
 
-    '9313':
+    # '9313':
+    #   level: 4
+    #   label: building_construction_labourers
+    #   title: Building Construction Labourers
+    #   farsi_title: کارگران ساده ساختمان­سازی
+    #   code: 9313
+
+    '9314':
       level: 4
-      label: building_construction_labourers
-      title: Building Construction Labourers
-      code: 9313
+      label: 
+      title: 
+      farsi_title: کارگران ساده اجرای طرح‌های عمرانی و ساختمان‌سازی
+      code: 9314
 
     '932':
       level: 3
       label: manufacturing_labourers
       title: Manufacturing Labourers
-      farsi_title: کارگران مشاغل ساده تولید صنعتی
+      farsi_title: کارگران ساده تولید صنعتی
       code: {start: 9320, end: 9330}
 
     '9321':
       level: 4
       label: hand_packers
       title: Hand Packers
-      farsi_title: متصدیان بسته‌بندی دستی
+      farsi_title: کارگران ساده بسته‌بندی 
       code: 9321
 
     '9329':
       level: 4
       label: manufacturing_labourers_not_elsewhere_classified
       title: Manufacturing Labourers Not Elsewhere Classified
-      farsi_title: کارگران ساده تولید صنعتی، طبقه‌بندی‌نشده در جای دیگر 
+      farsi_title: کارگران ساده تولید صنعتی، طبقه‌بندی‌نشده در جای دیگر
       code: 9329
 
     '933':
       level: 3
       label: transport_and_storage_labourers
       title: Transport and Storage Labourers
-      farsi_title: کارگران مشاغل ساده حمل‌ونقل و انبارداری
+      farsi_title: کارگران ساده حمل‌و‌نقل و انبارداری
       code: {start: 9330, end: 9340}
 
     # '9331':
     #   level: 4
     #   label: hand_and_pedal_vehicle_drivers
     #   title: Hand and Pedal Vehicle Drivers
+    #   farsi_title: رانندگان وسایل نقلیه دستی و پدالی
     #   code: 9331
 
     # '9332':
     #   level: 4
     #   label: drivers_of_animal_drawn_vehicles_and_machinery
     #   title: Drivers of Animal-drawn Vehicles and Machinery
+    #   farsi_title: رانندگان وسایل نقلیه که توسط حیوان کشیده می شود
     #   code: 9332
 
     '9333':
@@ -530,8 +4292,15 @@ isco:
       level: 4
       label: shelf_fillers
       title: Shelf Fillers
-      farsi_title: پرکنندگان قفسه‌ها در‌ فروشگاه‌ها
+      farsi_title: قفسه چین فروشگاه‌ها
       code: 9334
+
+    '9335':
+      level: 4
+      label: 
+      title: 
+      farsi_title: رانندگان وسایل نقلیه دستی و حیوان‌کش
+      code: 9335
 
     '94':
       level: 2
@@ -551,48 +4320,47 @@ isco:
       level: 4
       label: fast_food_preparers
       title: Fast Food Preparers
-      farsi_title: آماده‌کنندگان غذاهای حاضری
+      farsi_title: آماده‌کنندگان غذاهای فوری
       code: 9411
 
     '9412':
       level: 4
       label: kitchen_helpers
       title: Kitchen Helpers
-      farsi_title: کمک‌کارهای امور آشپزخانه
+      farsi_title: ‌وردست آشپزخانه
       code: 9412
 
     '95':
       level: 2
       label: street_and_related_sales_and_service_workers
       title: Street and Related Sales and Service Workers
-      farsi_title: کارکنان فروش و خدمات خیابانی و خدمات مرتبط
+      farsi_title: کارگران ساده فروش و خدمات خیابانی و مشاغل مرتبط
       code: {start: 9500, end: 9600}
-
 
     '951':
       level: 3
       label: street_and_related_service_workers
       title: Street and Related Service Workers
-      farsi_title: کارکنان خدمات خیابانی و خدمات مرتبط
+      farsi_title: کارگران ساده خدمات خیابانی و مشاغل مرتبط
       code: {start: 9510, end: 9520}
 
     '9510':
       level: 4
       label: street_and_related_service_workers
       title: Street and Related Service Workers
-      farsi_title: کارگران ساده خدمات خیابانی و خدمات مرتبط 
+      farsi_title: کارگران ساده خدمات خیابانی و مشاغل مرتبط
       code: 9510
 
     '952':
       level: 3
-      label: street_vendors_(excluding_food)
+      label: street_vendors_excluding_food
       title: Street Vendors (excluding Food)
       farsi_title: فروشندگان دوره‌گرد مواد غیرخوراکی
       code: {start: 9520, end: 9530}
 
     '9520':
       level: 4
-      label: street_vendors_(excluding_food)
+      label: street_vendors_excluding_food
       title: Street Vendors (excluding Food)
       farsi_title: فروشندگان دوره‌گرد مواد غیرخوراکی
       code: 9520
@@ -601,59 +4369,63 @@ isco:
       level: 2
       label: refuse_workers_and_other_elementary_workers
       title: Refuse Workers and Other Elementary Workers
-      farsi_title: کارکنان مشاغل مرتبط با زباله‌ها و سایر کارکنان مشاغل ساده
+      farsi_title: کارگران ساده پسماند و سایر کارگران ساده
       code: {start: 9600, end: 9700}
 
     '961':
       level: 3
       label: refuse_workers
       title: Refuse Workers
-      farsi_title: کارکنان مشاغل مرتبط با زباله‌ها 
+      farsi_title: کارگران ساده پسماند
       code: {start: 9610, end: 9620}
 
     # '9611':
     #   level: 4
     #   label: garbage_and_recycling_collectors
     #   title: Garbage and Recycling Collectors
+    #   farsi_title: کارگران جمع آوری پسماند و مواد بازیافتی
     #   code: 9611
 
     # '9612':
     #   level: 4
     #   label: refuse_sorters
     #   title: Refuse Sorters
+    #   farsi_title: کارگران تفکیک پسماند
     #   code: 9612
 
     # '9613':
     #   level: 4
     #   label: sweepers_and_related_labourers
     #   title: Sweepers and Related Labourers
+    #   farsi_title: رفتگران و کارکنان مشاغل مرتبط
     #   code: 9613
 
     '9614':
       level: 4
-      label: garbage_and_recycling_collectors_and_related_labourers
-      title: Garbage and Recycling Collectors and Related Labourers
-      farsi_title: کارگران جمع‌آوری و تفکیک زباله و مواد بازیافتی
+      label: 
+      title: 
+      farsi_title: کارگران جمع‌آوری و تفکیک زباله و مواد بازیافتی 
       code: 9614
 
     '962':
       level: 3
       label: other_elementary_workers
       title: Other Elementary Workers
-      farsi_title: سایر کارکنان مشاغل ساده
+      farsi_title: سایر کارگران ساده
       code: {start: 9620, end: 9630}
 
     '9621':
       level: 4
       label: messengers_package_deliverers_and_luggage_porters
       title: Messengers, Package Deliverers and Luggage Porters
-      farsi_title: پیام‌رسان‌ها، پیک‌ها و باررسان‌ها
+      farsi_title: پیک‌ها و چمدان برها (پیاده)
       code: 9621
 
     # '9622':
     #   level: 4
     #   label: odd_job_persons
     #   title: Odd Job Persons
+    #   farsi_title: کمک کارهای موردی
     #   code: 9622
 
     '9623':
@@ -667,19 +4439,21 @@ isco:
     #   level: 4
     #   label: water_and_firewood_collectors
     #   title: Water and Firewood Collectors
+    #   farsi_title: هیزم جمع­کن­ها و سقاها
     #   code: 9624
 
     '9625':
       level: 4
-      label: elementary_workers_not_elsewhere_classified
-      title: Elementary Workers Not Elsewhere Classified
+      label: 
+      title: 
       farsi_title: سایر کارکنان مشاغل ساده
-      code: 9625
+      code: 9629
 
     # '9629':
     #   level: 4
     #   label: elementary_workers_not_elsewhere_classified
     #   title: Elementary Workers Not Elsewhere Classified
+    #   farsi_title: کارکنان مشاغل ساده، طبقه‌بندی‌نشده در جای دیگر
     #   code: 9629
 
     '0':
@@ -693,36 +4467,106 @@ isco:
     #   level: 2
     #   label: commissioned_armed_forces_officers
     #   title: Commissioned Armed forces Officers
-    #   farsi_title: افسران نیروهای مسلح
+    #   farsi_title: 
     #   code: {start: 100, end: 200}
+
+    # '011':
+    #   level: 3
+    #   label: commissioned_armed_forces_officers
+    #   title: Commissioned Armed Forces Officers
+    #   farsi_title: 
+    #   code: {start: 110, end: 120}
+
+    # '0110':
+    #   level: 4
+    #   label: commissioned_armed_forces_officers
+    #   title: Commissioned Armed Forces Officers
+    #   farsi_title: 
+    #   code: 0110
 
     # '02':
     #   level: 2
     #   label: non_commissioned_armed_forces_officers
     #   title: Non-commissioned Armed Forces Officers
-    #   farsi_title: درجه داران نیروهای مسلح
+    #   farsi_title: 
     #   code: {start: 200, end: 300}
+
+    # '021':
+    #   level: 3
+    #   label: non_commissioned_armed_forces_officers
+    #   title: Non-commissioned Armed Forces Officers
+    #   farsi_title: 
+    #   code: {start: 210, end: 220}
+
+    # '0210':
+    #   level: 4
+    #   label: non_commissioned_armed_forces_officers
+    #   title: Non-commissioned Armed Forces Officers
+    #   farsi_title: 
+    #   code: 0210
 
     # '03':
     #   level: 2
     #   label: armed_forces_occupations_other_ranks
     #   title: Armed Forces Occupations, Other Ranks
-    #   farsi_title: سایر مشاغل نیروهای مسلح
+    #   farsi_title: 
     #   code: {start: 300, end: 400}
+
+    # '031':
+    #   level: 3
+    #   label: armed_forces_occupations_other_ranks
+    #   title: Armed Forces Occupations, Other Ranks
+    #   farsi_title: 
+    #   code: {start: 310, end: 320}
+
+    # '0310':
+    #   level: 4
+    #   label: armed_forces_occupations_other_ranks
+    #   title: Armed Forces Occupations, Other Ranks
+    #   farsi_title: 
+    #   code: 0310
 
     '04':
       level: 2
       label: 
       title: 
-      farsi_title: نیروهای مسلح (کادر نیروهای نظامی و انتظامی)
+      farsi_title: افسران نیروهای مسلح
       code: {start: 400, end: 500}
+
+    '041':
+      level: 3
+      label: 
+      title: 
+      farsi_title: افسران نیروهای مسلح
+      code: {start: 410, end: 420}
+
+    '0410':
+      level: 4
+      label: 
+      title: 
+      farsi_title: نیروهای مسلح (کادر نیروهای نظامی و انتظامی)
+      code: {start: 410, end: 411}
 
     '05':
       level: 2
       label: 
       title: 
-      farsi_title: درجه‌داران و افسران وظیفه و سربازان نیروهای نظامی و انتظامی
+      farsi_title: سایر درجه داران نیروهای مسلح
       code: {start: 500, end: 600}
+
+    '051':
+      level: 3
+      label: 
+      title: 
+      farsi_title: درجه داران و افسران وظیفه و سربازان نیروهای نظامی و انتظامی
+      code: {start: 510, end: 520}
+
+    '0510':
+      level: 4
+      label: 
+      title: 
+      farsi_title: درجه داران و افسران وظیفه و سربازان نیروهای نظامی و انتظامی
+      code: 510
 
 
 isco_two_digit:
