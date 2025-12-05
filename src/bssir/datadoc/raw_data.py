@@ -199,6 +199,7 @@ def generate_raw_description(api: API):
             md_page_content += "\n\n\n"
 
         md_file_path = api.defaults.docs.raw_tables.joinpath(f"{table_name}.md")
+        md_file_path.parent.mkdir(exist_ok=True, parents=True)
         with md_file_path.open(mode="w", encoding="utf-8") as md_file:
             md_file.write(md_page_content)
 

@@ -3,7 +3,7 @@ from typing import Iterable
 import pandas as pd
 import yaml
 
-from ..api import API
+from ..api import API, _Years
 from . import datadoc_utils
 
 
@@ -41,9 +41,9 @@ def create_otnt_part(table_name: str, years: list[int], api: API) -> pd.DataFram
 
 
 def create_old_to_new_tables(
-    table_name: str, api: API
+    table_name: str, api: API, years: _Years = "all"
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    years = [year for _, year in api.utils.create_table_year_pairs(table_name, "all")]
+    years = [year for _, year in api.utils.create_table_year_pairs(table_name, years)]
 
     if table_name == "house_specifications":
         year_parts = [
@@ -61,7 +61,7 @@ def create_old_to_new_tables(
     )
 
 
-def create_new_to_old_table(table_name: str, api: API) -> pd.DataFrame:
+def create_new_to_old_table(table_name: str, api: API, years: _Years = "all") -> pd.DataFrame:
     availability_dir = api.defaults.docs.csv.joinpath("availability")
     availability_table = (
         pd.read_csv(availability_dir.joinpath(f"{table_name}.csv"), index_col=0)
@@ -69,7 +69,7 @@ def create_new_to_old_table(table_name: str, api: API) -> pd.DataFrame:
         .map(lambda x: x.upper())
         .replace("", None)
     )
-    years = [year for _, year in api.utils.create_table_year_pairs(table_name, "all")]
+    years = [year for _, year in api.utils.create_table_year_pairs(table_name, years)]
     rows = []
     for year in years:
         all_columns = api.utils.resolve_metadata(
@@ -112,7 +112,9 @@ def remove_next_lines(dictionary: dict) -> dict:
 
 
 def generate_columns_metadata(
-    api: API, table_names: str | Iterable[str] | None = None
+    api: API,
+    table_names: str | Iterable[str] | None = None,
+    years: _Years = "all",
 ) -> None:
     table_names = [table_names] if isinstance(table_names, str) else table_names
     table_names = (
@@ -121,7 +123,7 @@ def generate_columns_metadata(
         else table_names
     )
     for table_name in table_names:
-        new_to_old = create_new_to_old_table(table_name, api)
+        new_to_old = create_new_to_old_table(table_name, api, years=years)
         for column in new_to_old.columns:
             directory = api.defaults.docs.csv.joinpath("cleaned", table_name, column)
             directory.mkdir(exist_ok=True, parents=True)
@@ -140,10 +142,13 @@ def generate_columns_metadata(
 
 
 def create_replace_tables(
-    table_name: str, api: API, raw_tables: dict[int, pd.DataFrame]
+    table_name: str,
+    api: API,
+    raw_tables: dict[int, pd.DataFrame],
+    years: _Years = "all"
 ) -> dict[str, pd.DataFrame]:
-    new_to_old = create_new_to_old_table(table_name, api)
-    years = api.utils.parse_years("all", table_name=table_name)
+    new_to_old = create_new_to_old_table(table_name, api, years=years)
+    years = api.utils.parse_years(years, table_name=table_name)
     replace_tables = {}
     for column_name in new_to_old.columns:
         old_name_dict = new_to_old[column_name].fillna("").to_dict()
@@ -185,7 +190,9 @@ def create_replace_tables(
 
 
 def generate_replace_tables(
-    api: API, table_names: str | Iterable[str] | None = None
+    api: API,
+    table_names: str | Iterable[str] | None = None,
+    years: _Years = "all",
 ) -> None:
     table_names = [table_names] if isinstance(table_names, str) else table_names
     table_names = (
@@ -200,10 +207,10 @@ def generate_replace_tables(
                 year,
                 form="raw",
             )
-            for year in api.utils.parse_years("all", table_name=table_name)
+            for year in api.utils.parse_years(years, table_name=table_name)
         }
         replace_tables = create_replace_tables(
-            table_name=table_name, api=api, raw_tables=raw_tables
+            table_name=table_name, api=api, raw_tables=raw_tables, years=years
         )
         for column_name, replace_table in replace_tables.items():
             directory = api.defaults.docs.csv.joinpath(
@@ -214,9 +221,16 @@ def generate_replace_tables(
 
 
 def create_summary_stats(
-    table_name: str, api: API, tables: dict[int, pd.DataFrame]
+    table_name: str,
+    api: API,
+    tables: dict[int, pd.DataFrame],
+    years: _Years = "all",
 ) -> dict[str, dict[str, pd.DataFrame]]:
-    new_to_old = create_new_to_old_table(table_name, api)
+    new_to_old = create_new_to_old_table(
+        table_name,
+        api,
+        years=years,
+    )
 
     summary_tables = {}
     for column_name in new_to_old.columns:
@@ -293,7 +307,9 @@ def create_summary_stats(
 
 
 def generate_summary_stats(
-    api: API, table_names: str | Iterable[str] | None = None
+    api: API,
+    table_names: str | Iterable[str] | None = None,
+    years: _Years = "all",
 ) -> None:
     table_names = [table_names] if isinstance(table_names, str) else table_names
     table_names = (
@@ -304,9 +320,9 @@ def generate_summary_stats(
     for table_name in table_names:
         cleaned_tables = {
             year: api.load_table(table_name, year, form="cleaned", on_missing="create")
-            for year in api.utils.parse_years("all", table_name=table_name)
+            for year in api.utils.parse_years(years, table_name=table_name)
         }
-        summary_stats = create_summary_stats(table_name, api, cleaned_tables)
+        summary_stats = create_summary_stats(table_name, api, cleaned_tables, years=years)
         for column, tables in summary_stats.items():
             directory = api.defaults.docs.csv.joinpath("cleaned", table_name, column)
             directory.mkdir(exist_ok=True, parents=True)
@@ -314,10 +330,10 @@ def generate_summary_stats(
                 table.to_csv(directory.joinpath(f"{data_type}.csv"))
 
 
-def create_category_table(table_name: str, column_name: str, api: API):
-    old_col_dict = create_new_to_old_table(table_name, api)
+def create_category_table(table_name: str, column_name: str, api: API, years: _Years = "all",):
+    old_col_dict = create_new_to_old_table(table_name, api, years=years)
     category_years = {}
-    for year in api.utils.parse_years("all", table_name=table_name):
+    for year in api.utils.parse_years(years, table_name=table_name):
         old_name = old_col_dict[column_name][year]
         if old_name == "":
             continue
@@ -343,8 +359,8 @@ def create_category_table(table_name: str, column_name: str, api: API):
     return table
 
 
-def create_cleaned_table_page(table_name: str, api: API) -> str:
-    years = api.utils.parse_years("all", table_name=table_name)
+def create_cleaned_table_page(table_name: str, api: API, years: _Years = "all") -> str:
+    years = api.utils.parse_years(years, table_name=table_name)
     cleaned_tables = {
         year: api.load_table(table_name, year, form="cleaned", on_missing="create")
         for year in years
@@ -354,7 +370,7 @@ def create_cleaned_table_page(table_name: str, api: API) -> str:
     md_page_content += f"# {table_name}\n\n"
 
     md_page_content += "## Old to New Titles\n\n"
-    otn_p1, otn_p2 = create_old_to_new_tables(table_name, api)
+    otn_p1, otn_p2 = create_old_to_new_tables(table_name, api, years=years)
     if not otn_p1.empty:
         md_page_content += datadoc_utils.collapse_years(otn_p1).to_markdown()
         md_page_content += "\n\n\n"
@@ -363,11 +379,11 @@ def create_cleaned_table_page(table_name: str, api: API) -> str:
         md_page_content += "\n\n\n"
 
     md_page_content += "## New to Old Titles\n\n"
-    nto = create_new_to_old_table(table_name, api)
+    nto = create_new_to_old_table(table_name, api, years=years)
     md_page_content += datadoc_utils.collapse_years(nto).to_markdown()
     md_page_content += "\n\n\n"
 
-    summary_dict = create_summary_stats(table_name, api, cleaned_tables)
+    summary_dict = create_summary_stats(table_name, api, cleaned_tables, years=years)
     md_page_content += "## Columns Details\n\n"
 
     for column in nto.columns:
@@ -405,7 +421,7 @@ def create_cleaned_table_page(table_name: str, api: API) -> str:
                 if dtype == "category":
                     md_page_content += "#### Categories\n\n"
                     md_page_content += create_category_table(
-                        table_name, column, api
+                        table_name, column, api, years=years
                     ).to_markdown()
                     md_page_content += "\n\n\n"
 
@@ -423,8 +439,11 @@ def create_cleaned_table_page(table_name: str, api: API) -> str:
 
 
 def generate_cleaned_description(
-    api: API, table_names: str | Iterable[str] | None = None
+    api: API,
+    table_names: str | Iterable[str] | None = None,
+    years: _Years = "all",
 ) -> None:
+    generate_summary_stats(api, table_names, years=years)
     table_names = [table_names] if isinstance(table_names, str) else table_names
     table_names = (
         list(api.metadata.tables["table_availability"].keys())
@@ -432,7 +451,8 @@ def generate_cleaned_description(
         else table_names
     )
     for table_name in table_names:
-        md_page_content = create_cleaned_table_page(table_name, api)
+        md_page_content = create_cleaned_table_page(table_name, api, years=years)
         md_file_path = api.defaults.docs.cleaned_tables.joinpath(f"{table_name}.md")
+        md_file_path.parent.mkdir(exist_ok=True, parents=True)
         with md_file_path.open(mode="w", encoding="utf-8") as md_file:
             md_file.write(md_page_content)
