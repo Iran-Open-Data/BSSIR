@@ -185,7 +185,7 @@ def _download_year_private_data(
         if target_path.exists() and not replace:
             continue
         item_key = (
-            f'{lib_defaults.package_name}/{lib_defaults.folder_names.original}/'
+            f'{lib_defaults.folder_names.original}/'
             f'{str(year)}/{file_info["name"]}'
         )
         logging.info(f"Downloading from private bucket: {item_key}")
