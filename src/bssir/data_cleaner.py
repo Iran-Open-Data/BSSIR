@@ -73,7 +73,7 @@ def load_raw_table(
         raise FileNotFoundError(msg)
     
     table_settings = _get_table_settings(table_name, year, lib_metadata=lib_metadata)
-    encoding = table_settings["encoding"]
+    encoding = table_settings.get("encoding", "utf-8")
 
     file_code = utils.resolve_metadata(
         lib_metadata.tables[table_name]["file_code"], year
