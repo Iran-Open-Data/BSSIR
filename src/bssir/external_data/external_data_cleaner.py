@@ -7,22 +7,23 @@ from pathlib import Path
 import pandas as pd
 
 from .. import utils
-from ..metadata_reader import Defaults, read_yaml
+from bssir.context import Context
+from bssir.context.utils.yaml import load_yaml
 
 
 class ExternalDataCleaner:
     def __init__(
         self,
         name: str,
-        lib_defaults: Defaults,
+        context: Context,
         source: Literal["mirror"] | str = "mirror",
         **kwargs,
     ) -> None:
         self.name = name
         self.source = source
-        settings = lib_defaults.functions.load_external_table
+        settings = context.config.functions.load_external_table
         self.settings = settings.model_copy(update=kwargs)
-        self.lib_defaults = lib_defaults
+        self.context = context
         self.metadata = self._get_metadata()
         self.metadata_type = self._extract_type()
 
@@ -40,7 +41,7 @@ class ExternalDataCleaner:
             Loaded table data
 
         """
-        local_file = self.lib_defaults.dir.external.joinpath(f"{self.name}.parquet")
+        local_file = self.context.config.dirs.external.joinpath(f"{self.name}.parquet")
         logging.info(self.metadata)
 
         if self.metadata_type == "alias":
@@ -49,7 +50,7 @@ class ExternalDataCleaner:
                 name = f"{self.name}.{name}"
             table = ExternalDataCleaner(
                 name=name,
-                lib_defaults=self.lib_defaults,
+                context=self.context,
                 **self.settings.model_dump(),
             ).read_table()
         elif self.settings.form == "original":
@@ -83,7 +84,7 @@ class ExternalDataCleaner:
         return table
 
     def _get_metadata(self) -> dict:
-        metadata = read_yaml(Path(__file__).parent.joinpath("metadata.yaml"))
+        metadata = load_yaml(Path(__file__).parent.joinpath("metadata.yaml"))
         name_parts = self.name.split(".")
         while len(name_parts) > 0:
             part = name_parts.pop(0)
@@ -121,12 +122,12 @@ class ExternalDataCleaner:
 
     def _open_cleaned_data(self) -> pd.DataFrame:
         return pd.read_parquet(
-            self.lib_defaults.dir.external.joinpath(f"{self.name}.parquet")
+            self.context.config.dirs.external.joinpath(f"{self.name}.parquet")
         )
 
     @property
     def raw_file_path(self) -> Path:
-        raw_folder_path = self.lib_defaults.dir.external.joinpath("_raw")
+        raw_folder_path = self.context.config.dirs.external.joinpath("_raw")
         raw_folder_path.mkdir(exist_ok=True, parents=True)
         extension = self._find_extension()
         if self.metadata_type == "file":
@@ -176,7 +177,7 @@ class ExternalDataCleaner:
         data_list = self.metadata["from"]
         data_list = data_list if isinstance(data_list, list) else [data_list]
         table_list = [
-            ExternalDataCleaner(table, self.lib_defaults).read_table()
+            ExternalDataCleaner(table, context=self.context).read_table()
             for table in data_list
         ]
         table = self.cleaning_function(table_list)
@@ -204,15 +205,13 @@ class ExternalDataCleaner:
             return None
 
     def save_table(self, table: pd.DataFrame) -> None:
-        self.lib_defaults.dir.external.mkdir(exist_ok=True, parents=True)
         table.to_parquet(
-            self.lib_defaults.dir.external.joinpath(f"{self.name}.parquet")
+            self.context.config.dirs.external.joinpath(f"{self.name}.parquet")
         )
 
     def _download_table(self) -> pd.DataFrame:
         url = (
-            f"{self.lib_defaults.get_mirror(self.source).bucket_address}/"
-            f"{self.lib_defaults.get_online_dir(self.source).external}/"
+            f"{self.context.config.get_mirror(self.source).dirs.external}/"
             f"{self.name}.parquet"
         )
         table = pd.read_parquet(url)

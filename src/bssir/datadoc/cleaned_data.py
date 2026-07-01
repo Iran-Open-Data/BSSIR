@@ -3,7 +3,7 @@ from typing import Iterable
 import pandas as pd
 import yaml
 
-from ..api import API, _Years
+from ..api import API, Years
 from . import datadoc_utils
 
 
@@ -41,7 +41,7 @@ def create_otnt_part(table_name: str, years: list[int], api: API) -> pd.DataFram
 
 
 def create_old_to_new_tables(
-    table_name: str, api: API, years: _Years = "all"
+    table_name: str, api: API, years: Years = "all"
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     years = [year for _, year in api.utils.create_table_year_pairs(table_name, years)]
 
@@ -61,7 +61,7 @@ def create_old_to_new_tables(
     )
 
 
-def create_new_to_old_table(table_name: str, api: API, years: _Years = "all") -> pd.DataFrame:
+def create_new_to_old_table(table_name: str, api: API, years: Years = "all") -> pd.DataFrame:
     availability_dir = api.defaults.docs.csv.joinpath("availability")
     availability_table = (
         pd.read_csv(availability_dir.joinpath(f"{table_name}.csv"), index_col=0)
@@ -114,11 +114,11 @@ def remove_next_lines(dictionary: dict) -> dict:
 def generate_columns_metadata(
     api: API,
     table_names: str | Iterable[str] | None = None,
-    years: _Years = "all",
+    years: Years = "all",
 ) -> None:
     table_names = [table_names] if isinstance(table_names, str) else table_names
     table_names = (
-        list(api.metadata.tables["table_availability"].keys())
+        list(api.metadata.tables["table_list"])
         if table_names is None
         else table_names
     )
@@ -145,7 +145,7 @@ def create_replace_tables(
     table_name: str,
     api: API,
     raw_tables: dict[int, pd.DataFrame],
-    years: _Years = "all"
+    years: Years = "all"
 ) -> dict[str, pd.DataFrame]:
     new_to_old = create_new_to_old_table(table_name, api, years=years)
     years = api.utils.parse_years(years, table_name=table_name)
@@ -192,11 +192,11 @@ def create_replace_tables(
 def generate_replace_tables(
     api: API,
     table_names: str | Iterable[str] | None = None,
-    years: _Years = "all",
+    years: Years = "all",
 ) -> None:
     table_names = [table_names] if isinstance(table_names, str) else table_names
     table_names = (
-        list(api.metadata.tables["table_availability"].keys())
+        list(api.metadata.tables["table_list"])
         if table_names is None
         else table_names
     )
@@ -224,7 +224,7 @@ def create_summary_stats(
     table_name: str,
     api: API,
     tables: dict[int, pd.DataFrame],
-    years: _Years = "all",
+    years: Years = "all",
 ) -> dict[str, dict[str, pd.DataFrame]]:
     new_to_old = create_new_to_old_table(
         table_name,
@@ -309,11 +309,11 @@ def create_summary_stats(
 def generate_summary_stats(
     api: API,
     table_names: str | Iterable[str] | None = None,
-    years: _Years = "all",
+    years: Years = "all",
 ) -> None:
     table_names = [table_names] if isinstance(table_names, str) else table_names
     table_names = (
-        list(api.metadata.tables["table_availability"].keys())
+        list(api.metadata.tables["table_list"])
         if table_names is None
         else table_names
     )
@@ -330,7 +330,7 @@ def generate_summary_stats(
                 table.to_csv(directory.joinpath(f"{data_type}.csv"))
 
 
-def create_category_table(table_name: str, column_name: str, api: API, years: _Years = "all",):
+def create_category_table(table_name: str, column_name: str, api: API, years: Years = "all",):
     old_col_dict = create_new_to_old_table(table_name, api, years=years)
     category_years = {}
     for year in api.utils.parse_years(years, table_name=table_name):
@@ -359,7 +359,7 @@ def create_category_table(table_name: str, column_name: str, api: API, years: _Y
     return table
 
 
-def create_cleaned_table_page(table_name: str, api: API, years: _Years = "all") -> str:
+def create_cleaned_table_page(table_name: str, api: API, years: Years = "all") -> str:
     years = api.utils.parse_years(years, table_name=table_name)
     cleaned_tables = {
         year: api.load_table(table_name, year, form="cleaned", on_missing="create")
@@ -441,12 +441,12 @@ def create_cleaned_table_page(table_name: str, api: API, years: _Years = "all") 
 def generate_cleaned_description(
     api: API,
     table_names: str | Iterable[str] | None = None,
-    years: _Years = "all",
+    years: Years = "all",
 ) -> None:
     generate_summary_stats(api, table_names, years=years)
     table_names = [table_names] if isinstance(table_names, str) else table_names
     table_names = (
-        list(api.metadata.tables["table_availability"].keys())
+        list(api.metadata.tables["table_list"])
         if table_names is None
         else table_names
     )

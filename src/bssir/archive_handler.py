@@ -51,7 +51,7 @@ import pandas as pd
 import pyodbc
 
 from . import utils
-from .metadata_reader import Defaults, Metadata
+from bssir.context import Context
 
 
 ARCHIVE_EXTENSIONS = {".zip", ".rar"}
@@ -64,8 +64,7 @@ CSV_FILE_EXTENSIONS = {".csv"}
 def setup(
     years: list[int],
     *,
-    lib_metadata: Metadata,
-    lib_defaults: Defaults,
+    context: Context,
     replace: bool,
     download_source: Literal["original", "mirror"] | str,
 ) -> None:
@@ -82,7 +81,7 @@ def setup(
     lib_metadata : Metadata
         An instance of the `Metadata` class. It provides structured access to all
         the metadata required for the setup process, such as the list of raw
-        files to download for each year, table schemas, and processing instructions.
+        files to download for each year, table schemas, and processing pipelines.
     lib_defaults
         An instance of the `Defaults` class. It serves as the central
         configuration hub, providing all necessary settings like local directory
@@ -102,18 +101,16 @@ def setup(
         years,
         replace=replace,
         source=download_source,
-        lib_metadata=lib_metadata,
-        lib_defaults=lib_defaults,
+        context=context,
     )
-    unpack(years, replace=replace, lib_defaults=lib_defaults)
-    extract(years, replace=replace, lib_defaults=lib_defaults)
+    unpack(years, replace=replace, context=context)
+    extract(years, replace=replace, context=context)
 
 
 def download(
     years: list[int],
     *,
-    lib_metadata: Metadata,
-    lib_defaults: Defaults,
+    context: Context,
     replace: bool,
     source: Literal["original", "mirror"] | str,
 ) -> None:
@@ -139,23 +136,21 @@ def download(
     for year in tqdm(
         years,
         desc="Downloading annual data",
-        bar_format=lib_defaults.bar_format,
+        # bar_format=lib_defaults.bar_format,
         unit="Year",
         disable=True,
     ):
-        if lib_defaults.private_data:
+        if context.config.private_data:
             _download_year_private_data(
                 year,
-                lib_metadata=lib_metadata,
-                lib_defaults=lib_defaults,
+                context=context,
                 replace=replace,
                 source=source,
             )
         else:
             _download_year_public_data(
                 year,
-                lib_metadata=lib_metadata,
-                lib_defaults=lib_defaults,
+                context=context,
                 replace=replace,
                 source=source,
             )
@@ -164,28 +159,26 @@ def download(
 def _download_year_private_data(
     year: int,
     *,
-    lib_metadata: Metadata,
-    lib_defaults: Defaults,
+    context: Context,
     replace: bool,
     source: str,
 ) -> None:
     from .utils.s3 import get_bucket
-    index = lib_defaults.get_mirror_index(source)
-    mirror = lib_defaults.mirrors[index]
+    mirror = context.config.get_mirror(source)
     bucket = get_bucket(mirror)
     for file_info in tqdm(
-        _gets_files_to_download(year, lib_metadata=lib_metadata),
+        _gets_files_to_download(year, context=context),
         desc=f"Downloading files for {year}",
-        bar_format=lib_defaults.bar_format,
+        # bar_format=lib_defaults.bar_format,
         unit="File",
         leave=False,
         disable=True,
     ):
-        target_path = lib_defaults.dir.original.joinpath(file_info["name"])
+        target_path = context.config.dirs.original.joinpath(file_info["name"])
         if target_path.exists() and not replace:
             continue
         item_key = (
-            f'{lib_defaults.folder_names.original}/'
+            f'{context.config.directory_names.original}/'
             f'{str(year)}/{file_info["name"]}'
         )
         logging.info(f"Downloading from private bucket: {item_key}")
@@ -195,8 +188,7 @@ def _download_year_private_data(
 def _download_year_public_data(
     year: int,
     *,
-    lib_metadata: Metadata,
-    lib_defaults: Defaults,
+    context: Context,
     replace: bool,
     source: str,
 ) -> None:
@@ -205,12 +197,12 @@ def _download_year_public_data(
     This helper function constructs the appropriate URLs and local file paths
     based on the download source and then downloads each file.
     """
-    base_path = lib_defaults.dir.original
+    base_path = context.config.dirs.original
 
     for file_info in tqdm(
-        _gets_files_to_download(year, lib_metadata=lib_metadata),
+        _gets_files_to_download(year, context=context),
         desc=f"Downloading files for {year}",
-        bar_format=lib_defaults.bar_format,
+        # bar_format=lib_defaults.bar_format,
         unit="File",
         leave=False,
         disable=True,
@@ -226,8 +218,8 @@ def _download_year_public_data(
                 continue
         else:
             url = (
-                f"{lib_defaults.get_mirror(source).bucket_address}/"
-                f"{lib_defaults.get_online_dir(source).original}/"
+                f"{context.config.get_mirror(source).bucket_address}/"
+                f"{context.config.directory_names.original}/"
                 f"{relative_path.as_posix()}"
             )
 
@@ -241,15 +233,15 @@ def _download_year_public_data(
 def _gets_files_to_download(
     year: int,
     *,
-    lib_metadata: Metadata,
+    context: Context,
 ) -> list[dict]:
-    files_to_download: list[dict] = lib_metadata.raw_files.get(year, {}).get("files", [])
+    files_to_download: list[dict] = context.metadata.raw_files.get(year, {}).get("files", [])
     if not files_to_download:
         logging.warning(f"No files listed in metadata for year {year}.")
     return files_to_download
 
 
-def unpack(years: list[int], *, lib_defaults: Defaults, replace: bool = False) -> None:
+def unpack(years: list[int], *, context: Context, replace: bool = False) -> None:
     """Extracts data archives for a list of specified years.
 
     This function serves as the main entry point for the unpacking process.
@@ -276,14 +268,14 @@ def unpack(years: list[int], *, lib_defaults: Defaults, replace: bool = False) -
     for year in tqdm(
         years,
         desc="Unpacking annual archives",
-        bar_format=lib_defaults.bar_format,
+        # bar_format=lib_defaults.bar_format,
         unit="Year",
         disable=True,
     ):
-        _unpack_year(year, lib_defaults=lib_defaults, replace=replace)
+        _unpack_year(year, context=context, replace=replace)
 
 
-def _unpack_year(year: int, *, lib_defaults: Defaults, replace: bool = True) -> None:
+def _unpack_year(year: int, *, context: Context, replace: bool = True) -> None:
     """Unpacks all archive and data files for a single year.
 
     This function manages the unpacking process for a given year's data. It
@@ -308,8 +300,8 @@ def _unpack_year(year: int, *, lib_defaults: Defaults, replace: bool = True) -> 
     unpack : The public function that calls this helper for each year.
     _unpack_nested_archives : Handles archives found inside other archives.
     """
-    source_dir = lib_defaults.dir.original.joinpath(str(year))
-    dest_dir = lib_defaults.dir.unpacked.joinpath(str(year))
+    source_dir = context.config.dirs.original.joinpath(str(year))
+    dest_dir = context.config.dirs.unpacked.joinpath(str(year))
 
     # --- 1. Prepare the destination directory: skip or clean as needed. ---
     if dest_dir.exists():
@@ -328,15 +320,15 @@ def _unpack_year(year: int, *, lib_defaults: Defaults, replace: bool = True) -> 
     # --- 3. Perform the initial extraction from the source directory. ---
     for item in source_dir.iterdir():
         if item.suffix.lower() in ARCHIVE_EXTENSIONS:
-            utils.extract(item, dest_dir)
+            utils.extract(item, dest_dir, config=context.config)
         elif item.is_file():
             shutil.copy(item, dest_dir)
 
     # --- 4. After the initial extraction, find and unpack any nested archives. ---
-    _unpack_nested_archives(dest_dir)
+    _unpack_nested_archives(dest_dir, context)
 
 
-def _unpack_nested_archives(target_dir: Path) -> None:
+def _unpack_nested_archives(target_dir: Path, context: Context) -> None:
     """Iteratively finds and extracts nested archives within a directory.
 
     This function performs two main actions in a loop until no archives remain:
@@ -367,7 +359,7 @@ def _unpack_nested_archives(target_dir: Path) -> None:
         archive_files = _find_files_with_extensions(target_dir, ARCHIVE_EXTENSIONS)
         logging.info(f"Found {len(archive_files)} nested archives to unpack.")
         for archive in archive_files:
-            utils.extract(archive, target_dir)
+            utils.extract(archive, target_dir, config=context.config)
             archive.unlink()  # Clean up the archive file after extraction.
         archive_files = _find_files_with_extensions(target_dir, ARCHIVE_EXTENSIONS)
 
@@ -379,15 +371,15 @@ def _unpack_nested_archives(target_dir: Path) -> None:
 def extract(
     years: list[int],
     *,
-    lib_defaults: Defaults,
+    context: Context,
     replace: bool,
 ) -> None:
     """Extract raw tables from unpacked data into CSV files.
 
     For each year in `years` this function:
-    - Scans lib_defaults.dir.unpacked/<year> for MS Access (.mdb/.accdb) and DBF (.dbf) files.
+    - Scans context.config.dirs.unpacked/<year> for MS Access (.mdb/.accdb) and DBF (.dbf) files.
     - For each Access file, opens a connection, reads every table and writes a CSV to
-      lib_defaults.dir.extracted/<year>. If multiple Access files exist for a year,
+      context.config.dirs.extracted/<year>. If multiple Access files exist for a year,
       CSV filenames are prefixed with the Access filename stem to avoid name collisions.
     - For each DBF file, reads the DBF and writes a CSV with the DBF filename stem.
 
@@ -413,20 +405,20 @@ def extract(
     for year in tqdm(
         years,
         desc="Extracting annual archives",
-        bar_format=lib_defaults.bar_format,
+        # bar_format=lib_defaults.bar_format,
         unit="Year",
         disable=True,
     ):
-        source_dir = lib_defaults.dir.unpacked.joinpath(str(year))
+        source_dir = context.config.dirs.unpacked.joinpath(str(year))
         access_files = _find_files_with_extensions(source_dir, MS_ACCESS_FILE_EXTENSIONS)
         if replace:
-            shutil.rmtree(lib_defaults.dir.extracted/str(year), ignore_errors=True)
+            shutil.rmtree(context.config.dirs.extracted/str(year), ignore_errors=True)
         for file in access_files:
             add_prefix = len(access_files) > 1
             _extract_tables_from_access_file(
                 year,
                 file,
-                lib_defaults=lib_defaults,
+                context=context,
                 replace=replace,
                 add_prefix=add_prefix,
             )
@@ -434,19 +426,19 @@ def extract(
         dbf_files = _find_files_with_extensions(source_dir, DBF_FILE_EXTENSIONS)
         for file in dbf_files:
             _extract_tables_from_dbf_file(
-                year, file, lib_defaults=lib_defaults, replace=replace
+                year, file, context=context, replace=replace
             )
 
         stata_files = _find_files_with_extensions(source_dir, STATA_FILE_EXTENSIONS)
         for file in stata_files:
             _extract_tables_from_stata_file(
-                year, file, lib_defaults=lib_defaults, replace=replace
+                year, file, context=context, replace=replace
             )
 
         csv_files = _find_files_with_extensions(source_dir, CSV_FILE_EXTENSIONS)
         for file in csv_files:
             _move_csv_file(
-                year, file, lib_defaults=lib_defaults, replace=replace
+                year, file, context=context, replace=replace
             )
 
 
@@ -454,7 +446,7 @@ def _extract_tables_from_access_file(
     year: int,
     file_path: Path,
     *,
-    lib_defaults: Defaults,
+    context: Context,
     replace: bool,
     add_prefix: bool,
 ) -> None:
@@ -503,7 +495,7 @@ def _extract_tables_from_access_file(
             for table_name in tqdm(
                 table_list,
                 desc=f"Extracting tables from {file_path.name}",
-                bar_format=lib_defaults.bar_format,
+                # bar_format=lib_defaults.bar_format,
                 unit="Table",
                 leave=False,
                 disable=True,
@@ -512,7 +504,7 @@ def _extract_tables_from_access_file(
                     cursor,
                     year,
                     table_name=table_name,
-                    lib_defaults=lib_defaults,
+                    context=context,
                     replace=replace,
                     name_prefix=name_prefix,
                 )
@@ -643,7 +635,7 @@ def _extract_table(
     year: int,
     table_name: str,
     *,
-    lib_defaults: Defaults,
+    context: Context,
     replace: bool,
     name_prefix: Optional[str] = None
 ):
@@ -673,7 +665,7 @@ def _extract_table(
     -------
     None
     """
-    dest_dir = lib_defaults.dir.extracted.joinpath(str(year))
+    dest_dir = context.config.dirs.extracted.joinpath(str(year))
     dest_dir.mkdir(parents=True, exist_ok=True)
 
     file_name = table_name if name_prefix is None else f"{name_prefix}_{table_name}"
@@ -720,14 +712,14 @@ def _get_access_table(cursor: pyodbc.Cursor, table_name: str) -> pd.DataFrame:
     """
     rows = cursor.execute(f"SELECT * FROM [{table_name}]").fetchall()
     headers = [c[0] for c in cursor.description]
-    table = pd.DataFrame.from_records(rows, columns=headers)
+    table = pd.DataFrame.from_records(rows, columns=headers) # type: ignore
     return table
 
 
 def _extract_tables_from_dbf_file(
-    year: int, file_path: Path, *, lib_defaults: Defaults, replace: bool = True
+    year: int, file_path: Path, *, context: Context, replace: bool = True
 ) -> None:
-    year_directory = lib_defaults.dir.extracted.joinpath(str(year))
+    year_directory = context.config.dirs.extracted.joinpath(str(year))
     year_directory.mkdir(parents=True, exist_ok=True)
     csv_file_path = year_directory.joinpath(f"{file_path.stem}.csv")
     if csv_file_path.exists() and not replace:
@@ -740,9 +732,9 @@ def _extract_tables_from_dbf_file(
 
 
 def _extract_tables_from_stata_file(
-    year: int, file_path: Path, *, lib_defaults: Defaults, replace: bool = True
+    year: int, file_path: Path, *, context: Context, replace: bool = True
 ) -> None:
-    year_directory = lib_defaults.dir.extracted.joinpath(str(year))
+    year_directory = context.config.dirs.extracted.joinpath(str(year))
     year_directory.mkdir(parents=True, exist_ok=True)
     csv_file_path = year_directory.joinpath(f"{file_path.stem}.csv")
     if csv_file_path.exists() and not replace:
@@ -752,9 +744,9 @@ def _extract_tables_from_stata_file(
 
 
 def _move_csv_file(
-    year: int, file_path: Path, *, lib_defaults: Defaults, replace: bool = True
+    year: int, file_path: Path, *, context: Context, replace: bool = True
 ) -> None:
-    year_directory = lib_defaults.dir.extracted.joinpath(str(year))
+    year_directory = context.config.dirs.extracted.joinpath(str(year))
     year_directory.mkdir(parents=True, exist_ok=True)
     csv_file_path = year_directory.joinpath(f"{file_path.stem}.csv")
     if csv_file_path.exists() and not replace:

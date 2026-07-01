@@ -26,6 +26,7 @@ from pathlib import Path
 import platform
 import zipfile
 
+from bssir.context import Config
 from .download_utils import download_7zip
 
 
@@ -33,7 +34,7 @@ def extract(
     compressed_file: Path,
     output_directory: Path,
     *,
-    seven_zip_directory: Path = Path(),
+    config: Config,
 ) -> None:
     """
     Extract a compressed file (ZIP or RAR) to the specified output directory.
@@ -57,7 +58,7 @@ def extract(
     unrar(
         compressed_file=compressed_file,
         output_directory=output_directory,
-        seven_zip_directory=seven_zip_directory,
+        config=config
     )
 
 
@@ -80,7 +81,7 @@ def unrar(
     compressed_file: Path,
     output_directory: Path,
     *,
-    seven_zip_directory: Path = Path(),
+    config: Config,
 ) -> None:
     """
     Extract a RAR file to the specified output directory.
@@ -97,9 +98,9 @@ def unrar(
         Directory containing 7-Zip executable (used on Windows).
     """
     if platform.system() == "Windows":
-        seven_zip_file_path = seven_zip_directory.joinpath("7-Zip", "7z.exe")
+        seven_zip_file_path = config.root_dir.joinpath("7-Zip", "7z.exe")
         if not seven_zip_file_path.exists():
-            download_7zip()
+            download_7zip(config)
         subprocess.run(
             [
                 seven_zip_file_path,

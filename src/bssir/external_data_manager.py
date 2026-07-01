@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from .metadata_reader import config
+from .context import config
 from .api import API, _DataSource, _Frequency, _SeparateBy
 
 

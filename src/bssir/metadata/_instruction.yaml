@@ -1,5 +1,57 @@
-
-# This file use for instruction and test functions
+# Metadata Resolution Instructions
+#
+# Metadata files may contain versioned values and categorized items.
+# The resolver recursively traverses the metadata tree and applies the
+# following rules.
+#
+# Versioning
+# ----------
+# Two versioning notations are supported:
+#
+# 1. Implicit versioning
+#
+#     key:
+#       1360: ...
+#       1370: ...
+#       1380: ...
+#
+#    If all keys of a mapping are years, the mapping is treated as a
+#    versioned value. The latest version whose year is less than or equal
+#    to the requested year is selected. If no version exists, the result
+#    is null.
+#
+# 2. Explicit versioning
+#
+#     key:
+#       shared_key: value
+#       versions:
+#         1360: ...
+#         1370: ...
+#
+#    The selected version is merged with the shared keys. Values defined
+#    in the selected version override shared values with the same key.
+#
+# Categories
+# ----------
+# Metadata can define categorized items using the `categories` field:
+#
+#     items:
+#       item_name:
+#         shared: value
+#         categories:
+#           1: ...
+#           2: ...
+#
+# When categorization is enabled, each category becomes a separate item,
+# inherits the shared fields, and receives an `item_key` field containing
+# the original item name.
+#
+# General Rules
+# -------------
+# - Resolution is recursive and applies at any nesting level.
+# - Versioned values may be scalars, mappings, lists, or null.
+# - Explicit and implicit versioning may be nested arbitrarily.
+# - If no applicable version exists, the resolved value is null.
 
 
 ###############################################################################

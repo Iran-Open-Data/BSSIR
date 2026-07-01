@@ -1,9 +1,9 @@
-from typing import Literal, Any
+from typing import Literal
 
 import pandas as pd
 
 from .external_data_cleaner import ExternalDataCleaner
-from ..metadata_reader import LoadExternalTableSettings, Defaults
+from ..context import Context
 
 # pylint: disable=too-many-arguments
 # pylint: disable=unused-argument
@@ -23,7 +23,7 @@ def _extract_parameters(local_variables: dict) -> dict:
 
 def load_table(
     table_name: str,
-    lib_defaults: Defaults,
+    context: Context,
     data_source: _DataSource | None = None,
     frequency: _Frequency | None = None,
     separate_by: _SeparateBy | None = None,
@@ -35,7 +35,7 @@ def load_table(
     name = ".".join(name_parts).lower()
     table = ExternalDataCleaner(
         name,
-        lib_defaults,
+        context,
         **kwargs,
     ).read_table()
     if reset_index:

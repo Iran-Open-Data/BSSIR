@@ -31,8 +31,9 @@ import yaml
 
 from . import decoder
 
-from . import utils, data_cleaner
-from .metadata_reader import Defaults, Metadata, LoadTableSettings
+from . import data_cleaner
+from bssir.context import Context
+from bssir.context.config.models import LoadTableSettings
 
 
 class TableHandler:
@@ -58,18 +59,15 @@ class TableHandler:
         self,
         table_list: Iterable[str],
         year: int,
-        lib_defaults: Defaults,
-        lib_metadata: Metadata,
+        context: Context,
         settings: LoadTableSettings | None = None,
     ) -> None:
         self.table_list = table_list
         self.year = year
-        default_settings = lib_defaults.functions.load_table
+        default_settings = context.config.functions.load_table
 
         self.settings = default_settings if settings is None else settings
-        self.lib_defaults = lib_defaults
-        self.lib_metadata = lib_metadata
-
+        self.context = context
         self.tables: dict[str, pd.DataFrame] = self.setup()
 
     def __getitem__(self, table_name: str) -> pd.DataFrame:
@@ -156,29 +154,30 @@ class TableHandler:
         return table
 
     def get_local_path(self, table_name) -> Path:
+        cleaned_path = self.context.config.dirs.cleaned
         file_name = f"{self.year}_{table_name}.parquet"
-        self.lib_defaults.dir.cleaned.mkdir(exist_ok=True, parents=True)
-        local_path = self.lib_defaults.dir.cleaned.joinpath(file_name)
+        cleaned_path.mkdir(exist_ok=True, parents=True)
+        local_path = cleaned_path.joinpath(file_name)
         return local_path
 
     def _create_table(self, table_name: str) -> pd.DataFrame:
         table = data_cleaner.load_raw_table(
             table_name,
             self.year,
-            lib_defaults=self.lib_defaults,
-            lib_metadata=self.lib_metadata,
+            context=self.context,
         )
         table = data_cleaner.clean_table(
-            table, table_name=table_name, year=self.year, lib_metadata=self.lib_metadata
+            table, table_name=table_name, year=self.year, context=self.context
         )
         if self.settings.save_created:
             table.to_parquet(self.get_local_path(table_name))
         return table
 
     def _download_table(self, table_name: str) -> pd.DataFrame:
+        mirror = self.context.config.get_mirror(self.settings.download_source)
         table = pd.read_parquet(
-            f"{self.lib_defaults.get_mirror().bucket_address}/"
-            f"{self.lib_defaults.get_online_dir().cleaned}/"
+            f"{mirror.bucket_address}/"
+            f"{self.context.config.directory_names.cleaned}/"
             f"{self.year}_{table_name}.parquet"
         )
         if self.settings.save_downloaded:
@@ -215,12 +214,14 @@ class Pipeline:
         steps: list,
         pipeline_params: dict,
         settings: LoadTableSettings,
+        context: Context
     ) -> None:
         self.table = table.copy()
         self.steps = steps
         self.pipeline_params = pipeline_params
         self.settings = settings
         self.modules: dict[str, ModuleType] = {}
+        self.context = context
 
     def run(self) -> pd.DataFrame:
         """Run the pipeline on the table.
@@ -269,7 +270,7 @@ class Pipeline:
         method_input["lib_defaults"] = self.pipeline_params["lib_defaults"]
         method_input["lib_metadata"] = self.pipeline_params["lib_metadata"]
         settings = decoder.DecoderSettings(**method_input)
-        self.table = decoder.Decoder(self.table, settings).add_classification()
+        self.table = decoder.Decoder(self.table, settings, context=self.context).add_classification()
 
     def _add_attribute(self, method_input: dict | None = None) -> None:
         if method_input is None:
@@ -277,7 +278,7 @@ class Pipeline:
         method_input["lib_defaults"] = self.pipeline_params["lib_defaults"]
         method_input["lib_metadata"] = self.pipeline_params["lib_metadata"]
         settings = decoder.IDDecoderSettings(**method_input)
-        self.table = decoder.IDDecoder(self.table, settings).add_attribute()
+        self.table = decoder.IDDecoder(self.table, settings, context=self.context).add_attribute()
 
     def _apply_order(self, method_input: list):
         new_order = [
@@ -399,8 +400,7 @@ class Pipeline:
         other_table = create_normalized_table(
             table_name,
             years,
-            lib_defaults=self.pipeline_params["lib_defaults"],
-            lib_metadata=self.pipeline_params["lib_metadata"],
+            context=self.pipeline_params["context"],
             settings=self.settings,
         )
         self.table = self.table.merge(other_table, on=columns)
@@ -436,17 +436,15 @@ class TableFactory:
         table_name: str,
         year: int,
         *,
-        lib_defaults: Defaults,
-        lib_metadata: Metadata,
+        context: Context,
         settings: LoadTableSettings,
     ):
         self.table_name = table_name
         self.year = year
-        self.lib_defaults = lib_defaults
-        self.lib_metadata = lib_metadata
+        self.context = context
         self.settings = settings
 
-        schema = utils.resolve_metadata(lib_metadata.schema, year)
+        schema = context.metadata.schema.resolve(year)
         if isinstance(schema, dict):
             self.schema = dict(schema)
         else:
@@ -466,10 +464,9 @@ class TableFactory:
             if ("size" in props) and ("external." not in table)
         ]
         self.table_handler = TableHandler(
-            original_table_list,
-            year,
-            lib_defaults=self.lib_defaults,
-            lib_metadata=self.lib_metadata,
+            table_list=original_table_list,
+            year=year,
+            context=context,
             settings=self.settings,
         )
 
@@ -495,7 +492,7 @@ class TableFactory:
 
         if all(
             [
-                table_name not in self.lib_metadata.tables["table_availability"],
+                table_name not in self.context.metadata.tables.table_list,
                 table_name not in self.schema,
             ]
         ):
@@ -508,7 +505,7 @@ class TableFactory:
                 self.save_cache(table, table_name)
         elif "table_list" in self.schema.get(table_name, {}):
             table = self._construct_schema_based_table(table_name)
-        elif table_name in self.lib_metadata.tables["table_availability"]:
+        elif table_name in self.context.metadata.tables.table_list:
             table = self.table_handler[table_name]
             if not table.empty and (table_name in self.schema):
                 table = self._apply_schema(table, table_name)
@@ -550,21 +547,21 @@ class TableFactory:
             table = table_list.pop(0)
             if table.split(".", 1)[0] == "external":
                 file_name = f"{table.split('.', 1)[1]}.parquet"
-                local_path = self.lib_defaults.dir.external.joinpath(file_name)
+                local_path = self.context.config.dirs.external.joinpath(file_name)
                 size = local_path.stat().st_size if local_path.exists() else None
                 dependencies[table] = {"size": size}
-            elif "table_list" in self.lib_metadata.schema[table]:
-                dependencies[table] = self.lib_metadata.schema[table]
-                upstream_tables = utils.resolve_metadata(
-                    self.lib_metadata.schema[table]["table_list"], year=year
+            elif "table_list" in self.context.metadata.schema[table]:
+                dependencies[table] = self.context.metadata.schema[table]
+                upstream_tables = (
+                    self.context.metadata.schema.resolve(year)[table]["table_list"]
                 )
                 if isinstance(upstream_tables, str):
                     upstream_tables = [upstream_tables]
                 assert isinstance(upstream_tables, list)
                 table_list.extend(upstream_tables)
-            elif table in self.lib_metadata.tables["table_availability"]:
+            elif table in self.context.metadata.tables.table_list:
                 file_name = f"{year}_{table}.parquet"
-                local_path = self.lib_defaults.dir.cleaned.joinpath(file_name)
+                local_path = self.context.config.dirs.cleaned.joinpath(file_name)
                 size = local_path.stat().st_size if local_path.exists() else None
                 dependencies[table] = {"size": size}
             else:
@@ -601,7 +598,7 @@ class TableFactory:
         if not self.check_table_dependencies(table_name):
             raise FileNotFoundError
         file_name = f"{table_name}_{self.year}.parquet"
-        file_path = self.lib_defaults.dir.cached.joinpath(file_name)
+        file_path = self.context.config.dirs.cached.joinpath(file_name)
         table = pd.read_parquet(file_path)
         return table
 
@@ -623,7 +620,7 @@ class TableFactory:
 
         """
         file_name = f"{table_name}_{self.year}_metadata.yaml"
-        cach_metadata_path = self.lib_defaults.dir.cached.joinpath(file_name)
+        cach_metadata_path = self.context.config.dirs.cached.joinpath(file_name)
         with open(cach_metadata_path, encoding="utf-8") as file:
             cach_metadata = yaml.safe_load(file)
         file_dependencies = cach_metadata["dependencies"]
@@ -648,11 +645,11 @@ class TableFactory:
             Name of table being cached
 
         """
-        self.lib_defaults.dir.cached.mkdir(exist_ok=True, parents=True)
+        cached_path = self.context.config.dirs.cached
         file_name = f"{table_name}_{self.year}.parquet"
-        file_path = self.lib_defaults.dir.cached.joinpath(file_name)
+        file_path = cached_path.joinpath(file_name)
         file_name = f"{table_name}_{self.year}_metadata.yaml"
-        cache_metadata_path = self.lib_defaults.dir.cached.joinpath(file_name)
+        cache_metadata_path = cached_path.joinpath(file_name)
         file_metadata = {
             "dependencies": self.extract_dependencies(table_name, self.year)
         }
@@ -665,22 +662,22 @@ class TableFactory:
         table: pd.DataFrame,
         table_name: str,
     ):
-        if "instructions" not in self.schema[table_name]:
+        if "pipeline" not in self.schema[table_name]:
             return table
 
-        steps = self.schema[table_name]["instructions"]
+        steps = self.schema[table_name]["pipeline"]
         assert isinstance(steps, list)
         pipeline_params = {
             "table_name": table_name,
             "year": self.year,
-            "lib_defaults": self.lib_defaults,
-            "lib_metadata": self.lib_metadata,
+            "context": self.context,
         }
         table = Pipeline(
             table=table,
             steps=steps,
             pipeline_params=pipeline_params,
             settings=self.settings,
+            context=self.context,
         ).run()
         return table
 
@@ -729,7 +726,7 @@ class TableFactory:
         self, table_names: str | list[str]
     ) -> list[pd.DataFrame]:
         api_file: ModuleType = importlib.import_module(
-            f"{self.lib_defaults.package_name.lower()}.api"
+            f"{self.context.config.package_name.lower()}.api"
         )
         api = getattr(api_file, "api")
         table_names = [table_names] if isinstance(table_names, str) else table_names
@@ -746,8 +743,7 @@ class TableFactory:
 def create_normalized_table(
     table_name: str,
     years: list[int],
-    lib_defaults: Defaults,
-    lib_metadata: Metadata,
+    context: Context,
     settings: LoadTableSettings,
 ) -> pd.DataFrame:
     """Construct a table by loading it for multiple years.
@@ -776,8 +772,7 @@ def create_normalized_table(
         table = TableFactory(
             table_name,
             year,
-            lib_defaults=lib_defaults,
-            lib_metadata=lib_metadata,
+            context=context,
             settings=settings,
         ).load()
         table_list.append(table)

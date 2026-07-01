@@ -1,6 +1,6 @@
 import pandas as pd
 
-from ..api import API
+from bssir.api import API
 
 from .quantile import QuantileSettings, Quantiler
 
@@ -12,7 +12,7 @@ from .average import weighted_average, average_table
 
 class Calculator:
     def __init__(self, api: API) -> None:
-        self._api = api
+        self.api = api
 
     def weighted_average(
         self,
@@ -22,7 +22,7 @@ class Calculator:
     ) -> pd.Series:
         return weighted_average(
             table=table,
-            defaults=self._api.defaults,
+            config=self.api.context.config,
             columns=columns,
             weight_col=weight_col,
         )
@@ -36,7 +36,7 @@ class Calculator:
     ) -> pd.DataFrame:
         return average_table(
             table=table,
-            defaults=self._api.defaults,
+            config=self.api.context.config,
             columns=columns,
             groupby=groupby,
             weight_col=weight_col,
@@ -50,7 +50,7 @@ class Calculator:
         bins: int = -1,
         **kwargs
     ) -> pd.Series:
-        settings = QuantileSettings(api=self._api, **kwargs)
+        settings = QuantileSettings(api=self.api, **kwargs)
         quantile = Quantiler(table=table, settings=settings).calculate_quantile()
         quantile = quantile.rename(quantile_column_name)
         if bins > 0:

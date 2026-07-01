@@ -1,3 +1,12 @@
+# Occupation classification metadata
+#
+# Defines occupation classification systems and their configuration,
+# including default hierarchy levels, generated column names, and
+# occupation code definitions.
+#
+# This metadata is used to interpret occupation codes and produce
+# consistent occupation classifications across datasets.
+
 isco_88:
   defaults:
     levels: [1]

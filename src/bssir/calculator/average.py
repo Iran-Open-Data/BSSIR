@@ -2,12 +2,12 @@ from typing import Iterable
 
 import pandas as pd
 
-from ..metadata_reader import Defaults
+from bssir.context import Config
 
 
 def weighted_average(
     table: pd.DataFrame,
-    defaults: Defaults,
+    config: Config,
     weight_col: str | None = None,
     columns: str | Iterable[str] | None = None,
 ) -> pd.Series:
@@ -43,7 +43,7 @@ def weighted_average(
         dtype: float64
 
     """
-    weight_col = defaults.columns.weight if weight_col is None else weight_col
+    weight_col = config.standard_columns.weight if weight_col is None else weight_col
     if weight_col not in table.columns:
         raise ValueError(f"Weight column {weight_col} not in table")
     if columns is None:
@@ -51,8 +51,8 @@ def weighted_average(
             col
             for col in table.select_dtypes("number").columns
             if col in table.columns
-            if col not in defaults.columns.groupby
-            if col not in [defaults.columns.id, weight_col, "index"]
+            if col not in config.standard_columns.groupby
+            if col not in [config.standard_columns.id, weight_col, "index"]
         ]
     elif isinstance(columns, str):
         columns = [columns]
@@ -73,7 +73,7 @@ def weighted_average(
 
 def average_table(
     table: pd.DataFrame,
-    defaults: Defaults,
+    config: Config,
     columns: list[str] | None = None,
     groupby: list[str] | str | None = None,
     weight_col: str | None = None,
@@ -89,25 +89,25 @@ def average_table(
     table = table.reset_index().copy()
 
     if groupby is None:
-        groupby = [col for col in table.columns if col in defaults.columns.groupby]
+        groupby = [col for col in table.columns if col in config.standard_columns.groupby]
     elif isinstance(groupby, str):
         groupby = [groupby]
     if groupby is None:
         groupby = []
 
-    weight_col = defaults.columns.weight if weight_col is None else weight_col
+    weight_col = config.standard_columns.weight if weight_col is None else weight_col
 
     if len(groupby) == 0:
         row = weighted_average(
-            table, columns=columns, weight_col=weight_col, defaults=defaults
+            table, columns=columns, weight_col=weight_col, config=config
         )
         result = pd.DataFrame([row])
     else:
         result = table.groupby(groupby).apply(
-            weighted_average, columns=columns, weight_col=weight_col, defaults=defaults
+            weighted_average, columns=columns, weight_col=weight_col, config=config
         )
 
     if is_multi_index:
-        result.columns = pd.MultiIndex.from_tuples(result.columns, names=column_names)
+        result.columns = pd.MultiIndex.from_tuples(result.columns, names=column_names) # type: ignore
 
     return result

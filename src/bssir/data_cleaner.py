@@ -2,10 +2,12 @@
 Module for cleaning raw data into proper format
 """
 import logging
-from typing import Any, Literal
+from typing import Literal
 
 import pandas as pd
-from .metadata_reader import Defaults, Metadata
+
+from bssir.context import Context
+from bssir.context.metadata.models import DefaultSettings
 from . import utils
 
 
@@ -30,8 +32,7 @@ def load_raw_table(
     table_name: str,
     year: int,
     *,
-    lib_defaults: Defaults,
-    lib_metadata: Metadata,
+    context: Context,
 ) -> pd.DataFrame:
     """Reads raw CSV file(s) for a specific table and year into a DataFrame.
 
@@ -66,18 +67,22 @@ def load_raw_table(
         If the resolved 'file_code' from metadata is not a string or a list
         of strings.
     """
-    year_directory = lib_defaults.dir.extracted.joinpath(str(year))
+    year_directory = context.config.dirs.extracted.joinpath(str(year))
     if not year_directory.is_dir():
         msg = f"Extracted data directory not found for year {year}: {year_directory}"
         logging.error(msg)
         raise FileNotFoundError(msg)
     
-    table_settings = _get_table_settings(table_name, year, lib_metadata=lib_metadata)
+    table_settings = _get_table_settings(table_name, year, context=context)
     encoding = table_settings.get("encoding", "utf-8")
 
-    file_code = utils.resolve_metadata(
-        lib_metadata.tables[table_name]["file_code"], year
-    )
+    file_code = context.metadata.tables[table_name].resolve(year)["file_code"]
+    if not isinstance(file_code, (str, list)):
+        raise TypeError(
+            f"Expected file_code to resolve to str or list[str], "
+            f"got {type(file_code).__name__!r} "
+            f"for table={table_name!r}, year={year}."
+        )
     file_patterns = _normalize_file_patterns(file_code)
 
     file_paths = [
@@ -105,17 +110,19 @@ def _get_table_settings(
     table_name: str,
     year: int,
     *,
-    lib_metadata: Metadata,
+    context: Context,
 ) -> dict:
-    default_settings = lib_metadata.tables["default_settings"]
-    table_metadata = utils.resolve_metadata(lib_metadata.tables[table_name], year)
-    assert isinstance(table_metadata, dict)
-    table_settings = default_settings.copy()
-    table_settings.update(table_metadata.get("settings", {}))
-    return table_settings
+    # table_metadata = utils.resolve_metadata(lib_metadata.tables[table_name], year)
+    table_metadata = context.metadata.tables[table_name].resolve(year)
+    # assert isinstance(table_metadata, dict)
+    table_settings = (
+        context.metadata.tables.default_settings
+        .model_copy(update=table_metadata.get("settings", {}))
+    )
+    return table_settings.model_dump()
 
 
-def _normalize_file_patterns(file_code: Any) -> list[str]:
+def _normalize_file_patterns(file_code: str | list) -> list[str]:
     """Validates and normalizes the file_code into a list of strings."""
     if isinstance(file_code, str):
         return [file_code]
@@ -133,7 +140,7 @@ def clean_table(
     *,
     table_name: str,
     year: int,
-    lib_metadata: Metadata,
+    context: Context,
 ) -> pd.DataFrame:
     """Applies metadata-driven cleaning transformations to a DataFrame.
 
@@ -162,14 +169,14 @@ def clean_table(
     KeyError
         If the `table_name` or "default_settings" are not found in the metadata.
     """
-    table_metadata = utils.resolve_metadata(lib_metadata.tables[table_name], year)
-
+    # table_metadata = utils.resolve_metadata(lib_metadata.tables[table_name], year)
+    table_metadata = context.metadata.tables[table_name].resolve(year)
     if not isinstance(table_metadata, dict):
         actual_type = type(table_metadata).__name__
         msg = f"Metadata must be a dictionary, but got {actual_type} for year {year}."
         raise TypeError(msg)
 
-    default_settings = lib_metadata.tables["default_settings"]
+    default_settings = context.metadata.tables.default_settings
 
     cleaned_table = _apply_metadata_to_table(
         table=table,
@@ -180,7 +187,7 @@ def clean_table(
 
 
 def _apply_metadata_to_table(
-    table: pd.DataFrame, table_metadata: dict, default_settings: dict
+    table: pd.DataFrame, table_metadata: dict, default_settings: DefaultSettings
 ) -> pd.DataFrame:
     """Applies metadata rules to clean all columns in a table.
 
@@ -209,7 +216,7 @@ def _apply_metadata_to_table(
         and the table's 'missings' setting is 'error'.
     """
     logging.info(f"Applying metadata to table with {len(table.columns)} columns.")
-    table_settings = default_settings.copy()
+    table_settings = default_settings.model_dump()
     table_settings.update(table_metadata.get("settings", {}))
 
     processed_columns = {}

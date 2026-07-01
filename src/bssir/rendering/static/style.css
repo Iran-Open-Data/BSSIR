@@ -1,0 +1,523 @@
+/* ==========================================================
+   BSSIR Theme
+   ========================================================== */
+
+.bssir {
+    --bg: #ffffff;
+    --panel: #ffffff;
+    --border: #e5e7eb;
+    --border-light: #f3f4f6;
+
+    --text: #111827;
+    --text-soft: #6b7280;
+    --text-muted: #9ca3af;
+
+    --accent: #2563eb;
+
+    --success: #16a34a;
+    --warning: #d97706;
+    --danger: #dc2626;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    color: var(--text);
+
+    background: var(--bg);
+
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    margin: 1rem 0;
+
+    box-shadow:
+        0 1px 2px rgba(0,0,0,.04),
+        0 8px 24px rgba(0,0,0,.03);
+}
+
+
+/* ==========================================================
+   Hero
+   ========================================================== */
+
+.bssir-hero {
+    padding: 2rem 2.25rem 1.8rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.bssir-title {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text);
+}
+
+.bssir-subtitle {
+    margin-top: .45rem;
+
+    font-size: 1rem;
+    color: var(--text-soft);
+
+    line-height: 1.5;
+}
+
+.bssir-meta {
+    margin-top: 1rem;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem;
+
+    font-size: .88rem;
+    color: var(--text-muted);
+}
+
+.bssir-description {
+    margin-top: 1.5rem;
+
+    max-width: 70ch;
+
+    color: var(--text-soft);
+
+    line-height: 1.75;
+}
+
+
+/* ==========================================================
+   Sections
+   ========================================================== */
+
+.bssir-section {
+    padding: 1.75rem 2.25rem;
+}
+
+.bssir-section + .bssir-section {
+    border-top: 1px solid var(--border-light);
+}
+
+.bssir-section-header {
+    margin-bottom: 1.25rem;
+}
+
+.bssir-section-title {
+    font-size: .95rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: .08em;
+
+    font-weight: 700;
+
+    color: var(--text);
+}
+
+.bssir-section-subtitle {
+    margin-top: .35rem;
+
+    color: var(--text-muted);
+
+    font-size: .9rem;
+}
+
+
+/* ==========================================================
+   Cards
+   ========================================================== */
+
+.bssir-card-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+
+    gap: 1rem;
+}
+
+.bssir-card {
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding: 1rem 1.1rem;
+
+    transition:
+        transform .15s ease,
+        border-color .15s ease,
+        box-shadow .15s ease;
+}
+
+.bssir-card:hover {
+
+    transform: translateY(-2px);
+
+    border-color: #d1d5db;
+
+    box-shadow:
+        0 6px 18px rgba(0,0,0,.05);
+}
+
+.bssir-card-title {
+    font-size: .82rem;
+
+    color: var(--text-muted);
+
+    text-transform: uppercase;
+
+    letter-spacing: .05em;
+}
+
+.bssir-card-value {
+
+    margin-top: .45rem;
+
+    font-size: 1.35rem;
+
+    font-weight: 600;
+}
+
+
+/* ==========================================================
+   Status
+   ========================================================== */
+
+.bssir-status {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .65rem;
+
+    padding: .55rem 0;
+}
+
+.bssir-status-icon {
+
+    width: 1.1rem;
+
+    text-align: center;
+
+    font-weight: 700;
+}
+
+.bssir-status.success .bssir-status-icon {
+    color: var(--success);
+}
+
+.bssir-status.warning .bssir-status-icon {
+    color: var(--warning);
+}
+
+.bssir-status.error .bssir-status-icon {
+    color: var(--danger);
+}
+
+
+/* ==========================================================
+   Badges
+   ========================================================== */
+
+.bssir-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: .22rem .65rem;
+
+    border-radius: 999px;
+
+    font-size: .78rem;
+
+    font-weight: 600;
+
+    border: 1px solid var(--border);
+
+    background: #fafafa;
+}
+
+.bssir-badge.success {
+    color: var(--success);
+}
+
+.bssir-badge.warning {
+    color: var(--warning);
+}
+
+.bssir-badge.error {
+    color: var(--danger);
+}
+
+
+/* ==========================================================
+   Code
+   ========================================================== */
+
+.bssir-code {
+
+    background: #fafafa;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    padding: 1rem 1.2rem;
+
+    overflow-x: auto;
+}
+
+.bssir-code pre {
+    margin: 0;
+}
+
+.bssir-code code {
+
+    font-size: .9rem;
+
+    font-family:
+        "JetBrains Mono",
+        "SFMono-Regular",
+        Consolas,
+        monospace;
+}
+
+
+/* ==========================================================
+   Footer
+   ========================================================== */
+
+.bssir-footer {
+
+    padding: 1.25rem 2.25rem;
+
+    border-top: 1px solid var(--border);
+
+    background: #fafafa;
+
+    font-size: .82rem;
+
+    color: var(--text-muted);
+}
+
+
+/* ==========================================================
+   Tables
+   ========================================================== */
+
+.bssir table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.bssir th {
+    text-align: left;
+    font-size: .82rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--text-muted);
+    padding: .75rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.bssir td {
+    padding: .8rem .75rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.bssir tbody tr:hover {
+    background: #fafafa;
+}
+
+
+/* ==========================================================
+   Links
+   ========================================================== */
+
+.bssir a {
+
+    color: var(--accent);
+
+    text-decoration: none;
+}
+
+.bssir a:hover {
+
+    text-decoration: underline;
+}
+
+
+/* ==========================================================
+   Responsive
+   ========================================================== */
+
+@media (max-width: 700px) {
+
+    .bssir-hero,
+    .bssir-section,
+    .bssir-footer {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+
+    .bssir-title {
+        font-size: 1.6rem;
+    }
+}
+
+
+/* ----------------------------------------------------------
+   Report table
+   ---------------------------------------------------------- */
+
+.bssir-report {
+    width:100%;
+    border-collapse:collapse;
+    table-layout:auto;
+}
+
+.bssir-report th{
+
+    text-align:left;
+
+    padding:.75rem .9rem;
+
+    font-size:.74rem;
+
+    letter-spacing:.08em;
+
+    text-transform:uppercase;
+
+    color:var(--text-muted);
+
+    border-bottom:1px solid var(--border);
+
+    font-weight:600;
+}
+
+.bssir-report td{
+
+    padding:.82rem .9rem;
+
+    border-bottom:1px solid var(--border-light);
+
+    vertical-align:middle;
+}
+
+.bssir-report tbody tr{
+
+    transition:background .15s;
+}
+
+.bssir-report tbody tr:hover{
+
+    background:#fafafa;
+}
+
+.bssir-report td:nth-child(4),
+.bssir-report td:nth-child(5),
+.bssir-report td:nth-child(6){
+
+    width:60px;
+
+    text-align:center;
+}
+
+
+/* ----------------------------------------------------------
+   Status
+   ---------------------------------------------------------- */
+
+.bssir-status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:.45rem;
+
+    font-weight:500;
+}
+
+.bssir-status.loaded{
+
+    color:#15803d;
+}
+
+.bssir-status.deferred{
+
+    color:#6b7280;
+}
+
+.bssir-status.error{
+
+    color:#dc2626;
+}
+
+
+/* ----------------------------------------------------------
+   Source dots
+   ---------------------------------------------------------- */
+
+.bssir-dot{
+
+    display:inline-block;
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+}
+
+.bssir-dot.loaded{
+
+    background:#22c55e;
+}
+
+.bssir-dot.deferred{
+
+    border:2px solid #cbd5e1;
+
+    background:white;
+
+    box-sizing:border-box;
+}
+
+.bssir-dot.error{
+
+    background:#ef4444;
+}
+
+
+/* ----------------------------------------------------------
+   Footer
+   ---------------------------------------------------------- */
+
+.bssir-report-footer{
+
+    display:flex;
+
+    gap:1.5rem;
+
+    margin-top:1rem;
+
+    color:var(--text-muted);
+
+    font-size:.82rem;
+}
+
+.bssir-report-footer span{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:.45rem;
+}

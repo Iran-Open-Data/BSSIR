@@ -5,7 +5,7 @@ import boto3
 from mypy_boto3_s3.service_resource import Bucket
 from botocore.exceptions import ClientError, NoCredentialsError
 
-from ..metadata_reader import Mirror
+from bssir.context.config.models import Mirror
 
 
 def get_bucket(mirror: Mirror) -> Bucket:

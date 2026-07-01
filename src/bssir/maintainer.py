@@ -5,7 +5,7 @@ from typing import Optional, Iterable
 import requests
 from botocore.exceptions import ClientError
 
-from .metadata_reader import Defaults, Metadata
+from .context import Defaults, Metadata
 from .utils.s3 import get_bucket
 
 
@@ -53,7 +53,7 @@ class Maintainer:
         self.lib_defaults = lib_defaults
         self.lib_metadata = lib_metadata
 
-        self.online_dir = lib_defaults.get_online_dir(mirror_name)
+        self.online_dir = lib_defaults.dir_names
         self.mirror = lib_defaults.get_mirror(mirror_name)
         self.bucket = get_bucket(self.mirror)
 

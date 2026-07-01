@@ -1,4 +1,24 @@
-
+# Geospatial metadata
+#
+# Defines map datasets used for geographic visualization and spatial
+# analysis. Each map source specifies where boundary files are obtained,
+# the administrative layers they contain, and how dataset codes map to
+# geographic features.
+#
+# Common fields:
+#   - original_link:
+#       Original download URL for the map dataset.
+#   - mirror_link:
+#       Local or mirrored copy of the dataset archive.
+#   - file_name:
+#       Shapefile containing the administrative layer.
+#   - code_column:
+#       Column containing geographic codes in the shapefile.
+#   - code:
+#       Mapping between dataset codes and shapefile codes.
+#
+# This metadata is used to locate map files and join dataset records with
+# geographic boundaries for mapping and spatial analysis.
 
 humandata:
   original_link: https://data.humdata.org/dataset/247b4026-79ff-4b16-95b9-0f366792d2cc/resource/515839b3-68cd-4308-818d-7d21b43c22d3/download/irn_admin_boundaries.shp.zip

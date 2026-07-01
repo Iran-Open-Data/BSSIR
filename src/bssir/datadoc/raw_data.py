@@ -45,7 +45,7 @@ def clean_raw_data(table: pd.DataFrame) -> pd.DataFrame:
 def generate_availability_tables(api: API):
     availability_dir = api.defaults.docs.csv.joinpath("availability")
     availability_dir.mkdir(exist_ok=True, parents=True)
-    for table_name in api.metadata.tables["table_availability"]:
+    for table_name in api.metadata.tables["table_list"]:
         years = api.utils.parse_years("all", table_name=table_name)
         columns = []
         for year in years:
@@ -58,7 +58,7 @@ def generate_availability_tables(api: API):
 
 
 def generate_raw_summary_tables(api: API):
-    for table_name in api.metadata.tables["table_availability"]:
+    for table_name in api.metadata.tables["table_list"]:
         years = [
             year for _, year in api.utils.create_table_year_pairs(table_name, "all")
         ]

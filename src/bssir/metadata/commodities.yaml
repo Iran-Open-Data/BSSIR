@@ -1,0 +1,8 @@
+# Commodity classification metadata
+#
+# Defines commodity classification systems and their configuration,
+# including default hierarchy levels, generated column names, and
+# commodity code definitions.
+#
+# This metadata is used to interpret commodity codes and produce
+# consistent commodity classifications across datasets.

@@ -14,11 +14,11 @@ MetadataVersionResolver - Resolves and returns metadata versions.
 MetadataVersionSettings - Configurable settings for versioning.
 
 """
-from typing import Any, Literal, overload
+from typing import Literal, overload
 
 from pydantic import BaseModel
 
-from ..metadata_reader import Defaults
+# from ..metadata_reader import Defaults
 
 
 class MetadataResolverSettings(BaseModel):
@@ -419,43 +419,43 @@ def resolve_metadata(
     return resolved_metadata
 
 
-def extract_column_metadata(
-    column_name: str, table_metadata: dict, lib_defaults: Defaults
-) -> dict[int, dict]:
-    meta_dict = {}
-    for year in lib_defaults.years:
-        columns_metadata = resolve_metadata(table_metadata, year)
-        assert isinstance(columns_metadata, dict)
-        columns_metadata = columns_metadata.get("columns")
-        if columns_metadata is None:
-            continue
-        for key, value in columns_metadata.items():
-            if (value is None) or (value == "drop"):
-                continue
-            if value["new_name"] == column_name:
-                value.pop("new_name")
-                metadata = {"column_code": key}
-                metadata.update(value)
-                if (len(meta_dict) == 0) or (list(meta_dict.values())[-1] != metadata):
-                    meta_dict[year] = metadata
-    return meta_dict
+# def extract_column_metadata(
+#     column_name: str, table_metadata: dict, lib_defaults: Defaults
+# ) -> dict[int, dict]:
+#     meta_dict = {}
+#     for year in lib_defaults.years:
+#         columns_metadata = resolve_metadata(table_metadata, year)
+#         assert isinstance(columns_metadata, dict)
+#         columns_metadata = columns_metadata.get("columns")
+#         if columns_metadata is None:
+#             continue
+#         for key, value in columns_metadata.items():
+#             if (value is None) or (value == "drop"):
+#                 continue
+#             if value["new_name"] == column_name:
+#                 value.pop("new_name")
+#                 metadata = {"column_code": key}
+#                 metadata.update(value)
+#                 if (len(meta_dict) == 0) or (list(meta_dict.values())[-1] != metadata):
+#                     meta_dict[year] = metadata
+#     return meta_dict
 
 
-def exteract_code_metadata(
-    column_code: str, table_metadata: dict, lib_defaults: Defaults
-) -> dict[int, Any]:
-    meta_dict = {}
-    for year in lib_defaults.years:
-        columns_metadata = resolve_metadata(table_metadata, year)
-        assert isinstance(columns_metadata, dict)
-        columns_metadata = columns_metadata.get("columns")
-        if (
-            isinstance(columns_metadata, dict)
-            and (column_code in columns_metadata)
-            and (
-                (len(meta_dict) == 0)
-                or (columns_metadata[column_code] != list(meta_dict.values())[-1])
-            )
-        ):
-            meta_dict[year] = columns_metadata[column_code]
-    return meta_dict
+# def exteract_code_metadata(
+#     column_code: str, table_metadata: dict, lib_defaults: Defaults
+# ) -> dict[int, Any]:
+#     meta_dict = {}
+#     for year in lib_defaults.years:
+#         columns_metadata = resolve_metadata(table_metadata, year)
+#         assert isinstance(columns_metadata, dict)
+#         columns_metadata = columns_metadata.get("columns")
+#         if (
+#             isinstance(columns_metadata, dict)
+#             and (column_code in columns_metadata)
+#             and (
+#                 (len(meta_dict) == 0)
+#                 or (columns_metadata[column_code] != list(meta_dict.values())[-1])
+#             )
+#         ):
+#             meta_dict[year] = columns_metadata[column_code]
+#     return meta_dict

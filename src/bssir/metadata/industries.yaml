@@ -1,3 +1,22 @@
+# Industry classification metadata
+#
+# Defines industry and economic activity classifications used in the dataset.
+# The schema is based on ISIC revision 4 and provides hierarchical industry
+# categories with their codes, levels, and multilingual descriptions.
+#
+# Each classification item contains:
+#   - level:
+#       Hierarchical level of the industry category.
+#   - title:
+#       English name of the industry category.
+#   - farsi_title:
+#       Persian name of the industry category.
+#   - code:
+#       Numeric code range associated with the category.
+#
+# This metadata is used for decoding industry codes, validating industry
+# classifications, and generating human-readable labels.
+
 
 isic_4:
 

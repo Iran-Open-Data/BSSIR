@@ -1,0 +1,20 @@
+# Table schema metadata
+#
+# Defines the schema of dataset tables, including column definitions,
+# data types, labels, mappings, validation rules, and year-specific
+# variations.
+#
+# Common fields:
+#   - type:
+#       Column data type and parsing behavior.
+#   - columns:
+#       Column definitions and metadata.
+#   - mappings:
+#       Rules for translating or deriving column values.
+#   - availability:
+#       Survey years in which a column or definition is applicable.
+#   - defaults:
+#       Default values inherited by child definitions.
+#
+# This metadata is used to validate, load, transform, and document
+# dataset tables across survey years.

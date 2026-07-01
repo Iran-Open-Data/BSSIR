@@ -5,9 +5,18 @@ import importlib
 
 import pandas as pd
 
-from .metadata_reader import Defaults, Metadata, _Years, LoadTableSettings
-from . import data_cleaner, external_data, data_engine, decoder
-from .utils import Utils
+from bssir.context import Context
+from bssir.context.types import Years
+from bssir.context.config.models import LoadTableSettings
+from bssir.context.utils.parser import parse_years
+from . import (
+    archive_handler,
+    data_cleaner,
+    data_engine,
+    utils,
+    external_data,
+    decoder,
+)
 
 _DataSource = Literal["SCI", "CBI"]
 _Frequency = Literal["Annual", "Quarterly", "Monthly"]
@@ -15,21 +24,20 @@ _SeparateBy = Literal["Urban_Rural", "Province"]
 
 
 class API:
-    def __init__(self, defaults: Defaults, metadata: Metadata):
-        self.defaults = defaults
-        self.metadata = metadata
-        self.utils = Utils(defaults, metadata)
+    def __init__(self, context: Context):
+        self.context = context
+        self.utils = utils.Utils(context=context)
 
     def setup(self, **kwargs) -> None:
         """Download, extract, and clean survey data."""
-        settings_model = self.defaults.functions.setup
+        settings_model = self.context.config.functions.setup
         try:
             settings = settings_model.model_copy(update=kwargs)
         except Exception as exc:
             logging.error("Invalid settings for setup: %s", exc)
             raise
         logging.debug(f"Setup with settings: {settings}")
-        years = self.utils.parse_years(settings.years)
+        years = parse_years(settings.years)
         if settings.method == "create_from_raw":
             self.setup_raw_data(**settings.model_dump())
             self._create_cleaned_files(years=years, table_names=settings.table_names)
@@ -54,7 +62,7 @@ class API:
 
         Parameters
         ----------
-        years : _Years
+        years : Years
             Year or iterable of years (see self.utils.parse_years for accepted forms).
         **kwargs
             Optional overrides for the defaults.functions.setup_raw_data model.
@@ -69,20 +77,17 @@ class API:
             Any exceptions raised by settings.model_copy(...) or archive_handler.setup
             are logged and re-raised to the caller.
         """
-        from . import archive_handler
-
-        settings_model = self.defaults.functions.setup_raw_data
+        settings_model = self.context.config.functions.setup_raw_data
         try:
             settings = settings_model.model_copy(update=kwargs)
         except Exception as exc:
             logging.error("Invalid settings for setup_raw_data: %s", exc)
             raise
-        years = self.utils.parse_years(settings.years)
+        years = parse_years(settings.years)
 
         archive_handler.setup(
-            years,
-            lib_metadata=self.metadata,
-            lib_defaults=self.defaults,
+            years=years,
+            context=self.context,
             replace=settings.replace,
             download_source=settings.download_source,
         )
@@ -97,22 +102,22 @@ class API:
             src_file_name = "settings_sample.yaml"
         else:
             src_file_name = f"settings_sample_{mode.lower()}.yaml"
-        src = self.defaults.base_package_dir.joinpath("config", src_file_name)
-        dst = self.defaults.root_dir.joinpath(self.defaults.local_settings)
+        src = self.context.config.base_package_dir.joinpath("config", src_file_name)
+        dst = self.context.config.root_dir.joinpath(self.context.config.local_settings)
         dst.parent.mkdir(parents=True, exist_ok=True)
         if (not dst.exists()) or replace:
-            local_dir = str(self.defaults.root_dir.joinpath(self.defaults.local_dir))
+            local_dir = str(self.context.config.root_dir.joinpath(self.context.config.local_dir))
             with open(src, mode="r", encoding="utf-8") as file:
                 setup_text = file.read()
             setup_text = setup_text.replace("{{local_dir}}", local_dir)
             with open(dst, mode="w", encoding="utf-8") as file:
                 file.write(setup_text)
 
-    def load_table(self, table_name: str, years: _Years, **kwargs) -> pd.DataFrame:
+    def load_table(self, table_name: str, years: Years, **kwargs) -> pd.DataFrame:
         """Load a table for the given table name and year(s)."""
-        settings = self.defaults.functions.load_table
+        settings = self.context.config.functions.load_table
         settings = settings.model_copy(update=kwargs)
-        years = self.utils.parse_years(years, table_name=table_name, form=settings.form)
+        years = self.utils.parse_years(years)
         if settings.form == "raw":
             table = self._load_raw_table(table_name, years)
         elif settings.form == "cleaned":
@@ -122,8 +127,7 @@ class API:
                 table_name=table_name,
                 years=years,
                 settings=settings,
-                lib_defaults=self.defaults,
-                lib_metadata=self.metadata,
+                context=self.context
             )
         else:
             raise ValueError
@@ -135,8 +139,7 @@ class API:
                 data_cleaner.load_raw_table(
                     table_name=table_name,
                     year=year,
-                    lib_defaults=self.defaults,
-                    lib_metadata=self.metadata,
+                    context=self.context,
                 )
                 for year in years
             ],
@@ -155,8 +158,7 @@ class API:
                 data_engine.TableHandler(
                     [table_name],
                     year,
-                    lib_defaults=self.defaults,
-                    lib_metadata=self.metadata,
+                    context=self.context,
                     settings=settings,
                 )[table_name]
                 for year in years
@@ -179,11 +181,11 @@ class API:
     def __create_cleaned_file(self, table_name: str, year: int) -> None:
         table = self._load_raw_table(table_name=table_name, years=[year])
         table = data_cleaner.clean_table(
-            table, table_name=table_name, year=year, lib_metadata=self.metadata
+            table, table_name=table_name, year=year, context=self.context
         )
         file_name = f"{year}_{table_name}.parquet"
-        self.defaults.dir.cleaned.mkdir(exist_ok=True, parents=True)
-        table.to_parquet(self.defaults.dir.cleaned.joinpath(file_name))
+        self.context.config.dirs.cleaned.mkdir(exist_ok=True, parents=True)
+        table.to_parquet(self.context.config.dirs.cleaned.joinpath(file_name))
 
     def load_external_table(
         self,
@@ -197,7 +199,7 @@ class API:
         """Load an external table for the given table name and year(s)."""
         return external_data.load_table(
             table_name=table_name,
-            lib_defaults=self.defaults,
+            context=self.context,
             data_source=data_source,
             frequency=frequency,
             separate_by=separate_by,
@@ -205,20 +207,20 @@ class API:
             **kwargs,
         )
 
-    def load_knowledge(self, name: str, years: _Years | None = None, **kwargs) -> Any:
+    def load_knowledge(self, name: str, years: Years | None = None, **kwargs) -> Any:
         if years is not None:
             kwargs["years"] = self.utils.parse_years(years)
         module: ModuleType = importlib.import_module(
-            f"{self.defaults.package_name.lower()}.knowledge_base.{name}"
+            f"{self.context.config.package_name.lower()}.knowledge_base.{name}"
         )
         main_function: Callable = getattr(module, "main")
         return main_function(**kwargs)
 
     def add_attribute(self, table: pd.DataFrame, **kwargs) -> pd.DataFrame:
         """Add attributes to table based on ID column."""
-        kwargs.update({"lib_defaults": self.defaults, "lib_metadata": self.metadata})
+        kwargs.update({"context": self.context})
         settings = decoder.IDDecoderSettings(**kwargs)
-        table = decoder.IDDecoder(table=table, settings=settings).add_attribute()
+        table = decoder.IDDecoder(table=table, settings=settings, context=self.context).add_attribute()
         return table
 
     def add_classification(self, table: pd.DataFrame, **kwargs) -> pd.DataFrame:
@@ -232,25 +234,25 @@ class API:
                 kwargs["target"] = potential_targets[0]
             else:
                 raise ValueError("Target column not specified.")
-        kwargs.update({"lib_defaults": self.defaults, "lib_metadata": self.metadata})
+        kwargs.update({"context": self.context})
         settings = decoder.DecoderSettings(**kwargs)
-        table = decoder.Decoder(table=table, settings=settings).add_classification()
+        table = decoder.Decoder(table=table, settings=settings, context=self.context).add_classification()
         return table
 
     def add_weight(self, table: pd.DataFrame) -> pd.DataFrame:
         """Add sampling weight to table"""
         years = (
-            decoder.extract_column(table, self.defaults.columns.year).unique().tolist()
+            decoder.extract_column(table, self.context.config.standard_columns.year).unique().tolist()
         )
-        _index = [self.defaults.columns.year, self.defaults.columns.id]
+        _index = [self.context.config.standard_columns.year, self.context.config.standard_columns.id]
         weights = self.load_table("Weight", years).set_index(_index)
         return table.join(weights, how="left", on=_index)
 
     def _is_potential_target(self, column_name) -> bool:
         for keywords in [
-            self.defaults.columns.commodity_code,
-            self.defaults.columns.industry_code,
-            self.defaults.columns.occupation_code,
+            self.context.config.standard_columns.commodity_code,
+            self.context.config.standard_columns.industry_code,
+            self.context.config.standard_columns.occupation_code,
         ]:
             for keyword in keywords:
                 if keyword.lower() in column_name.lower():

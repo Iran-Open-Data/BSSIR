@@ -6,7 +6,7 @@ from zipfile import ZipFile
 import requests
 from tqdm.auto import tqdm
 
-from ..metadata_reader import defaults
+from bssir.context import Config
 
 
 def download(url: str, path: Path) -> None:
@@ -56,7 +56,7 @@ def download(url: str, path: Path) -> None:
 
         with open(part_path, "wb") as file, tqdm(
             desc=f"Downloading {path.name}",
-            bar_format=defaults.bar_format,
+            # bar_format=defaults.bar_format,
             total=total_size,
             unit="B",
             unit_scale=True,
@@ -79,7 +79,7 @@ def download(url: str, path: Path) -> None:
         raise e
 
 
-def download_7zip():
+def download_7zip(config: Config):
     """
     Download the appropriate version of 7-Zip for the current operating system
     and architecture, and extract it to the root directory.
@@ -90,30 +90,30 @@ def download_7zip():
         f"{platform.architecture()[0]} architecture"
     )
     file_name = f"{platform.system()}-{platform.architecture()[0]}.zip"
-    file_path = defaults.root_dir.joinpath(file_name)
+    file_path = config.root_dir.joinpath(file_name)
 
-    url = f"{defaults.mirrors[0].bucket_address}/7-Zip/{file_name}"
+    url = f"{config.mirrors[0].bucket_address}/7-Zip/{file_name}"
     download(url, file_path)
 
     with ZipFile(file_path) as zip_file:
-        zip_file.extractall(defaults.root_dir)
+        zip_file.extractall(config.root_dir)
     file_path.unlink()
 
-    with open(defaults.root_dir.joinpath("7-Zip/.gitignore"), mode="w") as file:
+    with open(config.root_dir.joinpath("7-Zip/.gitignore"), mode="w") as file:
         file.write("# This file created automatically by BSSIR\n*\n")
 
     if platform.system() == "Linux":
-        defaults.root_dir.joinpath("7-Zip", "7zz").chmod(0o771)
+        config.root_dir.joinpath("7-Zip", "7zz").chmod(0o771)
 
 
-def download_map(
-    map_name: str, source: str, *, map_metadata: dict, maps_directory: Path
-) -> None:
-    url = map_metadata[map_name][f"{source}_link"]
-    file_path = maps_directory.joinpath("map.zip")
-    download(url, file_path)
-    path = maps_directory.joinpath(map_name)
-    path.mkdir(exist_ok=True, parents=True)
-    with ZipFile(file_path) as zip_file:
-        zip_file.extractall(path)
-    file_path.unlink()
+# def download_map(
+#     map_name: str, source: str, *, map_metadata: dict, maps_directory: Path
+# ) -> None:
+#     url = map_metadata[map_name][f"{source}_link"]
+#     file_path = maps_directory.joinpath("map.zip")
+#     download(url, file_path)
+#     path = maps_directory.joinpath(map_name)
+#     path.mkdir(exist_ok=True, parents=True)
+#     with ZipFile(file_path) as zip_file:
+#         zip_file.extractall(path)
+#     file_path.unlink()

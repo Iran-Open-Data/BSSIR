@@ -1,6 +1,6 @@
 # Local Directory
 local_dir: {{local_dir}}
-in_root: true
+local_dir_in_root: true
 
 # Mirrors
 default_mirror: arvan

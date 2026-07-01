@@ -138,7 +138,7 @@ class Quantiler:
             self.value_table
             .pipe(self._add_attributes)
             .pipe(self._add_weights)
-            .groupby(groupby_columns, group_keys=False)
+            .groupby(groupby_columns, group_keys=False, observed=True)
             .apply(self._calculate_subgroup_quantile, include_groups=False) # type: ignore
             .pipe(self._align_with_table)
             .loc[:, "Quantile"]
@@ -172,7 +172,10 @@ class Quantiler:
 
     def _add_attributes(self, table: pd.DataFrame) -> pd.DataFrame:
         for attribute in self.settings.groupby:  # type: ignore
-            table = self.settings.api.add_attribute(table, name=attribute)
+            if isinstance(self.table, pd.DataFrame) and attribute in self.table.columns:
+                table = table.join(self.table[attribute])
+            else:
+                table = self.settings.api.add_attribute(table, name=attribute)
         return table
 
     def _align_with_table(self, quantile: pd.DataFrame) -> pd.DataFrame:

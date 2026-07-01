@@ -1,4 +1,24 @@
+# Metadata describing dataset tables
+#
+# Defines each logical table in the dataset, including its purpose,
+# availability, source file mapping, and processing options.
+#
+# Common fields:
+#   - description:
+#       Human-readable description of the table's contents.
+#   - settings:
+#       Table-specific processing and import options.
+#   - file_code:
+#       Pattern or identifier used to locate the corresponding raw data file
+#       for each survey year.
+#   - availability:
+#       Survey years in which the table is available.
+#
+# Used by the data pipeline to discover, load, and preprocess tables.
 
 default_settings:
   missings: drop
   encoding: utf-8
+
+
+table_list: []

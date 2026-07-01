@@ -22,13 +22,15 @@ The functions provide helpers for resolving metadata and reading
 classification info from the raw metadata.
 
 """
+from collections.abc import Mapping
 from itertools import product
 from typing import Callable, Iterable, Literal, Annotated, Any, Optional
 
 import pandas as pd
 from pydantic import BaseModel, ConfigDict, BeforeValidator, Field
 
-from .metadata_reader import Defaults, Metadata
+from bssir.context import Context
+from bssir.context.utils.resolver import resolve_metadata
 
 from . import utils, external_data
 
@@ -151,12 +153,11 @@ class DecoderSettings(BaseModel):
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
-    lib_defaults: Defaults
-    lib_metadata: Metadata
+    context: Context
     target: str
     classification_type: Optional[Literal["commodity", "occupation", "industry"]] = None
     name: str = "original"
-    year_col: str = Field(None, validate_default=False)
+    year_col: str = Field(None, validate_default=False) # type: ignore
     versioned_info: dict = {}
     defaults: dict = {}
     aspects: _Aspects = ()
@@ -170,14 +171,14 @@ class DecoderSettings(BaseModel):
             self.classification_type = self._resolve_classification_type()
 
         if self.year_col is None:
-            self.year_col = self.lib_defaults.columns.year
+            self.year_col = self.context.config.standard_columns.year
 
         if self.classification_type == "commodity":
-            self.versioned_info = self.lib_metadata.commodities[self.name]
+            self.versioned_info = self.context.metadata.commodities[self.name]
         elif self.classification_type == "industry":
-            self.versioned_info = self.lib_metadata.industries[self.name]
+            self.versioned_info = self.context.metadata.industries[self.name]
         elif self.classification_type == "occupation":
-            self.versioned_info = self.lib_metadata.occupations[self.name]
+            self.versioned_info = self.context.metadata.occupations[self.name]
         else:
             raise ValueError(f"{self.classification_type} is not valid type")
 
@@ -199,13 +200,13 @@ class DecoderSettings(BaseModel):
     ) -> Literal["commodity", "occupation", "industry"]:
         """Resolve the classification type based on keywords."""
         for name, keywords in [
-            ("commodity", self.lib_defaults.columns.commodity_code),
-            ("industry", self.lib_defaults.columns.industry_code),
-            ("occupation", self.lib_defaults.columns.occupation_code),
+            ("commodity", self.context.config.standard_columns.commodity_code),
+            ("industry", self.context.config.standard_columns.industry_code),
+            ("occupation", self.context.config.standard_columns.occupation_code),
         ]:
             for keyword in keywords:
                 if keyword.lower() in self.target.lower():
-                    return name
+                    return name # type: ignore
         raise ValueError("Cannot specify classification type")
 
     def _resolve_column_names(self) -> None:
@@ -277,9 +278,10 @@ class Decoder:
 
     """
 
-    def __init__(self, table: pd.DataFrame, settings: DecoderSettings) -> None:
+    def __init__(self, table: pd.DataFrame, settings: DecoderSettings, context: Context) -> None:
         self.table = table
         self.settings = settings
+        self.context = context
         self.code_column = extract_column(table, settings.target)
         self.year_column = extract_column(table, settings.year_col)
         self.classification_table = self.create_classification_table(
@@ -315,15 +317,15 @@ class Decoder:
         """
         table_list = []
         for year in years:
-            classification_info = utils.resolve_metadata(
+            classification_info = resolve_metadata(
                 self.settings.versioned_info, year, categorize=True
             )
             assert isinstance(classification_info, dict)
             annual_table = pd.DataFrame(classification_info.get("items"))
             annual_table["code_range"] = annual_table["code"].apply(
                 utils.Argham,  # type: ignore
-                default_start=self.settings.lib_defaults.years[0],
-                default_end=self.settings.lib_defaults.years[-1] + 1,
+                default_start=min(self.context.config.coverage_period),
+                default_end=max(self.context.config.coverage_period)+1,
                 keywords=["code"],
             )
             annual_table = annual_table.drop(columns=["code"])
@@ -468,17 +470,16 @@ class IDDecoderSettings(BaseModel):
     name: str
     aspects: _Aspects = ("name",)
     column_names: _ColumnNames = ()
-    lib_defaults: Defaults
-    lib_metadata: Metadata
+    context: Context
 
     id_col: str | None = None
     year_col: str | None = None
 
     def model_post_init(self, __contex=None) -> None:
         if self.id_col is None:
-            self.id_col = self.lib_defaults.columns.id
+            self.id_col = self.context.config.standard_columns.id
         if self.year_col is None:
-            self.year_col = self.lib_defaults.columns.year
+            self.year_col = self.context.config.standard_columns.year
         self._resolve_column_names()
 
     def _resolve_column_names(self) -> None:
@@ -514,11 +515,13 @@ class IDDecoder:
         self,
         table: pd.DataFrame,
         settings: IDDecoderSettings,
+        context: Context,
     ) -> None:
         self.table = table
         self.settings = settings
-        self.id_series = extract_column(table, settings.id_col)
-        self.year_series = extract_column(table, settings.year_col)
+        self.context = context
+        self.id_series = extract_column(table, settings.id_col) # type: ignore
+        self.year_series = extract_column(table, settings.year_col) # type: ignore
 
     def construct_mapping_table(self) -> pd.DataFrame:
         """Constructs metadata mapping table for household IDs.
@@ -543,7 +546,7 @@ class IDDecoder:
         return mapping_table
 
     def _create_code_builder(
-        self, household_metadata: dict
+        self, household_metadata: Mapping
     ) -> Callable[[pd.Series], pd.Series]:
         ld_len = household_metadata["ID_Length"]
         attr_dict = household_metadata[self.settings.name]["code"]
@@ -561,7 +564,7 @@ class IDDecoder:
         elif "external_file" in attr_dict:
             file_name = attr_dict["external_file"]
             code_builer_file = external_data.load_table(
-                file_name, self.settings.lib_defaults, reset_index=False
+                file_name, context=self.context, reset_index=False
             )
             code_series = code_builer_file.loc[household_metadata["year"]].iloc[:, 0]
             assert isinstance(code_series, pd.Series)
@@ -585,7 +588,7 @@ class IDDecoder:
             label_limit = default_limit
         if label_limit is None:
             return
-        last_year = self.settings.lib_defaults.years[-1]
+        last_year = max(self.context.config.coverage_period) + 1
         label_limit = utils.Argham(label_limit, default_end=last_year)
         if year not in label_limit:
             raise ValueError(f"Year {year} is out of the defined limits ({label_limit})")
@@ -594,29 +597,25 @@ class IDDecoder:
     def _create_code_mapper(
         self, label: str, year: int
     ) -> Callable[[pd.Series], pd.Series]:
-        id_metadata = utils.resolve_metadata(
-            self.settings.lib_metadata.id_information, year
-        )
+        id_schema = self.context.metadata.id_schema.resolve(year)
 
         self._check_limits(
-            attribute_metadata=id_metadata[self.settings.name],
+            attribute_metadata=id_schema[self.settings.name],
             label=label,
             year=year,
         )
 
         if label == "code":
-            return self._create_code_builder(id_metadata)
+            return self._create_code_builder(id_schema)
 
-        if not isinstance(id_metadata, dict):
+        if not isinstance(id_schema, dict):
             raise ValueError
         # pylint: disable=unsubscriptable-object
         mapping = {}
-        while label in id_metadata[self.settings.name].get("mappings", {}):
-            mapping_info = id_metadata[self.settings.name]["mappings"][label]
+        while label in id_schema[self.settings.name].get("mappings", {}):
+            mapping_info = id_schema[self.settings.name]["mappings"][label]
             label = mapping_info["origin"]
-            mapping_part = self.settings.lib_metadata.id_information[
-                mapping_info["mapping"]
-            ]
+            mapping_part = self.context.metadata.id_schema[mapping_info["mapping"]]
             for key, value in mapping.items():
                 mapping_part = {
                     k: (value if v == key else v)
@@ -630,8 +629,8 @@ class IDDecoder:
                 }
             )
 
-        labeles = id_metadata[self.settings.name][label]
-        code_builder = self._create_code_builder(id_metadata)
+        labeles = id_schema[self.settings.name][label]
+        code_builder = self._create_code_builder(id_schema)
 
         def mapper(household_id_column: pd.Series) -> pd.Series:
             mapped = code_builder(household_id_column).map(labeles)
@@ -666,6 +665,6 @@ class IDDecoder:
         """
         mapping_table = self.construct_mapping_table()
         year_and_id = [self.settings.year_col, self.settings.id_col]
-        self.table = self.table.join(mapping_table, year_and_id)
+        self.table = self.table.join(mapping_table, on=year_and_id) # type: ignore
         return self.table
  

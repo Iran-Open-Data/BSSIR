@@ -1,51 +1,93 @@
-# Package Name
+# Package Information
 package_name: BSSIR
 
-# Years (list of years or range in for of: "first_year - last_year")
-years: "1363-1403"
 
-# Package Settings
+# Dataset coverage period
+# Format: "first_year-last_year" or a list of years
+coverage_period: "1363-1403"
+
+
+# Configuration Files
+# Base configuration shipped with the package
 package_settings: config/settings.yaml
 
-# Local Settings
-local_settings: config/settings.yaml
 
-# Local Directory
+# Local project-specific settings file.
+# Overrides values from package_settings.
+local_settings: config/PACKAGE_NAME/settings.yaml
+
+
+# Local Data Storage
+# Directory used for downloaded and processed data
 local_dir: Data
-in_root: true
 
-# Download Source
+# Whether local_dir is relative to the project root
+local_dir_in_root: true
+
+
+# Data Access
+# Default source used when downloading data
 default_download_source: original
+
+# Whether this package contains restricted/private datasets
 private_data: false
 
-# Mirrors
+
+# Data Mirrors
+# Alternative locations from which package data can be downloaded.
+# The first available mirror can be used as a fallback when needed.
 mirrors:
   - name: arvan
     endpoint: https://s3.ir-tbz-sh1.arvanstorage.ir
     bucket_name: iran-open-data
+
   - name: amazon
     bucket_name: iran-open-data
     region_name: us-east-2
     url_format: https://{bucket_name}.s3.{region_name}.amazonaws.com
+
+# Default mirror used for data downloads
 default_mirror: arvan
 
-# Folder Names
-folder_names:
+
+# Data Pipeline Folders
+# Directories used for different stages of data processing.
+directory_names:
+  # Temporary downloaded/cache files
   cached: _cache
+
+  # Package metadata files
   metadata: _metadata
+
+  # Original downloaded files
   original: 1_original
+
+  # Files extracted from archives
   unpacked: 2_unpacked
+
+  # Raw tables extracted into tabular format
   extracted: 3_extracted
+
+  # Cleaned and standardized tables
   cleaned: 4_cleaned
+
+  # External datasets not produced by the package
   external: External_Data
+
+  # Geographic and map-related files
   maps: Maps
 
-# Map
+
+# Map Configuration
+# Default map definition used for geographic operations and spatial references.
 default_map: humandata
 
-## Functions
+
+# Function Defaults
+# Default parameter values for package functions.
+# These values are used unless explicitly overridden by the caller.
 functions:
-  ## Setup
+  # Setup complete package data
   setup:
     years: last
     table_names: all
@@ -53,23 +95,24 @@ functions:
     method: create_from_raw
     download_source: mirror
 
-  ## Setup Raw Data
+  # Setup raw downloaded data only
   setup_raw_data:
     years: last
     replace: false
     download_source: mirror
 
-  ## Load Table
+  # Load processed package tables
   load_table:
     years: last
     form: normalized
     on_missing: download
+    download_source: mirror
     save_downloaded: true
     redownload: false
     save_created: true
     recreate: false
 
-  ## Load External Table
+  # Load external datasets
   load_external_table:
     form: cleaned
     on_missing: download
@@ -78,57 +121,92 @@ functions:
     save_created: true
     recreate: false
 
-# Columns
-columns:
+
+# Standard Columns
+# Common column names and aliases used across package tables.
+# These mappings allow package functions to work with consistent names
+# while supporting different names used in source datasets.
+standard_columns:
   year: Year
   id: ID
   weight: Weight
 
-  commodity_code: [commodity, coicop]
-  industry_code: [industry, isic]
-  occupation_code: [occupation, isco]
+  commodity_code:
+    - commodity
+    - coicop
 
-  groupby: [Urban_Rural, Province, County, Decile, Percentile]
+  industry_code:
+    - industry
+    - isic
 
-# Metadata
-## Base Package Metadata
+  occupation_code:
+    - occupation
+    - isco
+
+  groupby:
+    - Urban_Rural
+    - Province
+    - County
+    - Decile
+    - Percentile
+
+
+# Metadata Files
+# Metadata is loaded in layers:
+# 1. Base metadata: provided by BSSIR and shared across packages.
+# 2. Package metadata: provided by package-specific projects (e.g. HBSIR, LFSIR).
+# 3. Local metadata: user-specific overrides and customizations.
+
+# Base package metadata
+# Shared metadata provided by BSSIR.
 base_package_metadata:
   instruction: metadata/_instruction.yaml
   raw_files: metadata/raw_files.yaml
   tables: metadata/tables.yaml
   maps: metadata/maps.yaml
-  id_information: metadata/id_information.yaml
+  id_schema: metadata/id_schema.yaml
   commodities: metadata/commodities.yaml
   occupations: metadata/occupations.yaml
   industries: metadata/industries.yaml
   schema: metadata/schema.yaml
 
-## Package Metadata
+# Package metadata
+# Metadata provided by the specific data package using BSSIR.
+# For example: HBSIR, LFSIR, or other derived packages.
 package_metadata:
   instruction: metadata/_instruction.yaml
   raw_files: metadata/raw_files.yaml
   tables: metadata/tables.yaml
   maps: metadata/maps.yaml
-  id_information: metadata/id_information.yaml
+  id_schema: metadata/id_schema.yaml
   commodities: metadata/commodities.yaml
   occupations: metadata/occupations.yaml
   industries: metadata/industries.yaml
   schema: metadata/schema.yaml
 
-## Local Metadata
+# Local metadata
+# User-defined metadata overrides for customization without modifying
+# package-provided metadata files.
 local_metadata:
   instruction: metadata/_instruction.yaml
   raw_files: metadata/raw_files.yaml
   tables: metadata/tables.yaml
   maps: metadata/maps.yaml
-  id_information: metadata/id_information.yaml
+  id_schema: metadata/id_schema.yaml
   commodities: metadata/commodities.yaml
   occupations: metadata/occupations.yaml
   industries: metadata/industries.yaml
   schema: metadata/schema.yaml
 
-## Documentations
+
+# Documentation Output Paths
+# Locations where generated documentation artifacts are stored.
 docs:
+  # Generated CSV documentation files
   csv: temp/csv
+
+  # Data for raw data tables
   raw_tables: tables/raw
+
+  # Data for cleaned and processed tables
   cleaned_tables: tables/cleaned

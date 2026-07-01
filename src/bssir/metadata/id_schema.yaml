@@ -1,3 +1,24 @@
+# Identifier schema metadata
+#
+# Defines the structure and decoding rules for identifier fields used in raw
+# datasets. Each identifier component describes how to extract its code from
+# the ID value, how codes are interpreted, and how they are translated into
+# human-readable attributes.
+#
+# Components may include:
+#   - ID_Length:
+#       Defines identifier length by year/version.
+#   - code.position:
+#       Defines the start and end positions of the component within the ID.
+#   - mappings:
+#       Defines relationships between coded values and external translation
+#       metadata.
+#   - name:
+#       Provides code-to-name mappings, including year-specific variations.
+#
+# This metadata enables consistent parsing, validation, and interpretation of
+# identifiers across different survey years.
+
 
 rural_urban_translation:
   Rural: روستایی

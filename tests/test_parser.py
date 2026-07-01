@@ -1,4 +1,4 @@
-from bssir.utils.parsing_utils import parse_years, create_table_year_pairs
+from bssir.context.metadata.parsing_utils import parse_years, create_table_year_pairs
 
 
 AVAILABLE_YEARS = list(range(1370, 1391))
