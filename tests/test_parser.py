@@ -1,4 +1,4 @@
-from bssir.context.metadata.parsing_utils import parse_years, create_table_year_pairs
+from bssir.context.utils.parser import parse_years
 
 
 AVAILABLE_YEARS = list(range(1370, 1391))
@@ -27,15 +27,3 @@ class TestParseYears:
             ("1360-1400", AVAILABLE_YEARS),
         ]:
             assert result == parse_years(year, available_years=AVAILABLE_YEARS)
-
-    def test_with_table_info(self):
-        for year, result in [
-            (1380, [1380]),
-            (1379, []),
-        ]:
-            assert result == parse_years(
-                year,
-                available_years=AVAILABLE_YEARS,
-                table_name="a",
-                tables_availability=TABLES_AVAILABILITY,
-            )

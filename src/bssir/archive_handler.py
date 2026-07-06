@@ -164,6 +164,7 @@ def _download_year_private_data(
     source: str,
 ) -> None:
     from .utils.s3 import get_bucket
+
     mirror = context.config.get_mirror(source)
     bucket = get_bucket(mirror)
     for file_info in tqdm(

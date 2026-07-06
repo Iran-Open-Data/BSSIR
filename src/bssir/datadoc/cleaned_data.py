@@ -20,7 +20,7 @@ def create_otnt_part(table_name: str, years: list[int], api: API) -> pd.DataFram
         return pd.DataFrame()
     rows = []
     for year in years:
-        table_meta = api.utils.resolve_metadata(api.metadata.tables[table_name], year)
+        table_meta = api.utils.resolve_metadata(api.metadata.source_tables[table_name], year)
         all_columns = table_meta["columns"]
         if all_columns is None:
             continue
@@ -73,7 +73,7 @@ def create_new_to_old_table(table_name: str, api: API, years: Years = "all") -> 
     rows = []
     for year in years:
         all_columns = api.utils.resolve_metadata(
-            api.metadata.tables[table_name]["columns"], year
+            api.metadata.source_tables[table_name]["columns"], year
         )
         row = availability_table.loc[year].replace("", None).dropna()
         mapped_row = (
@@ -118,7 +118,7 @@ def generate_columns_metadata(
 ) -> None:
     table_names = [table_names] if isinstance(table_names, str) else table_names
     table_names = (
-        list(api.metadata.tables["table_list"])
+        list(api.metadata.source_tables["table_list"])
         if table_names is None
         else table_names
     )
@@ -154,7 +154,7 @@ def create_replace_tables(
         old_name_dict = new_to_old[column_name].fillna("").to_dict()
         replace_table_dict = {}
         for year in years:
-            table_meta = api.utils.resolve_metadata(api.metadata.tables, year)
+            table_meta = api.utils.resolve_metadata(api.metadata.source_tables, year)
             assert isinstance(table_meta, dict)
             columns_meta = table_meta[table_name]["columns"]
             if old_name_dict[year] == "":
@@ -196,7 +196,7 @@ def generate_replace_tables(
 ) -> None:
     table_names = [table_names] if isinstance(table_names, str) else table_names
     table_names = (
-        list(api.metadata.tables["table_list"])
+        list(api.metadata.source_tables["table_list"])
         if table_names is None
         else table_names
     )
@@ -240,11 +240,10 @@ def create_summary_stats(
             if column_name not in table.columns:
                 continue
             table_meta = api.utils.resolve_metadata(
-                api.metadata.tables[table_name], year
+                api.metadata.source_tables[table_name], year
             )
             assert isinstance(table_meta, dict)
             if "type" not in table_meta["columns"][old_name_dict[year]]:
-                print(year, column_name, old_name_dict[year])
             col_type = table_meta["columns"][old_name_dict[year]]["type"]
             if col_type == "string":
                 if "string" not in summary_tables[column_name]:
@@ -313,7 +312,7 @@ def generate_summary_stats(
 ) -> None:
     table_names = [table_names] if isinstance(table_names, str) else table_names
     table_names = (
-        list(api.metadata.tables["table_list"])
+        list(api.metadata.source_tables["table_list"])
         if table_names is None
         else table_names
     )
@@ -338,7 +337,7 @@ def create_category_table(table_name: str, column_name: str, api: API, years: Ye
         if old_name == "":
             continue
         column_metadata = api.utils.resolve_metadata(
-            api.metadata.tables[table_name]["columns"], year
+            api.metadata.source_tables[table_name]["columns"], year
         )[old_name]
         if "categories" not in column_metadata:
             continue
@@ -446,7 +445,7 @@ def generate_cleaned_description(
     generate_summary_stats(api, table_names, years=years)
     table_names = [table_names] if isinstance(table_names, str) else table_names
     table_names = (
-        list(api.metadata.tables["table_list"])
+        list(api.metadata.source_tables["table_list"])
         if table_names is None
         else table_names
     )

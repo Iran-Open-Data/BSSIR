@@ -1,0 +1,10 @@
+# Test package schema metadata
+
+Sample:
+  columns:
+    ID:
+      type: string
+      description: Household identifier.
+    Value:
+      type: integer
+      description: Example measured value.

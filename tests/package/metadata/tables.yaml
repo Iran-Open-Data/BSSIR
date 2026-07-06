@@ -1,0 +1,22 @@
+# Test package table metadata
+#
+# Minimal downstream-package metadata used by BSSIR contract tests.
+
+table_list:
+  - Sample
+  - StartOnly
+
+Sample:
+  description: Sample table supplied by a dependent package.
+  availability: "1380-1382"
+  file_code:
+    versions:
+      1380: sample
+  settings:
+    missings: keep
+    encoding: cp1256
+
+StartOnly:
+  description: Sample table with open-ended availability.
+  availability:
+    start: 1381

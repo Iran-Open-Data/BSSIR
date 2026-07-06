@@ -2,13 +2,15 @@ from collections.abc import Callable, Mapping, Iterator
 from functools import cached_property
 from pathlib import Path
 from typing import Literal
-from typing import Any
+from typing import Any, Annotated
 
-from pydantic import BaseModel, ConfigDict, Field
+import pandas as pd
+from pydantic import BaseModel, ConfigDict, Field, TypeAdapter, ValidationError, field_validator
 
+from bssir.context import Config
 from bssir.context.utils.yaml import parse_yaml
 from bssir.context.utils.resolver import resolve_metadata
-from bssir.context.utils.parser import parse_years
+from bssir.context.utils.argham import Argham
 
 
 def _read_text(path: Path) -> str | None:
@@ -78,6 +80,8 @@ class MetadataDefinition(BaseModel):
 
 class MetadataNode(BaseModel, Mapping):
     model_config = ConfigDict(frozen=True)
+
+    config: Config
     merged: dict | None = None
 
     @property
@@ -91,7 +95,7 @@ class MetadataNode(BaseModel, Mapping):
     def _resolved_cache(self):
         return {}
 
-    def resolve(self, year: int, categorize: bool = False) -> Mapping:
+    def resolve(self, year: int, categorize: bool = False, **optional_settings) -> Mapping:
         """
         Resolve metadata for a specific year.
 
@@ -119,6 +123,7 @@ class MetadataNode(BaseModel, Mapping):
                 self.content,
                 year,
                 categorize=categorize,
+                **optional_settings
             )
             if not isinstance(resolved, dict):
                 raise TypeError(
@@ -206,21 +211,227 @@ class DefaultSettings(BaseModel):
     )
 
 
-class Table(MetadataNode):
-    name: str
+NumericType = Literal[
+    "unsigned", "int", "float",
+    "UInt8", "UInt16", "UInt32", "UInt64",
+    "Int8", "Int16", "Int32", "Int64",
+    "Float16", "Float32",
+]
 
-    @cached_property
-    def availability(self) -> list[int] | None:
+
+class ResolvedColumnBase(BaseModel):
+    label: str
+    description: str
+    type: Literal["string", "category", "boolean"] | NumericType
+    replace: dict = Field(default_factory=dict)
+    source: dict = Field(default_factory=dict)
+
+    @field_validator("replace", "source", mode="before")
+    @classmethod
+    def none_to_empty_dict(cls, value):
+        if value is None:
+            return {}
+        return value
+
+
+class StringColumn(ResolvedColumnBase):
+    type: Literal["string"]
+
+
+class CategoricalColumn(ResolvedColumnBase):
+    type: Literal["category"]
+    categories: dict
+
+
+class BooleanColumn(ResolvedColumnBase):
+    type: Literal["boolean"]
+    true_condition: str
+
+
+class NumericalColumn(ResolvedColumnBase):
+    type: NumericType
+
+
+ResolvedColumn = Annotated[
+    StringColumn | CategoricalColumn | BooleanColumn | NumericalColumn,
+    Field(discriminator="type"),
+]
+
+column_adapter = TypeAdapter(ResolvedColumn)
+
+
+class ResolvedTable(BaseModel):
+    year: int
+    file_pattern: str
+    columns: dict[str, ResolvedColumn | Literal["drop"]]
+    config: Config
+
+    @property
+    def directory(self) -> Path:
+        """Directory containing the extracted raw files for this year."""
+        return self.config.dirs.extracted / str(self.year)
+
+    @property
+    def files(self) -> list[Path]:
+        """Raw data files matching the resolved file pattern.
+
+        Returns
+        -------
+        list[Path]
+            Matching files sorted alphabetically. Returns an empty list if the
+            table has no associated file pattern.
+        """
+        if not self.file_pattern:
+            return []
+
+        return sorted(self.directory.glob(self.file_pattern))
+
+
+class Column(MetadataNode):
+    name: str
+    table_availability: list[int]
+
+    @property
+    def availability(self) -> list[int]:
         availability = self.get("availability")
         if not availability:
-            return None
-        return parse_years(availability)
+            return self.table_availability
+        availability = Argham(
+            availability,
+            default_start=min(self.table_availability),
+            default_end=max(self.table_availability),
+        ).get_numbers()
+        return sorted(list(availability))
+
+    def resolve(self, year: int, **optional_settings) -> ResolvedColumn:
+        try:
+            return column_adapter.validate_python(
+                super().resolve(year=year, **optional_settings)
+            )
+        except ValidationError as exc:
+            # raise ValueError(
+            #     f"Invalid metadata for column '{self.name}' in year {year}. "
+            #     "The resolved metadata is inconsistent with the ResolvedColumn model. "
+            #     "See the chained validation error for the invalid field(s)."
+            # ) from exc
+            raise exc
 
 
-class ResolvedTable(BaseModel): ...
+class SourceTable(MetadataNode):
+    name: str
+
+    @property
+    def availability(self) -> list[int]:
+        availability = self.content.get("availability")
+        if not availability:
+            return self.config.coverage_period
+        availability = Argham(
+            availability,
+            default_start=min(self.config.coverage_period),
+            default_end=max(self.config.coverage_period),
+        ).get_numbers()
+        return sorted(list(availability))
+
+    @cached_property
+    def columns(self) -> dict[str, Column | None]:
+        return {
+            name: Column(
+                name=name,
+                merged=value,
+                table_availability=self.availability,
+                config=self.config,
+            )
+            if value != "drop" else None
+            for name, value in self.content.get("columns", {}).items()
+        }
+
+    def resolve(self, year: int, **optional_settings) -> ResolvedTable:
+        return ResolvedTable(
+            year=year,
+            **super().resolve(year=year, **optional_settings),
+            config=self.config,
+        )
+
+    def __getitem__(self, key: str) -> Column | None:
+        return self.columns[key]
+
+    def get(self, key: str, default: None = None) -> Column | None:
+        return self.columns.get(key)
+
+    @cached_property
+    def column_labels(self) -> dict[str, dict[int, str]]:
+        mapping = {}
+        for name, column in self.columns.items():
+            if not column:
+                continue
+            mapping[name] = {
+                year: column.resolve(year).label
+                for year in column.availability
+            }
+        return mapping
+
+    @cached_property
+    def lable_columns(self) -> dict[str, dict[int, str]]:
+        mapping: dict[str, dict[int, str]] = {}
+
+        for column_name, labels in self.column_labels.items():
+            for year, label in labels.items():
+                label_mapping = mapping.setdefault(label, {})
+
+                if year in label_mapping:
+                    raise ValueError(
+                        f"Duplicate label {label!r} for year {year}: "
+                        f"{label_mapping[year]!r} and {column_name!r}"
+                    )
+
+                label_mapping[year] = column_name
+
+        return mapping
+
+    @property
+    def column_labels_report(self) -> pd.DataFrame:
+        report = pd.DataFrame(self.column_labels)
+        first = report.drop_duplicates(keep="first")
+        last = report.drop_duplicates(keep="last")
+
+        first.index = [f"{i[0]}-{i[1]}" for i in zip(first.index, last.index)]
+        return first
+
+    @property
+    def label_columns_report(self) -> pd.DataFrame:
+        report = pd.DataFrame(self.lable_columns)
+        first = report.drop_duplicates(keep="first")
+        last = report.drop_duplicates(keep="last")
+
+        first.index = [f"{i[0]}-{i[1]}" for i in zip(first.index, last.index)]
+        return first
+
+    @property
+    def files(self) -> dict[int, list[str]]:
+        """Raw data files grouped by survey year.
+
+        Returns
+        -------
+        dict[int, list[str]]
+            Mapping from survey year to the names of matching files. Years with no
+            matching files are omitted.
+        """
+        files: dict[int, list[str]] = {}
+
+        for year in self.availability:
+            matched = self.resolve(year).files
+            if matched:
+                files[year] = [path.name for path in matched]
+
+        return files
+
+    def _repr_html_(self) -> str:
+        from bssir import rendering
+
+        return rendering.html_repr("source_table", self)
 
 
-class TablesMetadata(Metadata):
+class SourceTablesMetadata(Metadata):
     @property
     def default_settings(self) -> DefaultSettings:
         return self.content.get("default_settings", {})
@@ -230,23 +441,23 @@ class TablesMetadata(Metadata):
         return self.content.get("table_list", [])
     
     @cached_property
-    def tables(self) -> dict[str, Table]:
+    def tables(self) -> dict[str, SourceTable]:
         return {
-            name: Table(name=name, merged=value)
+            name: SourceTable(name=name, merged=value, config=self.config)
             for name, value in self.content.items()
             if name not in ["default_settings", "table_list"]
         }
 
-    def __getitem__(self, key: str) -> Table:
+    def __getitem__(self, key: str) -> SourceTable:
         return self.tables.__getitem__(key)
 
     def __iter__(self) -> Iterator[str]:
         return super().__iter__()
 
     def __contains__(self, key: str) -> bool:
-        return super().__contains__(key)
+        return key in self.tables
 
-    def get(self, key: str, default: None = None) -> Table | None:
+    def get(self, key: str, default: None = None) -> SourceTable | None:
         return self.tables.get(key)
 
 
@@ -254,7 +465,7 @@ METADATA_MODELS: dict[str, type[Metadata]] = {
     "instruction": Metadata,
     "raw_files": Metadata,
     "id_schema": Metadata,
-    "tables": TablesMetadata,
+    "source_tables": SourceTablesMetadata,
     "schema": Metadata,
     "commodities": Metadata,
     "occupations": Metadata,

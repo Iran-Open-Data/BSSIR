@@ -1,4 +1,5 @@
 from typing import Iterable
+from warnings import warn
 
 from pydantic import BaseModel
 
@@ -155,7 +156,7 @@ class Argham:
 
     def __add__(self, __other: "Argham") -> "Argham":
         if self.defaults != __other.defaults:
-            print(f"Warning! different defaults! {self.defaults}, {__other.defaults}")
+            warn(f"Warning! different defaults! {self.defaults}, {__other.defaults}")
         result = Argham()
         result.defaults = self.defaults
         result.range_set = self.range_set.union(__other.range_set)

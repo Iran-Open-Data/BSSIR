@@ -1,0 +1,5 @@
+# Test package raw file metadata
+
+sample:
+  pattern: "{year}_sample.csv"
+  format: csv

@@ -10,7 +10,7 @@ from bssir.context.types import Years
 from .archive_utils import extract
 from .download_utils import download #, download_map
 from ..context.utils.parser import parse_years
-from .argham import Argham
+from ..context.utils.argham import Argham
 from .injection import import_module_from_path
 
 __all__ = [
@@ -40,7 +40,7 @@ class Utils:
         )
 
     def parse_years_for_table(self, years: Years, table_name: str) -> list[int]:
-        table_metadata = self.context.metadata.tables[table_name]
+        table_metadata = self.context.metadata.source_tables[table_name]
         if table_metadata.availability:
             available_years = table_metadata.availability
         else:
@@ -51,7 +51,7 @@ class Utils:
         self, table_names: str | Iterable[str], years: Years
     ) -> list[tuple[str, int]]:
         if table_names == "all":
-            table_names = self.context.metadata.tables.table_list
+            table_names = self.context.metadata.source_tables.table_list
         table_names = [table_names] if isinstance(table_names, str) else table_names
         table_year = []
         for table_name in table_names:
@@ -123,7 +123,7 @@ class Utils:
     #     column_name: str,
     #     table_name: str,
     # ) -> dict:
-    #     table_metadata = self._metadata.tables[table_name]
+    #     table_metadata = self._metadata.source_tables[table_name]
     #     return extract_column_metadata(
     #         column_name=column_name,
     #         table_metadata=table_metadata,
@@ -131,7 +131,7 @@ class Utils:
     #     )
 
     # def exteract_code_metadata(self, column_code: str, table_name: str) -> dict:
-    #     table_metadata = self._metadata.tables[table_name]
+    #     table_metadata = self._metadata.source_tables[table_name]
     #     return exteract_code_metadata(
     #         column_code=column_code,
     #         table_metadata=table_metadata,

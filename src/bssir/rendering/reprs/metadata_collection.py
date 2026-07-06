@@ -7,25 +7,6 @@ from bssir.context.metadata.collection import MetadataCollection
 from bssir.rendering.render import render_template
 
 
-def _status_badge(text: str) -> str:
-    """Render a colored status badge."""
-
-    if text.startswith("🟢"):
-        cls = "loaded"
-    elif text.startswith("⚪"):
-        cls = "deferred"
-    elif text.startswith("🔴"):
-        cls = "error"
-    else:
-        cls = "neutral"
-
-    return (
-        f'<span class="bssir-status {cls}">'
-        f"{escape(text)}"
-        "</span>"
-    )
-
-
 def _source_dot(value: str) -> str:
     """Render source availability."""
 
@@ -41,15 +22,37 @@ def _source_dot(value: str) -> str:
     return ""
 
 
-def report_html(df: pd.DataFrame) -> str:
-    """
-    Render the metadata report as HTML.
+def _status_badge(value: str) -> str:
+    """Render a metadata loading status."""
 
-    Parameters
-    ----------
-    df:
-        Output of MetadataCollection.report().
-    """
+    if value.startswith("🟢"):
+        cls = "loaded"
+        text = "Loaded"
+
+    elif value.startswith("⚪"):
+        cls = "deferred"
+        text = "Not Loaded"
+
+    elif value.startswith("🔴"):
+        cls = "error"
+        text = "Error"
+
+    else:
+        cls = "neutral"
+        text = value
+
+    return (
+        f'<span class="bssir-status {cls}">'
+        f'<span class="bssir-dot {cls}"></span>'
+        f"{escape(text)}"
+        "</span>"
+    )
+
+
+from html import escape
+
+def report_html(df: pd.DataFrame) -> str:
+    """Render the metadata report as HTML."""
 
     html = [
         '<div class="bssir-report-wrapper">',
@@ -58,8 +61,18 @@ def report_html(df: pd.DataFrame) -> str:
         "<tr>",
     ]
 
+    source_columns = {"Base", "Package", "Local"}
+
     for column in df.columns:
-        html.append(f"<th>{escape(column)}</th>")
+
+        classes = []
+
+        if column in source_columns:
+            classes.append("center")
+
+        cls = f' class="{" ".join(classes)}"' if classes else ""
+
+        html.append(f"<th{cls}>{escape(column)}</th>")
 
     html.extend([
         "</tr>",
@@ -67,38 +80,44 @@ def report_html(df: pd.DataFrame) -> str:
         "<tbody>",
     ])
 
-    source_columns = {"Base", "Package", "Local"}
-
     for _, row in df.iterrows():
 
         html.append("<tr>")
 
         for column in df.columns:
 
-            value = row[column]
+            value = str(row[column])
 
-            if column == "State":
-                cell = _status_badge(str(value))
+            classes = []
+
+            if column == "Name":
+                classes.append("left")
+                cell = f'<span class="bssir-name">{escape(value)}</span>'
+
+            elif column == "Description":
+                classes.append("left")
+                cell = f'<span class="bssir-description-cell">{escape(value)}</span>'
+
+            elif column == "State":
+                classes.append("left")
+                cell = _status_badge(value)
 
             elif column in source_columns:
-                cell = _source_dot(str(value))
+                classes.append("center")
+                cell = _source_dot(value)
 
             else:
-                cell = escape(str(value))
+                cell = escape(value)
 
-            html.append(f"<td>{cell}</td>")
+            cls = f' class="{" ".join(classes)}"' if classes else ""
+
+            html.append(f"<td{cls}>{cell}</td>")
 
         html.append("</tr>")
 
     html.extend([
         "</tbody>",
         "</table>",
-        """
-        <div class="bssir-report-footer">
-            <span><span class="bssir-dot loaded"></span> Loaded</span>
-            <span><span class="bssir-dot deferred"></span> Not Loaded</span>
-        </div>
-        """,
         "</div>",
     ])
 
@@ -170,17 +189,25 @@ def context(
         # Quick Start
         # ------------------------------------------------------------------
         "quickstart": """
-            <div class="bssir-code">
+            <div class="bssir-example">
+                <div class="bssir-example-title">
+                    Access a metadata definition
+                </div>
+                <pre><code>metadata.source_tables</code></pre>
+            </div>
 
-            <pre><code># Access a metadata definition
-            metadata.tables</code></pre>
+            <div class="bssir-example">
+                <div class="bssir-example-title">
+                    Resolve year-dependent metadata
+                </div>
+                <pre><code>metadata.source_tables.resolve(1403)</code></pre>
+            </div>
 
-            <pre><code># Resolve year-dependent metadata
-            metadata.tables.resolve(1403)</code></pre>
-
-            <pre><code># Access metadata content
-            metadata.commodities["rice"]</code></pre>
-
+            <div class="bssir-example">
+                <div class="bssir-example-title">
+                    Access metadata content
+                </div>
+                <pre><code>metadata.commodities["rice"]</code></pre>
             </div>
         """,
 

@@ -76,7 +76,7 @@ def load_raw_table(
     table_settings = _get_table_settings(table_name, year, context=context)
     encoding = table_settings.get("encoding", "utf-8")
 
-    file_code = context.metadata.tables[table_name].resolve(year)["file_code"]
+    file_code = context.metadata.source_tables[table_name].resolve(year)["file_code"]
     if not isinstance(file_code, (str, list)):
         raise TypeError(
             f"Expected file_code to resolve to str or list[str], "
@@ -112,11 +112,11 @@ def _get_table_settings(
     *,
     context: Context,
 ) -> dict:
-    # table_metadata = utils.resolve_metadata(lib_metadata.tables[table_name], year)
-    table_metadata = context.metadata.tables[table_name].resolve(year)
+    # table_metadata = utils.resolve_metadata(lib_metadata.source_tables[table_name], year)
+    table_metadata = context.metadata.source_tables[table_name].resolve(year)
     # assert isinstance(table_metadata, dict)
     table_settings = (
-        context.metadata.tables.default_settings
+        context.metadata.source_tables.default_settings
         .model_copy(update=table_metadata.get("settings", {}))
     )
     return table_settings.model_dump()
@@ -169,14 +169,14 @@ def clean_table(
     KeyError
         If the `table_name` or "default_settings" are not found in the metadata.
     """
-    # table_metadata = utils.resolve_metadata(lib_metadata.tables[table_name], year)
-    table_metadata = context.metadata.tables[table_name].resolve(year)
+    # table_metadata = utils.resolve_metadata(lib_metadata.source_tables[table_name], year)
+    table_metadata = context.metadata.source_tables[table_name].resolve(year)
     if not isinstance(table_metadata, dict):
         actual_type = type(table_metadata).__name__
         msg = f"Metadata must be a dictionary, but got {actual_type} for year {year}."
         raise TypeError(msg)
 
-    default_settings = context.metadata.tables.default_settings
+    default_settings = context.metadata.source_tables.default_settings
 
     cleaned_table = _apply_metadata_to_table(
         table=table,

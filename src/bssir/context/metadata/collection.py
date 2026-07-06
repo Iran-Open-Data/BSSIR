@@ -3,7 +3,7 @@ from typing import cast
 import pandas as pd
 
 from bssir.context.config import Config
-from .models import Metadata, MetadataSource, TablesMetadata, METADATA_MODELS
+from .models import Metadata, MetadataSource, SourceTablesMetadata, METADATA_MODELS
 from .loader import build_metadata_definition, extract_metadata_description
 
 
@@ -38,6 +38,7 @@ class MetadataCollection:
             name=name,
             definition=definition,
             description=description,
+            config=self._config,
         )
 
     @property
@@ -53,8 +54,8 @@ class MetadataCollection:
         return self._get("id_schema")
 
     @property
-    def tables(self) -> TablesMetadata:
-        return cast(TablesMetadata, self._get("tables"))
+    def source_tables(self) -> SourceTablesMetadata:
+        return cast(SourceTablesMetadata, self._get("source_tables"))
 
     @property
     def schema(self) -> Metadata:
@@ -138,7 +139,7 @@ class MetadataCollection:
     #     )
 
     #     footer = Text.from_markup(
-    #         "Access metadata with [cyan]metadata.tables[/], "
+    #         "Access metadata with [cyan]metadata.source_tables[/], "
     #         "[cyan]metadata.schema[/], etc.",
     #         style="dim",
     #     )
@@ -280,7 +281,7 @@ class MetadataCollection:
     #         <b>Usage</b>
 
     #         <pre style="margin-top:0.5em;">
-    #         metadata.tables
+    #         metadata.source_tables
     #         metadata.schema
     #         metadata.raw_files
     #         metadata.maps

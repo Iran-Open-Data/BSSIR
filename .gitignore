@@ -1,6 +1,12 @@
 
 .venv/*
+.uv-cache/
+.uv-test-env/
+.pytest-cache-test/
+.pytest-tmp/
+__pycache__/
 *.pyc
+*.pyc.*
 
 Data/*
 temp/*

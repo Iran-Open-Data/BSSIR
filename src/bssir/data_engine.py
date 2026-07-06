@@ -492,7 +492,7 @@ class TableFactory:
 
         if all(
             [
-                table_name not in self.context.metadata.tables.table_list,
+                table_name not in self.context.metadata.source_tables.table_list,
                 table_name not in self.schema,
             ]
         ):
@@ -505,7 +505,7 @@ class TableFactory:
                 self.save_cache(table, table_name)
         elif "table_list" in self.schema.get(table_name, {}):
             table = self._construct_schema_based_table(table_name)
-        elif table_name in self.context.metadata.tables.table_list:
+        elif table_name in self.context.metadata.source_tables.table_list:
             table = self.table_handler[table_name]
             if not table.empty and (table_name in self.schema):
                 table = self._apply_schema(table, table_name)
@@ -559,7 +559,7 @@ class TableFactory:
                     upstream_tables = [upstream_tables]
                 assert isinstance(upstream_tables, list)
                 table_list.extend(upstream_tables)
-            elif table in self.context.metadata.tables.table_list:
+            elif table in self.context.metadata.source_tables.table_list:
                 file_name = f"{year}_{table}.parquet"
                 local_path = self.context.config.dirs.cleaned.joinpath(file_name)
                 size = local_path.stat().st_size if local_path.exists() else None

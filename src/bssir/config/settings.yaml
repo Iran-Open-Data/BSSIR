@@ -162,7 +162,7 @@ standard_columns:
 base_package_metadata:
   instruction: metadata/_instruction.yaml
   raw_files: metadata/raw_files.yaml
-  tables: metadata/tables.yaml
+  source_tables: metadata/source_tables.yaml
   maps: metadata/maps.yaml
   id_schema: metadata/id_schema.yaml
   commodities: metadata/commodities.yaml
@@ -176,7 +176,7 @@ base_package_metadata:
 package_metadata:
   instruction: metadata/_instruction.yaml
   raw_files: metadata/raw_files.yaml
-  tables: metadata/tables.yaml
+  source_tables: metadata/source_tables.yaml
   maps: metadata/maps.yaml
   id_schema: metadata/id_schema.yaml
   commodities: metadata/commodities.yaml
@@ -190,7 +190,7 @@ package_metadata:
 local_metadata:
   instruction: metadata/_instruction.yaml
   raw_files: metadata/raw_files.yaml
-  tables: metadata/tables.yaml
+  source_tables: metadata/source_tables.yaml
   maps: metadata/maps.yaml
   id_schema: metadata/id_schema.yaml
   commodities: metadata/commodities.yaml
