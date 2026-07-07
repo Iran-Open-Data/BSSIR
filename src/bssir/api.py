@@ -225,19 +225,17 @@ class API:
 
     def add_classification(self, table: pd.DataFrame, **kwargs) -> pd.DataFrame:
         """Add industry, occupation, or commodity classification to table."""
-        if "target" not in kwargs:
-            potential_targets = []
-            for column_name in table.columns:
-                if self._is_potential_target(column_name):
-                    potential_targets.append(column_name)
-            if len(potential_targets) == 1:
-                kwargs["target"] = potential_targets[0]
-            else:
-                raise ValueError("Target column not specified.")
-        kwargs.update({"context": self.context})
-        settings = decoder.DecoderSettings(**kwargs)
-        table = decoder.Decoder(table=table, settings=settings, context=self.context).add_classification()
-        return table
+        settings = decoder.DecoderSettings(
+            context=self.context,
+            available_columns=table.columns,
+            **kwargs,
+        )
+
+        return decoder.Decoder(
+            table=table,
+            settings=settings,
+            context=self.context,
+        ).add_classification()
 
     def add_weight(self, table: pd.DataFrame) -> pd.DataFrame:
         """Add sampling weight to table"""
@@ -247,14 +245,3 @@ class API:
         _index = [self.context.config.standard_columns.year, self.context.config.standard_columns.id]
         weights = self.load_table("Weight", years).set_index(_index)
         return table.join(weights, how="left", on=_index)
-
-    def _is_potential_target(self, column_name) -> bool:
-        for keywords in [
-            self.context.config.standard_columns.commodity_code,
-            self.context.config.standard_columns.industry_code,
-            self.context.config.standard_columns.occupation_code,
-        ]:
-            for keyword in keywords:
-                if keyword.lower() in column_name.lower():
-                    return True
-        return False

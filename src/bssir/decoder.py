@@ -22,9 +22,10 @@ The functions provide helpers for resolving metadata and reading
 classification info from the raw metadata.
 
 """
-from collections.abc import Mapping
+from collections.abc import Mapping, Callable, Iterable
+from functools import cached_property
 from itertools import product
-from typing import Callable, Iterable, Literal, Annotated, Any, Optional
+from typing import Literal, Annotated, Any
 
 import pandas as pd
 from pydantic import BaseModel, ConfigDict, BeforeValidator, Field
@@ -101,148 +102,283 @@ def extract_column(table: pd.DataFrame, column_name: str) -> pd.Series:
     return column
 
 
-_Aspects = Annotated[tuple[str, ...], BeforeValidator(maybe_to_tuple)]
-_Levels = Annotated[tuple[int, ...], BeforeValidator(maybe_to_tuple)]
-_ColumnNames = Annotated[tuple[str, ...], BeforeValidator(maybe_to_tuple)]
+Aspects = Annotated[tuple[str, ...], BeforeValidator(maybe_to_tuple)]
+Levels = Annotated[tuple[int, ...], BeforeValidator(maybe_to_tuple)]
+ColumnNames = Annotated[tuple[str, ...], BeforeValidator(maybe_to_tuple)]
+ClassificationType = Literal["commodity", "occupation", "industry"]
 
 
 class DecoderSettings(BaseModel):
-    """Settings for decoding classification codes.
+    """Configuration for decoding hierarchical classification codes.
 
-    Attributes
+    This model specifies how classification codes in a table should be
+    translated into descriptive attributes using the classification metadata.
+    It also resolves metadata defaults and determines the output column names.
+
+    Parameters
     ----------
-    target : str
-        Column to decode.
+    context : Context
+        BSSIR context used to access configuration and metadata.
 
-    classification_type : Literal["commodity", "occupation", "industry"], optional
-        Type of classification. Inferred automatically if not provided.
+    target_column : str
+        Name of the column containing the classification codes to decode.
 
-    name : str, default "original"
-        Name of classification metadata to use.
+    year_column : str, optional
+        Name of the column containing the survey year. If omitted, the
+        standard year column configured in the context is used.
 
-    year_col : str, optional
-        Column name for year. Inferred automatically if not provided.
+    classification_name : str, default="original"
+        Name of the classification metadata to use.
 
-    versioned_info : dict
-        Classification metadata. Populated automatically based on name and
-        classification_type.
+    classification_type : {"commodity", "industry", "occupation"}, optional
+        Classification type. If omitted, it is inferred from
+        ``target_column``.
 
-    defaults : dict
-        Default settings. Merged with configured settings.
+    aspects : tuple[str], default=("item_key",)
+        Classification attributes to extract for each level.
 
-    aspects : tuple[str]
-        Labels to extract as output columns.
+    levels : tuple[int], default=(1,)
+        Hierarchical levels to extract.
 
-    levels : tuple[int]
-         Hierarchy levels to extract.
+    output_columns : tuple[str], optional
+        Names of the output columns. If omitted, names are generated from
+        ``aspects`` and ``levels``. If one name is provided for each aspect,
+        the level number is appended automatically.
 
-    drop_value : bool, default False
-        Whether to drop rows when value is missing.
-
-    column_names : tuple[str]
-        Names for extracted output columns.
-
-    missing_value_replacements : dict
-        Replacements for missing values in output columns.
+    missing_replacements : dict[str, str], optional
+        Replacement values applied after decoding for missing classification
+        attributes.
 
     See Also
     --------
-    Decoder : Uses these settings to decode codes.
-
+    Decoder
+        Performs the decoding using these settings.
     """
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     context: Context
-    target: str
-    classification_type: Optional[Literal["commodity", "occupation", "industry"]] = None
-    name: str = "original"
-    year_col: str = Field(None, validate_default=False) # type: ignore
-    versioned_info: dict = {}
-    defaults: dict = {}
-    aspects: _Aspects = ()
-    levels: _Levels = ()
-    drop_value: bool = False
-    column_names: _ColumnNames = ()
-    missing_value_replacements: dict[str, str] = {}
 
-    def model_post_init(self, __contex=None) -> None:
-        if self.classification_type is None:
-            self.classification_type = self._resolve_classification_type()
+    available_columns: list[str] | None = None
+    target_column: str | None = None
+    year_column: str | None = None
 
-        if self.year_col is None:
-            self.year_col = self.context.config.standard_columns.year
-
-        if self.classification_type == "commodity":
-            self.versioned_info = self.context.metadata.commodities[self.name]
-        elif self.classification_type == "industry":
-            self.versioned_info = self.context.metadata.industries[self.name]
-        elif self.classification_type == "occupation":
-            self.versioned_info = self.context.metadata.occupations[self.name]
-        else:
-            raise ValueError(f"{self.classification_type} is not valid type")
-
-        if "defaults" in self.versioned_info:
-            self.defaults = self.versioned_info["defaults"]
-        for key, value in self.defaults.items():
-            if isinstance(value, list):
-                value = tuple(value)
-            if (getattr(self, key) is None) or (len(getattr(self, key)) == 0):
-                setattr(self, key, value)
-        if len(self.aspects) == 0:
-            self.aspects = ("item_key",)
-        if len(self.levels) == 0:
-            self.levels = (1,)
-        self._resolve_column_names()
-
-    def _resolve_classification_type(
-        self,
-    ) -> Literal["commodity", "occupation", "industry"]:
-        """Resolve the classification type based on keywords."""
-        for name, keywords in [
-            ("commodity", self.context.config.standard_columns.commodity_code),
-            ("industry", self.context.config.standard_columns.industry_code),
-            ("occupation", self.context.config.standard_columns.occupation_code),
-        ]:
-            for keyword in keywords:
-                if keyword.lower() in self.target.lower():
-                    return name # type: ignore
-        raise ValueError("Cannot specify classification type")
-
-    def _resolve_column_names(self) -> None:
-        if len(self.column_names) == 0:
-            names = [
-                f"{label}_{level}"
-                for label, level in product(self.aspects, self.levels)
-            ]
-            self.column_names = tuple(names)
-        elif len(self.column_names) == len(self.aspects) * len(self.levels):
-            pass
-        elif len(self.column_names) == len(self.aspects):
-            names = [
-                f"{label}_{level}"
-                for label, level in product(self.column_names, self.levels)
-            ]
-            self.column_names = tuple(names)
+    classification_name: str = "original"
+    classification_type: ClassificationType | None = None
+    aspects: Aspects = ()
+    levels: Levels = ()
+    output_columns: ColumnNames = ()
+    missing_replacements: dict[str, str] = Field(default_factory=dict)
 
     @property
-    def rename_dict(self):
-        """Mapping of label-level keys to output column names.
+    def resolved_year_column(self) -> str:
+        """Return the effective year column name.
 
-        Returns a dictionary mapping each combination of labels
-        and levels to the corresponding output column name.
+        Returns the user-specified year column if provided; otherwise returns
+        the default year column configured in the context.
+        """
+        return self.year_column or self.context.config.standard_columns.year
 
-        This can be used to rename the multi-level columns in the
-        decoded mapping table to the configured output names.
+    @property
+    def resolved_target_column(self) -> str:
+        if self.target_column is not None:
+            return self.target_column
+
+        if self.available_columns is None:
+            raise ValueError(
+                "target_column was not provided and no available columns were supplied."
+            )
+
+        candidates = [
+            column
+            for column in self.available_columns
+            if self._is_potential_target(column)
+        ]
+
+        if len(candidates) == 1:
+            return candidates[0]
+
+        if len(candidates) == 0:
+            raise ValueError(
+                "Could not infer the target column. "
+                f"Specify target_column explicitly.\n{self.available_columns}\n{self.classification_keywords}"
+            )
+
+        raise ValueError(
+            "Multiple candidate target columns were found: "
+            f"{', '.join(candidates)}. "
+            "Specify target_column explicitly."
+        )
+
+    def _is_potential_target(self, column: str) -> bool:
+        column = column.lower()
+
+        return any(
+            keyword.lower() in column
+            for keywords in self.classification_keywords.values()
+            for keyword in keywords
+        )
+
+    @property
+    def resolved_classification_type(self) -> ClassificationType:
+        """Return the effective classification type.
+
+        If ``classification_type`` was not specified, the type is inferred from
+        the target column name using the configured classification keywords.
+
+        Raises
+        ------
+        ValueError
+            If the classification type cannot be inferred.
+        """
+        if self.classification_type is not None:
+            return self.classification_type
+
+        target = self.resolved_target_column.lower()
+
+        for classification, keywords in self.classification_keywords.items():
+            if any(keyword.lower() in target for keyword in keywords):
+                return classification
+
+        raise ValueError(
+            f"Could not infer the classification type from "
+            f"target_column={self.resolved_target_column!r}. "
+            "Specify classification_type explicitly."
+        )
+
+    @property
+    def classification_keywords(self) -> dict[ClassificationType, list[str]]:
+        """Keywords used to infer the classification type.
 
         Returns
         -------
         dict
-            Mapping of label-level tuples to output column names.
+            Mapping from classification type to the keywords that identify
+            columns containing that classification.
+        """
+        return {
+            "commodity": self.context.config.standard_columns.commodity_code,
+            "industry": self.context.config.standard_columns.industry_code,
+            "occupation": self.context.config.standard_columns.occupation_code,
+        }
 
+    # @property
+    # def resolved_aspects(self) -> Aspects:
+    #     if self.aspects:
+    #         return self.aspects
+    #     if "aspects" in self.defaults:
+    #         return tuple(self.defaults["aspects"])
+    #     return ("item_key",)
+
+    # @property
+    # def resolved_levels(self) -> Levels:
+    #     if self.levels:
+    #         return self.levels
+    #     if "levels" in self.defaults:
+    #         return tuple(self.defaults["levels"])
+    #     return (1,)
+
+    @property
+    def resolved_missing_replacements(self) -> dict[str, str]:
+        replacements = self.defaults.get("missing_replacements", {}).copy()
+        replacements.update(self.missing_replacements)
+        return replacements
+
+    def model_post_init(self, __contex=None) -> None:
+        """Finalize the decoder settings.
+
+        Applies configuration values in the following order of precedence:
+
+        1. User-specified values.
+        2. Defaults defined by the selected classification metadata.
+        3. Library defaults.
+
+        Finally, normalizes the output column names based on the resolved
+        aspects and hierarchy levels.
+        """
+        self._apply_metadata_defaults()
+        self._apply_library_defaults()
+        self._normalize_output_columns()
+
+    def _apply_metadata_defaults(self):
+        for key, value in self.defaults.items():
+            if isinstance(value, list):
+                value = tuple(value)
+
+            current = getattr(self, key)
+
+            if current is None:
+                setattr(self, key, value)
+            elif isinstance(current, (tuple, list, dict)) and not current:
+                setattr(self, key, value)
+
+    def _apply_library_defaults(self):
+        if not self.aspects:
+            self.aspects = ("item_key",)
+
+        if not self.levels:
+            self.levels = (1,)
+
+    def _normalize_output_columns(self) -> None:
+        expected = len(self.aspects) * len(self.levels)
+
+        if not self.output_columns:
+            self.output_columns = tuple(
+                f"{aspect}_{level}"
+                for aspect, level in product(self.aspects, self.levels)
+            )
+            return
+
+        if len(self.output_columns) == len(self.aspects):
+            self.output_columns = tuple(
+                f"{name}_{level}"
+                for name, level in product(self.output_columns, self.levels)
+            )
+            return
+
+        if len(self.output_columns) != expected:
+            raise ValueError(
+                f"Expected {len(self.aspects)} or {expected} output columns, "
+                f"got {len(self.output_columns)}."
+            )
+
+    @cached_property
+    def versioned_info(self) -> dict:
+        """Resolved classification metadata.
+
+        Returns the metadata corresponding to the selected classification type
+        and classification name.
+        """
+        metadata_lookup = {
+            "commodity": self.context.metadata.commodities,
+            "industry": self.context.metadata.industries,
+            "occupation": self.context.metadata.occupations,
+        }
+
+        return metadata_lookup[self.resolved_classification_type][self.classification_name]
+
+    @cached_property
+    def defaults(self) -> dict:
+        """Default decoder settings defined by the classification metadata."""
+        return self.versioned_info.get("defaults", {})
+
+    @property
+    def output_column_mapping(self):
+        """Map decoded attributes to output column names.
+
+        Returns
+        -------
+        dict
+            Mapping from ``(aspect, level)`` pairs to the corresponding output
+            column names.
+
+        Notes
+        -----
+        This mapping is primarily used to rename the columns produced by the
+        decoded classification table.
         """
         label_level = product(self.aspects, self.levels)
-        return dict(zip(label_level, self.column_names))
+        return dict(zip(label_level, self.output_columns))
 
 
 class Decoder:
@@ -282,10 +418,10 @@ class Decoder:
         self.table = table
         self.settings = settings
         self.context = context
-        self.code_column = extract_column(table, settings.target)
-        self.year_column = extract_column(table, settings.year_col)
+        self.code_col = extract_column(table, settings.resolved_target_column)
+        self.year_col = extract_column(table, settings.resolved_year_column)
         self.classification_table = self.create_classification_table(
-            years=self.year_column.drop_duplicates().to_list(),
+            years=self.year_col.drop_duplicates().to_list(),
         )
         self.year_code_pairs = self._create_year_code_pairs()
 
@@ -335,30 +471,29 @@ class Decoder:
         return table
 
     def _create_year_code_pairs(self) -> pd.DataFrame:
-        years = self.year_column.drop_duplicates()
+        years = self.year_col.drop_duplicates()
         yc_pair_list = []
         for year in years:
-            filt = self.year_column == year
-            codes = self.code_column.loc[filt].drop_duplicates()
+            filt = self.year_col == year
+            codes = self.code_col.loc[filt].drop_duplicates()
             yc_pair = codes.to_frame()
-            yc_pair[self.settings.year_col] = year
+            yc_pair[self.settings.resolved_year_column] = year
             yc_pair_list.append(yc_pair)
         return pd.concat(yc_pair_list, ignore_index=True)
 
     def _build_year_code_table(
         self, year_code_pairs: pd.DataFrame, row: pd.Series
     ) -> pd.DataFrame:
+        year_column = self.settings.resolved_year_column
         filt = (
-            year_code_pairs[self.settings.target]
+            year_code_pairs[self.settings.resolved_target_column]
             .apply(lambda x: x in row["code_range"])
         )
-        filt = filt & (
-            year_code_pairs[self.settings.year_col] == row[self.settings.year_col]
-        )
+        filt = filt & (year_code_pairs[year_column] == row[year_column])
         matched_codes = year_code_pairs.loc[filt].set_index(
-            [self.settings.year_col, self.settings.target]
+            [year_column, self.settings.resolved_target_column]
         )
-        columns = row.drop(["code_range", self.settings.year_col]).index
+        columns = row.drop(["code_range", year_column]).index
         code_table = pd.DataFrame(
             data=[row.loc[columns]] * len(matched_codes.index),
             index=matched_codes.index,
@@ -396,8 +531,8 @@ class Decoder:
         mapping_table = mapping_table.set_index("level", append=True)
         self._validate_mapping_table(mapping_table)
         mapping_table = mapping_table.unstack(-1)
-        mapping_table = mapping_table.loc[:, self.settings.rename_dict.keys()]  # type: ignore
-        mapping_table.columns = self.settings.rename_dict.values()
+        mapping_table = mapping_table.loc[:, self.settings.output_column_mapping.keys()]  # type: ignore
+        mapping_table.columns = self.settings.output_column_mapping.values()
         return mapping_table
 
     def _validate_mapping_table(self, mapping_table: pd.DataFrame):
@@ -405,21 +540,15 @@ class Decoder:
         if filt.sum() > 0:
             invalid_case_sample = (
                 mapping_table.loc[filt]
-                .sort_values([self.settings.target, "level"])
+                .sort_values([self.settings.resolved_target_column, "level"])
                 .head(10)
             )
             raise ValueError(f"Classification is not valid \n{invalid_case_sample}")
 
-    def _fill_missing_values(self):
-        if "missing_value_replacements" not in self.settings.defaults:
-            return
-        for column, default in self.settings.defaults[
-            "missing_value_replacements"
-        ].items():
-            if column not in self.table.columns:
-                continue
-            filt = self.table.loc[:, column].isna()
-            self.table.loc[filt, column] = default  # type: ignore
+    def _fill_missing_values(self) -> None:
+        for column, default in self.settings.resolved_missing_replacements.items():
+            if column in self.table.columns:
+                self.table[column] = self.table[column].fillna(default)
 
     def add_classification(self):
         """Adds decoded columns to the input table.
@@ -437,58 +566,94 @@ class Decoder:
         """
         mapping = self.create_mapping_table()
         self.table = self.table.join(
-            mapping, on=[self.settings.year_col, self.settings.target]
+            mapping, on=[self.settings.resolved_year_column, self.settings.resolved_target_column]
         )
         self._fill_missing_values()
         return self.table
 
 
 class IDDecoderSettings(BaseModel):
-    """Settings for decoding household IDs.
+    """Configuration for decoding household ID attributes.
 
-    Attributes
+    This model specifies how household IDs should be decoded into one or
+    more descriptive attributes using the household ID metadata.
+
+    Parameters
     ----------
-    name : Attribute
-        Name of household attribute to decode.
+    context : Context
+        BSSIR context used to access configuration and metadata.
 
-    id_col : str
-        Column name for household IDs.
+    name : str
+        Name of the household attribute to decode.
 
-    year_col : str
-        Column name for year.
+    aspects : tuple[str], default=("name",)
+        Attribute aspects to extract.
 
-    fields : tuple[str]
-        Labels to extract as output columns.
+    output_columns : tuple[str], optional
+        Names of the output columns. If omitted, names are generated
+        automatically from ``name`` and ``aspects``.
 
-    column_names : tuple[str]
-        Names of columns to add to output table.
+    id_column : str, optional
+        Name of the household ID column. If omitted, the standard ID
+        column configured in the context is used.
 
+    year_column : str, optional
+        Name of the survey year column. If omitted, the standard year
+        column configured in the context is used.
     """
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
-    name: str
-    aspects: _Aspects = ("name",)
-    column_names: _ColumnNames = ()
     context: Context
 
-    id_col: str | None = None
-    year_col: str | None = None
+    attribute_name: str
 
-    def model_post_init(self, __contex=None) -> None:
-        if self.id_col is None:
-            self.id_col = self.context.config.standard_columns.id
-        if self.year_col is None:
-            self.year_col = self.context.config.standard_columns.year
-        self._resolve_column_names()
+    aspects: Aspects = ("name",)
+    output_columns: ColumnNames = ()
 
-    def _resolve_column_names(self) -> None:
-        if len(self.column_names) != len(self.aspects):
+    id_column: str | None = None
+    year_column: str | None = None
+
+    @property
+    def resolved_id_column(self) -> str:
+        """Return the effective household ID column name."""
+        return self.id_column or self.context.config.standard_columns.id
+
+    @property
+    def resolved_year_column(self) -> str:
+        """Return the effective survey year column name."""
+        return self.year_column or self.context.config.standard_columns.year
+
+    @property
+    def resolved_output_columns(self) -> tuple[str, ...]:
+        """Return the effective output column names.
+
+        If no output columns are provided, names are generated from
+        the decoded attribute name and selected aspects.
+        """
+        if not self.output_columns:
             if len(self.aspects) == 1:
-                names = [self.name]
-            else:
-                names = [f"{self.name}_{label}" for label in self.aspects]
-            self.column_names = tuple(names)
+                return (self.attribute_name,)
+            return tuple(
+                f"{self.attribute_name}_{aspect}"
+                for aspect in self.aspects
+            )
+
+        if len(self.output_columns) != len(self.aspects):
+            raise ValueError(
+                f"Expected {len(self.aspects)} output columns, "
+                f"got {len(self.output_columns)}."
+            )
+
+        return self.output_columns
+
+    @property
+    def join_columns(self) -> list[str]:
+        """Columns used to join decoded attributes onto the input table."""
+        return [
+            self.resolved_year_column,
+            self.resolved_id_column,
+        ]
 
 
 class IDDecoder:
@@ -520,8 +685,8 @@ class IDDecoder:
         self.table = table
         self.settings = settings
         self.context = context
-        self.id_series = extract_column(table, settings.id_col) # type: ignore
-        self.year_series = extract_column(table, settings.year_col) # type: ignore
+        self.id_series = extract_column(table, settings.resolved_id_column)
+        self.year_series = extract_column(table, settings.resolved_year_column)
 
     def construct_mapping_table(self) -> pd.DataFrame:
         """Constructs metadata mapping table for household IDs.
@@ -539,17 +704,19 @@ class IDDecoder:
         for label in self.settings.aspects:
             mapped_column = self._map_id_to_label(label)
             mapped_columns.append(mapped_column)
-        year_and_id = [self.settings.year_col, self.settings.id_col]
-        columns = year_and_id + list(self.settings.column_names)
+        columns = (
+            list(self.settings.join_columns)
+            + list(self.settings.resolved_output_columns)
+        )
         mapping_table = pd.concat(mapped_columns, axis="columns", keys=columns)
-        mapping_table = mapping_table.drop_duplicates().set_index(year_and_id)
+        mapping_table = mapping_table.drop_duplicates().set_index(self.settings.join_columns)
         return mapping_table
 
     def _create_code_builder(
         self, household_metadata: Mapping
     ) -> Callable[[pd.Series], pd.Series]:
         ld_len = household_metadata["ID_Length"]
-        attr_dict = household_metadata[self.settings.name]["code"]
+        attr_dict = household_metadata[self.settings.attribute_name]["code"]
 
         if ("position" in attr_dict) and attr_dict["position"] is not None:
             start, end = attr_dict["position"]["start"], attr_dict["position"]["end"]
@@ -600,7 +767,7 @@ class IDDecoder:
         id_schema = self.context.metadata.id_schema.resolve(year)
 
         self._check_limits(
-            attribute_metadata=id_schema[self.settings.name],
+            attribute_metadata=id_schema[self.settings.attribute_name],
             label=label,
             year=year,
         )
@@ -612,8 +779,8 @@ class IDDecoder:
             raise ValueError
         # pylint: disable=unsubscriptable-object
         mapping = {}
-        while label in id_schema[self.settings.name].get("mappings", {}):
-            mapping_info = id_schema[self.settings.name]["mappings"][label]
+        while label in id_schema[self.settings.attribute_name].get("mappings", {}):
+            mapping_info = id_schema[self.settings.attribute_name]["mappings"][label]
             label = mapping_info["origin"]
             mapping_part = self.context.metadata.id_schema[mapping_info["mapping"]]
             for key, value in mapping.items():
@@ -629,7 +796,7 @@ class IDDecoder:
                 }
             )
 
-        labeles = id_schema[self.settings.name][label]
+        labeles = id_schema[self.settings.attribute_name][label]
         code_builder = self._create_code_builder(id_schema)
 
         def mapper(household_id_column: pd.Series) -> pd.Series:
@@ -664,7 +831,6 @@ class IDDecoder:
 
         """
         mapping_table = self.construct_mapping_table()
-        year_and_id = [self.settings.year_col, self.settings.id_col]
-        self.table = self.table.join(mapping_table, on=year_and_id) # type: ignore
+        self.table = self.table.join(mapping_table, on=self.settings.join_columns)
         return self.table
  

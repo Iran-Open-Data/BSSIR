@@ -169,6 +169,7 @@ base_package_metadata:
   occupations: metadata/occupations.yaml
   industries: metadata/industries.yaml
   schema: metadata/schema.yaml
+  pipelines: metadata/pipelines.yaml
 
 # Package metadata
 # Metadata provided by the specific data package using BSSIR.
@@ -183,6 +184,7 @@ package_metadata:
   occupations: metadata/occupations.yaml
   industries: metadata/industries.yaml
   schema: metadata/schema.yaml
+  pipelines: metadata/pipelines.yaml
 
 # Local metadata
 # User-defined metadata overrides for customization without modifying
@@ -197,6 +199,7 @@ local_metadata:
   occupations: metadata/occupations.yaml
   industries: metadata/industries.yaml
   schema: metadata/schema.yaml
+  pipelines: metadata/pipelines.yaml
 
 
 # Documentation Output Paths

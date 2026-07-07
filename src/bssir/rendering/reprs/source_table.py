@@ -1,11 +1,12 @@
 from __future__ import annotations
 
+from pathlib import Path
 from html import escape
 from typing import Any
 
 import pandas as pd
 
-from bssir.context.metadata.models import SourceTable
+from bssir.context.metadata.models.source_tables.table import SourceTable
 from bssir.rendering.render import render_template
 
 
@@ -134,12 +135,52 @@ def dataframe_html(df: pd.DataFrame, **kwargs) -> str:
     return f'<div class="bssir-report-wrapper">{table}</div>'
 
 
+def render_files_report(files: dict[int, list[Path]]) -> str:
+    """Render a report of source files grouped by survey year."""
+
+    rows = []
+
+    for year, paths in files.items():
+        badges = "".join(
+            f'<span class="bssir-file-badge" title="{path.as_posix()}">{path.name}</span>'
+            for path in paths
+        )
+
+        rows.append(
+            f"""
+            <tr>
+                <td>{year}</td>
+                <td class="left">{badges or "—"}</td>
+            </tr>
+            """
+        )
+
+    return f"""
+    <h3>Source Files</h3>
+
+    <div class="bssir-report-wrapper">
+        <table class="bssir-report">
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Matching Files</th>
+                </tr>
+            </thead>
+            <tbody>
+                {"".join(rows)}
+            </tbody>
+        </table>
+    </div>
+    """
+
+
 def context(table: SourceTable) -> dict[str, Any]:
     latest = max(table.availability)
 
     column_labels = dataframe_html(table.column_labels_report)
-
     label_columns = dataframe_html(table.label_columns_report)
+
+    files_report = render_files_report(table.files)
 
     return {
         "title": table.name,
@@ -154,7 +195,7 @@ def context(table: SourceTable) -> dict[str, Any]:
 
         "description": (
             "This metadata defines the raw table together with the evolution "
-            "of variable names and labels over time."
+            "of variable names, labels, and source files over time."
         ),
 
         "overview_subtitle": "Overview",
@@ -171,9 +212,9 @@ def context(table: SourceTable) -> dict[str, Any]:
         </p>
 
         <p>
-        The tables below summarize how column names and labels evolve through
-        time. Each row corresponds to a period during which the mapping remains
-        unchanged.
+        The reports below summarize how column names, labels, and source files
+        evolve through time. Each row corresponds to a period during which the
+        metadata remains unchanged.
         </p>
         """,
 
@@ -185,6 +226,10 @@ def context(table: SourceTable) -> dict[str, Any]:
 
         <h3>Labels → Columns</h3>
         {label_columns}
+
+        <br><br>
+
+        {files_report}
         """,
 
         "quickstart": f"""
@@ -213,8 +258,9 @@ def context(table: SourceTable) -> dict[str, Any]:
         "footer": """
         <div class="bssir-report-footer">
             Metadata is grouped into periods where the mapping is unchanged.
-            Resolve the table for a specific year using
-            <code>table.resolve(year)</code>.
+            Source files reflect the current workspace and may be empty if the
+            corresponding setup steps have not yet been executed. Resolve the
+            table for a specific year using <code>table.resolve(year)</code>.
         </div>
         """,
     }

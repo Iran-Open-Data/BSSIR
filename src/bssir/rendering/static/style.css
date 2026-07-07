@@ -332,3 +332,28 @@
         display:block;
     }
 }
+
+
+.bssir-file-badge{
+    display:inline-block;
+    align-items:center;
+    margin:.15rem .4rem .15rem 0;
+    padding:.2rem .55rem;
+    
+    border:1px solid #d2def7;
+    border-radius:999px;
+
+    background:#eef4ff;
+    color:#355c9a;
+
+    font-size:.78rem;
+    font-family:var(--font-mono);
+    font-weight:500;
+
+    cursor:default;
+    user-select:text;
+}
+
+.bssir-file-badge:hover{
+    filter:brightness(.96);
+}

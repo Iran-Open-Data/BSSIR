@@ -3,7 +3,7 @@ from typing import cast
 import pandas as pd
 
 from bssir.context.config import Config
-from .models import Metadata, MetadataSource, SourceTablesMetadata, METADATA_MODELS
+from .models import Metadata, MetadataSource, SourceTablesMetadata, PipelineMetadata, METADATA_MODELS
 from .loader import build_metadata_definition, extract_metadata_description
 
 
@@ -60,6 +60,10 @@ class MetadataCollection:
     @property
     def schema(self) -> Metadata:
         return self._get("schema")
+
+    @property
+    def pipelines(self) -> PipelineMetadata:
+        return cast(PipelineMetadata, self._get("pipelines"))
 
     @property
     def commodities(self) -> Metadata:

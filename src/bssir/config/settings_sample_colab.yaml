@@ -40,3 +40,4 @@ local_metadata:
   occupations: metadata/occupations.yaml
   industries: metadata/industries.yaml
   schema: metadata/schema.yaml
+  pipelines: metadata/pipelines.yaml

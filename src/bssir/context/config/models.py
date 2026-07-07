@@ -5,7 +5,7 @@ import urllib.parse
 
 from pydantic import BaseModel, BeforeValidator, model_validator
 
-from bssir.context.utils.parser import parse_years
+from bssir.context.utils.parser import parse_years, Years
 
 
 CoveragePeriod = Annotated[list[int], BeforeValidator(parse_years)]
@@ -101,7 +101,7 @@ class StandardColumns(BaseModel):
 
 
 class SetupSettings(BaseModel):
-    years: str
+    years: Years
     table_names: str
     replace: bool
     method: str
@@ -109,13 +109,13 @@ class SetupSettings(BaseModel):
 
 
 class SetupRawDataSettings(BaseModel):
-    years: str
+    years: Years
     replace: bool
     download_source: str
 
 
 class LoadTableSettings(BaseModel):
-    years: str
+    years: Years
     form: Literal["raw", "cleaned", "normalized"]
     on_missing: str
     download_source: str
