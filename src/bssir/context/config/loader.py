@@ -2,10 +2,11 @@ from copy import deepcopy
 from functools import cached_property
 from pathlib import Path
 from os import PathLike
+import tomllib
 from typing import Any
 
-from bssir.context.utils.yaml import load_yaml
-from bssir.context.utils.transformers import update_dict
+from bssir.utils.yaml import load_yaml
+from bssir.utils.transformers import update_dict
 
 
 class ConfigLoader:
@@ -172,6 +173,18 @@ class ConfigLoader:
                 )
                 for name, value in metadata.items()
             }
+
+        return resolved
+
+    def _resolve_credentials_path(self, settings: dict) -> dict:
+        resolved = deepcopy(settings)
+
+        path = Path(settings.get("credential_file", "tokens.toml"))
+
+        if not path.is_absolute():
+            path = self.root_dir / path
+
+        resolved["credentials_file"] = path
 
         return resolved
 

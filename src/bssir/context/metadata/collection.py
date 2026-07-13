@@ -3,7 +3,15 @@ from typing import cast
 import pandas as pd
 
 from bssir.context.config import Config
-from .models import Metadata, MetadataSource, SourceTablesMetadata, PipelineMetadata, METADATA_MODELS
+from .models import (
+    Metadata,
+    MetadataSource,
+    ResourcesMetadata,
+    SourceTablesMetadata,
+    PipelineMetadata,
+    IDSchemaMetadata,
+    METADATA_MODELS,
+)
 from .loader import build_metadata_definition, extract_metadata_description
 
 
@@ -46,12 +54,12 @@ class MetadataCollection:
         return self._get("instruction")
 
     @property
-    def raw_files(self) -> Metadata:
-        return self._get("raw_files")
+    def resources(self) -> ResourcesMetadata:
+        return cast(ResourcesMetadata, self._get("resources"))
 
     @property
-    def id_schema(self) -> Metadata:
-        return self._get("id_schema")
+    def id_schema(self) -> IDSchemaMetadata:
+        return cast(IDSchemaMetadata, self._get("id_schema"))
 
     @property
     def source_tables(self) -> SourceTablesMetadata:
@@ -287,7 +295,7 @@ class MetadataCollection:
     #         <pre style="margin-top:0.5em;">
     #         metadata.source_tables
     #         metadata.schema
-    #         metadata.raw_files
+    #         metadata.resources
     #         metadata.maps
     #         metadata.commodities
     #         </pre>

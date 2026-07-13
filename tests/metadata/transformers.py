@@ -1,6 +1,6 @@
 from copy import deepcopy
 
-from bssir.context.utils.transformers import (
+from bssir.utils.transformers import (
     flatten_dict,
     unflatten_dict,
     update_dict,

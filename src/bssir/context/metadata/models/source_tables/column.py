@@ -3,7 +3,7 @@ from typing import Annotated, Literal
 from pydantic import BaseModel, field_validator, Field, TypeAdapter, ValidationError
 
 from bssir.exceptions import ColumnResolutionError
-from bssir.context.utils.argham import Argham
+from bssir.utils.argham import Argham
 from ..common import MetadataNode
 
 
@@ -80,7 +80,7 @@ class Column(MetadataNode):
 
         except ValidationError as exc:
             raise ColumnResolutionError(
-                column=self.name,
+                name=self.name,
                 year=year,
                 resolved=resolved,
                 error=exc,

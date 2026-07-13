@@ -37,7 +37,7 @@ columns:
 # Local Metadata
 local_metadata:
   instruction: metadata/_instruction.yaml
-  raw_files: metadata/raw_files.yaml
+  resources: metadata/resources.yaml
   source_tables: metadata/source_tables.yaml
   maps: metadata/maps.yaml
   id_information: metadata/id_information.yaml

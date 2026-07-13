@@ -1,4 +1,5 @@
 from collections.abc import Callable, Mapping, Iterator
+from typing import Any
 from functools import cached_property
 from pathlib import Path
 
@@ -6,9 +7,9 @@ import pandas as pd
 from pydantic import BaseModel, ConfigDict
 
 from bssir.context import Config
-from bssir.context.utils.yaml import parse_yaml
+from bssir.utils.yaml import parse_yaml
 from bssir.context.utils.resolver import resolve_metadata
-from bssir.context.utils.argham import Argham
+from bssir.utils.argham import Argham
 
 
 def _read_text(path: Path) -> str | None:
@@ -85,7 +86,7 @@ class MetadataDefinition(BaseModel):
 
 
 class MetadataNode(BaseModel, Mapping):
-    model_config = ConfigDict(frozen=True)
+    model_config = ConfigDict(arbitrary_types_allowed=True, frozen=True)
 
     config: Config
     merged: dict | None = None
@@ -94,14 +95,13 @@ class MetadataNode(BaseModel, Mapping):
     def content(self) -> dict:
         if self.merged:
             return self.merged
-        else:
-            raise
+        return {}
 
     @cached_property
     def _resolved_cache(self):
         return {}
 
-    def resolve(self, year: int, categorize: bool = False, **optional_settings) -> dict:
+    def resolve(self, year: int, categorize: bool = False, **optional_settings) -> Any:
         """
         Resolve metadata for a specific year.
 
@@ -124,6 +124,9 @@ class MetadataNode(BaseModel, Mapping):
         """
         key = (year, categorize)
 
+        if "add_year" not in optional_settings:
+            optional_settings["add_year"] = False
+
         if key not in self._resolved_cache:
             resolved = resolve_metadata(
                 self.content,
@@ -131,10 +134,6 @@ class MetadataNode(BaseModel, Mapping):
                 categorize=categorize,
                 **optional_settings
             )
-            if not isinstance(resolved, dict):
-                raise TypeError(
-                    f"Expected resolved metadata to be a dict, got {type(resolved).__name__}."
-                )
             self._resolved_cache[key] = resolved
         return self._resolved_cache[key]
 

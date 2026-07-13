@@ -7,40 +7,40 @@ authors = [
   { name = "Mohammad Amin Alavian", email = "m.amin.alavian@gmail.com" }
 ]
 keywords = ["iran", "survey", "data", "socioeconomic"]
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 dependencies = [
-  "dbfread",
+  "dataforgeir",
   "pandas>=2",
+  "pyarrow",
   "PyYAML",
   "pydantic>=2",
-  "pyodbc",
   "requests",
-  "pyarrow",
-  "tabulate",
-  "openpyxl>=3.1.5",
   "tqdm>=4.67.1",
   "rich>=14.2.0",
 ]
 
 [project.optional-dependencies]
-all = [
+
+# Storage backends
+s3 = [
   "boto3",
   "boto3-stubs[s3]",
-  "black",
-  "tabulate",
-  "mkdocs",
-  "mkdocs-material",
-  "mkdocs-literate-nav",
-  "mkdocs-autorefs",
-  "mkdocstrings-python",
-  "mkdocs-jupyter",
-  "pytest",
-  "ipykernel",
-  "ipywidgets",
+]
+
+build = [
+  "dbfread",
+  "openpyxl>=3.1.5",
+  "pyodbc",
+  "rarfile>=4.3",
+]
+
+# Plotting
+plot = [
   "seaborn",
 ]
+
+# Documentation
 docs = [
-  "tabulate",
   "mkdocs",
   "mkdocs-material",
   "mkdocs-literate-nav",
@@ -48,20 +48,29 @@ docs = [
   "mkdocstrings-python",
   "mkdocs-jupyter",
 ]
-dev = [
-  "black",
-  "pytest",
-]
-maintain = [
-  "boto3",
-  "boto3-stubs[s3]",
-]
+
+# Notebook support
 notebook = [
   "ipykernel",
   "ipywidgets",
 ]
-plot = [
-  "seaborn",
+
+# Development tools
+dev = [
+  "black",
+  "pytest",
+  "ruff>=0.14.0",
+]
+
+all = [
+  "bssir[s3]",
+  "bssir[s3-dev]",
+  "bssir[excel]",
+  "bssir[parquet]",
+  "bssir[plot]",
+  "bssir[docs]",
+  "bssir[notebook]",
+  "bssir[dev]",
 ]
 
 [project.urls]
@@ -78,6 +87,7 @@ members = [
 
 [tool.uv.sources]
 bssir = { workspace = true, editable = true }
+dataforgeir = { path = "../DataForgeIR", editable = true }
 
 [dependency-groups]
 dev = [

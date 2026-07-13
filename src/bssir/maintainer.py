@@ -57,7 +57,7 @@ class Maintainer:
         self.mirror = lib_defaults.get_mirror(mirror_name)
         self.bucket = get_bucket(self.mirror)
 
-    def upload_raw_files(self, years: Optional[list[int]] = None) -> None:
+    def upload_resources(self, years: Optional[list[int]] = None) -> None:
         """Uploads raw data files for specified years.
 
         Parameters
@@ -91,11 +91,11 @@ class Maintainer:
             The path to a raw file that matches the filter criteria.
 
         """
-        years_to_process = years or self.lib_metadata.raw_files.keys()
+        years_to_process = years or self.lib_metadata.resources.keys()
         for year in years_to_process:
-            if year not in self.lib_metadata.raw_files:
+            if year not in self.lib_metadata.resources:
                 continue
-            files_info = self.lib_metadata.raw_files[year].get("files", [])
+            files_info = self.lib_metadata.resources[year].get("files", [])
             for file_info in files_info:
                 yield self.lib_defaults.dir.original.joinpath(str(year), file_info["name"])
 

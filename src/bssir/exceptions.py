@@ -1,31 +1,27 @@
 from collections.abc import Mapping
 
-from pydantic import ValidationError
-
 
 class MetadataError(Exception):
     """Base class for metadata-related errors."""
 
 
 class MetadataResolutionError(MetadataError):
-    """Raised when metadata cannot be resolved into a valid model."""
+    entity_name: str = "metadata"
 
-
-class TableResolutionError(MetadataResolutionError):
     def __init__(
         self,
-        table: str,
+        name: str,
         year: int,
         resolved: Mapping,
         error: Exception,
     ):
-        self.table = table
+        self.name = name
         self.year = year
         self.resolved = resolved
         self.error = error
 
         message = [
-            f"Failed to resolve table '{table}' for year {year}."
+            f"Failed to resolve {self.entity_name} '{name}' for year {year}."
         ]
 
         if error is not None:
@@ -37,23 +33,13 @@ class TableResolutionError(MetadataResolutionError):
         super().__init__("".join(message))
 
 
+class TableResolutionError(MetadataResolutionError):
+    entity_name = "table"
+
+
 class ColumnResolutionError(MetadataResolutionError):
-    def __init__(
-        self,
-        column: str,
-        year: int,
-        resolved: Mapping,
-        error: Exception,
-    ):
-        self.column = column
-        self.year = year
-        self.resolved = resolved
-        self.error = error
+    entity_name = "column"
 
-        message = [
-            f"Failed to resolve column '{column}' for year {year}.",
-            f"\nCause:\n{error}",
-            f"\nResolved metadata:\n{resolved!r}",
-        ]
 
-        super().__init__("".join(message))
+class AttributeResolutionError(MetadataResolutionError):
+    entity_name = "attribute"

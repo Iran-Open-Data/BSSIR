@@ -103,7 +103,7 @@ Important metadata files include:
 
 - `metadata/source_tables.yaml`: table list, table descriptions, availability, settings
 - `metadata/schema.yaml`: column definitions and schema information
-- `metadata/raw_files.yaml`: raw file mappings and patterns
+- `metadata/resources.yaml`: raw file mappings and patterns
 - `metadata/id_schema.yaml`: ID structure and geographic attributes
 - `metadata/maps.yaml`: map/geographic metadata
 - `metadata/commodities.yaml`: commodity classifications

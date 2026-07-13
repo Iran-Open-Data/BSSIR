@@ -1,11 +1,11 @@
 from typing import Iterable
-from warnings import warn
+import warnings
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class ArghamDefaults(BaseModel):
-    keywords: list[str] = []
+    keywords: list[str] = Field(default_factory=list)
     default_start: int | None = None
     default_end: int | None = None
     default_step: int = 1
@@ -68,8 +68,8 @@ class Argham:
     def __init__(self, argham: list | dict | int | None = None, **kwargs):
         self.range_set = set()
         self.defaults = ArghamDefaults(**kwargs)
-        self.min: int | None = None
-        self.max: int | None = None
+        self._min: int | None = None
+        self._max: int | None = None
         self._parse_argham(argham)
 
     def check_contained(self, values: int | Iterable[int]) -> bool | list[bool]:
@@ -131,53 +131,60 @@ class Argham:
         return ", ".join(representation_list)
 
     def __contains__(self, value: int):
-        if self.min is None:
+        if self._min is None:
             return False
-        if (value < self.min) or (value > self.max):  # type: ignore
+        if (value < self._min) or (value > self._max):  # type: ignore
             return False
         for number_range in self.range_set:
             if value in number_range:
                 return True
         return False
 
-    def __eq__(self, __value: object) -> bool:
-        if isinstance(__value, int):
-            if (len(self.range_set) == 1) and (__value in self.range_set.pop()):
+    def __eq__(self, value: object) -> bool:
+        if isinstance(value, int):
+            if (len(self.range_set) == 1) and (value in next(iter(self.range_set))):
                 return True
-        if isinstance(__value, range):
-            if (len(self.range_set) == 1) and (self.range_set.pop() == __value):
+        if isinstance(value, range):
+            if (len(self.range_set) == 1) and (next(iter(self.range_set)) == value):
                 return True
-        if isinstance(__value, Argham):
-            if self.range_set == __value.range_set:
+        if isinstance(value, Argham):
+            if self.range_set == value.range_set:
                 return True
-            if self.get_numbers() == __value.get_numbers():
+            if self.get_numbers() == value.get_numbers():
                 return True
         return False
 
-    def __add__(self, __other: "Argham") -> "Argham":
-        if self.defaults != __other.defaults:
-            warn(f"Warning! different defaults! {self.defaults}, {__other.defaults}")
+    def __add__(self, other: "Argham") -> "Argham":
+        if self.defaults != other.defaults:
+            warnings.warn(
+                (
+                    "Adding Argham objects with different defaults. "
+                    f"Using {self.defaults!r} and {other.defaults!r}."
+                ),
+                UserWarning,
+                stacklevel=2,
+            )
         result = Argham()
         result.defaults = self.defaults
-        result.range_set = self.range_set.union(__other.range_set)
+        result.range_set = self.range_set.union(other.range_set)
 
-        if (self.min is None) and (__other.min is None):
-            result.min = None
-        elif self.min is None:
-            result.min = __other.min
-        elif __other.min is None:
-            result.min = self.min
+        if (self._min is None) and (other._min is None):
+            result._min = None
+        elif self._min is None:
+            result._min = other._min
+        elif other._min is None:
+            result._min = self._min
         else:
-            result.min = min(self.min, __other.min)
+            result._min = min(self._min, other._min)
 
-        if (self.max is None) and (__other.max is None):
-            result.max = None
-        elif self.max is None:
-            result.max = __other.max
-        elif __other.max is None:
-            result.max = self.max
+        if (self._max is None) and (other._max is None):
+            result._max = None
+        elif self._max is None:
+            result._max = other._max
+        elif other._max is None:
+            result._max = self._max
         else:
-            result.max = max(self.max, __other.max)
+            result._max = max(self._max, other._max)
         return result
 
     def _parse_argham(self, argham) -> None:
@@ -230,13 +237,13 @@ class Argham:
         self._update_max(end - 1)
 
     def _update_min(self, number) -> None:
-        if self.min is None:
-            self.min = number
-        elif number < self.min:
-            self.min = number
+        if self._min is None:
+            self._min = number
+        elif number < self._min:
+            self._min = number
 
     def _update_max(self, number) -> None:
-        if self.max is None:
-            self.max = number
-        elif self.max < number:
-            self.max = number
+        if self._max is None:
+            self._max = number
+        elif self._max < number:
+            self._max = number

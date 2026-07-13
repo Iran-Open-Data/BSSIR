@@ -7,8 +7,6 @@ from typing import Literal
 import pandas as pd
 
 from bssir.context import Context
-from bssir.context.metadata.models import SourceTableSettings
-from . import utils
 
 
 pd.set_option('future.no_silent_downcasting', True)
@@ -32,8 +30,32 @@ def load_cleaned_table(
     table_name: str,
     year: int,
     *,
+    recreate: bool = False,
+    context: Context,
+    **kwargs,
+) -> pd.DataFrame:
+    path = context.config.dirs.cleaned / str(year) / f"{table_name}.parquet"
+    if not path.exists() or recreate:
+        path.mkdir(parents=True, exist_ok=True)
+        table = create_cleaned_table(table_name=table_name, year=year, context=context)
+        table.to_parquet(path)
+    return pd.read_parquet(path, **kwargs)
+
+
+def create_cleaned_table(
+    table_name: str,
+    year: int,
+    *,
     context: Context,
 ) -> pd.DataFrame:
+    year_directory = context.config.dirs.extracted.joinpath(str(year))
+    context.metadata.resources
+    if not year_directory.exists():
+        raise FileNotFoundError(
+            f"Extracted files for year {year} are missing. "
+            f"Run setup(years=[{year}]) first."
+        )
+
     return clean_table(
         load_raw_table(table_name=table_name, year=year, context=context),
         table_name=table_name,
@@ -90,15 +112,6 @@ def load_raw_table(
     table_settings = context.metadata.source_tables[table_name].resolve(year).settings
     encoding = table_settings.encoding
 
-    # file_code = context.metadata.source_tables[table_name].resolve(year).files
-    # if not isinstance(file_code, (str, list)):
-    #     raise TypeError(
-    #         f"Expected file_code to resolve to str or list[str], "
-    #         f"got {type(file_code).__name__!r} "
-    #         f"for table={table_name!r}, year={year}."
-    #     )
-    # file_patterns = _normalize_file_patterns(file_code)
-
     file_paths = context.metadata.source_tables[table_name].resolve(year).files
 
     if not file_paths:
@@ -116,35 +129,6 @@ def load_raw_table(
 
     raw_table = pd.concat(tables_to_concat, ignore_index=True)
     return raw_table
-
-
-# def _get_table_settings(
-#     table_name: str,
-#     year: int,
-#     *,
-#     context: Context,
-# ) -> dict:
-#     # table_metadata = utils.resolve_metadata(lib_metadata.source_tables[table_name], year)
-#     table_metadata = context.metadata.source_tables[table_name].resolve(year)
-#     # assert isinstance(table_metadata, dict)
-#     table_settings = (
-#         context.metadata.source_tables.default_settings
-#         .model_copy(update=table_metadata.settings)
-#     )
-#     return table_settings.model_dump()
-
-
-# def _normalize_file_patterns(file_code: str | list) -> list[str]:
-#     """Validates and normalizes the file_code into a list of strings."""
-#     if isinstance(file_code, str):
-#         return [file_code]
-#     if isinstance(file_code, list):
-#         if not all(isinstance(item, str) for item in file_code):
-#             raise TypeError("If 'file_code' is a list, all items must be strings.")
-#         return file_code
-#     raise TypeError(
-#         f"Expected 'file_code' as str or list[str], got {type(file_code).__name__}."
-#     )
 
 
 def clean_table(
@@ -181,12 +165,7 @@ def clean_table(
     KeyError
         If the `table_name` or "default_settings" are not found in the metadata.
     """
-    # table_metadata = utils.resolve_metadata(lib_metadata.source_tables[table_name], year)
     table_metadata = context.metadata.source_tables[table_name].resolve(year).model_dump()
-    if not isinstance(table_metadata, dict):
-        actual_type = type(table_metadata).__name__
-        msg = f"Metadata must be a dictionary, but got {actual_type} for year {year}."
-        raise TypeError(msg)
 
     cleaned_table = _apply_metadata_to_table(
         table=table,

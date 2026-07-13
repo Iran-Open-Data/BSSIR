@@ -59,7 +59,7 @@ province_name_translation:
   Alborz: البرز
 
 
-two_letter_province_code:
+two_letter_province_code_mapping:
   Markazi: MA
   Gilan: GI
   Mazandaran: MN
@@ -618,529 +618,529 @@ county_name_translation:
   Fardis: فردیس
 
 
-cbi_sample:
+cbi_sample_mapping:
   # 0 0 X X
   # Markazi: مرکزی
-  Arak: true                             #  # اراک
-  Ashtian: false                            # آشتیان
-  Tafresh: false                            # تفرش
-  Khomein: false                            # خمین
-  Delijan: false                            # دلیجان
-  Saveh: true                            #  # ساوه
-  Shazand: false                            # شازند
-  Mahallat: false                           # محلات
-  Zarandieh: false                          # زرندیه
-  Komeijan: false                           # کمیجان
-  Khondab: false                            # خنداب
-  Farahan: false                            # فراهان
+  Arak: in_sample                        #  # اراک
+  Ashtian: out_of_sample                    # آشتیان
+  Tafresh: out_of_sample                    # تفرش
+  Khomein: out_of_sample                    # خمین
+  Delijan: out_of_sample                    # دلیجان
+  Saveh: in_sample                       #  # ساوه
+  Shazand: out_of_sample                    # شازند
+  Mahallat: out_of_sample                   # محلات
+  Zarandieh: out_of_sample                  # زرندیه
+  Komeijan: out_of_sample                   # کمیجان
+  Khondab: out_of_sample                    # خنداب
+  Farahan: out_of_sample                    # فراهان
 
   # 0 1 X X
   # Gilan: گیلان
-  Astara: false                             # آستارا
-  Astane-ye-Ashrafiyeh: false               # آستانه اشرفیه
-  Bandar-e-Anzali: true                  #  # بندرانزلی
-  Talesh: false                             # طوالش
-  Rasht: true                            #  # رشت
-  Rudbar: false                             # رودبار
-  Rudsar: false                             # رودسر
-  Some'e-Sara: false                        # صومعه سرا
-  Fuman: false                              # فومن
-  Langrud: false                            # لنگرود
-  Lahijan: true                          #  # لاهیجان
-  Shaft: false                              # شفت
-  Amlash: false                             # املش
-  Rezvanshahr: false                        # رضوانشهر
-  Siahkal: false                            # سیاهکل
-  Masal: false                              # ماسال
+  Astara: out_of_sample                     # آستارا
+  Astane-ye-Ashrafiyeh: out_of_sample       # آستانه اشرفیه
+  Bandar-e-Anzali: in_sample             #  # بندرانزلی
+  Talesh: out_of_sample                     # طوالش
+  Rasht: in_sample                       #  # رشت
+  Rudbar: out_of_sample                     # رودبار
+  Rudsar: out_of_sample                     # رودسر
+  Some'e-Sara: out_of_sample                # صومعه سرا
+  Fuman: out_of_sample                      # فومن
+  Langrud: out_of_sample                    # لنگرود
+  Lahijan: in_sample                     #  # لاهیجان
+  Shaft: out_of_sample                      # شفت
+  Amlash: out_of_sample                     # املش
+  Rezvanshahr: out_of_sample                # رضوانشهر
+  Siahkal: out_of_sample                    # سیاهکل
+  Masal: out_of_sample                      # ماسال
 
   # 0 2 X X
   # Mazandaran: مازندران
-  Amol: false                               # آمل
-  Babol: true                            #  # بابل
-  Behshahr: true                         #  # بهشهر
-  Tonekabon: true                        #  # تنکابن
-  Ramsar: false                             # رامسر
-  Sari: true                             #  # ساری
-  Savadkuh: false                           # سوادکوه
-  Qaemshahr: false                          # قائم شهر
-  Nur: false                                # نور
-  Noshahr: false                            # نوشهر
-  Babolsar: false                           # بابلسر
-  Mahmudabad: false                         # محمودآباد
-  Neka: false                               # نکا
-  Chalus: true                           #  # چالوس
-  Juybar: false                             # جویبار
-  Galugah: false                            # گلوگاه
-  Feredunkenar: false                       # فریدونکنار
-  Abbasabad: false                          # عباس آباد
-  Miandorud: false                          # میاندورود
-  Simorgh: false                            # سیمرغ
-  Northern_Savadkooh: false                 # سوادکوه شمالی
-  Kelardasht: false                         # کلاردشت
+  Amol: out_of_sample                       # آمل
+  Babol: in_sample                       #  # بابل
+  Behshahr: in_sample                    #  # بهشهر
+  Tonekabon: in_sample                   #  # تنکابن
+  Ramsar: out_of_sample                     # رامسر
+  Sari: in_sample                        #  # ساری
+  Savadkuh: out_of_sample                   # سوادکوه
+  Qaemshahr: out_of_sample                  # قائم شهر
+  Nur: out_of_sample                        # نور
+  Noshahr: out_of_sample                    # نوشهر
+  Babolsar: out_of_sample                   # بابلسر
+  Mahmudabad: out_of_sample                 # محمودآباد
+  Neka: out_of_sample                       # نکا
+  Chalus: in_sample                      #  # چالوس
+  Juybar: out_of_sample                     # جویبار
+  Galugah: out_of_sample                    # گلوگاه
+  Feredunkenar: out_of_sample               # فریدونکنار
+  Abbasabad: out_of_sample                  # عباس آباد
+  Miandorud: out_of_sample                  # میاندورود
+  Simorgh: out_of_sample                    # سیمرغ
+  Northern_Savadkooh: out_of_sample         # سوادکوه شمالی
+  Kelardasht: out_of_sample                 # کلاردشت
 
   # 0 3 X X
   # East_Azerbaijan: آذربایجان شرقی
-  Ahar: true                                # اهر
-  Tabriz: true                              # تبریز
-  Sarab: true                               # سراب
-  Maragheh: true                            # مراغه
-  Marand: false                             # مرند
-  Mianeh: false                             # میانه
-  Hashtrud: false                           # هشترود
-  Bonab: false                              # بناب
-  Bostanabad: false                         # بستان آباد
-  Shabestar: false                          # شبستر
-  Kalibar: false                            # کلیبر
-  Heris: false                              # هریس
-  Jolfa: false                              # جلفا
-  Malekan: false                            # ملکان
-  Azarshahr: false                          # آذرشهر
-  Osku: false                               # اسکو
-  Charuymaq: false                          # چاراویماق
-  Varzaqan: false                           # ورزقان
-  Ajabshir: false                           # عجب شیر
-  Khodaafarin: false                        # خداآفرین
+  Ahar: in_sample                           # اهر
+  Tabriz: in_sample                         # تبریز
+  Sarab: in_sample                          # سراب
+  Maragheh: in_sample                       # مراغه
+  Marand: out_of_sample                     # مرند
+  Mianeh: out_of_sample                     # میانه
+  Hashtrud: out_of_sample                   # هشترود
+  Bonab: out_of_sample                      # بناب
+  Bostanabad: out_of_sample                 # بستان آباد
+  Shabestar: out_of_sample                  # شبستر
+  Kalibar: out_of_sample                    # کلیبر
+  Heris: out_of_sample                      # هریس
+  Jolfa: out_of_sample                      # جلفا
+  Malekan: out_of_sample                    # ملکان
+  Azarshahr: out_of_sample                  # آذرشهر
+  Osku: out_of_sample                       # اسکو
+  Charuymaq: out_of_sample                  # چاراویماق
+  Varzaqan: out_of_sample                   # ورزقان
+  Ajabshir: out_of_sample                   # عجب شیر
+  Khodaafarin: out_of_sample                # خداآفرین
 
   # 0 4 X X
   # West_Azerbaijan: آذربایجان غربی
-  Urumia: true                              # ارومیه
-  Piranshahr: false                         # پیرانشهر
-  Khoy: true                                # خوی
-  Sardasht: false                           # سردشت
-  Salmas: false                             # سلماس
-  Maku: true                                # ماکو
-  Mahabad: true                             # مهاباد
-  Miandoab: false                           # میاندوآب
-  Naqadeh: false                            # نقده
-  Bukan: false                              # بوکان
-  Shahindej: false                          # شاهین دژ
-  Takab: false                              # تکاب
-  Oshnaviyeh: false                         # اشنویه
-  Chaldoran: false                          # چالدران
-  Poldasht: false                           # پلدشت
-  Chaypareh: false                          # چایپاره
-  Showt: false                              # شوط
+  Urumia: in_sample                         # ارومیه
+  Piranshahr: out_of_sample                 # پیرانشهر
+  Khoy: in_sample                           # خوی
+  Sardasht: out_of_sample                   # سردشت
+  Salmas: out_of_sample                     # سلماس
+  Maku: in_sample                           # ماکو
+  Mahabad: in_sample                        # مهاباد
+  Miandoab: out_of_sample                   # میاندوآب
+  Naqadeh: out_of_sample                    # نقده
+  Bukan: out_of_sample                      # بوکان
+  Shahindej: out_of_sample                  # شاهین دژ
+  Takab: out_of_sample                      # تکاب
+  Oshnaviyeh: out_of_sample                 # اشنویه
+  Chaldoran: out_of_sample                  # چالدران
+  Poldasht: out_of_sample                   # پلدشت
+  Chaypareh: out_of_sample                  # چایپاره
+  Showt: out_of_sample                      # شوط
 
   # 0 5 X X
   # Kermanshah: کرمانشاه
-  Islamabad-e-Gharb: false                  # اسلام آبادغرب
-  Kermanshah: true                          # کرمانشاه
-  Paveh: false                              # پاوه
-  Sarpol-e-Zahab: false                     # سرپل ذهاب
-  Sonqor: true                              # سنقر
-  Qasr-e-Shirin: false                      # قصرشیرین
-  Kangavar: false                           # کنگاور
-  Gilan-e-Gharb: false                      # گیلانغرب
-  Javanrud: false                           # جوانرود
-  Sahneh: false                             # صحنه
-  Harsin: false                             # هرسین
-  Solas-e-Babajani: false                   # ثلاث باباجانی
-  Dalaho: false                             # دالاهو
-  Ravansar: false                           # روانسر
+  Islamabad-e-Gharb: out_of_sample          # اسلام آبادغرب
+  Kermanshah: in_sample                     # کرمانشاه
+  Paveh: out_of_sample                      # پاوه
+  Sarpol-e-Zahab: out_of_sample             # سرپل ذهاب
+  Sonqor: in_sample                         # سنقر
+  Qasr-e-Shirin: out_of_sample              # قصرشیرین
+  Kangavar: out_of_sample                   # کنگاور
+  Gilan-e-Gharb: out_of_sample              # گیلانغرب
+  Javanrud: out_of_sample                   # جوانرود
+  Sahneh: out_of_sample                     # صحنه
+  Harsin: out_of_sample                     # هرسین
+  Solas-e-Babajani: out_of_sample           # ثلاث باباجانی
+  Dalaho: out_of_sample                     # دالاهو
+  Ravansar: out_of_sample                   # روانسر
 
   # 0 6 X X
   # Khuzestan: خوزستان
-  Abadan: true                              # آبادان
-  Andimeshk: false                          # اندیمشک
-  Ahvaz: true                               # اهواز
-  Izeh: false                               # ایذه
-  Mahshahr: false                           # بندرماهشهر
-  Behbahan: true                            # بهبهان
-  Khorramshahr: false                       # خرمشهر
-  Dezful: true                              # دزفول
-  Dasht-e-Azadegan: false                   # دشت آزادگان
-  Ramhormoz: false                          # رامهرمز
-  Shadegan: false                           # شادگان
-  Shushtar: false                           # شوشتر
-  Masjed-Soleyman: false                    # مسجدسلیمان
-  Shush: false                              # شوش
-  Baghmalek: false                          # باغ ملک
-  Omidiyeh: false                           # امیدیه
-  Lali: false                               # لالی
-  Hendijan: false                           # هندیجان
-  Ramshir: false                            # رامشیر
-  Guotvand: false                           # گتوند
-  Andika: false                             # اندیکا
-  Haftgol: false                            # هفتگل
-  Hoveizeh: false                           # هویزه
-  Bavi: false                               # باوی
-  Hamidieh: false                           # حمیدیه
-  Aghajari: false                           # آغاجاری
-  Karoun: false                             # کارون
+  Abadan: in_sample                         # آبادان
+  Andimeshk: out_of_sample                  # اندیمشک
+  Ahvaz: in_sample                          # اهواز
+  Izeh: out_of_sample                       # ایذه
+  Mahshahr: out_of_sample                   # بندرماهشهر
+  Behbahan: in_sample                       # بهبهان
+  Khorramshahr: out_of_sample               # خرمشهر
+  Dezful: in_sample                         # دزفول
+  Dasht-e-Azadegan: out_of_sample           # دشت آزادگان
+  Ramhormoz: out_of_sample                  # رامهرمز
+  Shadegan: out_of_sample                   # شادگان
+  Shushtar: out_of_sample                   # شوشتر
+  Masjed-Soleyman: out_of_sample            # مسجدسلیمان
+  Shush: out_of_sample                      # شوش
+  Baghmalek: out_of_sample                  # باغ ملک
+  Omidiyeh: out_of_sample                   # امیدیه
+  Lali: out_of_sample                       # لالی
+  Hendijan: out_of_sample                   # هندیجان
+  Ramshir: out_of_sample                    # رامشیر
+  Guotvand: out_of_sample                   # گتوند
+  Andika: out_of_sample                     # اندیکا
+  Haftgol: out_of_sample                    # هفتگل
+  Hoveizeh: out_of_sample                   # هویزه
+  Bavi: out_of_sample                       # باوی
+  Hamidieh: out_of_sample                   # حمیدیه
+  Aghajari: out_of_sample                   # آغاجاری
+  Karoun: out_of_sample                     # کارون
 
   # 0 7 X X
   # Fars: فارس
-  Abadeh: false                             # آباده
-  Estahban: false                           # استهبان
-  Eqlid: true                               # اقلید
-  Jahrom: false                             # جهرم
-  Darab: true                               # داراب
-  Sepidan: false                            # سپیدان
-  Shiraz: true                              # شیراز
-  Fasa: false                               # فسا
-  Firuzabad: false                          # فیروزآباد
-  Kazerun: true                             # کازرون
-  Larestan: false                           # لارستان
-  Marvdasht: false                          # مرودشت
-  Mamasani: false                           # ممسنی
-  Neyriz: false                             # نی ریز
-  Lamerd: false                             # لامرد
-  Bavanat: false                            # بوانات
-  Arsanjan: false                           # ارسنجان
-  Khorrambid: false                         # خرم بید
-  Zarrindasht: false                        # زرین دشت
-  Qir-o-Karzin: false                       # قیروکارزین
-  Mehr: false                               # مهر
-  Farashband: false                         # فراشبند
-  Pasargad: false                           # پاسارگاد
-  Khonj: false                              # خنج
-  Sarvestan: false                          # سروستان
-  Rostam: false                             # رستم
-  Gerash: false                             # گراش
-  Kavar: false                              # کوار
-  Kherameh: false                           # خرامه
+  Abadeh: out_of_sample                     # آباده
+  Estahban: out_of_sample                   # استهبان
+  Eqlid: in_sample                          # اقلید
+  Jahrom: out_of_sample                     # جهرم
+  Darab: in_sample                          # داراب
+  Sepidan: out_of_sample                    # سپیدان
+  Shiraz: in_sample                         # شیراز
+  Fasa: out_of_sample                       # فسا
+  Firuzabad: out_of_sample                  # فیروزآباد
+  Kazerun: in_sample                        # کازرون
+  Larestan: out_of_sample                   # لارستان
+  Marvdasht: out_of_sample                  # مرودشت
+  Mamasani: out_of_sample                   # ممسنی
+  Neyriz: out_of_sample                     # نی ریز
+  Lamerd: out_of_sample                     # لامرد
+  Bavanat: out_of_sample                    # بوانات
+  Arsanjan: out_of_sample                   # ارسنجان
+  Khorrambid: out_of_sample                 # خرم بید
+  Zarrindasht: out_of_sample                # زرین دشت
+  Qir-o-Karzin: out_of_sample               # قیروکارزین
+  Mehr: out_of_sample                       # مهر
+  Farashband: out_of_sample                 # فراشبند
+  Pasargad: out_of_sample                   # پاسارگاد
+  Khonj: out_of_sample                      # خنج
+  Sarvestan: out_of_sample                  # سروستان
+  Rostam: out_of_sample                     # رستم
+  Gerash: out_of_sample                     # گراش
+  Kavar: out_of_sample                      # کوار
+  Kherameh: out_of_sample                   # خرامه
 
   # 0 8 X X
   # Kerman: کرمان
-  Baft: false                               # بافت
-  Bam: true                                 # بم
-  Jiroft: false                             # جیرفت
-  Rafsanjan: true                           # رفسنجان
-  Zarand: false                             # زرند
-  Sirjan: false                             # سیرجان
-  Shahr-e-Babak: false                      # شهربابک
-  Kerman: true                              # کرمان
-  Kahnuj: false                             # کهنوج
-  Bardsir: false                            # بردسیر
-  Ravar: false                              # راور
-  Anbarabad: false                          # عنبرآباد
-  Manujan: false                            # منوجان
-  Kuhbonan: false                           # کوهبنان
-  Roudbar-e-Jonub: false                    # رودبارجنوب
-  Ghaleye-Ganj: false                       # قلعه گنج
-  Rigan: false                              # ریگان
-  Rabar: false                              # رابر
-  Fahraj: false                             # فهرج
-  Anar: false                               # انار
-  Normashir: false                          # نرماشیر
-  Faryab: false                             # فاریاب
-  Arzuiyeh: false                           # ارزوئیه
+  Baft: out_of_sample                       # بافت
+  Bam: in_sample                            # بم
+  Jiroft: out_of_sample                     # جیرفت
+  Rafsanjan: in_sample                      # رفسنجان
+  Zarand: out_of_sample                     # زرند
+  Sirjan: out_of_sample                     # سیرجان
+  Shahr-e-Babak: out_of_sample              # شهربابک
+  Kerman: in_sample                         # کرمان
+  Kahnuj: out_of_sample                     # کهنوج
+  Bardsir: out_of_sample                    # بردسیر
+  Ravar: out_of_sample                      # راور
+  Anbarabad: out_of_sample                  # عنبرآباد
+  Manujan: out_of_sample                    # منوجان
+  Kuhbonan: out_of_sample                   # کوهبنان
+  Roudbar-e-Jonub: out_of_sample            # رودبارجنوب
+  Ghaleye-Ganj: out_of_sample               # قلعه گنج
+  Rigan: out_of_sample                      # ریگان
+  Rabar: out_of_sample                      # رابر
+  Fahraj: out_of_sample                     # فهرج
+  Anar: out_of_sample                       # انار
+  Normashir: out_of_sample                  # نرماشیر
+  Faryab: out_of_sample                     # فاریاب
+  Arzuiyeh: out_of_sample                   # ارزوئیه
 
   # 0 9 X X
   # Razavi_Khorasan: خراسان رضوی
-  Taybad: false                             # تایباد
-  Torbat-e-Heydarieh: true                  # تربت حیدریه
-  Torbat-e-Jam: false                       # تربت جام
-  Dargaz: false                             # درگز
-  Sabzevar: true                            # سبزوار
-  Quchan: false                             # قوچان
-  Kashmar: false                            # کاشمر
-  Gonabad: false                            # گناباد
-  Mashhad: true                             # مشهد
-  Nishapur: false                           # نیشابور
-  Chenaran: false                           # چناران
-  Khaf: false                               # خواف
-  Sarakhs: false                            # سرخس
-  Fariman: false                            # فریمان
-  Bardaskan: false                          # بردسکن
-  Rashtkhar: false                          # رشتخوار
-  Kalat: false                              # کلات
-  Khalilabad: false                         # خلیل آباد
-  Mahvelat: false                           # مه ولات
-  Bajestan: false                           # بجستان
-  Torghabe-o-Shandiz: false                 # بینالود
-  Firuzeh: false                            # فیروزه
-  Joghatai: false                           # جغتای
-  Zave: false                               # زاوه
-  Jowayin: false                            # جوین
-  Bakharz: false                            # باخرز
-  Khoshab: false                            # خوشاب
-  Davarzan: false                           # داورزن
+  Taybad: out_of_sample                     # تایباد
+  Torbat-e-Heydarieh: in_sample             # تربت حیدریه
+  Torbat-e-Jam: out_of_sample               # تربت جام
+  Dargaz: out_of_sample                     # درگز
+  Sabzevar: in_sample                       # سبزوار
+  Quchan: out_of_sample                     # قوچان
+  Kashmar: out_of_sample                    # کاشمر
+  Gonabad: out_of_sample                    # گناباد
+  Mashhad: in_sample                        # مشهد
+  Nishapur: out_of_sample                   # نیشابور
+  Chenaran: out_of_sample                   # چناران
+  Khaf: out_of_sample                       # خواف
+  Sarakhs: out_of_sample                    # سرخس
+  Fariman: out_of_sample                    # فریمان
+  Bardaskan: out_of_sample                  # بردسکن
+  Rashtkhar: out_of_sample                  # رشتخوار
+  Kalat: out_of_sample                      # کلات
+  Khalilabad: out_of_sample                 # خلیل آباد
+  Mahvelat: out_of_sample                   # مه ولات
+  Bajestan: out_of_sample                   # بجستان
+  Torghabe-o-Shandiz: out_of_sample         # بینالود
+  Firuzeh: out_of_sample                    # فیروزه
+  Joghatai: out_of_sample                   # جغتای
+  Zave: out_of_sample                       # زاوه
+  Jowayin: out_of_sample                    # جوین
+  Bakharz: out_of_sample                    # باخرز
+  Khoshab: out_of_sample                    # خوشاب
+  Davarzan: out_of_sample                   # داورزن
 
   # 1 0 X X
   # Isfahan: اصفهان
-  Ardestan: false                           # اردستان
-  Isfahan: true                             # اصفهان
-  Khomeinishahr: false                      # خمینی شهر
-  Khansar: false                            # خوانسار
-  Semirom: false                            # سمیرم
-  Faridan: false                            # فریدن
-  Fereydunshahr: false                      # فریدونشهر
-  Falavarjan: false                         # فلاورجان
-  Shahreza: true                            # شهرضا
-  Kashan: true                              # کاشان
-  Golpayegan: true                          # گلپایگان
-  Lenjan: false                             # لنجان
-  Nain: false                               # نایین
-  Najafabad: false                          # نجف آباد
-  Natanz: false                             # نطنز
-  Shahinshahr-o-Meymeh: false               # شاهین شهرومیمه
-  Mobarakeh: false                          # مبارکه
-  Aran-o-Bidgol: false                      # آران وبیدگل
-  Tiran-o-Korun: false                      # تیران وکرون
-  Chadegan: false                           # چادگان
-  Dehaghan: false                           # دهاقان
-  Borkhar: false                            # برخوار
-  Khorobiyabanak: false                     # خور و بیابانک
-  Booeino_Miyandasht: false                 # بو یین و میاندشت
+  Ardestan: out_of_sample                   # اردستان
+  Isfahan: in_sample                        # اصفهان
+  Khomeinishahr: out_of_sample              # خمینی شهر
+  Khansar: out_of_sample                    # خوانسار
+  Semirom: out_of_sample                    # سمیرم
+  Faridan: out_of_sample                    # فریدن
+  Fereydunshahr: out_of_sample              # فریدونشهر
+  Falavarjan: out_of_sample                 # فلاورجان
+  Shahreza: in_sample                       # شهرضا
+  Kashan: in_sample                         # کاشان
+  Golpayegan: in_sample                     # گلپایگان
+  Lenjan: out_of_sample                     # لنجان
+  Nain: out_of_sample                       # نایین
+  Najafabad: out_of_sample                  # نجف آباد
+  Natanz: out_of_sample                     # نطنز
+  Shahinshahr-o-Meymeh: out_of_sample       # شاهین شهرومیمه
+  Mobarakeh: out_of_sample                  # مبارکه
+  Aran-o-Bidgol: out_of_sample              # آران وبیدگل
+  Tiran-o-Korun: out_of_sample              # تیران وکرون
+  Chadegan: out_of_sample                   # چادگان
+  Dehaghan: out_of_sample                   # دهاقان
+  Borkhar: out_of_sample                    # برخوار
+  Khorobiyabanak: out_of_sample             # خور و بیابانک
+  Booeino_Miyandasht: out_of_sample         # بو یین و میاندشت
 
   # 1 1 X X
   # Sistan_and_Baluchestan: سیتان و بلوچستان
-  Iranshahr: false                          # ایرانشهر
-  Chabahar: false                           # چابهار
-  Khash: false                              # خاش
-  Zabol: true                               # زابل
-  Zahedan: true                             # زاهدان
-  Saravan: false                            # سراوان
-  Nikshahr: false                           # نیک شهر
-  Sarbaz: false                             # سرباز
-  Konarak: false                            # کنارک
-  Zehak: false                              # زهک
-  Hirmand: false                            # هیرمند
-  Dalgan: false                             # دلگان
-  Mehrestan: false                          # مهرستان
-  Sibo_Soran: false                         # سیب و سوران
-  Nimrouz: false                            # نیمروز
-  Hamoun: false                             # هامون
-  Mirjaveh: false                           # میرجاوه
-  Ghasre_Ghand: false                       # قصرقند
-  Fanouj: false                             # فنوج
+  Iranshahr: out_of_sample                  # ایرانشهر
+  Chabahar: out_of_sample                   # چابهار
+  Khash: out_of_sample                      # خاش
+  Zabol: in_sample                          # زابل
+  Zahedan: in_sample                        # زاهدان
+  Saravan: out_of_sample                    # سراوان
+  Nikshahr: out_of_sample                   # نیک شهر
+  Sarbaz: out_of_sample                     # سرباز
+  Konarak: out_of_sample                    # کنارک
+  Zehak: out_of_sample                      # زهک
+  Hirmand: out_of_sample                    # هیرمند
+  Dalgan: out_of_sample                     # دلگان
+  Mehrestan: out_of_sample                  # مهرستان
+  Sibo_Soran: out_of_sample                 # سیب و سوران
+  Nimrouz: out_of_sample                    # نیمروز
+  Hamoun: out_of_sample                     # هامون
+  Mirjaveh: out_of_sample                   # میرجاوه
+  Ghasre_Ghand: out_of_sample               # قصرقند
+  Fanouj: out_of_sample                     # فنوج
 
   # 1 2 X X
   # Kurdistan: کردستان
-  Baneh: false                              # بانه
-  Bijar: false                              # بیجار
-  Saqqez: true                              # سقز
-  Sannandaj: true                           # سنندج
-  Qorveh: false                             # قروه
-  Marivan: false                            # مریوان
-  Divandarreh: false                        # دیواندره
-  Kamyaran: false                           # کامیاران
-  Sarvabad: false                           # سروآباد
-  Dehgolan: false                           # دهگلان
+  Baneh: out_of_sample                      # بانه
+  Bijar: out_of_sample                      # بیجار
+  Saqqez: in_sample                         # سقز
+  Sannandaj: in_sample                      # سنندج
+  Qorveh: out_of_sample                     # قروه
+  Marivan: out_of_sample                    # مریوان
+  Divandarreh: out_of_sample                # دیواندره
+  Kamyaran: out_of_sample                   # کامیاران
+  Sarvabad: out_of_sample                   # سروآباد
+  Dehgolan: out_of_sample                   # دهگلان
   
   # 1 3 X X
   # Hamadan: همدان
-  Tuyserkan: true                           # تویسرکان
-  Malayer: true                             # ملایر
-  Nahavand: false                           # نهاوند
-  Hamadan: true                             # همدان
-  Kabudarahang: false                       # کبودرآهنگ
-  Asadabad: false                           # اسدآباد
-  Bahar: false                              # بهار
-  Razan: false                              # رزن
-  Famenin: false                            # فامنین
+  Tuyserkan: in_sample                      # تویسرکان
+  Malayer: in_sample                        # ملایر
+  Nahavand: out_of_sample                   # نهاوند
+  Hamadan: in_sample                        # همدان
+  Kabudarahang: out_of_sample               # کبودرآهنگ
+  Asadabad: out_of_sample                   # اسدآباد
+  Bahar: out_of_sample                      # بهار
+  Razan: out_of_sample                      # رزن
+  Famenin: out_of_sample                    # فامنین
   
   # 1 4 X X
   # Chaharmahal_and_Bakhtiari: چهارمحال و بختیاری
-  Borujen: true                             # بروجن
-  Shahrekord: true                          # شهرکرد
-  Farsan: false                             # فارسان
-  Lordegan: false                           # لردگان
-  Ardal: false                              # اردل
-  Kuhrang: false                            # کوهرنگ
-  Kiaar: false                              # کیار
-  Saman: false                              # سامان
-  Ben: false                                # بن
+  Borujen: in_sample                        # بروجن
+  Shahrekord: in_sample                     # شهرکرد
+  Farsan: out_of_sample                     # فارسان
+  Lordegan: out_of_sample                   # لردگان
+  Ardal: out_of_sample                      # اردل
+  Kuhrang: out_of_sample                    # کوهرنگ
+  Kiaar: out_of_sample                      # کیار
+  Saman: out_of_sample                      # سامان
+  Ben: out_of_sample                        # بن
 
   # 1 5 X X
   # Lorestan: لرستان
-  Aligudarz: true                           # الیگودرز
-  Borujerd: true                            # بروجرد
-  Khorramabad: true                         # خرم آباد
-  Delfan: false                             # دلفان
-  Dorud: false                              # دورود
-  Kuhdasht: false                           # کوهدشت
-  Azna: false                               # ازنا
-  Poldokhtar: false                         # پلدختر
-  Selseleh: false                           # سلسله
-  Doureh: false                             # دوره
-  Romeshkan: false                          # رومشکان
+  Aligudarz: in_sample                      # الیگودرز
+  Borujerd: in_sample                       # بروجرد
+  Khorramabad: in_sample                    # خرم آباد
+  Delfan: out_of_sample                     # دلفان
+  Dorud: out_of_sample                      # دورود
+  Kuhdasht: out_of_sample                   # کوهدشت
+  Azna: out_of_sample                       # ازنا
+  Poldokhtar: out_of_sample                 # پلدختر
+  Selseleh: out_of_sample                   # سلسله
+  Doureh: out_of_sample                     # دوره
+  Romeshkan: out_of_sample                  # رومشکان
 
   # 1 6 X X
   # Ilam: ایلام
-  Ilam: true                                # ایلام
-  Darreh_Shahr: false                       # دره شهر
-  Dehloran: true                            # دهلران
-  Shirvan-o-Chardavol: false                # چرداول
-  Mehran: false                             # مهران
-  Abdanan:  false                           # آبدانان
-  Eyvan:  false                             # ایوان
-  Malekshahi: false                         # ملکشاهی
-  Sirvan: false                             # سیروان
-  Badre:  false                             # بدره
+  Ilam: in_sample                           # ایلام
+  Darreh_Shahr: out_of_sample               # دره شهر
+  Dehloran: in_sample                       # دهلران
+  Shirvan-o-Chardavol: out_of_sample        # چرداول
+  Mehran: out_of_sample                     # مهران
+  Abdanan: out_of_sample                    # آبدانان
+  Eyvan: out_of_sample                      # ایوان
+  Malekshahi: out_of_sample                 # ملکشاهی
+  Sirvan: out_of_sample                     # سیروان
+  Badre: out_of_sample                      # بدره
 
   # 1 7 X X
   # Kohgiluyeh_and_Boyer_Ahmad: کهگیلویه و بویر احمد
-  Boyer-Ahmad: true                         # بویر احمد (شهر یاسوج)
-  Kohgeluyeh: false                         # کهگیلویه
-  Gachsaran: true                           # گچساران (شهر دوگنبدان)
-  Dena: false                               # دنا
-  Bahmai: false                             # بهمئی
-  Charam: false                             # چرام
-  Basht: false                              # باشت
-  Landeh: false                             # لنده
+  Boyer-Ahmad: in_sample                    # بویر احمد (شهر یاسوج)
+  Kohgeluyeh: out_of_sample                 # کهگیلویه
+  Gachsaran: in_sample                      # گچساران (شهر دوگنبدان)
+  Dena: out_of_sample                       # دنا
+  Bahmai: out_of_sample                     # بهمئی
+  Charam: out_of_sample                     # چرام
+  Basht: out_of_sample                      # باشت
+  Landeh: out_of_sample                     # لنده
 
   # 1 8 X X
   # Bushehr: بوشهر
-  Bushehr: true                             # بوشهر
-  Tangestan: false                          # تنگستان
-  Dashtestan: true                          # دشتستان (شهر برازجان)
-  Dashti: false                             # دشتی
-  Dayyer: false                             # دیر
-  Kangan: false                             # کنگان
-  Ganaveh: false                            # گناوه
-  Deylam: false                             # دیلم
-  Jam: false                                # جم
-  Asaluyeh: false                           # عسلویه
+  Bushehr: in_sample                        # بوشهر
+  Tangestan: out_of_sample                  # تنگستان
+  Dashtestan: in_sample                     # دشتستان (شهر برازجان)
+  Dashti: out_of_sample                     # دشتی
+  Dayyer: out_of_sample                     # دیر
+  Kangan: out_of_sample                     # کنگان
+  Ganaveh: out_of_sample                    # گناوه
+  Deylam: out_of_sample                     # دیلم
+  Jam: out_of_sample                        # جم
+  Asaluyeh: out_of_sample                   # عسلویه
 
   # 1 9 X X
   # Zanjan: زنجان
-  Abhar: true                               # ابهر
-  Khodabandeh: false                        # خدابنده
-  Zanjan: true                              # زنجان
-  Eejrud: false                             # ایجرود
-  Khorramdarreh: false                      # خرمدره
-  Tarom: false                              # طارم
-  Mahneshan: false                          # ماهنشان
-  Soltanieh: false                          # سلطانیه
+  Abhar: in_sample                          # ابهر
+  Khodabandeh: out_of_sample                # خدابنده
+  Zanjan: in_sample                         # زنجان
+  Eejrud: out_of_sample                     # ایجرود
+  Khorramdarreh: out_of_sample              # خرمدره
+  Tarom: out_of_sample                      # طارم
+  Mahneshan: out_of_sample                  # ماهنشان
+  Soltanieh: out_of_sample                  # سلطانیه
 
   # 2 0 X X
   # Semnan: سمنان
-  Damghan: true                             # دامغان
-  Semnan: true                              # سمنان
-  Shahrud: false                            # شاهرود
-  Garmsar: false                            # گرمسار
-  Mehdishahr: false                         # مهدی شهر
-  Aradan: false                             # آرادان
-  Meyami: false                             # میامی
-  Sorkheh: false                            # سرخه
+  Damghan: in_sample                        # دامغان
+  Semnan: in_sample                         # سمنان
+  Shahrud: out_of_sample                    # شاهرود
+  Garmsar: out_of_sample                    # گرمسار
+  Mehdishahr: out_of_sample                 # مهدی شهر
+  Aradan: out_of_sample                     # آرادان
+  Meyami: out_of_sample                     # میامی
+  Sorkheh: out_of_sample                    # سرخه
 
   # 2 1 X X
   # Yazd: یزد
-  Ardekan: true                             # اردکان
-  Bafq: false                               # بافق
-  Taft: false                               # تفت
-  Mehriz: false                             # مهریز
-  Yazd: true                                # یزد
-  Meybod: false                             # میبد
-  Abarkuh: false                            # ابرکوه
-  Ashkezar: false                           # اشکذر
-  Khatam: false                             # خاتم
-  Bahabad: false                            # بهاباد
+  Ardekan: in_sample                        # اردکان
+  Bafq: out_of_sample                       # بافق
+  Taft: out_of_sample                       # تفت
+  Mehriz: out_of_sample                     # مهریز
+  Yazd: in_sample                           # یزد
+  Meybod: out_of_sample                     # میبد
+  Abarkuh: out_of_sample                    # ابرکوه
+  Ashkezar: out_of_sample                   # اشکذر
+  Khatam: out_of_sample                     # خاتم
+  Bahabad: out_of_sample                    # بهاباد
 
   # 2 2 X X
   # Hormozgan: هرمزگان
-  Abumusa: false                            # ابوموسی
-  Bandar-Lengeh: false                      # بندرلنگه
-  Bandar-Abbas: true                        # بندرعباس
-  Qeshm: false                              # قشم
-  Minab: true                               # میناب
-  Jask: false                               # جاسک
-  Rudan: false                              # رودان
-  Hajiabad: false                           # حاجی اباد
-  Bastak: false                             # بستک
-  Khamir: false                             # خمیر
-  Parsian: false                            # پارسیان
-  Sirik: false                              # سیریک
-  Bashagard: false                          # بشاگرد
+  Abumusa: out_of_sample                    # ابوموسی
+  Bandar-Lengeh: out_of_sample              # بندرلنگه
+  Bandar-Abbas: in_sample                   # بندرعباس
+  Qeshm: out_of_sample                      # قشم
+  Minab: in_sample                          # میناب
+  Jask: out_of_sample                       # جاسک
+  Rudan: out_of_sample                      # رودان
+  Hajiabad: out_of_sample                   # حاجی اباد
+  Bastak: out_of_sample                     # بستک
+  Khamir: out_of_sample                     # خمیر
+  Parsian: out_of_sample                    # پارسیان
+  Sirik: out_of_sample                      # سیریک
+  Bashagard: out_of_sample                  # بشاگرد
 
   # 2 3 X X
   # Tehran: تهران
-  Tehran: true                              # تهران
-  Damavand: false                           # دماوند
-  Rey: false                                # ری
-  Shemiranat: false                         # شمیرانات
-  Varamin: true                             # ورامین
-  Shahriar: false                           # شهریار
-  Islamshahr: true                          # اسلام شهر
-  Robat-Karim: false                        # رباط کریم
-  Pakdasht: false                           # پاکدشت
-  Firuzkuh: false                           # فیروزکوه
-  Shahr-e_Qods: false                       # قدس
-  Malard: false                             # ملارد
-  Pishva: false                             # پیشوا
-  Baharestan: false                         # بهارستان
-  Pardis: false                             # پردیس
-  Qarchak: false                            # قرچک
+  Tehran: in_sample                         # تهران
+  Damavand: out_of_sample                   # دماوند
+  Rey: out_of_sample                        # ری
+  Shemiranat: out_of_sample                 # شمیرانات
+  Varamin: in_sample                        # ورامین
+  Shahriar: out_of_sample                   # شهریار
+  Islamshahr: in_sample                     # اسلام شهر
+  Robat-Karim: out_of_sample                # رباط کریم
+  Pakdasht: out_of_sample                   # پاکدشت
+  Firuzkuh: out_of_sample                   # فیروزکوه
+  Shahr-e_Qods: out_of_sample               # قدس
+  Malard: out_of_sample                     # ملارد
+  Pishva: out_of_sample                     # پیشوا
+  Baharestan: out_of_sample                 # بهارستان
+  Pardis: out_of_sample                     # پردیس
+  Qarchak: out_of_sample                    # قرچک
 
   # 2 4 X X
   # Ardabil: اردبیل
-  Ardabil: true                             # اردبیل
-  Bilasavar: false                          # بیله سوار
-  Khalkhal: true                            # خلخال
-  Meshginshahr: false                       # مشگین شهر
-  Germi: false                              # گرمی
-  Parsabad: false                           # پارس آباد
-  Kowsar: false                             # کوثر
-  Namin: false                              # نمین
-  Nir: false                                # نیر
-  Sareyn: false                             # سرعین
+  Ardabil: in_sample                        # اردبیل
+  Bilasavar: out_of_sample                  # بیله سوار
+  Khalkhal: in_sample                       # خلخال
+  Meshginshahr: out_of_sample               # مشگین شهر
+  Germi: out_of_sample                      # گرمی
+  Parsabad: out_of_sample                   # پارس آباد
+  Kowsar: out_of_sample                     # کوثر
+  Namin: out_of_sample                      # نمین
+  Nir: out_of_sample                        # نیر
+  Sareyn: out_of_sample                     # سرعین
 
 
   # 2 5 X X
   # Qom: قم
-  Qom: true                                 # قم
+  Qom: in_sample                            # قم
 
   # 2 6 X X
   # Qazvin: قزوین
-  Buin-Zahra: false                         # بوئین زهرا
-  Takestan: true                            # تاکستان
-  Qazvin: true                              # قزوین
-  Abyek: false                              # آبیک
-  Alborz: false                             # البرز
-  Avaj: false                               # آوج
+  Buin-Zahra: out_of_sample                 # بوئین زهرا
+  Takestan: in_sample                       # تاکستان
+  Qazvin: in_sample                         # قزوین
+  Abyek: out_of_sample                      # آبیک
+  Alborz: out_of_sample                     # البرز
+  Avaj: out_of_sample                       # آوج
 
   # 2 7 X X
   # Golestan: گلستان
-  Bandar-e-Gaz: false                       # بندرگز
-  Bandar-e-Torkaman: false                  # ترکمن
-  Aliabad: false                            # علی آباد
-  Kordkuy: false                            # کردکوی
-  Gorgan: true                              # گرگان
-  Gonbad-e-Kavus: true                      # گنبدکاووس
-  Minudasht: false                          # مینودشت
-  Aqqala: false                             # آق قلا
-  Kolaleh: false                            # کلاله
-  Azadshahr: false                          # آزادشهر
-  Ramian: false                             # رامیان
-  Maravehtapeh: false                       # مراوه تپه
-  Gomishan: false                           # گمیشان
-  Galikash: false                           # گالیکش
+  Bandar-e-Gaz: out_of_sample               # بندرگز
+  Bandar-e-Torkaman: out_of_sample          # ترکمن
+  Aliabad: out_of_sample                    # علی آباد
+  Kordkuy: out_of_sample                    # کردکوی
+  Gorgan: in_sample                         # گرگان
+  Gonbad-e-Kavus: in_sample                 # گنبدکاووس
+  Minudasht: out_of_sample                  # مینودشت
+  Aqqala: out_of_sample                     # آق قلا
+  Kolaleh: out_of_sample                    # کلاله
+  Azadshahr: out_of_sample                  # آزادشهر
+  Ramian: out_of_sample                     # رامیان
+  Maravehtapeh: out_of_sample               # مراوه تپه
+  Gomishan: out_of_sample                   # گمیشان
+  Galikash: out_of_sample                   # گالیکش
 
   # 2 8 X X
   # North_Khorasan: خراسان شمالی
-  Esfarayen: false                          # اسفراین
-  Bojnurd: true                             # بجنورد
-  Jajrom: false                             # جاجرم
-  Shirvan: true                             # شیروان
-  Faroj: false                              # فاروج
-  Maneh-o-Samalqan: false                   # مانه و سملقان
-  Germeh: false                             # گرمه
-  Razo_Jalgelan: false                      # راز و جرگلان
+  Esfarayen: out_of_sample                  # اسفراین
+  Bojnurd: in_sample                        # بجنورد
+  Jajrom: out_of_sample                     # جاجرم
+  Shirvan: in_sample                        # شیروان
+  Faroj: out_of_sample                      # فاروج
+  Maneh-o-Samalqan: out_of_sample           # مانه و سملقان
+  Germeh: out_of_sample                     # گرمه
+  Razo_Jalgelan: out_of_sample              # راز و جرگلان
 
   # 2 9 X X
   # South_Khorasan: خراسان جنوبی
-  Birjand: true                             # بیرجند
-  Darmian: false                            # درمیان
-  Sarbisheh: false                          # سربیشه
-  Qaen: true                                # قائنات
-  Nehbandan: false                          # نهبندان
-  Sarayan: false                            # سرایان
-  Ferdows: false                            # فردوس
-  Boshruyeh: false                          # بشرویه
-  Zirkouh: false                            # زیرکوه
-  Khusf: false                              # خوسف
-  Tabas: false                              # طبس
+  Birjand: in_sample                        # بیرجند
+  Darmian: out_of_sample                    # درمیان
+  Sarbisheh: out_of_sample                  # سربیشه
+  Qaen: in_sample                           # قائنات
+  Nehbandan: out_of_sample                  # نهبندان
+  Sarayan: out_of_sample                    # سرایان
+  Ferdows: out_of_sample                    # فردوس
+  Boshruyeh: out_of_sample                  # بشرویه
+  Zirkouh: out_of_sample                    # زیرکوه
+  Khusf: out_of_sample                      # خوسف
+  Tabas: out_of_sample                      # طبس
 
   # 3 0 X X
   # Alborz: البرز
-  Karaj: true                               # کرج
-  Savojbolagh: false                        # ساوجبلاغ
-  Nazarabad: false                          # نظرآباد
-  Taleghan:  false                          # طالقان
-  Eshtehard: false                          # اشتهارد
-  Fardis:  false                            # فردیس
+  Karaj: in_sample                          # کرج
+  Savojbolagh: out_of_sample                # ساوجبلاغ
+  Nazarabad: out_of_sample                  # نظرآباد
+  Taleghan: out_of_sample                   # طالقان
+  Eshtehard: out_of_sample                  # اشتهارد
+  Fardis: out_of_sample                     # فردیس
 
 
 geodiv_county_mapping_1391:
@@ -1180,9 +1180,6 @@ geodiv_county_mapping_1390:
   '2910': '2901'
   '2911': '2110'
   '3005': '3001'
-
-
-geodiv_county_mapping_1389: {}
 
 
 geodiv_county_mapping_1388:

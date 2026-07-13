@@ -29,9 +29,9 @@ from concurrent.futures import ThreadPoolExecutor
 import pandas as pd
 import yaml
 
-from . import decoder
+from . import core
 
-from . import data_cleaner
+from .core import data_cleaner
 from bssir.context import Context
 from bssir.context.config.models import LoadTableSettings
 
@@ -269,16 +269,16 @@ class Pipeline:
             return
         method_input["lib_defaults"] = self.pipeline_params["lib_defaults"]
         method_input["lib_metadata"] = self.pipeline_params["lib_metadata"]
-        settings = decoder.DecoderSettings(**method_input)
-        self.table = decoder.Decoder(self.table, settings, context=self.context).add_classification()
+        settings = core.DecoderSettings(**method_input)
+        self.table = core.Decoder(self.table, settings, context=self.context).add_classification()
 
     def _add_attribute(self, method_input: dict | None = None) -> None:
         if method_input is None:
             return
         method_input["lib_defaults"] = self.pipeline_params["lib_defaults"]
         method_input["lib_metadata"] = self.pipeline_params["lib_metadata"]
-        settings = decoder.IDDecoderSettings(**method_input)
-        self.table = decoder.IDDecoder(self.table, settings, context=self.context).add_attribute()
+        settings = core.IDDecoderSettings(**method_input)
+        self.table = core.IDDecoder(self.table, settings, context=self.context).add_attribute()
 
     def _apply_order(self, method_input: list):
         new_order = [

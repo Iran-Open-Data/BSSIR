@@ -1,91 +1,64 @@
 from pathlib import Path
-from functools import cached_property
+import tomllib
 from typing import Annotated, Literal
-import urllib.parse
 
 from pydantic import BaseModel, BeforeValidator, model_validator
 
-from bssir.context.utils.parser import parse_years, Years
+from bssir.utils.parse import parse_years, Years
 
+from .credential import credential_adapter
+from .directory import Directories, DirectoriesNames
+from .mirror import Mirror
 
 CoveragePeriod = Annotated[list[int], BeforeValidator(parse_years)]
 
 
-class DirectoriesNames(BaseModel):
-    original: str
-    unpacked: str
-    extracted: str
-    cleaned: str
-    external: str
-    maps: str
-    cached: str
+# class Mirror(BaseModel):
+#     name: str
+#     bucket_name: str
 
+#     endpoint: str | None = None
+#     region_name: str | None = None
+#     url_format: str | None = None
+#     directory_names: DirectoriesNames
 
-class Directories(BaseModel):
-    original: Path
-    unpacked: Path
-    extracted: Path
-    cleaned: Path
-    external: Path
-    maps: Path
-    cached: Path
+#     @model_validator(mode="after")
+#     def validate_address_configuration(self) -> "Mirror":
+#         if self.endpoint is None:
+#             missing = []
 
+#             if self.region_name is None:
+#                 missing.append("region_name")
 
-class OnlineDirectories(BaseModel):
-    original: str
-    unpacked: str
-    extracted: str
-    cleaned: str
-    external: str
-    maps: str
+#             if self.url_format is None:
+#                 missing.append("url_format")
 
+#             if missing:
+#                 raise ValueError(
+#                     "Mirror configuration is invalid. "
+#                     f"Missing {', '.join(missing)} when endpoint is not provided."
+#                 )
 
-class Mirror(BaseModel):
-    name: str
-    bucket_name: str
+#         return self
 
-    endpoint: str | None = None
-    region_name: str | None = None
-    url_format: str | None = None
-    directory_names: DirectoriesNames
+#     @property
+#     def bucket_address(self) -> str:
+#         if self.endpoint:
+#             return urllib.parse.urljoin(f"{self.endpoint}/", self.bucket_name)
 
-    @model_validator(mode="after")
-    def validate_address_configuration(self) -> "Mirror":
-        if self.endpoint is None:
-            missing = []
+#         return self.url_format.format(**self.model_dump()) # type: ignore
 
-            if self.region_name is None:
-                missing.append("region_name")
+#     @cached_property
+#     def dirs(self) -> RemoteDirectories:
+#         return self._create_remote_dirs()
 
-            if self.url_format is None:
-                missing.append("url_format")
-
-            if missing:
-                raise ValueError(
-                    "Mirror configuration is invalid. "
-                    f"Missing {', '.join(missing)} when endpoint is not provided."
-                )
-
-        return self
-
-    @property
-    def bucket_address(self) -> str:
-        if self.endpoint:
-            return urllib.parse.urljoin(f"{self.endpoint}/", self.bucket_name)
-
-        return self.url_format.format(**self.model_dump()) # type: ignore
-
-    @cached_property
-    def dirs(self) -> OnlineDirectories:
-        return self._create_online_dirs()
-
-    def _create_online_dirs(self) -> OnlineDirectories:
-        return OnlineDirectories(
-            **{
-                k: f"{self.bucket_address}/{v}"
-                for k, v in self.directory_names.model_dump()
-            }
-        )
+#     def _create_remote_dirs(self) -> RemoteDirectories:
+#         return RemoteDirectories(
+#             **{
+#                 k: f"{self.bucket_address}/{v}"
+#                 for k, v in self.directory_names.model_dump().items()
+#             }
+#         )
 
 
 class StandardColumns(BaseModel):
@@ -141,6 +114,11 @@ class FunctionsConfig(BaseModel):
     load_external_table: LoadExternalTableSettings
 
 
+class ToolsConfig(BaseModel):
+    unrar: str | None = None
+    sevenzip: str | None = None
+
+
 class Docs(BaseModel):
     csv: Path
     raw_tables: Path
@@ -153,10 +131,13 @@ class Config(BaseModel):
     coverage_period: CoveragePeriod
 
     default_download_source: str
-    private_data: bool
+
+    tools: ToolsConfig
 
     mirrors: list[Mirror]
     default_mirror: str | None = None
+
+    credentials_file: Path
 
     base_package_dir: Path
     package_dir: Path
@@ -176,6 +157,22 @@ class Config(BaseModel):
     package_metadata: dict
     local_metadata: dict
     docs: Docs
+
+    @model_validator(mode="after")
+    def load_private_mirror_credentials(self) -> "Config":
+        if not self.credentials_file.exists():
+            return self
+
+        with open(self.credentials_file, "rb") as f:
+            tokens_data = tomllib.load(f)
+
+        for mirror in self.mirrors:
+            if mirror.name in tokens_data:
+                raw_creds = tokens_data[mirror.name]
+                cred_instance = credential_adapter.validate_python(raw_creds)
+                mirror._credentials = cred_instance
+
+        return self
 
     def get_mirror(self, name: str | Literal["default", "mirror"] | None = None) -> Mirror:
         """

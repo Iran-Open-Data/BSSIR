@@ -5,5 +5,5 @@ from pydantic import BaseModel, Field
 
 class Source(BaseModel):
     name: str
-    form: Literal["cleaned", "normalized"]
+    form: Literal["cleaned", "normalized"] = "cleaned"
     columns: list[str] | None = None

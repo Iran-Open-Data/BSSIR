@@ -1,0 +1,21 @@
+# Resources associated with the dataset.
+#
+# Resources may be shared across multiple years or specific to a
+# particular release year.
+#
+# Structure:
+#   metadata:
+#     files:
+#       - name: Resource identifier
+#         type: Resource type
+#         sources:
+#           original: Source URL
+#           <mirror_name>: Mirror URL
+#
+#   <year>:
+#     files:
+#       - name: Resource identifier
+#         type: Resource type
+#         sources:
+#           original: Source URL
+#           <mirror_name>: Mirror URL

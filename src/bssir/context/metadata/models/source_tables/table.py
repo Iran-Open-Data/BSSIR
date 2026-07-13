@@ -7,7 +7,7 @@ from pydantic import BaseModel, ConfigDict, field_validator, Field, model_valida
 
 from bssir.exceptions import MetadataResolutionError, TableResolutionError
 from bssir.context.config import Config
-from bssir.context.utils.argham import Argham
+from bssir.utils.argham import Argham
 from ..common import MetadataNode, collapse_years
 from .column import Column, ResolvedColumn
 
@@ -144,7 +144,7 @@ class SourceTable(MetadataNode):
         }
 
     def resolve(self, year: int, **optional_settings) -> ResolvedTable:
-        resolved = super().resolve(year=year, **optional_settings)
+        resolved = super().resolve(year=year, add_year=True, **optional_settings)
 
         try:
             return ResolvedTable(
@@ -155,7 +155,7 @@ class SourceTable(MetadataNode):
 
         except MetadataResolutionError as exc:
             raise TableResolutionError(
-                table=self.name,
+                name=self.name,
                 year=year,
                 resolved=resolved,
                 error=exc,
@@ -163,7 +163,7 @@ class SourceTable(MetadataNode):
 
         except ValidationError as exc:
             raise TableResolutionError(
-                table=self.name,
+                name=self.name,
                 year=year,
                 resolved=resolved,
                 error=exc,

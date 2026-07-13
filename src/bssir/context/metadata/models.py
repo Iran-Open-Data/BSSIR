@@ -613,7 +613,7 @@
 
 # METADATA_MODELS: dict[str, type[Metadata]] = {
 #     "instruction": Metadata,
-#     "raw_files": Metadata,
+#     "resources": Metadata,
 #     "id_schema": Metadata,
 #     "source_tables": SourceTablesMetadata,
 #     "schema": Metadata,

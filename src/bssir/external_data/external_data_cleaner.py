@@ -8,7 +8,7 @@ import pandas as pd
 
 from .. import utils
 from bssir.context import Context
-from bssir.context.utils.yaml import load_yaml
+from bssir.utils.yaml import load_yaml
 
 
 class ExternalDataCleaner:

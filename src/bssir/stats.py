@@ -3,7 +3,7 @@ from collections.abc import Iterator
 import pandas as pd
 
 from .api import API, Years
-from . import data_cleaner
+from .core import data_cleaner
 from .calculator import Calculator
 
 

@@ -35,7 +35,7 @@ def test_dependent_package_schema_metadata_is_available(tmp_path):
 def test_dependent_package_raw_file_metadata_is_available(tmp_path):
     context = load_context(package_dir=PACKAGE_DIR, root_dir=tmp_path)
 
-    assert context.metadata.raw_files["sample"] == {
+    assert context.metadata.resources["sample"] == {
         "pattern": "{year}_sample.csv",
         "format": "csv",
     }

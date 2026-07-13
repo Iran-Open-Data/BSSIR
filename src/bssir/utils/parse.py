@@ -1,6 +1,6 @@
 from typing import Iterable
 
-from ..types import Years
+from bssir.types import Years
 
 
 def parse_years(

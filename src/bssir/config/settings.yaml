@@ -29,8 +29,10 @@ local_dir_in_root: true
 # Default source used when downloading data
 default_download_source: original
 
-# Whether this package contains restricted/private datasets
-private_data: false
+
+tools:
+  unrar: unrar
+  sevenzip: 7z
 
 
 # Data Mirrors
@@ -48,6 +50,13 @@ mirrors:
 
 # Default mirror used for data downloads
 default_mirror: arvan
+
+
+# Credentials
+# Path to a TOML file containing mirror credentials.
+# Each mirror is identified by name and stores its access_key,
+# secret_key, and optional session_token.
+credentials_file: tokens.toml
 
 
 # Data Pipeline Folders
@@ -161,7 +170,7 @@ standard_columns:
 # Shared metadata provided by BSSIR.
 base_package_metadata:
   instruction: metadata/_instruction.yaml
-  raw_files: metadata/raw_files.yaml
+  resources: metadata/resources.yaml
   source_tables: metadata/source_tables.yaml
   maps: metadata/maps.yaml
   id_schema: metadata/id_schema.yaml
@@ -176,7 +185,7 @@ base_package_metadata:
 # For example: HBSIR, LFSIR, or other derived packages.
 package_metadata:
   instruction: metadata/_instruction.yaml
-  raw_files: metadata/raw_files.yaml
+  resources: metadata/resources.yaml
   source_tables: metadata/source_tables.yaml
   maps: metadata/maps.yaml
   id_schema: metadata/id_schema.yaml
@@ -191,7 +200,7 @@ package_metadata:
 # package-provided metadata files.
 local_metadata:
   instruction: metadata/_instruction.yaml
-  raw_files: metadata/raw_files.yaml
+  resources: metadata/resources.yaml
   source_tables: metadata/source_tables.yaml
   maps: metadata/maps.yaml
   id_schema: metadata/id_schema.yaml

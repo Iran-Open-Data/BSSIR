@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from bssir.context.utils.yaml import read_yaml
+from bssir.utils.yaml import read_yaml
 
 
 def test_read_yaml_reads_mapping(tmp_path: Path):
