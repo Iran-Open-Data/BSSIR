@@ -1,7 +1,7 @@
 import pytest
 
 from bssir.context import load_context
-from bssir.context.utils.resolver import resolve_metadata
+from bssir.utils.metadata import resolve
 
 inst = load_context().metadata.instruction
 
@@ -51,32 +51,32 @@ categorized_metadata = {
 class TestLocalCases:
     def test_simple_versioned(self):
         for year in range(1350, 1363):
-            assert resolve_metadata(simple_versioned, year) is None
+            assert resolve(simple_versioned, year) is None
         for year in range(1363, 1383):
             assert (
-                resolve_metadata(simple_versioned, year, add_year=False)
+                resolve(simple_versioned, year, add_year=False)
                 == simple_versioned_63_82
             )
         for year in range(1383, 1395):
             assert (
-                resolve_metadata(simple_versioned, year, add_year=False)
+                resolve(simple_versioned, year, add_year=False)
                 == simple_versioned_83
             )
 
     def test_keyword_versioned(self):
         for year in range(1350, 1363):
             assert (
-                resolve_metadata(keyword_versioned, year, add_year=False)
+                resolve(keyword_versioned, year, add_year=False)
                 == keyword_versioned_50_62
             )
         for year in range(1363, 1383):
             assert (
-                resolve_metadata(keyword_versioned, year, add_year=False)
+                resolve(keyword_versioned, year, add_year=False)
                 == keyword_versioned_63_82
             )
         for year in range(1383, 1395):
             assert (
-                resolve_metadata(keyword_versioned, year, add_year=False)
+                resolve(keyword_versioned, year, add_year=False)
                 == keyword_versioned_83
             )
 
@@ -85,104 +85,104 @@ class TestInstruction:
     def test_simple_versioned(self):
         for year in range(1350, 1360):
             assert (
-                resolve_metadata(inst["simple_versioned"], year, add_year=False)
+                resolve(inst["simple_versioned"], year, add_year=False)
                 == inst["simple_versioned_0"]
             )
         for year in range(1360, 1380):
             assert (
-                resolve_metadata(inst["simple_versioned"], year, add_year=False)
+                resolve(inst["simple_versioned"], year, add_year=False)
                 == inst["simple_versioned_1360"]
             )
         for year in range(1380, 1400):
             assert (
-                resolve_metadata(inst["simple_versioned"], year, add_year=False)
+                resolve(inst["simple_versioned"], year, add_year=False)
                 == inst["simple_versioned_1380"]
             )
 
     def test_keyword_versioned(self):
         for year in range(1350, 1360):
             assert (
-                resolve_metadata(inst["keyword_versioned"], year, add_year=False)
+                resolve(inst["keyword_versioned"], year, add_year=False)
                 == inst["keyword_versioned_0"]
             )
         for year in range(1360, 1380):
             assert (
-                resolve_metadata(inst["keyword_versioned"], year, add_year=False)
+                resolve(inst["keyword_versioned"], year, add_year=False)
                 == inst["keyword_versioned_1360"]
             )
         for year in range(1380, 1400):
             assert (
-                resolve_metadata(inst["keyword_versioned"], year, add_year=False)
+                resolve(inst["keyword_versioned"], year, add_year=False)
                 == inst["keyword_versioned_1380"]
             )
 
     def test_sample_1(self):
         for year in range(1350, 1360):
             assert (
-                resolve_metadata(inst["sample_1"], year, add_year=False)
+                resolve(inst["sample_1"], year, add_year=False)
                 == inst["sample_1_0"]
             )
         for year in range(1360, 1370):
             assert (
-                resolve_metadata(inst["sample_1"], year, add_year=False)
+                resolve(inst["sample_1"], year, add_year=False)
                 == inst["sample_1_1360"]
             )
         for year in range(1370, 1380):
             assert (
-                resolve_metadata(inst["sample_1"], year, add_year=False)
+                resolve(inst["sample_1"], year, add_year=False)
                 == inst["sample_1_1370"]
             )
         for year in range(1380, 1400):
             assert (
-                resolve_metadata(inst["sample_1"], year, add_year=False)
+                resolve(inst["sample_1"], year, add_year=False)
                 == inst["sample_1_1380"]
             )
 
     def test_sample_2(self):
         for year in range(1350, 1360):
             assert (
-                resolve_metadata(inst["sample_2"], year, add_year=False)
+                resolve(inst["sample_2"], year, add_year=False)
                 == inst["sample_2_0"]
             )
         for year in range(1360, 1370):
             assert (
-                resolve_metadata(inst["sample_2"], year, add_year=False)
+                resolve(inst["sample_2"], year, add_year=False)
                 == inst["sample_2_1360"]
             )
         for year in range(1370, 1380):
             assert (
-                resolve_metadata(inst["sample_2"], year, add_year=False)
+                resolve(inst["sample_2"], year, add_year=False)
                 == inst["sample_2_1370"]
             )
         for year in range(1380, 1400):
             assert (
-                resolve_metadata(inst["sample_2"], year, add_year=False)
+                resolve(inst["sample_2"], year, add_year=False)
                 == inst["sample_2_1380"]
             )
 
     def test_sample_3(self):
         for year in range(1350, 1360):
             assert (
-                resolve_metadata(inst["sample_3"], year, add_year=False)
+                resolve(inst["sample_3"], year, add_year=False)
                 == inst["sample_3_0"]
             )
         for year in range(1360, 1370):
             assert (
-                resolve_metadata(inst["sample_3"], year, add_year=False)
+                resolve(inst["sample_3"], year, add_year=False)
                 == inst["sample_3_1360"]
             )
         for year in range(1370, 1375):
             assert (
-                resolve_metadata(inst["sample_3"], year, add_year=False)
+                resolve(inst["sample_3"], year, add_year=False)
                 == inst["sample_3_1370"]
             )
         for year in range(1375, 1380):
             assert (
-                resolve_metadata(inst["sample_3"], year, add_year=False)
+                resolve(inst["sample_3"], year, add_year=False)
                 == inst["sample_3_1375"]
             )
         for year in range(1380, 1400):
             assert (
-                resolve_metadata(inst["sample_3"], year, add_year=False)
+                resolve(inst["sample_3"], year, add_year=False)
                 == inst["sample_3_1380"]
             )

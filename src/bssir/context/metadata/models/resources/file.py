@@ -3,10 +3,10 @@ from functools import cached_property
 
 from pydantic import Field
 
-from bssir.context.config.models.mirror import Mirror
-from bssir.context.utils.download import download
+from bssir import utils
+from bssir.context.config.models import Mirror
 from ..common import MetadataNode
-from .states import FileState
+from ....states import FileState
 
 
 class FileMetadata(MetadataNode):
@@ -58,7 +58,7 @@ class FileMetadata(MetadataNode):
 
     @cached_property
     def current_state(self) -> FileState:
-        return FileState.from_file(self.path)
+        return FileState.from_path(self.path)
 
     def save_state(self, state: FileState) -> None:
         self.state_directory.mkdir(parents=True, exist_ok=True)
@@ -69,7 +69,7 @@ class FileMetadata(MetadataNode):
         )
 
     def update_state(self, source_name: str) -> None:
-        self.save_state(FileState.from_file(filepath=self.path, source=source_name))
+        self.save_state(FileState.from_path(filepath=self.path, source=source_name))
 
     def is_ready(self) -> bool:
         state = self.saved_state
@@ -161,7 +161,7 @@ class FileMetadata(MetadataNode):
             source_name = self.config.default_download_source
 
         if source_name in self.sources:
-            path = download(
+            path = utils.download.download(
                 url=self.sources[source_name],
                 path=self.path,
             )
@@ -169,7 +169,7 @@ class FileMetadata(MetadataNode):
             mirror = self.config.get_mirror(source_name)
             path = mirror.download(
                 source=self.get_file_key(mirror),
-                target=self.path,
+                destination=self.path,
             )
 
         self.update_state(source_name)
@@ -180,5 +180,5 @@ class FileMetadata(MetadataNode):
         mirror = self.config.get_mirror(mirror_name)
         return mirror.upload(
             source=self.path,
-            target=self.get_file_key(mirror),
+            destination=self.get_file_key(mirror),
         )

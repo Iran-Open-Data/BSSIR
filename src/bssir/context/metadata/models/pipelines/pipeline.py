@@ -1,13 +1,12 @@
 from pydantic import BaseModel
 
 from ..common import MetadataNode
-from .step import Step
 from .source import Source
 
 
 class ResolvedPipeline(BaseModel):
     sources: list[Source]
-    steps: list[Step]
+    steps: list[dict]
 
 
 class TablePipeline(MetadataNode):

@@ -98,24 +98,24 @@ default_map: humandata
 functions:
   # Setup complete package data
   setup:
-    years: last
+    years: [1403]
     table_names: all
     replace: false
     method: create_from_raw
-    download_source: mirror
+    download_source: null
 
   # Setup raw downloaded data only
   setup_raw_data:
-    years: last
+    years: [1403]
     replace: false
-    download_source: mirror
+    download_source: null
 
   # Load processed package tables
   load_table:
-    years: last
+    years: [1403]
     form: normalized
     on_missing: download
-    download_source: mirror
+    download_source: null
     save_downloaded: true
     redownload: false
     save_created: true

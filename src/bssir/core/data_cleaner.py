@@ -7,9 +7,8 @@ from typing import Literal
 import pandas as pd
 
 from bssir.context import Context
-
-
-pd.set_option('future.no_silent_downcasting', True)
+from bssir.context.states import CleanState
+from bssir.types import Years
 
 
 PANDAS_NUMERICALS = [
@@ -26,6 +25,28 @@ PANDAS_NUMERICALS = [
 ]
 
 
+def build_tables(
+    *,
+    years: Years,
+    tables: str = "all",
+    context: Context,
+    recreate: bool = False,
+) -> None:
+    """Build cleaned tables for multiple years and tables."""
+    pairs = context.tools.create_table_year_pairs(
+        years=years,
+        table_names=tables,
+    )
+
+    for table_name, year in pairs:
+        load_cleaned_table(
+            table_name,
+            year,
+            recreate=recreate,
+            context=context,
+        )
+
+
 def load_cleaned_table(
     table_name: str,
     year: int,
@@ -34,23 +55,21 @@ def load_cleaned_table(
     context: Context,
     **kwargs,
 ) -> pd.DataFrame:
-    path = context.config.dirs.cleaned / str(year) / f"{table_name}.parquet"
-    if not path.exists() or recreate:
-        path.mkdir(parents=True, exist_ok=True)
-        table = create_cleaned_table(table_name=table_name, year=year, context=context)
-        table.to_parquet(path)
-    return pd.read_parquet(path, **kwargs)
+    table_meta = context.metadata.source_tables[table_name].resolve(year)
+    if not table_meta.is_cleaned() or recreate:
+        table = build_cleaned_table(table_name=table_name, year=year, context=context)
+        table.to_parquet(table_meta.cleaned_path)
+        table_meta.update_clean_state()
+    return pd.read_parquet(table_meta.cleaned_path, **kwargs)
 
 
-def create_cleaned_table(
+def build_cleaned_table(
     table_name: str,
     year: int,
     *,
     context: Context,
 ) -> pd.DataFrame:
-    year_directory = context.config.dirs.extracted.joinpath(str(year))
-    context.metadata.resources
-    if not year_directory.exists():
+    if not context.metadata.resources[year].is_extracted():
         raise FileNotFoundError(
             f"Extracted files for year {year} are missing. "
             f"Run setup(years=[{year}]) first."

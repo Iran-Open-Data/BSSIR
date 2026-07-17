@@ -7,8 +7,7 @@ import pandas as pd
 from pydantic import BaseModel, ConfigDict
 
 from bssir.context import Config
-from bssir.utils.yaml import parse_yaml
-from bssir.context.utils.resolver import resolve_metadata
+from bssir import utils
 from bssir.utils.argham import Argham
 
 
@@ -128,7 +127,7 @@ class MetadataNode(BaseModel, Mapping):
             optional_settings["add_year"] = False
 
         if key not in self._resolved_cache:
-            resolved = resolve_metadata(
+            resolved = utils.metadata.resolve(
                 self.content,
                 year,
                 categorize=categorize,
@@ -194,7 +193,7 @@ class Metadata(MetadataNode):
                 except TypeError:
                     pass
 
-            merged.update(parse_yaml(text))
+            merged.update(utils.yaml.parse_yaml(text))
 
         merged = {
             k: v for k, v in merged.items()

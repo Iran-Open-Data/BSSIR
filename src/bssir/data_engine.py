@@ -176,7 +176,7 @@ class TableHandler:
     def _download_table(self, table_name: str) -> pd.DataFrame:
         mirror = self.context.config.get_mirror(self.settings.download_source)
         table = pd.read_parquet(
-            f"{mirror.bucket_address}/"
+            f"{mirror.address}/"
             f"{self.context.config.directory_names.cleaned}/"
             f"{self.year}_{table_name}.parquet"
         )

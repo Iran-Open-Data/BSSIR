@@ -7,6 +7,7 @@ from pydantic import BaseModel, ConfigDict, field_validator, Field, model_valida
 
 from bssir.exceptions import MetadataResolutionError, TableResolutionError
 from bssir.context.config import Config
+from bssir.context.states import CleanState
 from bssir.utils.argham import Argham
 from ..common import MetadataNode, collapse_years
 from .column import Column, ResolvedColumn
@@ -29,6 +30,7 @@ class SourceTableSettings(BaseModel):
 
 
 class ResolvedTable(BaseModel):
+    name: str
     year: int
     file_patterns: str | list[str]
     settings: SourceTableSettings
@@ -59,9 +61,7 @@ class ResolvedTable(BaseModel):
             return value
         if isinstance(value, str):
             return [value]
-        raise ValueError(
-            "Expected a string or a list of strings."
-        )
+        raise ValueError("Expected a string or a list of strings.")
 
     @property
     def extracted_directory(self) -> Path:
@@ -92,6 +92,63 @@ class ResolvedTable(BaseModel):
             )
 
         return sorted(files)
+
+    @property
+    def cleaned_path(self) -> Path:
+        directory = self.config.dirs.cleaned / str(self.year)
+        directory.mkdir(exist_ok=True, parents=True)
+        return directory / f"{self.name}.parquet"
+
+    @property
+    def clean_state_path(self) -> Path:
+        return self.cleaned_path.parent / ".bssir" / f"{self.name}.json"
+
+    @property
+    def saved_clean_state(self) -> CleanState | None:
+        if not self.clean_state_path.exists():
+            return None
+
+        try:
+            return CleanState.model_validate_json(
+                self.clean_state_path.read_text(encoding="utf-8")
+            )
+        except Exception:
+            return None
+
+    @property
+    def current_clean_state(self) -> CleanState:
+        return CleanState.from_paths(
+            output_path=self.cleaned_path,
+            source_paths=self.files,
+            config=self.config,
+        )
+
+    def save_clean_state(self, state: CleanState) -> None:
+        self.clean_state_path.parent.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+
+        self.clean_state_path.write_text(
+            state.model_dump_json(indent=4),
+            encoding="utf-8",
+        )
+
+    def update_clean_state(self) -> None:
+
+        self.save_clean_state(self.current_clean_state)
+
+    def is_cleaned(self) -> bool:
+        saved = self.saved_clean_state
+        if saved is None:
+            return False
+
+        current = self.current_clean_state
+        return (
+            current.output_file == saved.output_file
+            and current.source_files == saved.source_files
+            and current.source_tables_metadata == saved.source_tables_metadata
+        )
 
     def __getitem__(self, key: str) -> ResolvedColumn | None:
         column = self.columns[key]
@@ -148,6 +205,7 @@ class SourceTable(MetadataNode):
 
         try:
             return ResolvedTable(
+                name=self.name,
                 **resolved,
                 config=self.config,
                 default_settings=self.default_settings,

@@ -85,4 +85,3 @@ class Column(MetadataNode):
                 resolved=resolved,
                 error=exc,
             ) from exc
-

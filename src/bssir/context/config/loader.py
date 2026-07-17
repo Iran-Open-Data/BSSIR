@@ -6,7 +6,7 @@ import tomllib
 from typing import Any
 
 from bssir.utils.yaml import load_yaml
-from bssir.utils.transformers import update_dict
+from bssir.utils.dicts import update_dict
 
 
 class ConfigLoader:

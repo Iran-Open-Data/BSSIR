@@ -54,5 +54,5 @@ def load_context(
     )
     initialize_package(config)
     metadata = load_metadata(config)
-    tools = Tools(config=config)
+    tools = Tools(config=config, metadata=metadata)
     return Context(config=config, tools=tools, metadata=metadata)

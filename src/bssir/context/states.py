@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+from collections.abc import Iterable
 from datetime import datetime
 from hashlib import file_digest
 from pathlib import Path
 
 from pydantic import BaseModel
+
+from bssir.context.config import Config
 
 
 class FileState(BaseModel):
@@ -19,7 +22,7 @@ class FileState(BaseModel):
     recorded_at: datetime
 
     @classmethod
-    def from_file(
+    def from_path(
         cls,
         filepath: Path,
         *,
@@ -64,6 +67,12 @@ class FileSnapshot(BaseModel):
         )
 
 
+class MetadataFiles(BaseModel):
+    base: FileSnapshot | None
+    package: FileSnapshot | None
+    local: FileSnapshot | None
+
+
 class UnpackState(BaseModel):
     source_files: dict[str, FileSnapshot]
     output_files: dict[str, FileSnapshot]
@@ -71,7 +80,7 @@ class UnpackState(BaseModel):
     created_at: datetime
 
     @classmethod
-    def from_dirs(
+    def from_paths(
         cls,
         source_dir: Path,
         output_dir: Path,
@@ -100,11 +109,12 @@ class ExtractState(BaseModel):
     created_at: datetime
 
     @classmethod
-    def from_dirs(
+    def from_paths(
         cls,
         source_dir: Path,
         output_dir: Path,
     ) -> "ExtractState":
+
         return cls(
             source_files={
                 str(file.relative_to(source_dir)): FileSnapshot.from_file(file)
@@ -118,5 +128,43 @@ class ExtractState(BaseModel):
                 if file.is_file()
                 and ".bssir" not in file.parts
             },
+            created_at=datetime.now(),
+        )
+
+
+class CleanState(BaseModel):
+    source_files: dict[str, FileSnapshot]
+    output_file: FileSnapshot
+    source_tables_metadata: MetadataFiles
+
+    created_at: datetime
+
+    @classmethod
+    def from_paths(
+        cls,
+        source_paths: Iterable[Path],
+        output_path: Path,
+        config: Config,
+    ) -> "CleanState":
+        metadata_files: dict[str, Path] = {
+            "base": config.base_package_metadata["source_tables"],
+            "package": config.package_metadata["source_tables"],
+            "local": config.local_metadata["source_tables"],
+        }
+        return cls(
+            source_files={
+                file.name: FileSnapshot.from_file(file)
+                for file in sorted(source_paths)
+                if file.is_file()
+                and ".bssir" not in file.parts
+            },
+            output_file=FileSnapshot.from_file(output_path),
+            source_tables_metadata=MetadataFiles(
+                **{
+                    metadata: FileSnapshot.from_file(file_path)
+                    if file_path.exists() else None
+                    for metadata, file_path in metadata_files.items()
+                }
+            ),
             created_at=datetime.now(),
         )

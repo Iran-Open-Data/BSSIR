@@ -56,7 +56,7 @@ def is_file_type(path: Path, file_type: FileType) -> bool:
     return get_file_type(path) == file_type
 
 
-def find_files(
+def find(
     directory: Path,
     file_type: FileType,
 ) -> list[Path]:

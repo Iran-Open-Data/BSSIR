@@ -23,7 +23,7 @@ import pandas as pd
 from pydantic import BaseModel, ConfigDict, Field
 
 from bssir.context import Context
-from bssir.context.utils.resolver import resolve_metadata
+from bssir.utils.metadata import resolve
 
 from .. import utils
 
@@ -374,7 +374,7 @@ class ClassificationDecoder:
         """
         table_list = []
         for year in years:
-            classification_info = resolve_metadata(
+            classification_info = resolve(
                 self.settings.versioned_info, year, categorize=True
             )
             assert isinstance(classification_info, dict)

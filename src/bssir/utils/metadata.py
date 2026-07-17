@@ -364,7 +364,7 @@ class MetadataCategoryResolver(MetadataVersionResolver):
         return categories_list
 
 
-def resolve_metadata(
+def resolve(
     versioned_metadata: dict,
     year: int,
     categorize: bool = False,

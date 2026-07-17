@@ -4,7 +4,7 @@ from pathlib import Path
 
 from ..common import MetadataNode
 from .file import FileMetadata
-from .states import ExtractState, ResourceState, UnpackState
+from ....states import ExtractState, ResourceState, UnpackState
 
 
 class BaseResource(ABC, MetadataNode):
@@ -54,6 +54,13 @@ class BaseResource(ABC, MetadataNode):
         except Exception:
             return None
 
+    @property
+    def current_unpack_state(self) -> UnpackState:
+        return UnpackState.from_paths(
+            source_dir=self.original_path,
+            output_dir=self.unpacked_path,
+        )
+
     def save_unpack_state(self, state: UnpackState) -> None:
         self.unpack_state_path.parent.mkdir(
             parents=True,
@@ -66,23 +73,20 @@ class BaseResource(ABC, MetadataNode):
         )
 
     def update_unpack_state(self) -> None:
-        state = UnpackState.from_dirs(
-            source_dir=self.original_path,
-            output_dir=self.unpacked_path,
-        )
 
-        self.save_unpack_state(state)
+        self.save_unpack_state(self.current_unpack_state)
 
     def is_unpacked(self) -> bool:
         saved = self.saved_unpack_state
         if saved is None:
             return False
 
-        current = UnpackState.from_dirs(
-            self.original_path,
-            self.unpacked_path,
+        current = self.current_unpack_state
+
+        return (
+            saved.source_files == current.source_files
+            and saved.output_files == current.output_files
         )
-        return saved == current
 
     @property
     def extract_state_path(self) -> Path:
@@ -112,7 +116,7 @@ class BaseResource(ABC, MetadataNode):
         )
 
     def update_extract_state(self) -> None:
-        state = ExtractState.from_dirs(
+        state = ExtractState.from_paths(
             source_dir=self.unpacked_path,
             output_dir=self.extracted_path,
         )
@@ -124,7 +128,7 @@ class BaseResource(ABC, MetadataNode):
         if saved is None:
             return False
 
-        current = ExtractState.from_dirs(
+        current = ExtractState.from_paths(
             self.unpacked_path,
             self.extracted_path,
         )

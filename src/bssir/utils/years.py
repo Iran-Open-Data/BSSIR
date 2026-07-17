@@ -3,7 +3,7 @@ from typing import Iterable
 from bssir.types import Years
 
 
-def parse_years(
+def parse(
     years: Years,
     available_years: list[int] | None = None,
 ) -> list[int]:

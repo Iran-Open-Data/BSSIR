@@ -17,7 +17,7 @@ class PublicStorage(BaseS3Storage):
         target.parent.mkdir(parents=True, exist_ok=True)
 
         url = (
-            f"{self.mirror.bucket_address.rstrip('/')}/"
+            f"{self.mirror.address.rstrip('/')}/"
             f"{source.lstrip('/')}"
         )
 

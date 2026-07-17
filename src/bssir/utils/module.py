@@ -4,7 +4,7 @@ import importlib.util
 import sys
 
 
-def import_module_from_path(module_name: str, file_path: PathLike) -> ModuleType:
+def import_from_path(module_name: str, file_path: PathLike) -> ModuleType:
     """Performs a dynamic import of a Python file from a direct file system path.
 
     If the module name is already cached in sys.modules, the existing module is returned.

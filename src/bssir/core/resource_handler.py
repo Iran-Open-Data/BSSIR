@@ -39,19 +39,13 @@ consumers should prefer the cleaned outputs produced by the project's
 data_cleaner / data_engine modules.
 """
 import logging
-from contextlib import contextmanager
-from typing import Generator, Literal
+from typing import Literal
 import shutil
-import platform
 from pathlib import Path
 
 from tqdm.auto import tqdm
-from dbfread import DBF
-import pandas as pd
-import pyodbc
 
-from .. import utils
-from bssir.utils.files import has_file_type, find_files, get_file_type
+from bssir import utils
 from bssir.context import Context
 from bssir.context.metadata.models.resources.resource import BaseResource
 
@@ -199,7 +193,7 @@ def _unpack_resource(
     )
 
     for item in resource.original_path.iterdir():
-        if has_file_type(item, "archive"):
+        if utils.files.has_file_type(item, "archive"):
             context.tools.extract(item, resource.unpacked_path)
         elif item.is_file():
             shutil.copy(
@@ -216,40 +210,63 @@ def _unpack_resource(
 
 
 def _unpack_nested_archives(target_dir: Path, context: Context) -> None:
-    """Iteratively finds and extracts nested archives within a directory.
-
-    This function performs two main actions in a loop until no archives remain:
-    1.  Flattens subdirectories: Moves contents of any subdirectory up into
-        the target directory, then removes the now-empty subdirectory. This
-        handles cases where an archive unpacks into its own folder.
-    2.  Extracts archives: Finds and extracts all archives in the
-        target directory, then deletes the original archive file.
-
-    Parameters
-    ----------
-    target_dir
-        The directory in which to search for and unpack nested archives.
-    """
+    """Recursively unpack nested directories and archives."""
     while True:
-        sub_dirs = [d for d in target_dir.iterdir() if d.is_dir() if not d.name.startswith(".")]
-        for sub_dir in sub_dirs:
-            for item in sub_dir.iterdir():
-                try:
-                    shutil.move(item, target_dir)
-                except shutil.Error as e:
-                    logging.warning(f"Could not move '{item.name}': {e}. It may be a duplicate.")
-            shutil.rmtree(sub_dir)
-        sub_dirs = [d for d in target_dir.iterdir() if d.is_dir()]
-
-        archive_files = find_files(target_dir, "archive")
-        logging.info(f"Found {len(archive_files)} nested archives to unpack.")
-        for archive in archive_files:
-            context.tools.extract(archive, target_dir)
-            archive.unlink()
-        archive_files = find_files(target_dir, "archive")
-
-        if (not archive_files) and (not sub_dirs):
+        flattened = _flatten_nested_dirs(target_dir)
+        extracted = _extract_nested_archives(target_dir, context)
+        if not flattened and not extracted:
             break
+
+
+def _flatten_nested_dirs(target_dir: Path) -> bool:
+    """Move files from nested directories into ``target_dir``.
+
+    Returns
+    -------
+    bool
+        True if any nested directories were processed.
+    """
+    sub_dirs = get_dirs(target_dir)
+    logging.info("Found %d nested directories to unpack.", len(sub_dirs))
+
+    for sub_dir in sub_dirs:
+        for item in sub_dir.iterdir():
+            try:
+                shutil.move(item, target_dir)
+            except shutil.Error as exc:
+                logging.warning(
+                    "Could not move '%s': %s. It may be a duplicate.",
+                    item.name,
+                    exc,
+                )
+        shutil.rmtree(sub_dir)
+
+    return bool(sub_dirs)
+
+
+def _extract_nested_archives(target_dir: Path, context: Context) -> bool:
+    """Extract archives found directly in ``target_dir``.
+
+    Returns
+    -------
+    bool
+        True if any archives were extracted.
+    """
+    archives = utils.files.find(target_dir, "archive")
+    logging.info("Found %d nested archives to unpack.", len(archives))
+
+    for archive in archives:
+        context.tools.extract(archive, target_dir)
+        archive.unlink()
+
+    return bool(archives)
+
+
+def get_dirs(path: Path) -> list[Path]:
+    return [
+        d for d in path.iterdir()
+        if d.is_dir() and not d.name.startswith(".")
+    ]
 
 
 def extract(
@@ -279,215 +296,6 @@ def _extract_resource(resource: BaseResource) -> None:
     target.mkdir(exist_ok=True, parents=True)
 
     for file in resource.unpacked_path.iterdir():
-        _extract_file(file, target)
+        utils.extract.extract(file, target)
 
     resource.update_extract_state()
-
-
-def _extract_file(source: Path, target: Path) -> None:
-    file_type = get_file_type(source)
-    if not file_type:
-        return None
-    
-    EXTRACTORS[file_type](source, target)
-
-
-
-def _extract_access(
-    source: Path,
-    target: Path,
-) -> None:
-    """Extract all non-system tables from an Access file into CSVs.
-
-    Returns
-    -------
-    None
-    """
-    try:
-        with _create_cursor(source) as cursor:
-            table_list = _list_tables(cursor)
-            if not table_list:
-                logging.warning(f"No user tables found in Access DB: {source}")
-                return
-
-            for table_name in tqdm(
-                table_list,
-                desc=f"Extracting tables from {source.name}",
-                # bar_format=lib_defaults.bar_format,
-                unit="Table",
-                leave=False,
-                disable=True,
-            ):
-                _extract_table(
-                    source=source,
-                    target=target,
-                    cursor=cursor,
-                    table_name=table_name,
-                )
-    except pyodbc.Error as exc:
-        logging.error(f"Failed to open Access DB '{source}': {exc}")
-    except Exception as exc:
-        logging.exception(f"Unexpected error extracting from Access DB '{source}': {exc}")
-
-
-@contextmanager
-def _create_cursor(path: Path) -> Generator[pyodbc.Cursor, None, None]:
-    """Yield a cursor connected to an Access database.
-
-    Opens an ODBC connection to the database at ``path`` and yields a
-    ``pyodbc.Cursor`` for executing SQL statements. The cursor and its
-    underlying connection are closed automatically when the context exits,
-    even if an exception occurs.
-
-    Parameters
-    ----------
-    path
-        Path to the Access database file.
-
-    Yields
-    ------
-    pyodbc.Cursor
-        Cursor for executing SQL statements.
-
-    Raises
-    ------
-    pyodbc.Error
-        If the database connection cannot be established.
-    """
-    connection = pyodbc.connect(_make_connection_string(path))
-    cursor = connection.cursor()
-
-    try:
-        yield cursor
-    finally:
-        try:
-            cursor.close()
-        finally:
-            connection.close()
-
-
-def _make_connection_string(path: Path) -> str:
-    """Build an ODBC connection string for an Access database.
-
-    Selects the appropriate ODBC driver for the current platform and
-    returns a connection string suitable for ``pyodbc.connect()``.
-
-    Parameters
-    ----------
-    path
-        Path to the Access database file.
-
-    Returns
-    -------
-    str
-        ODBC connection string for the specified database.
-
-    Notes
-    -----
-    An appropriate ODBC driver must be installed on the host system.
-    Windows uses the Microsoft Access ODBC driver, while other platforms
-    assume an ``MDBTools``-compatible driver.
-    """
-    driver = (
-        "Microsoft Access Driver (*.mdb, *.accdb)"
-        if platform.system() == "Windows"
-        else "MDBTools"
-    )
-
-    return f"DRIVER={{{driver}}};DBQ={path};"
-
-
-def _list_tables(cursor: pyodbc.Cursor) -> list[str]:
-    """Return the names of user tables in an Access database."""
-    names: list[str] = []
-
-    for row in cursor.tables():
-        if getattr(row, "table_type", None) not in (None, "TABLE"):
-            continue
-
-        name = getattr(row, "table_name", row[2])
-
-        if name.startswith("MSys"):
-            continue
-
-        names.append(name)
-
-    return names
-
-
-def _extract_table(
-    cursor: pyodbc.Cursor,
-    source: Path,
-    target: Path,
-    table_name: str,
-) -> None:
-    """Extract a database table to a CSV file."""
-    try:
-        table = _read_table(cursor, table_name)
-
-        name_prefix = source.name.replace(".", "_")
-        file_name = f"{name_prefix}_{table_name}.csv"
-
-        table.to_csv(target / file_name, index=False)
-    except pyodbc.Error as exc:
-        logging.error(
-            "Failed to read table '%s' from '%s': %s",
-            table_name,
-            source,
-            exc,
-        )
-    except Exception:
-        logging.exception(
-            "Failed to extract table '%s' from '%s'.",
-            table_name,
-            source,
-        )
-
-def _read_table(cursor: pyodbc.Cursor, table_name: str) -> pd.DataFrame:
-    """Read a database table into a DataFrame.
-
-    Parameters
-    ----------
-    cursor
-        Open database cursor.
-    table_name
-        Name of the table to read.
-
-    Returns
-    -------
-    pd.DataFrame
-        Contents of the table.
-    """
-    result = cursor.execute(f"SELECT * FROM [{table_name}]")
-    rows = [tuple(row) for row in result.fetchall()]
-    columns = [column[0] for column in result.description]
-
-    table = pd.DataFrame.from_records(rows, columns=columns)
-    return table
-
-
-def _extract_dbf(source: Path, target:Path) -> None:
-    file_name = f"{source.name.replace(".", "_")}.csv"
-    try:
-        table = pd.DataFrame(iter(DBF(source)))
-    except UnicodeDecodeError:
-        table = pd.DataFrame(iter(DBF(source, encoding="cp720")))
-    table.to_csv(target / file_name, index=False)
-
-
-def _extract_stata(source: Path, target:Path) -> None:
-    file_name = f"{source.name.replace(".", "_")}.csv"
-    table = pd.read_stata(source)
-    table.to_csv(target / file_name, index=False)
-
-
-def _move_file(source: Path, target:Path) -> None:
-    shutil.copy(source, target)
-
-
-EXTRACTORS = {
-    "access": _extract_access,
-    "dbf": _extract_dbf,
-    "stata": _extract_stata,
-    "csv": _move_file,
-}

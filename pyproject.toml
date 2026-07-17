@@ -64,8 +64,7 @@ dev = [
 
 all = [
   "bssir[s3]",
-  "bssir[s3-dev]",
-  "bssir[excel]",
+  "bssir[build]",
   "bssir[parquet]",
   "bssir[plot]",
   "bssir[docs]",

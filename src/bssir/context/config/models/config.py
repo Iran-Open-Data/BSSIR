@@ -4,61 +4,14 @@ from typing import Annotated, Literal
 
 from pydantic import BaseModel, BeforeValidator, model_validator
 
-from bssir.utils.parse import parse_years, Years
+from bssir import utils
 
 from .credential import credential_adapter
 from .directory import Directories, DirectoriesNames
 from .mirror import Mirror
 
-CoveragePeriod = Annotated[list[int], BeforeValidator(parse_years)]
 
-
-# class Mirror(BaseModel):
-#     name: str
-#     bucket_name: str
-
-#     endpoint: str | None = None
-#     region_name: str | None = None
-#     url_format: str | None = None
-#     directory_names: DirectoriesNames
-
-#     @model_validator(mode="after")
-#     def validate_address_configuration(self) -> "Mirror":
-#         if self.endpoint is None:
-#             missing = []
-
-#             if self.region_name is None:
-#                 missing.append("region_name")
-
-#             if self.url_format is None:
-#                 missing.append("url_format")
-
-#             if missing:
-#                 raise ValueError(
-#                     "Mirror configuration is invalid. "
-#                     f"Missing {', '.join(missing)} when endpoint is not provided."
-#                 )
-
-#         return self
-
-#     @property
-#     def bucket_address(self) -> str:
-#         if self.endpoint:
-#             return urllib.parse.urljoin(f"{self.endpoint}/", self.bucket_name)
-
-#         return self.url_format.format(**self.model_dump()) # type: ignore
-
-#     @cached_property
-#     def dirs(self) -> RemoteDirectories:
-#         return self._create_remote_dirs()
-
-#     def _create_remote_dirs(self) -> RemoteDirectories:
-#         return RemoteDirectories(
-#             **{
-#                 k: f"{self.bucket_address}/{v}"
-#                 for k, v in self.directory_names.model_dump().items()
-#             }
-#         )
+Years = Annotated[list[int], BeforeValidator(utils.years.parse)]
 
 
 class StandardColumns(BaseModel):
@@ -78,20 +31,20 @@ class SetupSettings(BaseModel):
     table_names: str
     replace: bool
     method: str
-    download_source: str
+    download_source: str | None
 
 
 class SetupRawDataSettings(BaseModel):
     years: Years
     replace: bool
-    download_source: str
+    download_source: str | None
 
 
 class LoadTableSettings(BaseModel):
     years: Years
     form: Literal["raw", "cleaned", "normalized"]
     on_missing: str
-    download_source: str
+    download_source: str | None
     save_downloaded: bool
     redownload: bool
     save_created: bool
@@ -128,7 +81,7 @@ class Docs(BaseModel):
 class Config(BaseModel):
     package_name: str
 
-    coverage_period: CoveragePeriod
+    coverage_period: Years
 
     default_download_source: str
 

@@ -9,6 +9,7 @@ import urllib.parse
 import requests
 from pydantic import BaseModel, Discriminator, PrivateAttr, Tag, model_validator
 
+from bssir.utils.download import download
 from .credential import Credential, S3Credential
 from .directory import DirectoriesNames, RemoteDirectories
 
@@ -30,11 +31,11 @@ class BaseMirror(ABC, BaseModel, Generic[TCredential]):
     def exists(self, source: str) -> bool: ...
 
     @abstractmethod
-    def download(self, source: str, target: Path) -> Path:
+    def download(self, source: str, destination: Path) -> Path:
         """Download a resource."""
 
     @abstractmethod
-    def upload(self, source: Path, target: str) -> str:
+    def upload(self, source: Path, destination: str) -> str:
         """Upload a resource."""
 
     @cached_property
@@ -76,7 +77,7 @@ class BaseS3Mirror(BaseMirror[S3Credential]):
         return self
 
     @property
-    def bucket_address(self) -> str:
+    def address(self) -> str:
         if self.endpoint:
             return urllib.parse.urljoin(f"{self.endpoint}/", self.bucket_name)
 
@@ -85,7 +86,7 @@ class BaseS3Mirror(BaseMirror[S3Credential]):
     def _create_remote_dirs(self) -> RemoteDirectories:
         return RemoteDirectories(
             **{
-                k: f"{self.bucket_address}/{v}"
+                k: f"{self.address}/{v}"
                 for k, v in self.directory_names.model_dump().items()
             }
         )
@@ -114,7 +115,7 @@ class PublicS3Mirror(BaseS3Mirror):
 
     def exists(self, source: str) -> bool:
         """Check if a file exists on the remote server."""
-        url = urllib.parse.urljoin(f"{self.bucket_address}/", source)
+        url = urllib.parse.urljoin(f"{self.address}/", source)
         try:
             response = requests.head(url)
             return response.status_code == 200
@@ -124,33 +125,32 @@ class PublicS3Mirror(BaseS3Mirror):
     def get_content_length(self, source: str) -> int:
         """Return the size of a public resource in bytes."""
 
-        url = urllib.parse.urljoin(f"{self.bucket_address}/", source)
+        url = urllib.parse.urljoin(f"{self.address}/", source)
 
         response = requests.head(url)
         response.raise_for_status()
 
         return int(response.headers.get("Content-Length", 0))
 
-    def download(self, source: str, target: Path) -> Path:
+    def download(self, source: str, destination: Path) -> Path:
         """Download a resource from the public storage."""
-        from bssir.context.utils.download import download
 
-        target.parent.mkdir(parents=True, exist_ok=True)
+        destination.parent.mkdir(parents=True, exist_ok=True)
 
-        url = urllib.parse.urljoin(f"{self.bucket_address}/", source)
+        url = urllib.parse.urljoin(f"{self.address}/", source)
 
-        download(url, target)
+        download(url, destination)
 
-        return target
+        return destination
 
-    def upload(self, source: Path, target: str) -> str:
+    def upload(self, source: Path, destination: str) -> str:
         """Upload a resource to the public storage.
 
         Parameters
         ----------
         source : Path
             Local file to upload.
-        target : str
+        destination : str
             Destination key inside the bucket.
 
         Returns
@@ -161,11 +161,11 @@ class PublicS3Mirror(BaseS3Mirror):
 
         self.bucket.upload_file(
             Filename=str(source),
-            Key=target,
+            Key=destination,
             ExtraArgs={"ACL": "public-read"},
         )
 
-        return target
+        return destination
 
 
 class PrivateS3Mirror(BaseS3Mirror):
@@ -192,26 +192,26 @@ class PrivateS3Mirror(BaseS3Mirror):
 
         return self.bucket.Object(key).content_length
 
-    def download(self, source: str, target: Path) -> Path:
+    def download(self, source: str, destination: Path) -> Path:
         """Download a resource from the private storage."""
 
-        target.parent.mkdir(parents=True, exist_ok=True)
+        destination.parent.mkdir(parents=True, exist_ok=True)
 
         self.bucket.download_file(
             Key=source,
-            Filename=str(target),
+            Filename=str(destination),
         )
 
-        return target
+        return destination
 
-    def upload(self, source: Path, target: str) -> str:
+    def upload(self, source: Path, destination: str) -> str:
         """Upload a resource to the private storage.
 
         Parameters
         ----------
         source : Path
             Local file to upload.
-        target : str
+        destination : str
             Destination key inside the bucket.
 
         Returns
@@ -222,10 +222,10 @@ class PrivateS3Mirror(BaseS3Mirror):
 
         self.bucket.upload_file(
             Filename=str(source),
-            Key=target,
+            Key=destination,
         )
 
-        return target
+        return destination
 
 
 class LocalMirror(BaseMirror):

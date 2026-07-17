@@ -6,6 +6,7 @@ import requests
 import urllib3
 from tqdm import tqdm
 
+
 _CHUNK_SIZE = 8192
 _TIMEOUT = 60
 
