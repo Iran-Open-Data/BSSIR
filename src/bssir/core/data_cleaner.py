@@ -7,7 +7,6 @@ from typing import Literal
 import pandas as pd
 
 from bssir.context import Context
-from bssir.context.states import CleanState
 from bssir.types import Years
 
 

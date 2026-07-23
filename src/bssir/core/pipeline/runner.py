@@ -2,9 +2,10 @@ from functools import cached_property
 
 import pandas as pd
 
+from bssir.types import Years
 from bssir.context import Context
-from bssir.context.metadata.models.pipelines.step import StepContext, BaseStep
 from bssir.core.data_cleaner import load_cleaned_table
+from .builtin_steps import StepContext, BaseStep
 from . import registry
 
 
@@ -68,6 +69,7 @@ class PipelineRunner:
             source=source,
             output=output,
             year=self.year,
+            lib_context=self.context,
         )
 
     def run_step(self, step: BaseStep) -> None:
@@ -85,3 +87,23 @@ class PipelineRunner:
             )
 
         self.active_table = context.output
+
+
+def load_pipeline_table(
+    table_name: str,
+    years: Years,
+    *,
+    context: Context,
+) -> pd.DataFrame:
+    years = context.tools.parse_years(years)
+
+    tables = [
+        PipelineRunner(
+            table_name=table_name,
+            year=year,
+            context=context,
+        ).run()
+        for year in years
+    ]
+
+    return pd.concat(tables, ignore_index=True)

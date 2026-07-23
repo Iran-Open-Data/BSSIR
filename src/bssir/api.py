@@ -86,3 +86,13 @@ class API:
         settings = self._resolve_settings("setup_raw_data", kwargs)
 
         setup(context=self.context, **settings)
+
+    def add_attribute(self, table: pd.DataFrame, **kwargs) -> pd.DataFrame:
+        """Add attributes to table based on ID column."""
+        from bssir.core.attribute import add_attribute
+
+        return add_attribute(
+            table,
+            context=self.context,
+            **self._omit_none(kwargs),
+        )

@@ -15,8 +15,12 @@ class PipelineMetadata(Metadata):
                 config=self.config,
             )
             for name, value in self.content.items()
-            if name not in []
+            if name not in ["macros"]
         }
+
+    @property
+    def macros(self) -> dict[str, dict]:
+        return self.content.get("macros", {})
 
     def __getitem__(self, key: str) -> TablePipeline:
         return self.tables.__getitem__(key)

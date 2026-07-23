@@ -64,6 +64,7 @@ class FunctionsConfig(BaseModel):
     setup: SetupSettings
     setup_raw_data: SetupRawDataSettings
     load_table: LoadTableSettings
+    # add_attribute: 
     load_external_table: LoadExternalTableSettings
 
 
