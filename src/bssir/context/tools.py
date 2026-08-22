@@ -7,8 +7,6 @@ import os
 from typing import TYPE_CHECKING
 from zipfile import ZipFile
 
-import rarfile
-
 from bssir import utils
 from bssir.types import Years
 from .config import Config
@@ -140,6 +138,8 @@ class Tools:
 
     def _has_extractor(self) -> bool:
         """Return whether a supported extractor is already available."""
+        import rarfile
+
         try:
             rarfile.tool_setup(unar=True, sevenzip=True, sevenzip2=True)
         except Exception:

@@ -81,7 +81,8 @@ class BaseS3Mirror(BaseMirror[S3Credential]):
         if self.endpoint:
             return urllib.parse.urljoin(f"{self.endpoint}/", self.bucket_name)
 
-        return self.url_format.format(**self.model_dump()) # type: ignore
+        assert self.url_format is not None
+        return self.url_format.format(**self.model_dump())
 
     def _create_remote_dirs(self) -> RemoteDirectories:
         return RemoteDirectories(

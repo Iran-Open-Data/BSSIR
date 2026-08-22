@@ -8,7 +8,8 @@ from .models import (
     MetadataSource,
     ResourcesMetadata,
     SourceTablesMetadata,
-    PipelineMetadata,
+    PipelinesMetadata,
+    TablesMetadata,
     IDSchemaMetadata,
     METADATA_MODELS,
 )
@@ -70,8 +71,12 @@ class MetadataCollection:
         return self._get("schema")
 
     @property
-    def pipelines(self) -> PipelineMetadata:
-        return cast(PipelineMetadata, self._get("pipelines"))
+    def pipelines(self) -> PipelinesMetadata:
+        return cast(PipelinesMetadata, self._get("pipelines"))
+
+    @property
+    def tables(self) -> TablesMetadata:
+        return cast(TablesMetadata, self._get("tables"))
 
     @property
     def commodities(self) -> Metadata:
@@ -119,10 +124,10 @@ class MetadataCollection:
 
         return pd.DataFrame(rows)
 
-    def _repr_html_(self) -> str:
-        from bssir import rendering
+    # def _repr_html_(self) -> str:
+    #     from bssir import rendering
 
-        return rendering.html_repr("metadata_collection", self)
+    #     return rendering.html_repr("metadata_collection", self)
 
     # def __rich__(self) -> Panel:
     #     """Render a summary of the metadata collection."""

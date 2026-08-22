@@ -174,8 +174,9 @@ def _unpack_resource(
     replace: bool = False,
 ) -> None:
     if not resource.has_original_files():
+        file_paths = [file.path for file in resource.files]
         raise FileNotFoundError(
-            f"Original files are missing for resource: {resource}"
+            f"Original files are missing for resource: {file_paths}"
         )
 
     if resource.is_unpacked() and not replace:

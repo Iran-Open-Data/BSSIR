@@ -97,7 +97,11 @@ class SourceTablesMetadata(Metadata):
                     .fillna("no_group")
                     .to_frame()
                     .join(
-                        pd.Series(range(len(self.group_list)), index=self.group_list, name="Group_Index"),
+                        pd.Series(
+                            range(len(self.group_list)),
+                            index=self.group_list,
+                            name="Group_Index",
+                        ),
                         on="Group",
                     )
                 )

@@ -240,7 +240,7 @@ class SourceTable(MetadataNode):
             if not column:
                 continue
             mapping[name] = {
-                year: column.resolve(year).label
+                year: column.resolve(year).name
                 for year in column.availability
             }
         return mapping

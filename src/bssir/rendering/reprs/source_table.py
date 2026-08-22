@@ -63,7 +63,7 @@ def report(table: SourceTable) -> pd.DataFrame:
         rows.append(
             {
                 "Column": name,
-                "Label": resolved.label,
+                "Label": resolved.name,
                 "Type": resolved.type,
                 "Availability": _format_years(column.availability),
             }

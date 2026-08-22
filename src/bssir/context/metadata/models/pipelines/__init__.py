@@ -1,6 +1,6 @@
-from .metadata import PipelineMetadata
+from .metadata import PipelinesMetadata
 
 
 __all__ = [
-    "PipelineMetadata",
+    "PipelinesMetadata",
 ]

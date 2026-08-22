@@ -71,10 +71,12 @@ class MergeStep(BaseStep):
 @register("concat")
 class ConcatStep(BaseStep):
     action: Literal["concat"]
-    inputs: list[str]
+    inputs: list[str] | None = None
+    add_table_name: bool = False
 
     def run(self, context: StepContext) -> pd.DataFrame:
-        return pd.concat([context.tables[t] for t in self.inputs])
+        inputs = self.inputs if self.inputs else context.tables.keys()
+        return pd.concat([context.tables[t] for t in inputs])
 
 
 @register("add_attribute")

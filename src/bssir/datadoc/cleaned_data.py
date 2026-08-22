@@ -205,7 +205,7 @@ def generate_replace_tables(
             year: api.load_table(
                 table_name,
                 year,
-                form="raw",
+                kind="raw",
             )
             for year in api.utils.parse_years(years, table_name=table_name)
         }
@@ -318,7 +318,7 @@ def generate_summary_stats(
     )
     for table_name in table_names:
         cleaned_tables = {
-            year: api.load_table(table_name, year, form="cleaned", on_missing="create")
+            year: api.load_table(table_name, year, kind="cleaned", on_missing="create")
             for year in api.utils.parse_years(years, table_name=table_name)
         }
         summary_stats = create_summary_stats(table_name, api, cleaned_tables, years=years)
@@ -361,7 +361,7 @@ def create_category_table(table_name: str, column_name: str, api: API, years: Ye
 def create_cleaned_table_page(table_name: str, api: API, years: Years = "all") -> str:
     years = api.utils.parse_years(years, table_name=table_name)
     cleaned_tables = {
-        year: api.load_table(table_name, year, form="cleaned", on_missing="create")
+        year: api.load_table(table_name, year, kind="cleaned", on_missing="create")
         for year in years
     }
 

@@ -50,7 +50,7 @@ def generate_availability_tables(api: API):
         columns = []
         for year in years:
             columns.append(
-                api.load_table(table_name, year, form="raw").columns.to_list()
+                api.load_table(table_name, year, kind="raw").columns.to_list()
             )
         availability = pd.DataFrame(columns, index=pd.Index(years, name="Year"))
 
@@ -63,7 +63,7 @@ def generate_raw_summary_tables(api: API):
             year for _, year in api.utils.create_table_year_pairs(table_name, "all")
         ]
         for year in years:
-            table = api.load_table(table_name, year, form="raw")
+            table = api.load_table(table_name, year, kind="raw")
             summary_table = create_raw_summary_table(table)
             raw_table_dir = api.defaults.docs.csv.joinpath("raw", table_name)
             raw_table_dir.mkdir(exist_ok=True, parents=True)

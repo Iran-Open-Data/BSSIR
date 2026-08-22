@@ -53,7 +53,7 @@ class ExternalDataCleaner:
                 context=self.context,
                 **self.settings.model_dump(),
             ).read_table()
-        elif self.settings.form == "original":
+        elif self.settings.kind == "original":
             table = self._load_raw_file()
         elif self.settings.recreate:
             table = self._create_table()

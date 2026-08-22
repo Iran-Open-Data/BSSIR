@@ -42,7 +42,7 @@ class SetupRawDataSettings(BaseModel):
 
 class LoadTableSettings(BaseModel):
     years: Years
-    form: Literal["raw", "cleaned", "normalized"]
+    kind: Literal["raw", "cleaned", "normalized"]
     on_missing: str
     download_source: str | None
     save_downloaded: bool
@@ -52,7 +52,7 @@ class LoadTableSettings(BaseModel):
 
 
 class LoadExternalTableSettings(BaseModel):
-    form: str
+    kind: str
     on_missing: str
     save_downloaded: bool
     redownload: bool

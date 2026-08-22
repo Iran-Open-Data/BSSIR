@@ -113,7 +113,7 @@ functions:
   # Load processed package tables
   load_table:
     years: [1403]
-    form: normalized
+    kind: normalized
     on_missing: download
     download_source: null
     save_downloaded: true
@@ -123,7 +123,7 @@ functions:
 
   # Load external datasets
   load_external_table:
-    form: cleaned
+    kind: cleaned
     on_missing: download
     save_downloaded: true
     redownload: false
@@ -179,6 +179,7 @@ base_package_metadata:
   industries: metadata/industries.yaml
   schema: metadata/schema.yaml
   pipelines: metadata/pipelines.yaml
+  tables: metadata/tables.yaml
 
 # Package metadata
 # Metadata provided by the specific data package using BSSIR.
@@ -194,6 +195,7 @@ package_metadata:
   industries: metadata/industries.yaml
   schema: metadata/schema.yaml
   pipelines: metadata/pipelines.yaml
+  tables: metadata/tables.yaml
 
 # Local metadata
 # User-defined metadata overrides for customization without modifying
@@ -209,6 +211,7 @@ local_metadata:
   industries: metadata/industries.yaml
   schema: metadata/schema.yaml
   pipelines: metadata/pipelines.yaml
+  tables: metadata/tables.yaml
 
 
 # Documentation Output Paths

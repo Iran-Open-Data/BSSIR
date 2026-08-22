@@ -5,7 +5,7 @@ from ..common import Metadata
 from .pipeline import TablePipeline
 
 
-class PipelineMetadata(Metadata):
+class PipelinesMetadata(Metadata):
     @cached_property
     def tables(self) -> dict[str, TablePipeline]:
         return {

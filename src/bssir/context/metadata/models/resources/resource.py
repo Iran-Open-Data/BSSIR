@@ -142,7 +142,7 @@ class BaseResource(ABC, MetadataNode):
 
     def download(self, source_name: str | None = None, replace: bool = True) -> None:
         for file in self.files:
-            if replace or not file.local_exists():
+            if replace or not file.is_ready():
                 file.download(source_name)
 
     def upload(self, source_name: str | None = None, replace: bool = True) -> None:

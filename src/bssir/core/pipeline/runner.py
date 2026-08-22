@@ -90,20 +90,13 @@ class PipelineRunner:
 
 
 def load_pipeline_table(
-    table_name: str,
-    years: Years,
-    *,
-    context: Context,
-) -> pd.DataFrame:
-    years = context.tools.parse_years(years)
-
-    tables = [
-        PipelineRunner(
-            table_name=table_name,
-            year=year,
-            context=context,
-        ).run()
-        for year in years
-    ]
-
-    return pd.concat(tables, ignore_index=True)
+        table_name: str,
+        year: int,
+        *,
+        columns: list[str] | None = None,
+        context: Context,
+    ) -> pd.DataFrame:
+    table = PipelineRunner(table_name=table_name, year=year, context=context).run()
+    if columns:
+        table = table.loc[columns]
+    return table

@@ -174,7 +174,7 @@ class Metadata(MetadataNode):
     definition: MetadataDefinition
     description: str | None = None
 
-    def _merge_metadata(self) -> dict:
+    def _merge_metadata(self) -> dict[str, Any]:
         """Merge metadata from all configured source layers."""
 
         merged: dict = {}
@@ -203,5 +203,5 @@ class Metadata(MetadataNode):
         return merged
 
     @cached_property
-    def content(self) -> dict:
+    def content(self) -> dict[str, Any]:
         return self._merge_metadata()

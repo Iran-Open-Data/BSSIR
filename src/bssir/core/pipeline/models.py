@@ -35,8 +35,8 @@ class CreateColumnStep(BaseStep):
     column: str
 
     def run(self, context: StepContext) -> pd.DataFrame:
-        return context.get_source().assign(**{self.column: context.year})
+        return context.get_source().assign(**{self.column: self.create_column(context)})
 
     @abstractmethod
-    def create_column(self, source: pd.DataFrame) -> pd.Series:
+    def create_column(self, context: StepContext) -> pd.Series:
         ...

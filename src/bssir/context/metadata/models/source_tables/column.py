@@ -16,7 +16,7 @@ NumericType = Literal[
 
 
 class ResolvedColumnBase(BaseModel):
-    label: str
+    name: str
     description: str | None = None
     type: Literal["string", "category", "boolean"] | NumericType
     replace: dict = Field(default_factory=dict)

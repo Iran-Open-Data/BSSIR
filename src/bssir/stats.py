@@ -308,7 +308,7 @@ class DataStats:
         years: Years = "all",
     ) -> pd.DataFrame:
         years_list = self.api.utils.parse_years_for_table(years, table_name=table_name)
-        table = self.api.load_table(table_name, years_list, form="normalized")
+        table = self.api.load_table(table_name, years_list, kind="normalized")
         table = self.api.add_weight(table)
         return self._calculator.average_table(
             table=table, columns=[column], groupby=groupby
@@ -322,7 +322,7 @@ class DataStats:
         years: Years = "all",
     ) -> pd.DataFrame:
         years_list = self.api.utils.parse_years_for_table(years, table_name=table_name)
-        table = self.api.load_table(table_name, years_list, form="normalized")
+        table = self.api.load_table(table_name, years_list, kind="normalized")
         table = self.api.add_weight(table)
         weight_col = self.api.context.config.standard_columns.weight
 
@@ -349,7 +349,7 @@ class DataStats:
         years: Years = "all",
     ) -> pd.DataFrame:
         years_list = self.api.utils.parse_years_for_table(years, table_name=table_name)
-        table = self.api.load_table(table_name, years_list, form="normalized")
+        table = self.api.load_table(table_name, years_list, kind="normalized")
         table = self.api.add_weight(table)
         weight_col = self.api.context.config.standard_columns.weight
 
@@ -373,7 +373,7 @@ class DataStats:
         bins: int = -1,
     ) -> pd.Series:
         years_list = self.api.utils.parse_years_for_table(years, table_name=table_name)
-        table = self.api.load_table(table_name, years_list, form="normalized")
+        table = self.api.load_table(table_name, years_list, kind="normalized")
         return self._calculator.quantile(
             table=table,
             on_column=value_column,
@@ -390,7 +390,7 @@ class DataStats:
         years: Years = "all",
     ) -> pd.DataFrame:
         years_list = self.api.utils.parse_years_for_table(years, table_name=table_name)
-        table = self.api.load_table(table_name, years_list, form="normalized")
+        table = self.api.load_table(table_name, years_list, kind="normalized")
         table = self.api.add_weight(table)
         weight_col = self.api.context.config.standard_columns.weight
 

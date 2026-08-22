@@ -117,11 +117,11 @@ class API:
         settings = self.context.config.functions.load_table
         settings = settings.model_copy(update=kwargs)
         years = self.utils.parse_years(years)
-        if settings.form == "raw":
+        if settings.kind == "raw":
             table = self._load_raw_table(table_name, years)
-        elif settings.form == "cleaned":
+        elif settings.kind == "cleaned":
             table = self._load_cleaned_table(table_name, years, settings)
-        elif settings.form == "normalized":
+        elif settings.kind == "normalized":
             table = data_engine.create_normalized_table(
                 table_name=table_name,
                 years=years,

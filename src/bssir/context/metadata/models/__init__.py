@@ -3,9 +3,10 @@ from .source_tables import (
     SourceTableSettings,
     SourceTablesMetadata,
 )
-from .pipelines import PipelineMetadata
+from .pipelines import PipelinesMetadata
 from .id_schema import IDSchemaMetadata
 from .resources import ResourcesMetadata
+from .tables import TablesMetadata
 
 
 METADATA_MODELS: dict[str, type[Metadata]] = {
@@ -14,7 +15,8 @@ METADATA_MODELS: dict[str, type[Metadata]] = {
     "id_schema": IDSchemaMetadata,
     "source_tables": SourceTablesMetadata,
     "schema": Metadata,
-    "pipelines": PipelineMetadata,
+    "tables": TablesMetadata,
+    "pipelines": PipelinesMetadata,
     "commodities": Metadata,
     "occupations": Metadata,
     "industries": Metadata,
@@ -29,7 +31,8 @@ __all__ = [
     "ResourcesMetadata",
     "SourceTableSettings",
     "SourceTablesMetadata",
-    "PipelineMetadata",
+    "TablesMetadata",
+    "PipelinesMetadata",
     "METADATA_MODELS",
 ]
 
